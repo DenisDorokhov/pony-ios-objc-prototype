@@ -7,6 +7,8 @@
 //
 
 #import "PNYAppDelegate.h"
+#import <CocoaLumberjack/DDASLLogger.h>
+#import <CocoaLumberjack/DDTTYLogger.h>
 
 @interface PNYAppDelegate ()
 
@@ -14,7 +16,11 @@
 
 @implementation PNYAppDelegate
 
-- (BOOL)application:(UIApplication *)aApplication didFinishLaunchingWithOptions:(NSDictionary *)aLaunchOptions {
+- (BOOL)application:(UIApplication *)aApplication didFinishLaunchingWithOptions:(NSDictionary *)aLaunchOptions
+{
+    [DDLog addLogger:[DDASLLogger sharedInstance]];
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+
     return YES;
 }
 

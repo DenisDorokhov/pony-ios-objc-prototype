@@ -14,8 +14,10 @@
 		26A10E731BCA82AC00C63AD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26A10E711BCA82AC00C63AD8 /* LaunchScreen.storyboard */; settings = {ASSET_TAGS = (); }; };
 		26A10E741BCA82AC00C63AD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26A10E721BCA82AC00C63AD8 /* Main.storyboard */; settings = {ASSET_TAGS = (); }; };
 		26A10E781BCA830800C63AD8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 26A10E7A1BCA830800C63AD8 /* Localizable.strings */; };
-		B3D390DDB5E93543C4661849 /* PNYTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39B86AB1577FDF5F6163B /* PNYTestCase.m */; };
+		B3D393D0E128DB4EFD1949ED /* PNYEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39DFCD24FAA94DC21436A /* PNYEvent.m */; };
 		B3D3949B5F1688A30FFFBBCE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D396B135DCC7B3776CF9DC /* main.m */; };
+		B3D397DE59BB8D0115C71378 /* PNYEventBus.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39ADB94847606F6097CA2 /* PNYEventBus.m */; };
+		B3D39C02E672D044451A7206 /* PNYEventBusTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39B27E9892D9B2CDBD66F /* PNYEventBusTests.m */; };
 		D10487192878F2BE639314E8 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5E96777CFC4B76271FF399 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,8 +47,14 @@
 		26A10E7C1BCA836700C63AD8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B3D3902CA4ED7D40946D8765 /* PNYTestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYTestDelegate.h; sourceTree = "<group>"; };
 		B3D396B135DCC7B3776CF9DC /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		B3D39B86AB1577FDF5F6163B /* PNYTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYTestCase.m; sourceTree = "<group>"; };
+		B3D39712F2E561301A479EB0 /* PNYTestPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYTestPrefix.pch; sourceTree = "<group>"; };
+		B3D39ADB94847606F6097CA2 /* PNYEventBus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYEventBus.m; sourceTree = "<group>"; };
+		B3D39B27E9892D9B2CDBD66F /* PNYEventBusTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYEventBusTests.m; sourceTree = "<group>"; };
 		B3D39C072125E1E9E864A7CA /* PNYTestDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYTestDelegate.m; sourceTree = "<group>"; };
+		B3D39C46280391F871AF8AC5 /* PNYEventBus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYEventBus.h; sourceTree = "<group>"; };
+		B3D39DFCD24FAA94DC21436A /* PNYEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYEvent.m; sourceTree = "<group>"; };
+		B3D39E409C0690922D7570B4 /* PNYEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYEvent.h; sourceTree = "<group>"; };
+		B3D39F9037CF0E65542335D4 /* PNYPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYPrefix.pch; sourceTree = "<group>"; };
 		BC5E96777CFC4B76271FF399 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF6D0B713C0E6822FC01735C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D42DC7A592ECA225D2F4E176 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -100,6 +108,8 @@
 				B3D396B135DCC7B3776CF9DC /* main.m */,
 				268126E01BCA781500728EFF /* PNYViewController.h */,
 				268126E11BCA781500728EFF /* PNYViewController.m */,
+				B3D392F3E4F9480C6A4E0E57 /* Common */,
+				B3D39F9037CF0E65542335D4 /* PNYPrefix.pch */,
 			);
 			path = Pony;
 			sourceTree = "<group>";
@@ -110,7 +120,8 @@
 				B3D39EF7CE61550B7430B921 /* Resources */,
 				B3D3902CA4ED7D40946D8765 /* PNYTestDelegate.h */,
 				B3D39C072125E1E9E864A7CA /* PNYTestDelegate.m */,
-				B3D39B86AB1577FDF5F6163B /* PNYTestCase.m */,
+				B3D39712F2E561301A479EB0 /* PNYTestPrefix.pch */,
+				B3D390F4F45430CC988EF10C /* Common */,
 			);
 			path = PonyTests;
 			sourceTree = "<group>";
@@ -140,6 +151,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B3D390F4F45430CC988EF10C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				B3D39B27E9892D9B2CDBD66F /* PNYEventBusTests.m */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		B3D391B398A6D54ABCCA845C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +168,25 @@
 				26A10E6C1BCA807F00C63AD8 /* Info.plist */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		B3D392F3E4F9480C6A4E0E57 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				B3D39E94328F5BA87536221C /* EventBus */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		B3D39E94328F5BA87536221C /* EventBus */ = {
+			isa = PBXGroup;
+			children = (
+				B3D39ADB94847606F6097CA2 /* PNYEventBus.m */,
+				B3D39C46280391F871AF8AC5 /* PNYEventBus.h */,
+				B3D39DFCD24FAA94DC21436A /* PNYEvent.m */,
+				B3D39E409C0690922D7570B4 /* PNYEvent.h */,
+			);
+			path = EventBus;
 			sourceTree = "<group>";
 		};
 		B3D39EF7CE61550B7430B921 /* Resources */ = {
@@ -325,6 +363,8 @@
 				268126DF1BCA781500728EFF /* PNYAppDelegate.m in Sources */,
 				268797ED1BCA8FDF0050724B /* PNYTestDelegate.m in Sources */,
 				B3D3949B5F1688A30FFFBBCE /* main.m in Sources */,
+				B3D397DE59BB8D0115C71378 /* PNYEventBus.m in Sources */,
+				B3D393D0E128DB4EFD1949ED /* PNYEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,7 +372,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3D390DDB5E93543C4661849 /* PNYTestCase.m in Sources */,
+				B3D39C02E672D044451A7206 /* PNYEventBusTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,6 +425,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = Pony/PNYPrefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -427,6 +468,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = Pony/PNYPrefix.pch;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -469,6 +511,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GCC_PREFIX_HEADER = PonyTests/PNYTestPrefix.pch;
 				INFOPLIST_FILE = PonyTests/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.dorokhov.ponyTests;
@@ -481,6 +524,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GCC_PREFIX_HEADER = PonyTests/PNYTestPrefix.pch;
 				INFOPLIST_FILE = PonyTests/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.dorokhov.ponyTests;

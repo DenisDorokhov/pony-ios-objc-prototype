@@ -1,0 +1,10 @@
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+#import <CocoaLumberjack/DDLogMacros.h>
+
+#ifdef DEBUG
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+#else
+static const DDLogLevel ddLogLevel = DDLogLevelOff;
+#endif
