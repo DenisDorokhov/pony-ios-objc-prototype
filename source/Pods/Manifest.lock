@@ -1,0 +1,53 @@
+PODS:
+  - AFNetworking (2.6.0):
+    - AFNetworking/NSURLConnection (= 2.6.0)
+    - AFNetworking/NSURLSession (= 2.6.0)
+    - AFNetworking/Reachability (= 2.6.0)
+    - AFNetworking/Security (= 2.6.0)
+    - AFNetworking/Serialization (= 2.6.0)
+    - AFNetworking/UIKit (= 2.6.0)
+  - AFNetworking/NSURLConnection (2.6.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.6.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.6.0)
+  - AFNetworking/Security (2.6.0)
+  - AFNetworking/Serialization (2.6.0)
+  - AFNetworking/UIKit (2.6.0):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - CocoaLumberjack (2.0.1):
+    - CocoaLumberjack/Default (= 2.0.1)
+    - CocoaLumberjack/Extensions (= 2.0.1)
+  - CocoaLumberjack/Core (2.0.1)
+  - CocoaLumberjack/Default (2.0.1):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (2.0.1):
+    - CocoaLumberjack/Default
+  - EasyMapping (0.15.3):
+    - EasyMapping/Core (= 0.15.3)
+  - EasyMapping/Core (0.15.3)
+  - ObjectiveSugar (1.1.0)
+  - Typhoon (3.3.3):
+    - Typhoon/no-arc (= 3.3.3)
+  - Typhoon/no-arc (3.3.3)
+
+DEPENDENCIES:
+  - AFNetworking (= 2.6.0)
+  - CocoaLumberjack (= 2.0.1)
+  - EasyMapping (= 0.15.3)
+  - ObjectiveSugar (= 1.1.0)
+  - Typhoon (= 3.3.3)
+
+SPEC CHECKSUMS:
+  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
+  CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
+  EasyMapping: 5baf5a9a814538fdac4859cf56270ae761dd904a
+  ObjectiveSugar: a6a25f23d657c19df0a0b972466d5b5ca9f5295c
+  Typhoon: df3d23f59dccc8eda3e6535e58afd160ae60567e
+
+COCOAPODS: 0.39.0
