@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		268126DC1BCA781500728EFF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 268126DB1BCA781500728EFF /* main.m */; };
 		268126DF1BCA781500728EFF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 268126DE1BCA781500728EFF /* AppDelegate.m */; };
 		268126E21BCA781500728EFF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268126E11BCA781500728EFF /* ViewController.m */; };
-		268126E51BCA781500728EFF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 268126E31BCA781500728EFF /* Main.storyboard */; };
-		268126E71BCA781500728EFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 268126E61BCA781500728EFF /* Assets.xcassets */; };
-		268126EA1BCA781500728EFF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 268126E81BCA781500728EFF /* LaunchScreen.storyboard */; };
 		268126F51BCA781500728EFF /* PonyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 268126F41BCA781500728EFF /* PonyTests.m */; };
+		26A10E6B1BCA806D00C63AD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26A10E6A1BCA806D00C63AD8 /* Assets.xcassets */; settings = {ASSET_TAGS = (); }; };
+		26A10E731BCA82AC00C63AD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26A10E711BCA82AC00C63AD8 /* LaunchScreen.storyboard */; settings = {ASSET_TAGS = (); }; };
+		26A10E741BCA82AC00C63AD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26A10E721BCA82AC00C63AD8 /* Main.storyboard */; settings = {ASSET_TAGS = (); }; };
+		26A10E781BCA830800C63AD8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 26A10E7A1BCA830800C63AD8 /* Localizable.strings */; };
+		B3D3949B5F1688A30FFFBBCE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D396B135DCC7B3776CF9DC /* main.m */; };
 		D10487192878F2BE639314E8 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5E96777CFC4B76271FF399 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,18 +30,20 @@
 
 /* Begin PBXFileReference section */
 		268126D71BCA781500728EFF /* Pony.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pony.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		268126DB1BCA781500728EFF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		268126DD1BCA781500728EFF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		268126DE1BCA781500728EFF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		268126E01BCA781500728EFF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		268126E11BCA781500728EFF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		268126E41BCA781500728EFF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		268126E61BCA781500728EFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		268126E91BCA781500728EFF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		268126EB1BCA781500728EFF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		268126F01BCA781500728EFF /* PonyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PonyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		268126F41BCA781500728EFF /* PonyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PonyTests.m; sourceTree = "<group>"; };
-		268126F61BCA781500728EFF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		26A10E6A1BCA806D00C63AD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		26A10E6C1BCA807F00C63AD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		26A10E6D1BCA80B200C63AD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		26A10E711BCA82AC00C63AD8 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		26A10E721BCA82AC00C63AD8 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		26A10E791BCA830800C63AD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		26A10E7C1BCA836700C63AD8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B3D396B135DCC7B3776CF9DC /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BC5E96777CFC4B76271FF399 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF6D0B713C0E6822FC01735C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D42DC7A592ECA225D2F4E176 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -88,34 +91,40 @@
 		268126D91BCA781500728EFF /* Pony */ = {
 			isa = PBXGroup;
 			children = (
+				B3D391B398A6D54ABCCA845C /* Resources */,
 				268126DD1BCA781500728EFF /* AppDelegate.h */,
 				268126DE1BCA781500728EFF /* AppDelegate.m */,
+				B3D396B135DCC7B3776CF9DC /* main.m */,
 				268126E01BCA781500728EFF /* ViewController.h */,
 				268126E11BCA781500728EFF /* ViewController.m */,
-				268126E31BCA781500728EFF /* Main.storyboard */,
-				268126E61BCA781500728EFF /* Assets.xcassets */,
-				268126E81BCA781500728EFF /* LaunchScreen.storyboard */,
-				268126EB1BCA781500728EFF /* Info.plist */,
-				268126DA1BCA781500728EFF /* Supporting Files */,
 			);
 			path = Pony;
-			sourceTree = "<group>";
-		};
-		268126DA1BCA781500728EFF /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				268126DB1BCA781500728EFF /* main.m */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		268126F31BCA781500728EFF /* PonyTests */ = {
 			isa = PBXGroup;
 			children = (
+				B3D39EF7CE61550B7430B921 /* Resources */,
 				268126F41BCA781500728EFF /* PonyTests.m */,
-				268126F61BCA781500728EFF /* Info.plist */,
 			);
 			path = PonyTests;
+			sourceTree = "<group>";
+		};
+		26A10E701BCA82AC00C63AD8 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				26A10E711BCA82AC00C63AD8 /* LaunchScreen.storyboard */,
+				26A10E721BCA82AC00C63AD8 /* Main.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		26A10E751BCA82FD00C63AD8 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				26A10E7A1BCA830800C63AD8 /* Localizable.strings */,
+			);
+			path = Localization;
 			sourceTree = "<group>";
 		};
 		6F2C5259AC1A5F0BB7500742 /* Frameworks */ = {
@@ -124,6 +133,25 @@
 				BC5E96777CFC4B76271FF399 /* Pods.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B3D391B398A6D54ABCCA845C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				26A10E751BCA82FD00C63AD8 /* Localization */,
+				26A10E701BCA82AC00C63AD8 /* Storyboards */,
+				26A10E6A1BCA806D00C63AD8 /* Assets.xcassets */,
+				26A10E6C1BCA807F00C63AD8 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B3D39EF7CE61550B7430B921 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				26A10E6D1BCA80B200C63AD8 /* Info.plist */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		E5151A5FD2C275E98F13B308 /* Pods */ = {
@@ -201,6 +229,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 268126CE1BCA781500728EFF;
 			productRefGroup = 268126D81BCA781500728EFF /* Products */;
@@ -218,9 +247,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				268126EA1BCA781500728EFF /* LaunchScreen.storyboard in Resources */,
-				268126E71BCA781500728EFF /* Assets.xcassets in Resources */,
-				268126E51BCA781500728EFF /* Main.storyboard in Resources */,
+				26A10E741BCA82AC00C63AD8 /* Main.storyboard in Resources */,
+				26A10E781BCA830800C63AD8 /* Localizable.strings in Resources */,
+				26A10E6B1BCA806D00C63AD8 /* Assets.xcassets in Resources */,
+				26A10E731BCA82AC00C63AD8 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,7 +318,7 @@
 			files = (
 				268126E21BCA781500728EFF /* ViewController.m in Sources */,
 				268126DF1BCA781500728EFF /* AppDelegate.m in Sources */,
-				268126DC1BCA781500728EFF /* main.m in Sources */,
+				B3D3949B5F1688A30FFFBBCE /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,20 +341,13 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		268126E31BCA781500728EFF /* Main.storyboard */ = {
+		26A10E7A1BCA830800C63AD8 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				268126E41BCA781500728EFF /* Base */,
+				26A10E791BCA830800C63AD8 /* Base */,
+				26A10E7C1BCA836700C63AD8 /* ru */,
 			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		268126E81BCA781500728EFF /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				268126E91BCA781500728EFF /* Base */,
-			);
-			name = LaunchScreen.storyboard;
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -366,7 +389,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -404,7 +427,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -417,9 +440,9 @@
 			baseConfigurationReference = D42DC7A592ECA225D2F4E176 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = Pony/Info.plist;
+				INFOPLIST_FILE = Pony/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.dorokhov.Pony;
+				PRODUCT_BUNDLE_IDENTIFIER = net.dorokhov.pony;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -429,9 +452,9 @@
 			baseConfigurationReference = BF6D0B713C0E6822FC01735C /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = Pony/Info.plist;
+				INFOPLIST_FILE = Pony/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.dorokhov.Pony;
+				PRODUCT_BUNDLE_IDENTIFIER = net.dorokhov.pony;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -440,9 +463,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = PonyTests/Info.plist;
+				INFOPLIST_FILE = PonyTests/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.dorokhov.PonyTests;
+				PRODUCT_BUNDLE_IDENTIFIER = net.dorokhov.ponyTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pony.app/Pony";
 			};
@@ -452,9 +475,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = PonyTests/Info.plist;
+				INFOPLIST_FILE = PonyTests/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.dorokhov.PonyTests;
+				PRODUCT_BUNDLE_IDENTIFIER = net.dorokhov.ponyTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pony.app/Pony";
 			};
