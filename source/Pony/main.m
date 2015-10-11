@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AppDelegate.h"
+#import "PNYAppDelegate.h"
+#import "PNYTestDelegate.h"
 
 int main(int argc, char * argv[]) {
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+        if (NSClassFromString(@"XCTestCase") == nil) {
+            return UIApplicationMain(argc, argv, nil, NSStringFromClass([PNYAppDelegate class]));
+        } else {
+            return UIApplicationMain(argc, argv, nil, NSStringFromClass([PNYTestDelegate class]));
+        }
     }
 }

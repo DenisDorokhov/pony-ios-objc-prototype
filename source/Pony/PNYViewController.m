@@ -1,18 +1,18 @@
 //
-//  ViewController.m
+//  PNYViewController.m
 //  Pony
 //
 //  Created by Denis Dorokhov on 11/10/15.
 //  Copyright © 2015 Denis Dorokhov. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "PNYViewController.h"
 
-@interface ViewController ()
+@interface PNYViewController ()
 
 @end
 
-@implementation ViewController
+@implementation PNYViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

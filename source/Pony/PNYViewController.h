@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  PNYViewController.h
 //  Pony
 //
 //  Created by Denis Dorokhov on 11/10/15.
@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
-
+@interface PNYViewController : UIViewController
 
 @end
-
