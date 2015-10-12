@@ -1,7 +1,13 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wall"
 #import <CocoaLumberjack/DDLogMacros.h>
+#import <CocoaLumberjack/DDTTYLogger.h>
+#import <CocoaLumberjack/DDASLLogger.h>
+#import <CocoaLumberjack/DDFileLogger.h>
+#pragma clang diagnostic pop
 
 #ifdef DEBUG
 static const DDLogLevel ddLogLevel = DDLogLevelVerbose;

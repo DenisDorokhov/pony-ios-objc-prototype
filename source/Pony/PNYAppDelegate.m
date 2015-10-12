@@ -7,8 +7,7 @@
 //
 
 #import "PNYAppDelegate.h"
-#import <CocoaLumberjack/DDASLLogger.h>
-#import <CocoaLumberjack/DDTTYLogger.h>
+#import "PNYLogFormatter.h"
 
 @interface PNYAppDelegate ()
 
@@ -18,8 +17,11 @@
 
 - (BOOL)application:(UIApplication *)aApplication didFinishLaunchingWithOptions:(NSDictionary *)aLaunchOptions
 {
-    [DDLog addLogger:[DDASLLogger sharedInstance]];
-    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    DDTTYLogger *logger = [DDTTYLogger sharedInstance];
+    logger.logFormatter = [[PNYLogFormatter alloc] init];
+    [DDLog addLogger:logger];
+
+    DDLogInfo(@"Application started.");
 
     return YES;
 }

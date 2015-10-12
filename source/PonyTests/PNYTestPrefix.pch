@@ -1,1 +1,17 @@
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
+
+#define LOG_ASYNC_ENABLED NO
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wall"
+#import <CocoaLumberjack/DDLogMacros.h>
+#import <CocoaLumberjack/DDAssertMacros.h>
+#import <CocoaLumberjack/DDASLLogCapture.h>
+#import <CocoaLumberjack/DDTTYLogger.h>
+#import <CocoaLumberjack/DDASLLogger.h>
+#import <CocoaLumberjack/DDFileLogger.h>
+#pragma clang diagnostic pop
+
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;

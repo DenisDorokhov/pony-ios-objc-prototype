@@ -3,9 +3,14 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
+#import "PNYTestCase.h"
 #import "PNYEventBus.h"
 
-@interface PNYEventBusTests : XCTestCase
+@interface PNYEventBusTest : PNYTestCase
+
+@end
+
+@implementation PNYEventBusTest
 {
 @private
     NSUInteger countCallbackWithArgument;
@@ -13,10 +18,6 @@
     NSUInteger countCallbackWithoutArguments;
     NSUInteger countCallbackWithCancellation;
 }
-
-@end
-
-@implementation PNYEventBusTests
 
 - (void)setUp
 {

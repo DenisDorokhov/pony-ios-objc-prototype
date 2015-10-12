@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2672227E1BCC2D450043EA1E /* PNYTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39D599519C52FDDA09EA6 /* PNYTestCase.m */; settings = {ASSET_TAGS = (); }; };
 		268126DF1BCA781500728EFF /* PNYAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 268126DE1BCA781500728EFF /* PNYAppDelegate.m */; };
 		268126E21BCA781500728EFF /* PNYViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268126E11BCA781500728EFF /* PNYViewController.m */; };
 		268797ED1BCA8FDF0050724B /* PNYTestDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39C072125E1E9E864A7CA /* PNYTestDelegate.m */; settings = {ASSET_TAGS = (); }; };
@@ -14,11 +15,17 @@
 		26A10E731BCA82AC00C63AD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26A10E711BCA82AC00C63AD8 /* LaunchScreen.storyboard */; settings = {ASSET_TAGS = (); }; };
 		26A10E741BCA82AC00C63AD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26A10E721BCA82AC00C63AD8 /* Main.storyboard */; settings = {ASSET_TAGS = (); }; };
 		26A10E781BCA830800C63AD8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 26A10E7A1BCA830800C63AD8 /* Localizable.strings */; };
+		B3D3931FE77742252EEFF483 /* PNYLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D3917B32DD4FC934F11A8F /* PNYLogFormatter.m */; };
 		B3D393D0E128DB4EFD1949ED /* PNYEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39DFCD24FAA94DC21436A /* PNYEvent.m */; };
 		B3D3949B5F1688A30FFFBBCE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D396B135DCC7B3776CF9DC /* main.m */; };
+		B3D394ECE385B3396C5C0EC0 /* PNYPersistentDictionaryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39C5FDCFE9928DFC486D3 /* PNYPersistentDictionaryImpl.m */; };
+		B3D395C67CF9E85900649DBA /* PNYKeychainDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39DA0A98E4CAC9BF9C012 /* PNYKeychainDictionary.m */; };
 		B3D397DE59BB8D0115C71378 /* PNYEventBus.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39ADB94847606F6097CA2 /* PNYEventBus.m */; };
-		B3D39C02E672D044451A7206 /* PNYEventBusTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39B27E9892D9B2CDBD66F /* PNYEventBusTests.m */; };
+		B3D39B135096C894EEF5D949 /* PNYConfigFactoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39E88204B82C635B8805E /* PNYConfigFactoryImpl.m */; };
+		B3D39C02E672D044451A7206 /* PNYEventBusTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39B27E9892D9B2CDBD66F /* PNYEventBusTest.m */; };
+		B3D39C3436205E1B9DF072CD /* PNYConfigImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39F2DF2AC670996725553 /* PNYConfigImpl.m */; };
 		D10487192878F2BE639314E8 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5E96777CFC4B76271FF399 /* Pods.framework */; };
+		F928D0E085F14C828FB621B3 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5E96777CFC4B76271FF399 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,14 +53,29 @@
 		26A10E791BCA830800C63AD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		26A10E7C1BCA836700C63AD8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B3D3902CA4ED7D40946D8765 /* PNYTestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYTestDelegate.h; sourceTree = "<group>"; };
+		B3D3917B32DD4FC934F11A8F /* PNYLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYLogFormatter.m; sourceTree = "<group>"; };
+		B3D3930FBAA697968C05AB29 /* PNYKeychainDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYKeychainDictionary.h; sourceTree = "<group>"; };
+		B3D394209B75F0CB2AE5A887 /* PNYConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYConfig.h; sourceTree = "<group>"; };
+		B3D3944FC134A66B6F70C849 /* PNYLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYLogFormatter.h; sourceTree = "<group>"; };
 		B3D396B135DCC7B3776CF9DC /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B3D396CFEE3641F59F70ECCE /* PNYConfigFactoryImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYConfigFactoryImpl.h; sourceTree = "<group>"; };
+		B3D396F10BA4E406DAD3C29F /* PNYConfigFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYConfigFactory.h; sourceTree = "<group>"; };
 		B3D39712F2E561301A479EB0 /* PNYTestPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYTestPrefix.pch; sourceTree = "<group>"; };
+		B3D397804D6A323876FFD58F /* PNYConfigImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYConfigImpl.h; sourceTree = "<group>"; };
 		B3D39ADB94847606F6097CA2 /* PNYEventBus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYEventBus.m; sourceTree = "<group>"; };
-		B3D39B27E9892D9B2CDBD66F /* PNYEventBusTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYEventBusTests.m; sourceTree = "<group>"; };
+		B3D39B27E9892D9B2CDBD66F /* PNYEventBusTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYEventBusTest.m; sourceTree = "<group>"; };
+		B3D39B7BBD035AF54C860D0C /* PNYPersistentDictionaryImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYPersistentDictionaryImpl.h; sourceTree = "<group>"; };
 		B3D39C072125E1E9E864A7CA /* PNYTestDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYTestDelegate.m; sourceTree = "<group>"; };
 		B3D39C46280391F871AF8AC5 /* PNYEventBus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYEventBus.h; sourceTree = "<group>"; };
+		B3D39C5FDCFE9928DFC486D3 /* PNYPersistentDictionaryImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYPersistentDictionaryImpl.m; sourceTree = "<group>"; };
+		B3D39D599519C52FDDA09EA6 /* PNYTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYTestCase.m; sourceTree = "<group>"; };
+		B3D39DA0A98E4CAC9BF9C012 /* PNYKeychainDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYKeychainDictionary.m; sourceTree = "<group>"; };
 		B3D39DFCD24FAA94DC21436A /* PNYEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYEvent.m; sourceTree = "<group>"; };
 		B3D39E409C0690922D7570B4 /* PNYEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYEvent.h; sourceTree = "<group>"; };
+		B3D39E88204B82C635B8805E /* PNYConfigFactoryImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYConfigFactoryImpl.m; sourceTree = "<group>"; };
+		B3D39EBA42B8FCD5362C67A2 /* PNYPersistentDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYPersistentDictionary.h; sourceTree = "<group>"; };
+		B3D39EFD29A7F35E537D821E /* PNYTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYTestCase.h; sourceTree = "<group>"; };
+		B3D39F2DF2AC670996725553 /* PNYConfigImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYConfigImpl.m; sourceTree = "<group>"; };
 		B3D39F9037CF0E65542335D4 /* PNYPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYPrefix.pch; sourceTree = "<group>"; };
 		BC5E96777CFC4B76271FF399 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF6D0B713C0E6822FC01735C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -73,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F928D0E085F14C828FB621B3 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,11 +140,13 @@
 		268126F31BCA781500728EFF /* PonyTests */ = {
 			isa = PBXGroup;
 			children = (
+				B3D390F4F45430CC988EF10C /* Common */,
 				B3D39EF7CE61550B7430B921 /* Resources */,
+				B3D39EFD29A7F35E537D821E /* PNYTestCase.h */,
+				B3D39D599519C52FDDA09EA6 /* PNYTestCase.m */,
 				B3D3902CA4ED7D40946D8765 /* PNYTestDelegate.h */,
 				B3D39C072125E1E9E864A7CA /* PNYTestDelegate.m */,
 				B3D39712F2E561301A479EB0 /* PNYTestPrefix.pch */,
-				B3D390F4F45430CC988EF10C /* Common */,
 			);
 			path = PonyTests;
 			sourceTree = "<group>";
@@ -154,7 +179,7 @@
 		B3D390F4F45430CC988EF10C /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				B3D39B27E9892D9B2CDBD66F /* PNYEventBusTests.m */,
+				B3D39B27E9892D9B2CDBD66F /* PNYEventBusTest.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -174,8 +199,45 @@
 			isa = PBXGroup;
 			children = (
 				B3D39E94328F5BA87536221C /* EventBus */,
+				B3D397BAB370104ABB1C4170 /* Config */,
+				B3D39BCA4C873EBB3971BE58 /* Persistence */,
+				B3D39A60C41929F8762F4524 /* Logging */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		B3D397BAB370104ABB1C4170 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				B3D394209B75F0CB2AE5A887 /* PNYConfig.h */,
+				B3D39F2DF2AC670996725553 /* PNYConfigImpl.m */,
+				B3D397804D6A323876FFD58F /* PNYConfigImpl.h */,
+				B3D396F10BA4E406DAD3C29F /* PNYConfigFactory.h */,
+				B3D39E88204B82C635B8805E /* PNYConfigFactoryImpl.m */,
+				B3D396CFEE3641F59F70ECCE /* PNYConfigFactoryImpl.h */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		B3D39A60C41929F8762F4524 /* Logging */ = {
+			isa = PBXGroup;
+			children = (
+				B3D3917B32DD4FC934F11A8F /* PNYLogFormatter.m */,
+				B3D3944FC134A66B6F70C849 /* PNYLogFormatter.h */,
+			);
+			path = Logging;
+			sourceTree = "<group>";
+		};
+		B3D39BCA4C873EBB3971BE58 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				B3D39EBA42B8FCD5362C67A2 /* PNYPersistentDictionary.h */,
+				B3D39C5FDCFE9928DFC486D3 /* PNYPersistentDictionaryImpl.m */,
+				B3D39B7BBD035AF54C860D0C /* PNYPersistentDictionaryImpl.h */,
+				B3D39DA0A98E4CAC9BF9C012 /* PNYKeychainDictionary.m */,
+				B3D3930FBAA697968C05AB29 /* PNYKeychainDictionary.h */,
+			);
+			path = Persistence;
 			sourceTree = "<group>";
 		};
 		B3D39E94328F5BA87536221C /* EventBus */ = {
@@ -233,9 +295,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 268126FC1BCA781500728EFF /* Build configuration list for PBXNativeTarget "PonyTests" */;
 			buildPhases = (
+				249A36485A40E5F8BC6BF65B /* Check Pods Manifest.lock */,
 				268126EC1BCA781500728EFF /* Sources */,
 				268126ED1BCA781500728EFF /* Frameworks */,
 				268126EE1BCA781500728EFF /* Resources */,
+				3E72699C391CECDE0CDD06CF /* Embed Pods Frameworks */,
+				3700282BB472D60E42E51799 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -307,6 +372,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		249A36485A40E5F8BC6BF65B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		2EA972D55DA6296B69AD912F /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -323,6 +403,36 @@
 			showEnvVarsInLog = 0;
 		};
 		319D61F832BD2E00B24BD4BB /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3700282BB472D60E42E51799 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3E72699C391CECDE0CDD06CF /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -365,6 +475,11 @@
 				B3D3949B5F1688A30FFFBBCE /* main.m in Sources */,
 				B3D397DE59BB8D0115C71378 /* PNYEventBus.m in Sources */,
 				B3D393D0E128DB4EFD1949ED /* PNYEvent.m in Sources */,
+				B3D39C3436205E1B9DF072CD /* PNYConfigImpl.m in Sources */,
+				B3D394ECE385B3396C5C0EC0 /* PNYPersistentDictionaryImpl.m in Sources */,
+				B3D395C67CF9E85900649DBA /* PNYKeychainDictionary.m in Sources */,
+				B3D39B135096C894EEF5D949 /* PNYConfigFactoryImpl.m in Sources */,
+				B3D3931FE77742252EEFF483 /* PNYLogFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,7 +487,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3D39C02E672D044451A7206 /* PNYEventBusTests.m in Sources */,
+				B3D39C02E672D044451A7206 /* PNYEventBusTest.m in Sources */,
+				2672227E1BCC2D450043EA1E /* PNYTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,6 +625,7 @@
 		};
 		268126FD1BCA781500728EFF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D42DC7A592ECA225D2F4E176 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREFIX_HEADER = PonyTests/PNYTestPrefix.pch;
@@ -522,6 +639,7 @@
 		};
 		268126FE1BCA781500728EFF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BF6D0B713C0E6822FC01735C /* Pods.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREFIX_HEADER = PonyTests/PNYTestPrefix.pch;

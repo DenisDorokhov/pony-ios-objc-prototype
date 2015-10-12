@@ -6,21 +6,17 @@
 #import "PNYEventBus.h"
 
 @interface PNYEventBus_Invocation : NSObject
-{
-@private
-    NSUInteger hash;
-}
 
 @property (nonatomic, readonly) id object;
 @property (nonatomic, readonly) SEL selector;
 
-+ (instancetype)invocationWithObject:(id)aObject selector:(SEL)aSelector;
-
-- (instancetype)initWithObject:(id)aObject selector:(SEL)aSelector;
-
 @end
 
 @implementation PNYEventBus_Invocation
+{
+@private
+    NSUInteger hash;
+}
 
 + (instancetype)invocationWithObject:(id)aObject selector:(SEL)aSelector
 {
@@ -54,15 +50,11 @@
 
 @end
 
-@interface PNYEventBus ()
+@implementation PNYEventBus
 {
 @private
     NSMutableDictionary *typeToInvocations; // NSString => NSMutableOrderedSet of PNYEventBus_Invocation.
 }
-
-@end
-
-@implementation PNYEventBus
 
 - (instancetype)init
 {
