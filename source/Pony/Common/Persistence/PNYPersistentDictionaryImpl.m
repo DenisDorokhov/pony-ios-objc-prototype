@@ -107,7 +107,7 @@
     [[NSURL fileURLWithPath:_filePath] setResourceValue:@(_excludeFromBackup)
                                                  forKey:NSURLIsExcludedFromBackupKey error:nil];
 
-    DDLogDebug(@"Data has been flushed to file [%@]", _filePath);
+    DDLogDebug(@"Data has been flushed to file [%@].", _filePath);
 }
 
 - (void)onExit

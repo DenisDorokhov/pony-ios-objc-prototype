@@ -39,7 +39,7 @@
         } else if ([value isKindOfClass:[NSNumber class]]) {
             return [value stringValue];
         } else {
-            DDLogWarn(@"[NSString] or [NSNumber] expected for key [%@]", aKey);
+            DDLogWarn(@"[NSString] or [NSNumber] expected for key [%@].", aKey);
         }
     }
 
@@ -198,10 +198,10 @@
 
                 UIEdgeInsets insets;
 
-                insets.top = [map[@"x"] floatValue];
-                insets.bottom = [map[@"y"] floatValue];
-                insets.left = [map[@"width"] floatValue];
-                insets.right = [map[@"height"] floatValue];
+                insets.top = [map[@"top"] floatValue];
+                insets.bottom = [map[@"bottom"] floatValue];
+                insets.left = [map[@"left"] floatValue];
+                insets.right = [map[@"right"] floatValue];
 
                 return insets;
             }
@@ -221,10 +221,10 @@
             NSDictionary *map = value;
 
             if ([self validateDictionary:map keys:@[@"red", @"green", @"blue", @"alpha"] type:[NSNumber class] configKey:aKey]) {
-                return [UIColor colorWithRed:[map[@"red"] floatValue]
-                                       green:[map[@"green"] floatValue]
-                                        blue:[map[@"blue"] floatValue]
-                                       alpha:[map[@"alpha"] floatValue]];
+                return [UIColor colorWithRed:([map[@"red"] intValue] / 255.0f)
+                                       green:([map[@"green"] intValue] / 255.0f)
+                                        blue:([map[@"blue"] intValue] / 255.0f)
+                                       alpha:([map[@"alpha"] intValue] / 255.0f)];
             }
         }
     }

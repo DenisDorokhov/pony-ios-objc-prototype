@@ -11,8 +11,8 @@
 + (NSString *)documentsPath
 {
     static NSString *_documentsPath = nil;
-    static dispatch_once_t onceToken;
 
+    static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
 
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -26,8 +26,8 @@
 + (NSString *)cachePath
 {
     static NSString *_cachePath = nil;
-    static dispatch_once_t onceToken;
 
+    static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
 
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
@@ -41,8 +41,8 @@
 + (NSString *)sessionTemporaryPath
 {
     static NSString *_temporaryPath = nil;
-    static dispatch_once_t onceToken;
 
+    static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
 
         _temporaryPath = [self randomFilePathInPath:NSTemporaryDirectory()];
