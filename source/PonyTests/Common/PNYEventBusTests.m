@@ -6,11 +6,11 @@
 #import "PNYTestCase.h"
 #import "PNYEventBus.h"
 
-@interface PNYEventBusTest : PNYTestCase
+@interface PNYEventBusTests : PNYTestCase
 
 @end
 
-@implementation PNYEventBusTest
+@implementation PNYEventBusTests
 {
 @private
     NSUInteger countCallbackWithArgument;

@@ -5,4 +5,7 @@
 
 @interface PNYTestCase : XCTestCase
 
+- (void)cleanFiles;
+- (void)cleanKeychain;
+
 @end
