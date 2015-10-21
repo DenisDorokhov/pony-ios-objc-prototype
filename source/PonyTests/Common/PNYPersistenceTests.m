@@ -8,11 +8,11 @@
 #import "PNYKeychainDictionary.h"
 #import "PNYFileUtils.h"
 
-@interface PNYPersistentDictionaryTests : PNYTestCase
+@interface PNYPersistenceTests : PNYTestCase
 
 @end
 
-@implementation PNYPersistentDictionaryTests
+@implementation PNYPersistenceTests
 {
 @private
     NSString *filePath;

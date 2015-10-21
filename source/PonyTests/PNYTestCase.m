@@ -29,12 +29,14 @@
     self.continueAfterFailure = NO;
 
     [self cleanFiles];
+    [self cleanUserDefaults];
     [self cleanKeychain];
 }
 
 - (void)tearDown
 {
     [self cleanFiles];
+    [self cleanUserDefaults];
     [self cleanKeychain];
 
     [super tearDown];
@@ -57,7 +59,13 @@
     }
 }
 
--(void)cleanKeychain
+- (void)cleanUserDefaults
+{
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:[[NSBundle mainBundle] bundleIdentifier]];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)cleanKeychain
 {
     [self deleteAllKeysForSecurityClass:kSecClassGenericPassword];
     [self deleteAllKeysForSecurityClass:kSecClassInternetPassword];

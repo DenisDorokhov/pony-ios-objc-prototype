@@ -6,6 +6,7 @@
 @interface PNYTestCase : XCTestCase
 
 - (void)cleanFiles;
+- (void)cleanUserDefaults;
 - (void)cleanKeychain;
 
 @end

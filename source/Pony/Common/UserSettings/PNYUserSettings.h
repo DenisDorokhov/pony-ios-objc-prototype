@@ -9,8 +9,8 @@
 
 @optional
 
-- (void)userSettings:(id <PNYUserSettings>)aUserSettings didSetValue:(id)aValue forKey:(NSString *)aKey;
-- (void)userSettings:(id <PNYUserSettings>)aUserSettings didRemoveValueForKey:(NSString *)aKey;
+- (void)userSettings:(id <PNYUserSettings>)aUserSettings didSetSetting:(id)aSetting forKey:(NSString *)aKey;
+- (void)userSettings:(id <PNYUserSettings>)aUserSettings didRemoveSettingForKey:(NSString *)aKey;
 
 - (void)userSettingsDidSave:(id <PNYUserSettings>)aUserSettings;
 - (void)userSettingsDidClear:(id <PNYUserSettings>)aUserSettings;
@@ -22,9 +22,9 @@
 - (void)addDelegate:(id <PNYUserSettingsDelegate>)aDelegate;
 - (void)removeDelegate:(id <PNYUserSettingsDelegate>)aDelegate;
 
-- (id)valueForKey:(NSString *)aKey;
-- (void)setValue:(id)aValue forKey:(NSString *)aKey;
-- (void)removeValueForKey:(NSString *)aKey;
+- (id)settingForKey:(NSString *)aKey;
+- (void)setSetting:(id)aSetting forKey:(NSString *)aKey;
+- (void)removeSettingForKey:(NSString *)aKey;
 
 - (void)save;
 - (void)clear;
