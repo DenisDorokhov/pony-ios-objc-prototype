@@ -29,14 +29,32 @@
 
 - (NSString *)formatLogMessage:(DDLogMessage *)aLogMessage
 {
-    NSMutableString *buffer = [NSMutableString string];
-
-    [buffer appendString:[dateFormatter stringFromDate:aLogMessage.timestamp]];
+    NSMutableString *buffer = [NSMutableString stringWithString:[dateFormatter stringFromDate:aLogMessage.timestamp]];
 
     [buffer appendFormat:@" %@[%d:%@]", [[NSProcessInfo processInfo] processName], (int)getpid(), aLogMessage.threadID];
+    [buffer appendFormat:@" %@",[self flagToString:aLogMessage.flag]];
     [buffer appendFormat:@" %@:%lu %@", [aLogMessage.file lastPathComponent], (unsigned long)aLogMessage.line, aLogMessage.message];
 
     return buffer;
+}
+
+#pragma mark - Private
+
+- (NSString *)flagToString:(DDLogFlag)aLogFlag
+{
+    switch (aLogFlag) {
+        case DDLogFlagVerbose:
+            return @"TRACE";
+        case DDLogFlagDebug:
+            return @"DEBUG";
+        case DDLogFlagInfo:
+            return @"INFO";
+        case DDLogFlagWarning:
+            return @"WARN";
+        case DDLogFlagError:
+            return @"ERROR";
+    }
+    return nil;
 }
 
 @end
