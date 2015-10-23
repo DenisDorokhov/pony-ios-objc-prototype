@@ -39,7 +39,7 @@
     XCTAssertTrue(didCallDidSave);
     XCTAssertFalse(didCallDidClear);
 
-    XCTAssertEqual([service settingForKey:@"someKey"], @"someValue");
+    XCTAssertEqualObjects([service settingForKey:@"someKey"], @"someValue");
 
     [self reset];
 

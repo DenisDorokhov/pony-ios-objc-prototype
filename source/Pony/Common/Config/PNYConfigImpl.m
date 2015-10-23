@@ -4,6 +4,7 @@
 //
 
 #import "PNYConfigImpl.h"
+#import "PNYMacros.h"
 
 @implementation PNYConfigImpl
 {
@@ -39,7 +40,7 @@
         } else if ([value isKindOfClass:[NSNumber class]]) {
             return [value stringValue];
         } else {
-            DDLogWarn(@"[NSString] or [NSNumber] expected for key [%@].", aKey);
+            PNYLogWarn(@"[NSString] or [NSNumber] expected for key [%@].", aKey);
         }
     }
 

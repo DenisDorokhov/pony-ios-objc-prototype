@@ -6,6 +6,7 @@
 #import "PNYUserSettingsImpl.h"
 #import "NSMutableOrderedSet+NSValueNonretained.h"
 #import "NSOrderedSet+NSValueNonretained.h"
+#import "PNYMacros.h"
 
 @implementation PNYUserSettingsImpl
 {
@@ -50,7 +51,7 @@
 {
     [userDefaults setObject:aSetting forKey:[self buildKey:aKey]];
 
-    DDLogInfo(@"Setting for key [%@] has been set [%@].", aKey, aSetting);
+    PNYLogInfo(@"Setting for key [%@] has been set [%@].", aKey, aSetting);
 
     [(NSOrderedSet *)delegates enumerateNonretainedObjectsUsingBlock:^(id aObject, NSUInteger aIndex, BOOL *aStop) {
         if ([aObject respondsToSelector:@selector(userSettings:didSetSetting:forKey:)]) {
@@ -63,7 +64,7 @@
 {
     [userDefaults removeObjectForKey:aKey];
 
-    DDLogInfo(@"Setting for key [%@] has been removed.", aKey);
+    PNYLogInfo(@"Setting for key [%@] has been removed.", aKey);
 
     [(NSOrderedSet *)delegates enumerateNonretainedObjectsUsingBlock:^(id aObject, NSUInteger aIndex, BOOL *aStop) {
         if ([aObject respondsToSelector:@selector(userSettings:didRemoveSettingForKey:)]) {
@@ -76,7 +77,7 @@
 {
     [userDefaults synchronize];
 
-    DDLogInfo(@"User settings have been saved.");
+    PNYLogInfo(@"User settings have been saved.");
 
     [(NSOrderedSet *)delegates enumerateNonretainedObjectsUsingBlock:^(id aObject, NSUInteger aIndex, BOOL *aStop) {
         if ([aObject respondsToSelector:@selector(userSettingsDidSave:)]) {
@@ -97,7 +98,7 @@
         [userDefaults removeObjectForKey:key];
     }
 
-    DDLogInfo(@"User settings have been cleared.");
+    PNYLogInfo(@"User settings have been cleared.");
 
     [(NSOrderedSet *)delegates enumerateNonretainedObjectsUsingBlock:^(id aObject, NSUInteger aIndex, BOOL *aStop) {
         if ([aObject respondsToSelector:@selector(userSettingsDidClear:)]) {

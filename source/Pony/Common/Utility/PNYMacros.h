@@ -4,4 +4,10 @@
 //
 
 #define PNYAssert(expression) NSAssert(expression, @"" #expression)
+
+#define PNYLogDebug(format, ...) DDLogDebug(format, ##__VA_ARGS__)
+#define PNYLogInfo(format, ...) DDLogInfo(format, ##__VA_ARGS__)
+#define PNYLogWarn(format, ...) DDLogWarn(format, ##__VA_ARGS__)
+#define PNYLogError(format, ...) DDLogError(format, ##__VA_ARGS__)
+
 #define PNYLocalize(key, ...) [NSString stringWithFormat:NSLocalizedString(key, nil), ##__VA_ARGS__]

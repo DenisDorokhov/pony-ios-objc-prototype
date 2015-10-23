@@ -5,6 +5,7 @@
 
 #import "PNYConfigFactoryImpl.h"
 #import "PNYConfigImpl.h"
+#import "PNYMacros.h"
 
 @implementation PNYConfigFactoryImpl
 
@@ -34,7 +35,7 @@
         [dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *aKey, id aValue, BOOL *aStop) {
 
             if (resultDictionary[aKey] != nil) {
-                DDLogWarn(@"Overriding value for key [%@].", aKey);
+                PNYLogWarn(@"Overriding value for key [%@].", aKey);
             }
 
             resultDictionary[aKey] = aValue;

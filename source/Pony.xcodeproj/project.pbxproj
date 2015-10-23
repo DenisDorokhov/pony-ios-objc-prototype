@@ -93,7 +93,7 @@
 		B3D39E409C0690922D7570B4 /* PNYEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYEvent.h; sourceTree = "<group>"; };
 		B3D39E88204B82C635B8805E /* PNYConfigFactoryImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYConfigFactoryImpl.m; sourceTree = "<group>"; };
 		B3D39EBA42B8FCD5362C67A2 /* PNYPersistentDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYPersistentDictionary.h; sourceTree = "<group>"; };
-		B3D39ECF099A49159AEA672C /* PNYMacroUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYMacroUtils.h; sourceTree = "<group>"; };
+		B3D39ECF099A49159AEA672C /* PNYMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYMacros.h; sourceTree = "<group>"; };
 		B3D39EFD29A7F35E537D821E /* PNYTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYTestCase.h; sourceTree = "<group>"; };
 		B3D39F2DF2AC670996725553 /* PNYConfigImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYConfigImpl.m; sourceTree = "<group>"; };
 		B3D39F2EFFF5E1BC8985602F /* PNYRandomUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYRandomUtils.h; sourceTree = "<group>"; };
@@ -260,7 +260,7 @@
 				B3D3990C5423562FEEE9FCFE /* NSOrderedSet+NSValueNonretained.m */,
 				B3D396358D3E2070A4C68830 /* PNYFileUtils.h */,
 				B3D390E01BCCE78D565E805C /* PNYFileUtils.m */,
-				B3D39ECF099A49159AEA672C /* PNYMacroUtils.h */,
+				B3D39ECF099A49159AEA672C /* PNYMacros.h */,
 				B3D39F2EFFF5E1BC8985602F /* PNYRandomUtils.h */,
 				B3D393C6740A53B13D9A4243 /* PNYRandomUtils.m */,
 			);

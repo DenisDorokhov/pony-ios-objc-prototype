@@ -7,8 +7,6 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wall"
 #import <CocoaLumberjack/DDLogMacros.h>
-#import <CocoaLumberjack/DDAssertMacros.h>
-#import <CocoaLumberjack/DDASLLogCapture.h>
 #import <CocoaLumberjack/DDTTYLogger.h>
 #import <CocoaLumberjack/DDASLLogger.h>
 #import <CocoaLumberjack/DDFileLogger.h>
