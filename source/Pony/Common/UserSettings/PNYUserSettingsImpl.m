@@ -4,8 +4,8 @@
 //
 
 #import "PNYUserSettingsImpl.h"
-#import "NSMutableOrderedSet+NSValueNonretained.h"
-#import "NSOrderedSet+NSValueNonretained.h"
+#import "NSMutableOrderedSet+PNYNSValue.h"
+#import "NSOrderedSet+PNYNSValue.h"
 #import "PNYMacros.h"
 
 @implementation PNYUserSettingsImpl
@@ -53,6 +53,7 @@
 
     PNYLogInfo(@"Setting for key [%@] has been set [%@].", aKey, aSetting);
 
+    // TODO: remove cast when AppCode starts supporting this trick
     [(NSOrderedSet *)delegates enumerateNonretainedObjectsUsingBlock:^(id aObject, NSUInteger aIndex, BOOL *aStop) {
         if ([aObject respondsToSelector:@selector(userSettings:didSetSetting:forKey:)]) {
             [aObject userSettings:self didSetSetting:aSetting forKey:aKey];
@@ -66,6 +67,7 @@
 
     PNYLogInfo(@"Setting for key [%@] has been removed.", aKey);
 
+    // TODO: remove cast when AppCode starts supporting this trick
     [(NSOrderedSet *)delegates enumerateNonretainedObjectsUsingBlock:^(id aObject, NSUInteger aIndex, BOOL *aStop) {
         if ([aObject respondsToSelector:@selector(userSettings:didRemoveSettingForKey:)]) {
             [aObject userSettings:self didRemoveSettingForKey:aKey];
@@ -79,6 +81,7 @@
 
     PNYLogInfo(@"User settings have been saved.");
 
+    // TODO: remove cast when AppCode starts supporting this trick
     [(NSOrderedSet *)delegates enumerateNonretainedObjectsUsingBlock:^(id aObject, NSUInteger aIndex, BOOL *aStop) {
         if ([aObject respondsToSelector:@selector(userSettingsDidSave:)]) {
             [aObject userSettingsDidSave:self];
@@ -100,6 +103,7 @@
 
     PNYLogInfo(@"User settings have been cleared.");
 
+    // TODO: remove cast when AppCode starts supporting this trick
     [(NSOrderedSet *)delegates enumerateNonretainedObjectsUsingBlock:^(id aObject, NSUInteger aIndex, BOOL *aStop) {
         if ([aObject respondsToSelector:@selector(userSettingsDidClear:)]) {
             [aObject userSettingsDidClear:self];

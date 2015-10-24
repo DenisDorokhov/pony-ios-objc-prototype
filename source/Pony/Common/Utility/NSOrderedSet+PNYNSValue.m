@@ -3,9 +3,9 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-#import "NSOrderedSet+NSValueNonretained.h"
+#import "NSOrderedSet+PNYNSValue.h"
 
-@implementation NSOrderedSet (NSValueNonretained)
+@implementation NSOrderedSet (PNYNSValue)
 
 - (BOOL)containsNonretainedObject:(id)aObject
 {

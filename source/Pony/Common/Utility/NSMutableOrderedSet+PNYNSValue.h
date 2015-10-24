@@ -3,7 +3,7 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-@interface NSMutableOrderedSet (NSValueNonretained)
+@interface NSMutableOrderedSet (PNYNSValue)
 
 - (void)addNonretainedObject:(id)aObject;
 

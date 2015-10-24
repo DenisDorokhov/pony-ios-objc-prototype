@@ -3,6 +3,6 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-@interface PNYLogFormatter : NSObject<DDLogFormatter>
+@interface PNYLogFormatter : NSObject <DDLogFormatter>
 
 @end

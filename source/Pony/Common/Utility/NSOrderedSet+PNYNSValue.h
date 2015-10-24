@@ -3,7 +3,7 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-@interface NSOrderedSet (NSValueNonretained)
+@interface NSOrderedSet (PNYNSValue)
 
 - (BOOL)containsNonretainedObject:(id)aObject;
 

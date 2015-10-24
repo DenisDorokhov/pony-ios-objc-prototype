@@ -3,9 +3,9 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-#import "NSMutableOrderedSet+NSValueNonretained.h"
+#import "NSMutableOrderedSet+PNYNSValue.h"
 
-@implementation NSMutableOrderedSet (NSValueNonretained)
+@implementation NSMutableOrderedSet (PNYNSValue)
 
 - (void)addNonretainedObject:(id)aObject
 {
