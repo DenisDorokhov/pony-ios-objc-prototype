@@ -12,7 +12,6 @@
 #import "PNYRestResponseSerializer.h"
 #import "PNYResponseDto.h"
 #import "PNYErrorDto.h"
-#import "PNYErrorDtoCodes.h"
 #import "PNYRestTokens.h"
 #import "PNYUrlUtils.h"
 

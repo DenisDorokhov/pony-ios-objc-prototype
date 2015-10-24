@@ -88,7 +88,6 @@
 		B3D391C9CD2C8F4AE2B13861 /* NSOrderedSet+PNYNSValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOrderedSet+PNYNSValue.h"; sourceTree = "<group>"; };
 		B3D391FBCD40EB1F47409605 /* PNYTokenPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYTokenPair.h; sourceTree = "<group>"; };
 		B3D3923F576927FB4A4B0A2E /* PNYAlbumSongsDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYAlbumSongsDto.h; sourceTree = "<group>"; };
-		B3D39242A1DA7E4FF29DE039 /* PNYErrorDtoCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYErrorDtoCodes.h; sourceTree = "<group>"; };
 		B3D392B9914BE6B21650C1DA /* PNYUrlUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYUrlUtils.h; sourceTree = "<group>"; };
 		B3D392D23D3D6B301653E472 /* PNYAuthenticationDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYAuthenticationDto.h; sourceTree = "<group>"; };
 		B3D3930FBAA697968C05AB29 /* PNYKeychainDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYKeychainDictionary.h; sourceTree = "<group>"; };
@@ -403,7 +402,6 @@
 				B3D39B840F48F930040DB292 /* PNYAlbumDto.h */,
 				B3D39645724712A53DD17270 /* PNYGenreDto.m */,
 				B3D39AFC163ABC4CBA0B2E05 /* PNYInstallationDto.h */,
-				B3D39242A1DA7E4FF29DE039 /* PNYErrorDtoCodes.h */,
 			);
 			path = Rest;
 			sourceTree = "<group>";
