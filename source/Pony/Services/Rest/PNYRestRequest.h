@@ -3,8 +3,8 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-#import "PNYArtistDto.h"
+@protocol PNYRestRequest <NSObject>
 
-@implementation PNYArtistDto
+- (void)cancel;
 
 @end

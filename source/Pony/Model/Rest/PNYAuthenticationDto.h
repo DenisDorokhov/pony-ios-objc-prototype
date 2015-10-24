@@ -5,7 +5,7 @@
 
 #import "PNYUserDto.h"
 
-@interface PNYAuthenticationDto : NSObject
+@interface PNYAuthenticationDto : NSObject <EKMappingProtocol>
 
 @property (nonatomic, strong) NSString *accessToken;
 @property (nonatomic, strong) NSDate *accessTokenExpiration;

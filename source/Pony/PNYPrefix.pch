@@ -14,4 +14,8 @@
 #import <CocoaLumberjack/DDFileLogger.h>
 #pragma clang diagnostic pop
 
+#ifdef DEBUG
 static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+#else
+static const DDLogLevel ddLogLevel = DDLogLevelOff;
+#endif

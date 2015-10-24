@@ -13,12 +13,6 @@
 
 @implementation PNYAppDelegate
 
-#ifdef DEBUG
-static const DDLogLevel LOG_LEVEL = DDLogLevelDebug;
-#else
-static const DDLogLevel LOG_LEVEL = DDLogLevelOff;
-#endif
-
 - (BOOL)application:(UIApplication *)aApplication didFinishLaunchingWithOptions:(NSDictionary *)aLaunchOptions
 {
     [self setupLogging];
@@ -34,7 +28,7 @@ static const DDLogLevel LOG_LEVEL = DDLogLevelOff;
 {
     DDTTYLogger *logger = [DDTTYLogger sharedInstance];
     logger.logFormatter = [[PNYLogFormatter alloc] init];
-    [DDLog addLogger:logger withLevel:LOG_LEVEL];
+    [DDLog addLogger:logger withLevel:DDLogLevelDebug];
 }
 
 @end

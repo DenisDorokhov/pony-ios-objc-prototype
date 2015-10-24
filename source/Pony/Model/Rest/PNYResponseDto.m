@@ -3,8 +3,8 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-#import "PNYCredentialsDto.h"
+#import "PNYResponseDto.h"
 
-@implementation PNYCredentialsDto
+@implementation PNYResponseDto
 
 @end

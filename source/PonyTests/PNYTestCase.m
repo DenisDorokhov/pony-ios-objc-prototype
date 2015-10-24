@@ -78,7 +78,7 @@
 
 -(void)deleteAllKeysForSecurityClass:(CFTypeRef)aSecurityClass
 {
-    SecItemDelete((__bridge CFDictionaryRef)@{(__bridge id)kSecClass : (__bridge id)aSecurityClass});
+    SecItemDelete((__bridge CFDictionaryRef)@{ (__bridge id)kSecClass : (__bridge id)aSecurityClass });
 }
 
 @end

@@ -51,7 +51,7 @@
 {
     XCTAssertEqual([aService.data count], 0);
 
-    aService.data[@"globalKey1"] = @{@"testKey" : @"testValue"};
+    aService.data[@"globalKey1"] = @{ @"testKey" : @"testValue" };
     aService.data[@"globalKey2"] = @"globalValue2";
 
     [aService save];

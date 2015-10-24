@@ -3,7 +3,9 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-@interface PNYCredentialsDto : NSObject
+#import <EasyMapping/EKMappingProtocol.h>
+
+@interface PNYCredentialsDto : NSObject <EKMappingProtocol>
 
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *password;

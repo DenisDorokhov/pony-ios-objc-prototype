@@ -8,6 +8,20 @@
 
 @implementation PNYSongDto
 
+#pragma mark - Override
+
++ (EKObjectMapping *)objectMapping
+{
+    EKObjectMapping *mapping = [super objectMapping];
+
+    [mapping mapPropertiesFromArray:@[@"url", @"duration", @"discNumber", @"trackNumber", @"artistName", @"name"]];
+
+    [mapping hasOne:[PNYAlbumDto class] forKeyPath:@"album"];
+    [mapping hasOne:[PNYGenreDto class] forKeyPath:@"genre"];
+
+    return mapping;
+}
+
 - (NSComparisonResult)compare:(PNYSongDto *)aSong
 {
     NSComparisonResult result = NSOrderedSame;

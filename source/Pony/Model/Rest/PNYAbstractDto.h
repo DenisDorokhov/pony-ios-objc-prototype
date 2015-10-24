@@ -3,7 +3,9 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-@interface PNYAbstractDto : NSObject
+#import <EasyMapping/EKMappingProtocol.h>
+
+@interface PNYAbstractDto : NSObject <EKMappingProtocol>
 
 @property (nonatomic, strong) NSNumber *id;
 

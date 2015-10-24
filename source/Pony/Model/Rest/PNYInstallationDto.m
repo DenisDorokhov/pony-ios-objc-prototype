@@ -7,6 +7,17 @@
 
 @implementation PNYInstallationDto
 
+#pragma mark - <EKMappingProtocol>
+
++ (EKObjectMapping *)objectMapping
+{
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromArray:@[@"version"]];
+    }];
+}
+
+#pragma mark - Override
+
 - (NSUInteger)hash
 {
     return self.version != nil ? [self.version hash] : [super hash];

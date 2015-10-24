@@ -3,8 +3,8 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-@interface PNYInstallationDto : NSObject
+#import "PNYTokenPair.h"
 
-@property (nonatomic, strong) NSString *version;
+@implementation PNYTokenPair
 
 @end

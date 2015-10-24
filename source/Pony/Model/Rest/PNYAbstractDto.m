@@ -7,6 +7,17 @@
 
 @implementation PNYAbstractDto
 
+#pragma mark - <EKMappingProtocol>
+
++ (EKObjectMapping *)objectMapping
+{
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+        [mapping mapPropertiesFromArray:@[@"id"]];
+    }];
+}
+
+#pragma mark - Override
+
 - (NSUInteger)hash
 {
     return self.id != nil ? [self.id hash] : [super hash];

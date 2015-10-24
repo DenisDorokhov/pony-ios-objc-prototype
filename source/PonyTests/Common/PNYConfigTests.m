@@ -23,11 +23,11 @@
             @"int" : @123,
             @"float" : @1.23f,
             @"double" : @1.23,
-            @"point" : @{@"x" : @1, @"y" : @2},
-            @"size" : @{@"width" : @1, @"height" : @2},
-            @"rect" : @{@"x" : @1, @"y" : @2, @"width" : @3, @"height" : @4},
-            @"insets" : @{@"top" : @1, @"bottom" : @2, @"left" : @3, @"right" : @4},
-            @"color" : @{@"red" : @10, @"green" : @20, @"blue" : @30, @"alpha" : @40},
+            @"point" : @{ @"x" : @1, @"y" : @2 },
+            @"size" : @{ @"width" : @1, @"height" : @2 },
+            @"rect" : @{ @"x" : @1, @"y" : @2, @"width" : @3, @"height" : @4 },
+            @"insets" : @{ @"top" : @1, @"bottom" : @2, @"left" : @3, @"right" : @4 },
+            @"color" : @{ @"red" : @10, @"green" : @20, @"blue" : @30, @"alpha" : @40 },
     }];
 
     XCTAssertEqualObjects([config stringValue:@"string1"], @"value");
