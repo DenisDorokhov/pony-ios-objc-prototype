@@ -18,7 +18,17 @@
 {
     self = [super init];
     if (self != nil) {
+
         _dataClass = aDataClass;
+
+        NSMutableIndexSet *acceptableStatusCodes = [[NSMutableIndexSet alloc] initWithIndexSet:self.acceptableStatusCodes];
+
+        [acceptableStatusCodes addIndex:400];
+        [acceptableStatusCodes addIndex:401];
+        [acceptableStatusCodes addIndex:404];
+        [acceptableStatusCodes addIndex:500];
+
+        self.acceptableStatusCodes = acceptableStatusCodes;
     }
     return self;
 }
