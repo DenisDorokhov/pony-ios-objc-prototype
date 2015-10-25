@@ -8,13 +8,10 @@
 @interface PNYRestResponseSerializer : AFJSONResponseSerializer
 
 @property (nonatomic, readonly) Class dataClass;
-@property (nonatomic, readonly) Class dataContainerClass;
 
 + (instancetype)serializerWithDataClass:(Class)aDataClass;
-+ (instancetype)serializerWithDataClass:(Class)aDataClass dataContainerClass:(Class)aDataContainerClass;
 
 - (instancetype)initWithDataClass:(Class)aDataClass;
-- (instancetype)initWithDataClass:(Class)aDataClass dataContainerClass:(Class)aDataContainerClass;
 
 + (instancetype) __unavailable serializer;
 

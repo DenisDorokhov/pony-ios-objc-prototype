@@ -13,6 +13,7 @@
 #import "PNYCredentialsDto.h"
 #import "PNYErrorDto.h"
 #import "PNYInstallationDto.h"
+#import "PNYResponseDto.h"
 
 @interface DtoMappingTests : PNYTestCase
 
@@ -88,19 +89,10 @@
 
 - (void)testErrorDto
 {
-    PNYErrorDto *dto = [EKMapper objectFromExternalRepresentation:@{
-            @"field" : @"someField",
-            @"code" : @"someCode",
-            @"text" : @"someText",
-            @"arguments" : @[@"someArgument"],
-    } withMapping:[PNYErrorDto objectMapping]];
+    PNYErrorDto *dto = [EKMapper objectFromExternalRepresentation:[self buildErrorDtoDictionary]
+                                                      withMapping:[PNYErrorDto objectMapping]];
 
-    XCTAssertEqualObjects(dto.field, @"someField");
-    XCTAssertEqualObjects(dto.code, @"someCode");
-    XCTAssertEqualObjects(dto.text, @"someText");
-
-    XCTAssertEqual([dto.arguments count], 1);
-    XCTAssertEqualObjects(dto.arguments[0], @"someArgument");
+    [self assertErrorDto:dto];
 }
 
 - (void)testGenreDto
@@ -138,7 +130,24 @@
 
 - (void)testResponseDto
 {
-    XCTFail();
+    PNYResponseDto *dto;
+
+    dto = [EKMapper objectFromExternalRepresentation:[self buildResponseDtoDictionaryWithData:[self buildAlbumSongsDtoDictionary]]
+                                         withMapping:[PNYResponseDto objectMappingWithDataClass:[PNYAlbumSongsDto class]]];
+
+    [self assertResponseDtoExcludingData:dto];
+
+    XCTAssertTrue([dto.data isKindOfClass:[PNYAlbumSongsDto class]]);
+    [self assertAlbumSongsDto:dto.data];
+
+    dto = [EKMapper objectFromExternalRepresentation:[self buildResponseDtoDictionaryWithData:@[[self buildArtistDtoDictionary]]]
+                                         withMapping:[PNYResponseDto objectMappingWithDataClass:[PNYArtistDto class]]];
+
+    [self assertResponseDtoExcludingData:dto];
+
+    XCTAssertTrue([dto.data isKindOfClass:[NSArray class]]);
+    XCTAssertEqual([dto.data count], 1);
+    [self assertArtistDto:dto.data[0]];
 }
 
 #pragma mark - Private
@@ -208,6 +217,26 @@
     };
 }
 
+- (NSDictionary *)buildErrorDtoDictionary
+{
+    return @{
+            @"field" : @"someField",
+            @"code" : @"someCode",
+            @"text" : @"someText",
+            @"arguments" : @[@"someArgument"],
+    };
+}
+
+- (NSDictionary *)buildResponseDtoDictionaryWithData:(id)aData
+{
+    return @{
+            @"version" : @"someVersion",
+            @"successful" : @(YES),
+            @"errors" : @[[self buildErrorDtoDictionary]],
+            @"data" : aData,
+    };
+}
+
 - (void)assertAlbumSongsDto:(PNYAlbumSongsDto *)aDto
 {
     [self assertAlbumDto:aDto.album];
@@ -264,6 +293,25 @@
     XCTAssertEqualObjects(aUser.name, @"userName");
     XCTAssertEqualObjects(aUser.email, @"userEmail");
     XCTAssertEqual(aUser.role, PNYRoleDtoUser);
+}
+
+- (void)assertErrorDto:(PNYErrorDto *)aDto
+{
+    XCTAssertEqualObjects(aDto.field, @"someField");
+    XCTAssertEqualObjects(aDto.code, @"someCode");
+    XCTAssertEqualObjects(aDto.text, @"someText");
+
+    XCTAssertEqual([aDto.arguments count], 1);
+    XCTAssertEqualObjects(aDto.arguments[0], @"someArgument");
+}
+
+- (void)assertResponseDtoExcludingData:(PNYResponseDto *)aDto
+{
+    XCTAssertEqualObjects(aDto.version, @"someVersion");
+    XCTAssertTrue(aDto.successful);
+
+    XCTAssertEqual([aDto.errors count], 1);
+    [self assertErrorDto:aDto.errors[0]];
 }
 
 @end

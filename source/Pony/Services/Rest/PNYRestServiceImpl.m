@@ -52,7 +52,7 @@
 {
     AFHTTPRequestOperation *operation = [self buildRequestOperationWithUrl:@"/api/installation"
                                                                 parameters:nil headers:nil
-                                                         responseDataClass:[PNYInstallationDto class] responseDataContainerClass:nil
+                                                         responseDataClass:[PNYInstallationDto class]
                                                                    success:aSuccess failure:aFailure];
 
     [operationQueue addOperation:operation];
@@ -68,7 +68,7 @@
     AFHTTPRequestOperation *operation = [self buildRequestOperationWithUrl:@"/api/authenticate"
                                                                 parameters:[EKSerializer serializeObject:aCredentials withMapping:[PNYCredentialsDto objectMapping]]
                                                                    headers:nil
-                                                         responseDataClass:[PNYAuthenticationDto class] responseDataContainerClass:nil
+                                                         responseDataClass:[PNYAuthenticationDto class]
                                                                    success:aSuccess failure:aFailure];
 
     [operationQueue addOperation:operation];
@@ -81,7 +81,7 @@
 {
     AFHTTPRequestOperation *operation = [self buildRequestOperationWithUrl:@"/api/logout"
                                                                 parameters:nil headers:nil
-                                                         responseDataClass:[PNYUserDto class] responseDataContainerClass:nil
+                                                         responseDataClass:[PNYUserDto class]
                                                                    success:aSuccess failure:aFailure];
 
     [operationQueue addOperation:operation];
@@ -94,7 +94,7 @@
 {
     AFHTTPRequestOperation *operation = [self buildRequestOperationWithUrl:@"/api/currentUser"
                                                                 parameters:nil headers:nil
-                                                         responseDataClass:[PNYUserDto class] responseDataContainerClass:nil
+                                                         responseDataClass:[PNYUserDto class]
                                                                    success:aSuccess failure:aFailure];
 
     [operationQueue addOperation:operation];
@@ -114,7 +114,7 @@
 
     AFHTTPRequestOperation *operation = [self buildRequestOperationWithUrl:@"/api/refreshToken"
                                                                 parameters:nil headers:@{PNYRestRefreshTokenHeader : refreshToken}
-                                                         responseDataClass:[PNYAuthenticationDto class] responseDataContainerClass:nil
+                                                         responseDataClass:[PNYAuthenticationDto class]
                                                                    success:aSuccess failure:aFailure];
 
     [operationQueue addOperation:operation];
@@ -127,7 +127,7 @@
 {
     AFHTTPRequestOperation *operation = [self buildRequestOperationWithUrl:@"/api/artists"
                                                                 parameters:nil headers:nil
-                                                         responseDataClass:[PNYUserDto class] responseDataContainerClass:[NSArray class]
+                                                         responseDataClass:[PNYUserDto class]
                                                                    success:aSuccess failure:aFailure];
 
     [operationQueue addOperation:operation];
@@ -143,7 +143,7 @@
 
     AFHTTPRequestOperation *operation = [self buildRequestOperationWithUrl:url
                                                                 parameters:nil headers:nil
-                                                         responseDataClass:[PNYArtistAlbumsDto class] responseDataContainerClass:nil
+                                                         responseDataClass:[PNYArtistAlbumsDto class]
                                                                    success:aSuccess failure:aFailure];
 
     [operationQueue addOperation:operation];
@@ -155,7 +155,7 @@
 
 - (AFHTTPRequestOperation *)buildRequestOperationWithUrl:(NSString *)aRelativeUrl
                                               parameters:(id)aParameters headers:(NSDictionary *)aHeaders
-                                       responseDataClass:(Class)aResponseDataClass responseDataContainerClass:(Class)aResponseDataContainerClass
+                                       responseDataClass:(Class)aResponseDataClass
                                                  success:(void (^)(id))aSuccess
                                                  failure:(PNYRestServiceFailureBlock)aFailure
 {
@@ -163,7 +163,7 @@
 
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
 
-    operation.responseSerializer = [PNYRestResponseSerializer serializerWithDataClass:aResponseDataClass dataContainerClass:aResponseDataContainerClass];
+    operation.responseSerializer = [PNYRestResponseSerializer serializerWithDataClass:aResponseDataClass];
 
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *aOperation, PNYResponseDto *aResponse) {
         if (aResponse.successful) {

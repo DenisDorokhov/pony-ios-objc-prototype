@@ -18,12 +18,12 @@
 
         [mapping mapKeyPath:@"accessTokenExpiration" toProperty:@"accessTokenExpiration" withValueBlock:^(NSString *aKey, NSNumber *aValue) {
             return [NSDate dateWithTimeIntervalSince1970:[aValue doubleValue]];
-        }      reverseBlock:^id(NSDate *aValue) {
+        } reverseBlock:^id(NSDate *aValue) {
             return @([aValue timeIntervalSince1970]);
         }];
         [mapping mapKeyPath:@"refreshTokenExpiration" toProperty:@"refreshTokenExpiration" withValueBlock:^(NSString *aKey, NSNumber *aValue) {
             return [NSDate dateWithTimeIntervalSince1970:[aValue doubleValue]];
-        }      reverseBlock:^id(NSDate *aValue) {
+        } reverseBlock:^id(NSDate *aValue) {
             return @([aValue timeIntervalSince1970]);
         }];
     }];
