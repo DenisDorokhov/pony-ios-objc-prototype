@@ -18,6 +18,9 @@
         [mapping hasMany:[PNYErrorDto class] forKeyPath:@"errors"];
 
         [mapping mapKeyPath:@"data" toProperty:@"data" withValueBlock:^id(NSString *aKey, id aValue) {
+            if (aValue == nil) {
+                return nil;
+            }
             if ([aValue isKindOfClass:[NSArray class]]) {
                 return [EKMapper arrayOfObjectsFromExternalRepresentation:aValue
                                                               withMapping:[aDataClass objectMapping]];

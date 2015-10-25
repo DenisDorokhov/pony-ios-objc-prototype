@@ -132,6 +132,8 @@
 {
     PNYResponseDto *dto;
 
+    // Test plain object data.
+
     dto = [EKMapper objectFromExternalRepresentation:[self buildResponseDtoDictionaryWithData:[self buildAlbumSongsDtoDictionary]]
                                          withMapping:[PNYResponseDto objectMappingWithDataClass:[PNYAlbumSongsDto class]]];
 
@@ -139,6 +141,8 @@
 
     XCTAssertTrue([dto.data isKindOfClass:[PNYAlbumSongsDto class]]);
     [self assertAlbumSongsDto:dto.data];
+
+    // Test array data.
 
     dto = [EKMapper objectFromExternalRepresentation:[self buildResponseDtoDictionaryWithData:@[[self buildArtistDtoDictionary]]]
                                          withMapping:[PNYResponseDto objectMappingWithDataClass:[PNYArtistDto class]]];
@@ -148,6 +152,15 @@
     XCTAssertTrue([dto.data isKindOfClass:[NSArray class]]);
     XCTAssertEqual([dto.data count], 1);
     [self assertArtistDto:dto.data[0]];
+
+    // Test nil data.
+
+    dto = [EKMapper objectFromExternalRepresentation:[self buildResponseDtoDictionaryWithData:nil]
+                                         withMapping:[PNYResponseDto objectMappingWithDataClass:nil]];
+
+    [self assertResponseDtoExcludingData:dto];
+
+    XCTAssertNil(dto.data);
 }
 
 #pragma mark - Private
@@ -229,12 +242,15 @@
 
 - (NSDictionary *)buildResponseDtoDictionaryWithData:(id)aData
 {
-    return @{
+    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithDictionary:@{
             @"version" : @"someVersion",
             @"successful" : @(YES),
             @"errors" : @[[self buildErrorDtoDictionary]],
-            @"data" : aData,
-    };
+    }];
+    if (aData != nil) {
+        result[@"data"] = aData;
+    }
+    return result;
 }
 
 - (void)assertAlbumSongsDto:(PNYAlbumSongsDto *)aDto

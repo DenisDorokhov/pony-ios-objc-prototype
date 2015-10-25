@@ -19,6 +19,7 @@
 {
 @private
     NSOperationQueue *operationQueue;
+    AFJSONRequestSerializer *requestSerializer;
 }
 
 - (instancetype)init
@@ -27,6 +28,7 @@
     if (self != nil) {
 
         operationQueue = [[NSOperationQueue alloc] init];
+        requestSerializer = [[AFJSONRequestSerializer alloc] init];
 
         self.maxConcurrentRequestCount = 5;
     }
@@ -48,14 +50,11 @@
 #pragma mark - <PNYRestService>
 
 - (id <PNYRestRequest>)getInstallationWithSuccess:(void (^)(PNYInstallationDto *aInstallation))aSuccess
-                                         failure:(PNYRestServiceFailureBlock)aFailure
+                                          failure:(PNYRestServiceFailureBlock)aFailure
 {
-    AFHTTPRequestOperation *operation = [self buildRequestOperationWithUrl:@"/api/installation"
-                                                                parameters:nil headers:nil
-                                                         responseDataClass:[PNYInstallationDto class]
-                                                                   success:aSuccess failure:aFailure];
-
-    [operationQueue addOperation:operation];
+    AFHTTPRequestOperation *operation = [self runOperationWithUrl:@"/api/installation" method:@"GET"
+                                                responseDataClass:[PNYInstallationDto class]
+                                                          success:aSuccess failure:aFailure];
 
     return [PNYRestRequestOperation requestWithOperation:operation];
 }
@@ -65,13 +64,13 @@
                             success:(void (^)(PNYAuthenticationDto *aAuthentication))aSuccess
                             failure:(PNYRestServiceFailureBlock)aFailure
 {
-    AFHTTPRequestOperation *operation = [self buildRequestOperationWithUrl:@"/api/authenticate"
-                                                                parameters:[EKSerializer serializeObject:aCredentials withMapping:[PNYCredentialsDto objectMapping]]
-                                                                   headers:nil
-                                                         responseDataClass:[PNYAuthenticationDto class]
-                                                                   success:aSuccess failure:aFailure];
+    NSDictionary *credentialsDictionary = [EKSerializer serializeObject:aCredentials
+                                                            withMapping:[PNYCredentialsDto objectMapping]];
 
-    [operationQueue addOperation:operation];
+    AFHTTPRequestOperation *operation = [self runOperationWithUrl:@"/api/authenticate" method:@"POST"
+                                                       parameters:credentialsDictionary
+                                                responseDataClass:[PNYAuthenticationDto class]
+                                                          success:aSuccess failure:aFailure];
 
     return [PNYRestRequestOperation requestWithOperation:operation];
 }
@@ -79,12 +78,9 @@
 - (id <PNYRestRequest>)logoutWithSuccess:(void (^)(PNYUserDto *aUser))aSuccess
                                  failure:(PNYRestServiceFailureBlock)aFailure
 {
-    AFHTTPRequestOperation *operation = [self buildRequestOperationWithUrl:@"/api/logout"
-                                                                parameters:nil headers:nil
-                                                         responseDataClass:[PNYUserDto class]
-                                                                   success:aSuccess failure:aFailure];
-
-    [operationQueue addOperation:operation];
+    AFHTTPRequestOperation *operation = [self runOperationWithUrl:@"/api/logout" method:@"POST"
+                                                responseDataClass:[PNYUserDto class]
+                                                          success:aSuccess failure:aFailure];
 
     return [PNYRestRequestOperation requestWithOperation:operation];
 }
@@ -92,12 +88,9 @@
 - (id <PNYRestRequest>)getCurrentUserWithSuccess:(void (^)(PNYUserDto *aUser))aSuccess
                                          failure:(PNYRestServiceFailureBlock)aFailure
 {
-    AFHTTPRequestOperation *operation = [self buildRequestOperationWithUrl:@"/api/currentUser"
-                                                                parameters:nil headers:nil
-                                                         responseDataClass:[PNYUserDto class]
-                                                                   success:aSuccess failure:aFailure];
-
-    [operationQueue addOperation:operation];
+    AFHTTPRequestOperation *operation = [self runOperationWithUrl:@"/api/currentUser" method:@"GET"
+                                                responseDataClass:[PNYUserDto class]
+                                                          success:aSuccess failure:aFailure];
 
     return [PNYRestRequestOperation requestWithOperation:operation];
 }
@@ -112,12 +105,10 @@
         refreshToken = @"";
     }
 
-    AFHTTPRequestOperation *operation = [self buildRequestOperationWithUrl:@"/api/refreshToken"
-                                                                parameters:nil headers:@{PNYRestRefreshTokenHeader : refreshToken}
-                                                         responseDataClass:[PNYAuthenticationDto class]
-                                                                   success:aSuccess failure:aFailure];
-
-    [operationQueue addOperation:operation];
+    AFHTTPRequestOperation *operation = [self runOperationWithUrl:@"/api/refreshToken" method:@"POST"
+                                                          headers:@{PNYRestRefreshTokenHeader : refreshToken}
+                                                responseDataClass:[PNYAuthenticationDto class]
+                                                          success:aSuccess failure:aFailure];
 
     return [PNYRestRequestOperation requestWithOperation:operation];
 }
@@ -125,12 +116,9 @@
 - (id <PNYRestRequest>)getArtistsWithSuccess:(void (^)(NSArray *aArtists))aSuccess
                                      failure:(PNYRestServiceFailureBlock)aFailure
 {
-    AFHTTPRequestOperation *operation = [self buildRequestOperationWithUrl:@"/api/artists"
-                                                                parameters:nil headers:nil
-                                                         responseDataClass:[PNYUserDto class]
-                                                                   success:aSuccess failure:aFailure];
-
-    [operationQueue addOperation:operation];
+    AFHTTPRequestOperation *operation = [self runOperationWithUrl:@"/api/artists" method:@"GET"
+                                                responseDataClass:[PNYUserDto class]
+                                                          success:aSuccess failure:aFailure];
 
     return [PNYRestRequestOperation requestWithOperation:operation];
 }
@@ -141,88 +129,127 @@
 {
     NSString *url = [NSString stringWithFormat:@"/artistAlbums/%@", [PNYUrlUtils urlEncode:aArtistIdOrName]];
 
-    AFHTTPRequestOperation *operation = [self buildRequestOperationWithUrl:url
-                                                                parameters:nil headers:nil
-                                                         responseDataClass:[PNYArtistAlbumsDto class]
-                                                                   success:aSuccess failure:aFailure];
-
-    [operationQueue addOperation:operation];
+    AFHTTPRequestOperation *operation = [self runOperationWithUrl:url method:@"GET"
+                                                responseDataClass:[PNYArtistAlbumsDto class]
+                                                          success:aSuccess failure:aFailure];
 
     return [PNYRestRequestOperation requestWithOperation:operation];
 }
 
 #pragma mark - Private
 
-- (AFHTTPRequestOperation *)buildRequestOperationWithUrl:(NSString *)aRelativeUrl
-                                              parameters:(id)aParameters headers:(NSDictionary *)aHeaders
-                                       responseDataClass:(Class)aResponseDataClass
-                                                 success:(void (^)(id))aSuccess
-                                                 failure:(PNYRestServiceFailureBlock)aFailure
+- (AFHTTPRequestOperation *)runOperationWithUrl:(NSString *)aRelativeUrl method:(NSString *)aMethod
+                              responseDataClass:(Class)aResponseDataClass
+                                        success:(void (^)(id))aSuccess failure:(PNYRestServiceFailureBlock)aFailure
 {
-    NSURLRequest *urlRequest = [self buildJsonRequestWithUrl:aRelativeUrl parameters:aParameters headers:aHeaders];
-
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
-
-    operation.responseSerializer = [PNYRestResponseSerializer serializerWithDataClass:aResponseDataClass];
-
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *aOperation, PNYResponseDto *aResponse) {
-        if (aResponse.successful) {
-            aSuccess(aResponse.data);
-        } else {
-            aFailure(aResponse.errors);
-        }
-    } failure:^(AFHTTPRequestOperation *aOperation, NSError *aError) {
-        aFailure([self errorToDtoArray:aError]);
-    }];
-
-    return operation;
+    return [self runOperationWithUrl:aRelativeUrl method:aMethod
+                          parameters:nil headers:nil
+                   responseDataClass:aResponseDataClass
+                             success:aSuccess failure:aFailure];
 }
 
-- (NSURLRequest *)buildJsonRequestWithUrl:(NSString *)aRelativeUrl parameters:(id)aParameters headers:(NSDictionary *)aHeaders
+- (AFHTTPRequestOperation *)runOperationWithUrl:(NSString *)aRelativeUrl method:(NSString *)aMethod
+                                     parameters:(id)aParameters
+                              responseDataClass:(Class)aResponseDataClass
+                                        success:(void (^)(id))aSuccess failure:(PNYRestServiceFailureBlock)aFailure
+{
+    return [self runOperationWithUrl:aRelativeUrl method:aMethod
+                          parameters:aParameters headers:nil
+                   responseDataClass:aResponseDataClass
+                             success:aSuccess failure:aFailure];
+}
+
+- (AFHTTPRequestOperation *)runOperationWithUrl:(NSString *)aRelativeUrl method:(NSString *)aMethod
+                                        headers:(NSDictionary *)aHeaders
+                              responseDataClass:(Class)aResponseDataClass
+                                        success:(void (^)(id))aSuccess failure:(PNYRestServiceFailureBlock)aFailure
+{
+    return [self runOperationWithUrl:aRelativeUrl method:aMethod
+                          parameters:nil headers:aHeaders
+                   responseDataClass:aResponseDataClass
+                             success:aSuccess failure:aFailure];
+}
+
+- (AFHTTPRequestOperation *)runOperationWithUrl:(NSString *)aRelativeUrl method:(NSString *)aMethod
+                                     parameters:(id)aParameters headers:(NSDictionary *)aHeaders
+                              responseDataClass:(Class)aResponseDataClass
+                                        success:(void (^)(id))aSuccess failure:(PNYRestServiceFailureBlock)aFailure
+{
+    NSError *error = nil;
+
+    NSURLRequest *urlRequest = [self buildRequestWithUrl:aRelativeUrl method:aMethod
+                                              parameters:aParameters headers:aHeaders
+                                                   error:&error];
+
+    if (error == nil) {
+
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
+
+        operation.responseSerializer = [PNYRestResponseSerializer serializerWithDataClass:aResponseDataClass];
+
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *aOperation, PNYResponseDto *aResponse) {
+            if (aResponse.successful) {
+                aSuccess(aResponse.data);
+            } else {
+                aFailure(aResponse.errors);
+            }
+        }                                failure:^(AFHTTPRequestOperation *aOperation, NSError *aError) {
+            aFailure([self errorToDtoArray:aError]);
+        }];
+
+        [operationQueue addOperation:operation];
+
+        return operation;
+
+    } else {
+        aFailure([self errorToDtoArray:error]);
+    }
+
+    return nil;
+}
+
+- (NSURLRequest *)buildRequestWithUrl:(NSString *)aRelativeUrl method:(NSString *)aMethod
+                           parameters:(id)aParameters headers:(NSDictionary *)aHeaders
+                                error:(NSError **)aError
 {
     PNYAssert(self.tokenPairDao != nil);
 
-    AFJSONRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
+    NSMutableURLRequest *urlRequest = [requestSerializer requestWithMethod:aMethod
+                                                          URLString:[[self buildUrl:aRelativeUrl] absoluteString]
+                                                         parameters:aParameters
+                                                              error:aError];
 
-    PNYTokenPair *tokenPair = [self.tokenPairDao fetchTokenPair];
-    if (tokenPair.accessToken != nil) {
-        [serializer setValue:tokenPair.accessToken forHTTPHeaderField:PNYRestAccessTokenHeader];
+    if (*aError == nil) {
+
+        PNYTokenPair *tokenPair = [self.tokenPairDao fetchTokenPair];
+        if (tokenPair.accessToken != nil) {
+            [urlRequest setValue:tokenPair.accessToken forHTTPHeaderField:PNYRestAccessTokenHeader];
+        }
+
+        [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+
+        [aHeaders enumerateKeysAndObjectsUsingBlock:^(NSString *aKey, NSString *aValue, BOOL *aStop) {
+            [urlRequest setValue:aValue forHTTPHeaderField:aKey];
+        }];
+
+    } else {
+        PNYLogError(@"Could not serialize JSON request: %@.", *aError);
     }
 
-    [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-
-    [aHeaders enumerateKeysAndObjectsUsingBlock:^(NSString *aKey, NSString *aValue, BOOL *aStop) {
-        [serializer setValue:aValue forHTTPHeaderField:aKey];
-    }];
-
-    NSError *error = nil;
-
-    NSURLRequest *urlRequest = [serializer requestBySerializingRequest:[NSURLRequest requestWithURL:[self buildUrl:aRelativeUrl]]
-                                                        withParameters:aParameters error:&error];
-
-    if (error != nil) {
-        PNYLogError(@"Could not serialize JSON request: %@.", error);
-    }
-
-    return error == nil ? urlRequest : nil;
+    return *aError == nil ? urlRequest : nil;
 }
 
 - (NSURL *)buildUrl:(NSString *)aRelativeUrl
 {
     PNYAssert(self.userSettings != nil);
 
-    NSMutableString *url = [NSMutableString string];
+    NSMutableString *baseUrl = [NSMutableString string];
 
-    [url appendString:[self.userSettings settingForKey:PNYUserSettingsKeyRestProtocol]];
-    [url appendString:@"://"];
-    [url appendString:[self.userSettings settingForKey:PNYUserSettingsKeyRestUrl]];
-    if (![url hasSuffix:@"/"] && ![aRelativeUrl hasPrefix:aRelativeUrl]) {
-        [url appendString:@"/"];
-    }
+    [baseUrl appendString:[self.userSettings settingForKey:PNYUserSettingsKeyRestProtocol]];
+    [baseUrl appendString:@"://"];
+    [baseUrl appendString:[self.userSettings settingForKey:PNYUserSettingsKeyRestUrl]];
 
-    [url appendString:aRelativeUrl];
-
-    return [NSURL URLWithString:url];
+    return [NSURL URLWithString:aRelativeUrl relativeToURL:[NSURL URLWithString:baseUrl]];
 }
 
 - (NSArray *)errorToDtoArray:(NSError *)aError

@@ -5,6 +5,7 @@
 
 #define PNYAssert(expression) NSAssert(expression, @"" #expression)
 
+#define PNYLogVerbose(format, ...) DDLogVerbose(format, ##__VA_ARGS__)
 #define PNYLogDebug(format, ...) DDLogDebug(format, ##__VA_ARGS__)
 #define PNYLogInfo(format, ...) DDLogInfo(format, ##__VA_ARGS__)
 #define PNYLogWarn(format, ...) DDLogWarn(format, ##__VA_ARGS__)
