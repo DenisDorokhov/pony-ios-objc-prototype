@@ -19,7 +19,9 @@
 
 @implementation PNYRestServiceTests
 
-static NSString *const SERVICE_URL = @"http://pony.dorokhov.net/demo";
+static NSString *const DEMO_URL = @"http://pony.dorokhov.net/demo";
+static NSString *const DEMO_EMAIL = @"foo@bar.com";
+static NSString *const DEMO_PASSWORD = @"demo";
 
 - (void)setUp
 {
@@ -29,33 +31,56 @@ static NSString *const SERVICE_URL = @"http://pony.dorokhov.net/demo";
     tokenPairDao.persistentDictionary = [[PNYPersistentDictionaryImpl alloc] init];
 
     service = [[PNYRestServiceImpl alloc] init];
-    service.urlProvider = [PNYRestServiceUrlProviderMock serviceUrlProviderWithUrlToReturn:SERVICE_URL];
+    service.urlProvider = [PNYRestServiceUrlProviderMock serviceUrlProviderWithUrlToReturn:DEMO_URL];
     service.tokenPairDao = tokenPairDao;
 }
 
 - (void)testGetInstallation
 {
-    XCTestExpectation *expectation = [self expectationWithDescription:@"getInstallation"];
+    XCTestExpectation *expectation = PNYTestExpectationCreate();
 
     [service getInstallationWithSuccess:^(PNYInstallationDto *aInstallation) {
 
-        XCTAssertNotNil(aInstallation);
-
         [expectation fulfill];
+
+        XCTAssertNotNil(aInstallation.version);
 
     } failure:^(NSArray *aErrors) {
-
-        XCTFail(@"%@", aErrors);
-
-        [expectation fulfill];
+        [self failExpectation:expectation withErrors:aErrors];
     }];
 
-    [self waitForExpectationsWithTimeout:5 handler:nil];
+    PNYTestExpectationWait();
 }
 
 - (void)testAuthenticate
 {
-    XCTFail();
+    XCTestExpectation *expectation = PNYTestExpectationCreate();
+
+    PNYCredentialsDto *credentials = [[PNYCredentialsDto alloc] init];
+
+    credentials.email = DEMO_EMAIL;
+    credentials.password = DEMO_PASSWORD;
+
+    [service authenticate:credentials success:^(PNYAuthenticationDto *aAuthentication) {
+
+        [expectation fulfill];
+
+        XCTAssertNotNil(aAuthentication.accessToken);
+        XCTAssertNotNil(aAuthentication.accessTokenExpiration);
+        XCTAssertNotNil(aAuthentication.refreshToken);
+        XCTAssertNotNil(aAuthentication.refreshTokenExpiration);
+
+        XCTAssertNotNil(aAuthentication.user.name);
+        XCTAssertNotNil(aAuthentication.user.email);
+        XCTAssertNotNil(aAuthentication.user.creationDate);
+        XCTAssertNotNil(aAuthentication.user.updateDate);
+        XCTAssertEqual(aAuthentication.user.role, PNYRoleDtoUser);
+
+    } failure:^(NSArray *aErrors) {
+        [self failExpectation:expectation withErrors:aErrors];
+    }];
+
+    PNYTestExpectationWait();
 }
 
 - (void)testLogout
@@ -81,6 +106,15 @@ static NSString *const SERVICE_URL = @"http://pony.dorokhov.net/demo";
 - (void)testGetArtistAlbums
 {
     XCTFail();
+}
+
+#pragma mark - Private
+
+- (void)failExpectation:(XCTestExpectation *)aExpectation withErrors:(NSArray *)aErrors
+{
+    [aExpectation fulfill];
+
+    XCTFail(@"Request failed with errors: %@", aErrors);
 }
 
 @end
