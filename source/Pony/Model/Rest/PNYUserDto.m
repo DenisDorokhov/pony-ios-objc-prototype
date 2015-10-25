@@ -4,6 +4,7 @@
 //
 
 #import "PNYUserDto.h"
+#import "PNYDtoUtils.h"
 
 @implementation PNYUserDto
 
@@ -16,21 +17,21 @@
     [mapping mapPropertiesFromArray:@[@"name", @"email"]];
 
     [mapping mapKeyPath:@"creationDate" toProperty:@"creationDate" withValueBlock:^(NSString *aKey, NSNumber *aValue) {
-        return [NSDate dateWithTimeIntervalSince1970:[aValue doubleValue]];
+        return [PNYDtoUtils timestampToDate:aValue];
     } reverseBlock:^id(NSDate *aValue) {
-        return @([aValue timeIntervalSince1970]);
+        return [PNYDtoUtils dateToTimestamp:aValue];
     }];
     [mapping mapKeyPath:@"updateDate" toProperty:@"updateDate" withValueBlock:^(NSString *aKey, NSNumber *aValue) {
-        return [NSDate dateWithTimeIntervalSince1970:[aValue doubleValue]];
+        return [PNYDtoUtils timestampToDate:aValue];
     } reverseBlock:^id(NSDate *aValue) {
-        return @([aValue timeIntervalSince1970]);
+        return [PNYDtoUtils dateToTimestamp:aValue];
     }];
 
     NSDictionary *roles = @{ @"USER": @(PNYRoleDtoUser), @"ADMIN": @(PNYRoleDtoAdmin) };
-    [mapping mapKeyPath:@"role" toProperty:@"role" withValueBlock:^(NSString *key, id value) {
-        return roles[value];
-    } reverseBlock:^id(id value) {
-        return [roles allKeysForObject:value].lastObject;
+    [mapping mapKeyPath:@"role" toProperty:@"role" withValueBlock:^(NSString *aKey, id aValue) {
+        return aValue != (id)[NSNull null] ? roles[aValue] : @(PNYRoleDtoUser);
+    } reverseBlock:^id(id aValue) {
+        return aValue != (id)[NSNull null] ? [roles allKeysForObject:aValue].lastObject : @"USER";
     }];
 
     return mapping;

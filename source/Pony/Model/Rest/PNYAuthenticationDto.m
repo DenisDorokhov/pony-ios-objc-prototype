@@ -4,6 +4,7 @@
 //
 
 #import "PNYAuthenticationDto.h"
+#import "PNYDtoUtils.h"
 
 @implementation PNYAuthenticationDto
 
@@ -17,14 +18,14 @@
         [mapping hasOne:[PNYUserDto class] forKeyPath:@"user"];
 
         [mapping mapKeyPath:@"accessTokenExpiration" toProperty:@"accessTokenExpiration" withValueBlock:^(NSString *aKey, NSNumber *aValue) {
-            return [NSDate dateWithTimeIntervalSince1970:[aValue doubleValue]];
+            return [PNYDtoUtils timestampToDate:aValue];
         } reverseBlock:^id(NSDate *aValue) {
-            return @([aValue timeIntervalSince1970]);
+            return [PNYDtoUtils dateToTimestamp:aValue];
         }];
         [mapping mapKeyPath:@"refreshTokenExpiration" toProperty:@"refreshTokenExpiration" withValueBlock:^(NSString *aKey, NSNumber *aValue) {
-            return [NSDate dateWithTimeIntervalSince1970:[aValue doubleValue]];
+            return [PNYDtoUtils timestampToDate:aValue];
         } reverseBlock:^id(NSDate *aValue) {
-            return @([aValue timeIntervalSince1970]);
+            return [PNYDtoUtils dateToTimestamp:aValue];
         }];
     }];
 }

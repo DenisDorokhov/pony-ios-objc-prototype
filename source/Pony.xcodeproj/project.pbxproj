@@ -36,6 +36,7 @@
 		B3D395C67CF9E85900649DBA /* PNYKeychainDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39DA0A98E4CAC9BF9C012 /* PNYKeychainDictionary.m */; };
 		B3D39602C1CABDD315453C2D /* PNYUserSettingsImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D394F7D20D1AB9C936A1F1 /* PNYUserSettingsImpl.m */; };
 		B3D39619C3D114479685A568 /* PNYUrlUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39DEEA0BB3E6C58BA30B6 /* PNYUrlUtils.m */; };
+		B3D39631FC96270B19C247A8 /* PNYDtoUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39AB4E3AD5FC94BBBE61E /* PNYDtoUtils.m */; };
 		B3D3965AEA13D4324151E635 /* PNYArtistAlbumsDto.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39A2C51BA3021FF06A858 /* PNYArtistAlbumsDto.m */; };
 		B3D3966117014DD824574DAA /* PNYRestResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39E012D5199AAB1966EC9 /* PNYRestResponseSerializer.m */; };
 		B3D3970B04957A2769F21BED /* PNYSongDto.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D3995600AE5CE23610B184 /* PNYSongDto.m */; };
@@ -107,6 +108,7 @@
 		B3D39510C765D9DDF84BD112 /* PNYCredentialsDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYCredentialsDto.h; sourceTree = "<group>"; };
 		B3D3954FADD3D3E7CC1CC91B /* PNYTokenPairDaoImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYTokenPairDaoImpl.h; sourceTree = "<group>"; };
 		B3D3954FC059A034D092FE4A /* NSMutableOrderedSet+PNYNSValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableOrderedSet+PNYNSValue.h"; sourceTree = "<group>"; };
+		B3D39585D8BF3E7BB8D47065 /* PNYDtoUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYDtoUtils.h; sourceTree = "<group>"; };
 		B3D395F07109A88C4362C9F4 /* PNYRestServiceImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYRestServiceImpl.m; sourceTree = "<group>"; };
 		B3D396358D3E2070A4C68830 /* PNYFileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYFileUtils.h; sourceTree = "<group>"; };
 		B3D39645724712A53DD17270 /* PNYGenreDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYGenreDto.m; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 		B3D399653C72D6C7FC8F88E8 /* PNYRestServiceUrlProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYRestServiceUrlProvider.h; sourceTree = "<group>"; };
 		B3D399CB0BCFEB3C2AAC742D /* PNYRestRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYRestRequestOperation.h; sourceTree = "<group>"; };
 		B3D39A2C51BA3021FF06A858 /* PNYArtistAlbumsDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYArtistAlbumsDto.m; sourceTree = "<group>"; };
+		B3D39AB4E3AD5FC94BBBE61E /* PNYDtoUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYDtoUtils.m; sourceTree = "<group>"; };
 		B3D39AC908FBC287E5F87F39 /* PNYErrorUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYErrorUtils.h; sourceTree = "<group>"; };
 		B3D39AD705148365FC6681FC /* PNYRestServiceUrlProviderImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYRestServiceUrlProviderImpl.m; sourceTree = "<group>"; };
 		B3D39ADB94847606F6097CA2 /* PNYEventBus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYEventBus.m; sourceTree = "<group>"; };
@@ -417,6 +420,8 @@
 				B3D39B840F48F930040DB292 /* PNYAlbumDto.h */,
 				B3D39645724712A53DD17270 /* PNYGenreDto.m */,
 				B3D39AFC163ABC4CBA0B2E05 /* PNYInstallationDto.h */,
+				B3D39AB4E3AD5FC94BBBE61E /* PNYDtoUtils.m */,
+				B3D39585D8BF3E7BB8D47065 /* PNYDtoUtils.h */,
 			);
 			path = Rest;
 			sourceTree = "<group>";
@@ -749,6 +754,7 @@
 				B3D3902286B75DF12386E41C /* PNYErrorUtils.m in Sources */,
 				B3D390E6BA6AEBB13DD247A8 /* PNYRestServiceUrlProviderImpl.m in Sources */,
 				B3D3900C9967C5D362F0BBF1 /* PNYRestServiceUrlProviderMock.m in Sources */,
+				B3D39631FC96270B19C247A8 /* PNYDtoUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

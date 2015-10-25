@@ -12,7 +12,6 @@
 #import "PNYResponseDto.h"
 #import "PNYErrorDto.h"
 #import "PNYRestTokens.h"
-#import "PNYUrlUtils.h"
 
 @implementation PNYRestServiceImpl
 {
@@ -116,7 +115,7 @@
                                      failure:(PNYRestServiceFailureBlock)aFailure
 {
     AFHTTPRequestOperation *operation = [self runOperationWithUrl:@"/api/artists" method:@"GET"
-                                                responseDataClass:[PNYUserDto class]
+                                                responseDataClass:[PNYArtistDto class]
                                                           success:aSuccess failure:aFailure];
 
     return [PNYRestRequestOperation requestWithOperation:operation];
@@ -126,7 +125,7 @@
                                success:(void (^)(PNYArtistAlbumsDto *aArtistAlbums))aSuccess
                                failure:(PNYRestServiceFailureBlock)aFailure
 {
-    NSString *url = [NSString stringWithFormat:@"/artistAlbums/%@", [PNYUrlUtils urlEncode:aArtistIdOrName]];
+    NSString *url = [NSString stringWithFormat:@"/api/artistAlbums/%@", aArtistIdOrName];
 
     AFHTTPRequestOperation *operation = [self runOperationWithUrl:url method:@"GET"
                                                 responseDataClass:[PNYArtistAlbumsDto class]
