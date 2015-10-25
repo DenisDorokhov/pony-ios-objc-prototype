@@ -24,6 +24,7 @@
 		B3D3929569A627186EA565F1 /* PNYCredentialsDto.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D396942BCF3AE4E2FADAF6 /* PNYCredentialsDto.m */; };
 		B3D3931D2E28D609946DCB2E /* PNYAbstractDto.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D390E7C011934D8D3FFB51 /* PNYAbstractDto.m */; };
 		B3D3931FE77742252EEFF483 /* PNYLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D3917B32DD4FC934F11A8F /* PNYLogFormatter.m */; };
+		B3D393A5500CB969B5F59A81 /* PNYRestServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39F9F651894E047A3F591 /* PNYRestServiceTests.m */; };
 		B3D393D0E128DB4EFD1949ED /* PNYEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39DFCD24FAA94DC21436A /* PNYEvent.m */; };
 		B3D393F5FAF67041B527CD36 /* NSOrderedSet+PNYNSValue.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D3990C5423562FEEE9FCFE /* NSOrderedSet+PNYNSValue.m */; };
 		B3D3949B5F1688A30FFFBBCE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D396B135DCC7B3776CF9DC /* main.m */; };
@@ -176,6 +177,7 @@
 		B3D39F419FA74F77D4E37E83 /* PNYViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYViewController.h; sourceTree = "<group>"; };
 		B3D39F62CD510A6792FD34EE /* PNYRestTokens.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYRestTokens.h; sourceTree = "<group>"; };
 		B3D39F9037CF0E65542335D4 /* PNYPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYPrefix.pch; sourceTree = "<group>"; };
+		B3D39F9F651894E047A3F591 /* PNYRestServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYRestServiceTests.m; sourceTree = "<group>"; };
 		BC5E96777CFC4B76271FF399 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF6D0B713C0E6822FC01735C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D42DC7A592ECA225D2F4E176 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				B3D39C072125E1E9E864A7CA /* PNYTestDelegate.m */,
 				B3D39712F2E561301A479EB0 /* PNYTestPrefix.pch */,
 				B3D39EDDBA26258F1A085110 /* Model */,
+				B3D39D54C4AED8D2BFA79418 /* Services */,
 			);
 			path = PonyTests;
 			sourceTree = "<group>";
@@ -461,6 +464,14 @@
 				B3D39C5FDCFE9928DFC486D3 /* PNYPersistentDictionaryImpl.m */,
 			);
 			path = Persistence;
+			sourceTree = "<group>";
+		};
+		B3D39D54C4AED8D2BFA79418 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B3D39F9F651894E047A3F591 /* PNYRestServiceTests.m */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		B3D39E94328F5BA87536221C /* EventBus */ = {
@@ -751,6 +762,7 @@
 				B3D3991D816EB45B25A8B3A2 /* PNYConfigTests.m in Sources */,
 				B3D391E2CFA8C8BB100755FB /* PNYUserSettingsTests.m in Sources */,
 				B3D39ACD1871AF58ABDF6EAE /* DtoMappingTests.m in Sources */,
+				B3D393A5500CB969B5F59A81 /* PNYRestServiceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

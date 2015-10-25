@@ -94,8 +94,8 @@
     return [PNYRestRequestOperation requestWithOperation:operation];
 }
 
-- (id <PNYRestRequest>)refreshWithSuccess:(void (^)(PNYAuthenticationDto *aAuthentication))aSuccess
-                                  failure:(PNYRestServiceFailureBlock)aFailure
+- (id <PNYRestRequest>)refreshTokenWithSuccess:(void (^)(PNYAuthenticationDto *aAuthentication))aSuccess
+                                       failure:(PNYRestServiceFailureBlock)aFailure
 {
     PNYAssert(self.tokenPairDao != nil);
 
@@ -242,7 +242,7 @@
 {
     PNYAssert(self.urlProvider != nil);
 
-    return [NSURL URLWithString:aRelativeUrl relativeToURL:[self.urlProvider serverUrl]];
+    return [[self.urlProvider serverUrl] URLByAppendingPathComponent:aRelativeUrl];
 }
 
 - (NSArray *)errorToDtoArray:(NSError *)aError

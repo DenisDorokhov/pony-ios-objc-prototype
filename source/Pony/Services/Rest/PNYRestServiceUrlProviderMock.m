@@ -7,11 +7,25 @@
 
 @implementation PNYRestServiceUrlProviderMock
 
++ (instancetype)serviceUrlProviderWithUrlToReturn:(NSString *)aUrlToReturn
+{
+    return [[self alloc] initWithUrlToReturn:aUrlToReturn];
+}
+
+- (instancetype)initWithUrlToReturn:(NSString *)aUrlToReturn
+{
+    self = [self init];
+    if (self != nil) {
+        self.urlToReturn = aUrlToReturn;
+    }
+    return self;
+}
+
 #pragma mark - <PNYRestServiceUrlProvider>
 
 - (NSURL *)serverUrl
 {
-    return [NSURL URLWithString:self.url];
+    return [NSURL URLWithString:self.urlToReturn];
 }
 
 @end

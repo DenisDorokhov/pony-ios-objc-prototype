@@ -7,6 +7,10 @@
 
 @interface PNYRestServiceUrlProviderMock : NSObject <PNYRestServiceUrlProvider>
 
-@property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) NSString *urlToReturn;
+
++ (instancetype)serviceUrlProviderWithUrlToReturn:(NSString *)aUrlToReturn;
+
+- (instancetype)initWithUrlToReturn:(NSString *)aUrlToReturn;
 
 @end
