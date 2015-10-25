@@ -6,7 +6,6 @@
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
 #import <EasyMapping/EKSerializer.h>
 #import "PNYRestServiceImpl.h"
-#import "PNYUserSettingsKeys.h"
 #import "PNYMacros.h"
 #import "PNYRestRequestOperation.h"
 #import "PNYRestResponseSerializer.h"
@@ -241,15 +240,9 @@
 
 - (NSURL *)buildUrl:(NSString *)aRelativeUrl
 {
-    PNYAssert(self.userSettings != nil);
+    PNYAssert(self.urlProvider != nil);
 
-    NSMutableString *baseUrl = [NSMutableString string];
-
-    [baseUrl appendString:[self.userSettings settingForKey:PNYUserSettingsKeyRestProtocol]];
-    [baseUrl appendString:@"://"];
-    [baseUrl appendString:[self.userSettings settingForKey:PNYUserSettingsKeyRestUrl]];
-
-    return [NSURL URLWithString:aRelativeUrl relativeToURL:[NSURL URLWithString:baseUrl]];
+    return [NSURL URLWithString:aRelativeUrl relativeToURL:[self.urlProvider serverUrl]];
 }
 
 - (NSArray *)errorToDtoArray:(NSError *)aError

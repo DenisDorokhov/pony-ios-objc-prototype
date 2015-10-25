@@ -4,12 +4,12 @@
 //
 
 #import "PNYRestService.h"
-#import "PNYUserSettings.h"
+#import "PNYRestServiceUrlProvider.h"
 #import "PNYTokenPairDao.h"
 
 @interface PNYRestServiceImpl : NSObject <PNYRestService>
 
-@property (nonatomic, strong) id <PNYUserSettings> userSettings;
+@property (nonatomic, strong) id <PNYRestServiceUrlProvider> urlProvider;
 
 @property (nonatomic, strong) id <PNYTokenPairDao> tokenPairDao;
 
