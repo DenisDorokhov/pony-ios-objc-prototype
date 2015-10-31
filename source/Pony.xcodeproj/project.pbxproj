@@ -260,9 +260,9 @@
 			children = (
 				268126D91BCA781500728EFF /* Pony */,
 				268126F31BCA781500728EFF /* PonyTests */,
-				268126D81BCA781500728EFF /* Products */,
-				CC9F9B4FDAAC5D0FFC4E4AF5 /* Pods */,
 				1B5BE1C476B52E5E43666951 /* Frameworks */,
+				CC9F9B4FDAAC5D0FFC4E4AF5 /* Pods */,
+				268126D81BCA781500728EFF /* Products */,
 			);
 			sourceTree = "<group>";
 		};

@@ -7,6 +7,5 @@ pod 'AFNetworking', '2.6.0'
 pod 'EasyMapping', '0.15.3'
 
 target :PonyTests, :exclusive => true do
-  pod 'OCHamcrest', '4.3.0'
   pod 'OCMockito', '1.4.0'
 end

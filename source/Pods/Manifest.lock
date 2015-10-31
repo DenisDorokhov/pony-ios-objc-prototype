@@ -44,7 +44,6 @@ DEPENDENCIES:
   - CocoaLumberjack (= 2.2.0)
   - EasyMapping (= 0.15.3)
   - NSHash (= 1.0.1)
-  - OCHamcrest (= 4.3.0)
   - OCMockito (= 1.4.0)
   - Typhoon (= 3.3.4)
 
