@@ -9,6 +9,9 @@
 #import "PNYTokenPairDaoImpl.h"
 #import "PNYPersistentDictionaryImpl.h"
 #import "PNYFileUtils.h"
+#import "PNYAlbumDto.h"
+#import "PNYAlbumSongsDto.h"
+#import "PNYSongDto.h"
 
 @interface PNYRestServiceTests : PNYTestCase
 {
@@ -136,7 +139,9 @@ static NSString *const DEMO_PASSWORD = @"demo";
 
     XCTAssertGreaterThan([artists count], 0);
 
-    // TODO: assert artists
+    PNYArtistDto *artist = artists[0];
+
+    [self assertArtist:artist];
 }
 
 - (void)testGetArtistAlbums
@@ -166,7 +171,8 @@ static NSString *const DEMO_PASSWORD = @"demo";
     XCTAssertNotNil(artistAlbums.artist);
     XCTAssertGreaterThan([artistAlbums.albums count], 0);
 
-    // TODO: assert artist albums
+    [self assertArtist:artistAlbums.artist];
+    [self assertAlbumSongs:artistAlbums.albums[0]];
 }
 
 #pragma mark - Private
@@ -253,6 +259,57 @@ static NSString *const DEMO_PASSWORD = @"demo";
     XCTAssertEqualObjects(aUser.email, DEMO_EMAIL);
     XCTAssertNotNil(aUser.creationDate);
     XCTAssertEqual(aUser.role, PNYRoleDtoUser);
+}
+
+- (void)assertArtist:(PNYArtistDto *)aArtist
+{
+    XCTAssertNotNil(aArtist.id);
+    XCTAssertNotNil(aArtist.name);
+    XCTAssertNotNil(aArtist.artwork);
+    XCTAssertNotNil(aArtist.artworkUrl);
+}
+
+- (void)assertAlbum:(PNYAlbumDto *)aAlbum
+{
+    XCTAssertNotNil(aAlbum.id);
+    XCTAssertNotNil(aAlbum.name);
+    XCTAssertNotNil(aAlbum.year);
+    XCTAssertNotNil(aAlbum.artwork);
+    XCTAssertNotNil(aAlbum.artworkUrl);
+
+    [self assertArtist:aAlbum.artist];
+}
+
+- (void)assertGenre:(PNYGenreDto *)aGenre
+{
+    XCTAssertNotNil(aGenre.id);
+    XCTAssertNotNil(aGenre.name);
+    XCTAssertNotNil(aGenre.artwork);
+    XCTAssertNotNil(aGenre.artworkUrl);
+}
+
+- (void)assertSong:(PNYSongDto *)aSong
+{
+    // Disc number can be nil, so we skip it.
+
+    XCTAssertNotNil(aSong.id);
+    XCTAssertNotNil(aSong.url);
+    XCTAssertNotNil(aSong.duration);
+    XCTAssertNotNil(aSong.trackNumber);
+    XCTAssertNotNil(aSong.artistName);
+    XCTAssertNotNil(aSong.name);
+
+    [self assertAlbum:aSong.album];
+    [self assertGenre:aSong.genre];
+}
+
+- (void)assertAlbumSongs:(PNYAlbumSongsDto *)aAlbumSongs
+{
+    [self assertAlbum:aAlbumSongs.album];
+
+    XCTAssertGreaterThan([aAlbumSongs.songs count], 0);
+
+    [self assertSong:aAlbumSongs.songs[0]];
 }
 
 @end

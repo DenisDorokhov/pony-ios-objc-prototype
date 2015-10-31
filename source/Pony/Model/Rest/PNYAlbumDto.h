@@ -9,6 +9,7 @@
 @interface PNYAlbumDto : PNYAbstractDto
 
 @property (nonatomic, strong) NSString *name;
+
 @property (nonatomic) NSNumber *year;
 
 @property (nonatomic) NSNumber *artwork;
