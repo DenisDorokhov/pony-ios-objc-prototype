@@ -31,7 +31,7 @@
 {
     NSMutableDictionary *resultDictionary = [NSMutableDictionary dictionary];
 
-    for (NSDictionary *dictionary in _dictionaries) {
+    for (NSDictionary *dictionary in self.dictionaries) {
         [dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *aKey, id aValue, BOOL *aStop) {
 
             if (resultDictionary[aKey] != nil) {

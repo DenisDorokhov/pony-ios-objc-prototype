@@ -27,14 +27,14 @@ static const NSPropertyListFormat PLIST_FORMAT = NSPropertyListBinaryFormat_v1_0
 
 - (NSData *)serializeValue:(id)aValue
 {
-    PNYAssert(_valueClass != nil);
+    PNYAssert(self.valueClass != nil);
 
     NSData *serializedValue = nil;
 
     if ([aValue isKindOfClass:[NSArray class]]) {
 
         NSArray *mappedArray = [EKSerializer serializeCollection:aValue
-                                                     withMapping:[_valueClass objectMapping]];
+                                                     withMapping:[self.valueClass objectMapping]];
 
         serializedValue = [NSPropertyListSerialization dataWithPropertyList:mappedArray format:PLIST_FORMAT
                                                                     options:0 error:nil];
@@ -42,7 +42,7 @@ static const NSPropertyListFormat PLIST_FORMAT = NSPropertyListBinaryFormat_v1_0
     } else if ([aValue conformsToProtocol:@protocol(EKMappingProtocol)]) {
 
         NSDictionary *mappedValue = [EKSerializer serializeObject:aValue
-                                                      withMapping:[_valueClass objectMapping]];
+                                                      withMapping:[self.valueClass objectMapping]];
 
         serializedValue = [NSPropertyListSerialization dataWithPropertyList:mappedValue format:PLIST_FORMAT
                                                                     options:0 error:nil];
@@ -56,7 +56,7 @@ static const NSPropertyListFormat PLIST_FORMAT = NSPropertyListBinaryFormat_v1_0
 
 - (id)unserializeValue:(NSData *)aValue
 {
-    PNYAssert(_valueClass != nil);
+    PNYAssert(self.valueClass != nil);
 
     id mappedValue = [NSPropertyListSerialization propertyListWithData:aValue options:NSPropertyListImmutable
                                                                 format:nil error:nil];
@@ -64,10 +64,10 @@ static const NSPropertyListFormat PLIST_FORMAT = NSPropertyListBinaryFormat_v1_0
     id unserializedValue = nil;
     if ([mappedValue isKindOfClass:[NSArray class]]) {
         unserializedValue = [EKMapper arrayOfObjectsFromExternalRepresentation:mappedValue
-                                                                   withMapping:[_valueClass objectMapping]];
+                                                                   withMapping:[self.valueClass objectMapping]];
     } else if ([mappedValue isKindOfClass:[NSDictionary class]]) {
         unserializedValue = [EKMapper objectFromExternalRepresentation:mappedValue
-                                                           withMapping:[_valueClass objectMapping]];
+                                                           withMapping:[self.valueClass objectMapping]];
     } else {
         @throw [PNYErrorUtils exceptionForObject:self message:@"NSArray or NSDictionary value expected."];
     }

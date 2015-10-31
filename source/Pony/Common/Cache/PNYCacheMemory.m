@@ -35,7 +35,7 @@
 {
     id value = [memoryCache objectForKey:aKey];
     if (value == nil) {
-        value = [_targetCache cachedValueForKey:aKey];
+        value = [self.targetCache cachedValueForKey:aKey];
     }
     if (value != nil) {
         [memoryCache setObject:value forKey:aKey];
@@ -45,19 +45,19 @@
 
 - (void)cacheValue:(id)aValue forKey:(NSString *)aKey
 {
-    [_targetCache cacheValue:aValue forKey:aKey];
+    [self.targetCache cacheValue:aValue forKey:aKey];
     [memoryCache setObject:aValue forKey:aKey];
 }
 
 - (void)removeCachedValueForKey:(NSString *)aKey
 {
-    [_targetCache removeCachedValueForKey:aKey];
+    [self.targetCache removeCachedValueForKey:aKey];
     [memoryCache removeObjectForKey:aKey];
 }
 
 - (void)removeAllCachedValues
 {
-    [_targetCache removeAllCachedValues];
+    [self.targetCache removeAllCachedValues];
     [memoryCache removeAllObjects];
 }
 

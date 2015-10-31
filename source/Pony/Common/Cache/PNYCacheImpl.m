@@ -18,7 +18,7 @@
         _folderPath = [aFolderPath copy];
         _serializer = aSerializer;
 
-        [PNYFileUtils createNotExistingDirectory:_folderPath];
+        [PNYFileUtils createNotExistingDirectory:self.folderPath];
     }
     return self;
 }
@@ -31,9 +31,9 @@
 
     if (valueData != nil) {
 
-        PNYLogVerbose(@"Cache hit for key [%@] in folder [%@].", aKey, _folderPath);
+        PNYLogVerbose(@"Cache hit for key [%@] in folder [%@].", aKey, self.folderPath);
 
-        return [_serializer unserializeValue:valueData];
+        return [self.serializer unserializeValue:valueData];
     }
 
     return nil;
@@ -41,11 +41,11 @@
 
 - (void)cacheValue:(id)aValue forKey:(NSString *)aKey
 {
-    NSData *valueData = [_serializer serializeValue:aValue];
+    NSData *valueData = [self.serializer serializeValue:aValue];
 
     [valueData writeToFile:[self buildFilePathNameForKey:aKey] atomically:YES];
 
-    PNYLogVerbose(@"Cached value for key [%@] in folder [%@].", aKey, _folderPath);
+    PNYLogVerbose(@"Cached value for key [%@] in folder [%@].", aKey, self.folderPath);
 }
 
 - (void)removeCachedValueForKey:(NSString *)aKey
@@ -53,26 +53,26 @@
     [[NSFileManager defaultManager] removeItemAtPath:[self buildFilePathNameForKey:aKey]
                                                error:nil];
 
-    PNYLogVerbose(@"Removed value for key [%@] in folder [%@].", aKey, _folderPath);
+    PNYLogVerbose(@"Removed value for key [%@] in folder [%@].", aKey, self.folderPath);
 }
 
 - (void)removeAllCachedValues
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
 
-    NSArray *fileList = [fileManager contentsOfDirectoryAtPath:_folderPath error:nil];
+    NSArray *fileList = [fileManager contentsOfDirectoryAtPath:self.folderPath error:nil];
     for (NSString *filePath in fileList) {
-        [fileManager removeItemAtPath:[_folderPath stringByAppendingPathComponent:filePath] error:nil];
+        [fileManager removeItemAtPath:[self.folderPath stringByAppendingPathComponent:filePath] error:nil];
     }
 
-    PNYLogDebug(@"Removed all values in folder [%@].", _folderPath);
+    PNYLogDebug(@"Removed all values in folder [%@].", self.folderPath);
 }
 
 #pragma mark - Private
 
 - (NSString *)buildFilePathNameForKey:(NSString *)aKey
 {
-    return [_folderPath stringByAppendingPathComponent:[aKey MD5]];
+    return [self.folderPath stringByAppendingPathComponent:[aKey MD5]];
 }
 
 @end

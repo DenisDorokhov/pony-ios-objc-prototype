@@ -22,7 +22,7 @@
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
-        id value = [_cache cachedValueForKey:aKey];
+        id value = [self.cache cachedValueForKey:aKey];
 
         dispatch_async(dispatch_get_main_queue(), ^{
             if (aCompletion != nil) {
@@ -36,7 +36,7 @@
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
-        [_cache cacheValue:aValue forKey:aKey];
+        [self.cache cacheValue:aValue forKey:aKey];
 
         dispatch_async(dispatch_get_main_queue(), ^{
             if (aCompletion != nil) {
@@ -50,7 +50,7 @@
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
-        [_cache removeCachedValueForKey:aKey];
+        [self.cache removeCachedValueForKey:aKey];
 
         dispatch_async(dispatch_get_main_queue(), ^{
             if (aCompletion != nil) {
@@ -64,7 +64,7 @@
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
-        [_cache removeAllCachedValues];
+        [self.cache removeAllCachedValues];
 
         dispatch_async(dispatch_get_main_queue(), ^{
             if (aCompletion != nil) {

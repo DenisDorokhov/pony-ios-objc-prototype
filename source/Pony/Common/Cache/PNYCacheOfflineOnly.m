@@ -22,30 +22,30 @@
 
 - (id)cachedValueForKey:(NSString *)aKey
 {
-    PNYAssert(_targetCache != nil);
+    PNYAssert(self.targetCache != nil);
 
-    return [self isOnline] ? nil : [_targetCache cachedValueForKey:aKey];
+    return [self isOnline] ? nil : [self.targetCache cachedValueForKey:aKey];
 }
 
 - (void)cacheValue:(id)aValue forKey:(NSString *)aKey
 {
-    PNYAssert(_targetCache != nil);
+    PNYAssert(self.targetCache != nil);
 
-    [_targetCache cacheValue:aValue forKey:aKey];
+    [self.targetCache cacheValue:aValue forKey:aKey];
 }
 
 - (void)removeCachedValueForKey:(NSString *)aKey
 {
-    PNYAssert(_targetCache != nil);
+    PNYAssert(self.targetCache != nil);
 
-    [_targetCache removeCachedValueForKey:aKey];
+    [self.targetCache removeCachedValueForKey:aKey];
 }
 
 - (void)removeAllCachedValues
 {
-    PNYAssert(_targetCache != nil);
+    PNYAssert(self.targetCache != nil);
 
-    [_targetCache removeAllCachedValues];
+    [self.targetCache removeAllCachedValues];
 }
 
 #pragma mark - Private

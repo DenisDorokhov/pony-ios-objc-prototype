@@ -15,13 +15,13 @@
 
 - (BOOL)cancelled
 {
-    return _targetRequest != nil ? _targetRequest.cancelled : _cancelled;
+    return self.targetRequest != nil ? self.targetRequest.cancelled : _cancelled;
 }
 
 - (void)cancel
 {
-    if (_targetRequest != nil) {
-        [_targetRequest cancel];
+    if (self.targetRequest != nil) {
+        [self.targetRequest cancel];
     } else {
         _cancelled = YES;
     }

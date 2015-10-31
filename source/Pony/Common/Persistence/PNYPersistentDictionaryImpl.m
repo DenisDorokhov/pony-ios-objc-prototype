@@ -50,15 +50,14 @@
     _fileFlushInterval = 60.0;
     _excludeFromBackup = NO;
 
-    NSString *folderPath = [_filePath stringByDeletingLastPathComponent];
+    NSString *folderPath = [self.filePath stringByDeletingLastPathComponent];
 
     if (![[NSFileManager defaultManager] fileExistsAtPath:folderPath]) {
         [[NSFileManager defaultManager] createDirectoryAtPath:folderPath withIntermediateDirectories:YES
                                                    attributes:nil error:nil];
     }
 
-    _data = [NSMutableDictionary dictionaryWithContentsOfFile:_filePath];
-
+    _data = [NSMutableDictionary dictionaryWithContentsOfFile:self.filePath];
     if (_data == nil) {
         _data = [NSMutableDictionary dictionary];
     }
@@ -103,12 +102,12 @@
     NSData *contents = [NSPropertyListSerialization dataWithPropertyList:aData format:NSPropertyListBinaryFormat_v1_0
                                                                  options:0 error:nil];
 
-    [[NSFileManager defaultManager] createFileAtPath:_filePath contents:contents attributes:nil];
+    [[NSFileManager defaultManager] createFileAtPath:self.filePath contents:contents attributes:nil];
 
-    [[NSURL fileURLWithPath:_filePath] setResourceValue:@(_excludeFromBackup)
+    [[NSURL fileURLWithPath:self.filePath] setResourceValue:@(self.excludeFromBackup)
                                                  forKey:NSURLIsExcludedFromBackupKey error:nil];
 
-    PNYLogDebug(@"Data has been flushed to file [%@].", _filePath);
+    PNYLogDebug(@"Data has been flushed to file [%@].", self.filePath);
 }
 
 - (void)onExit
