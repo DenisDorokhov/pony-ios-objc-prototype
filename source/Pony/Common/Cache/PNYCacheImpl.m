@@ -62,7 +62,7 @@
 
     NSArray *fileList = [fileManager contentsOfDirectoryAtPath:_folderPath error:nil];
     for (NSString *filePath in fileList) {
-        [fileManager removeItemAtPath:filePath error:nil];
+        [fileManager removeItemAtPath:[_folderPath stringByAppendingPathComponent:filePath] error:nil];
     }
 
     PNYLogDebug(@"Removed all values in folder [%@].", _folderPath);

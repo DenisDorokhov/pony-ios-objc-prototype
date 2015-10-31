@@ -11,6 +11,8 @@
 #import "PNYInstallationDto.h"
 #import "PNYCacheSerializerMapping.h"
 #import "PNYCacheMemory.h"
+#import "PNYCacheImpl.h"
+#import "PNYFileUtils.h"
 
 @interface PNYCacheTests_MappedObject : NSObject <EKMappingProtocol>
 
@@ -125,25 +127,39 @@
 
     [memoryCache removeCachedValueForKey:@"otherKey"];
 
-    [verify(targetCache) removeCachedValueForKey:@"otherKey"];
-
     XCTAssertNil([memoryCache cachedValueForKey:@"otherKey"]);
-
-    [verify(targetCache) cachedValueForKey:@"otherKey"];
-
     XCTAssertNotNil([memoryCache cachedValueForKey:@"someKey"]);
-
-    [verifyCount(targetCache, times(1)) cachedValueForKey:@"someKey"];
 
     // Check if all values are removed.
 
     [memoryCache removeAllCachedValues];
 
-    [verify(targetCache) removeAllCachedValues];
-
     [given([targetCache cachedValueForKey:@"someKey"]) willReturn:nil];
 
     XCTAssertNil([memoryCache cachedValueForKey:@"someKey"]);
+}
+
+- (void)testCache
+{
+    PNYCacheSerializerString *serializer = [PNYCacheSerializerString new];
+
+    PNYCacheImpl *cache = [[PNYCacheImpl alloc] initWithFolderPath:[PNYFileUtils filePathInDocuments:@"PNYCacheTests"]
+                                                        serializer:serializer];
+
+    [cache cacheValue:@"someValue" forKey:@"someKey"];
+
+    XCTAssertEqualObjects([cache cachedValueForKey:@"someKey"], @"someValue");
+
+    [cache cacheValue:@"otherValue" forKey:@"otherKey"];
+
+    [cache removeCachedValueForKey:@"otherKey"];
+
+    XCTAssertNil([cache cachedValueForKey:@"otherKey"]);
+    XCTAssertEqualObjects([cache cachedValueForKey:@"someKey"], @"someValue");
+
+    [cache removeAllCachedValues];
+
+    XCTAssertNil([cache cachedValueForKey:@"someKey"]);
 }
 
 #pragma mark - Private
