@@ -37,6 +37,9 @@
     if (value == nil) {
         value = [_targetCache cachedValueForKey:aKey];
     }
+    if (value != nil) {
+        [memoryCache setObject:value forKey:aKey];
+    }
     return value;
 }
 

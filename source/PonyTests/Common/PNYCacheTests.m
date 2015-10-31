@@ -97,6 +97,55 @@
     [self assertMappedObject:mappedObjectArray[0]];
 }
 
+- (void)testMemoryCache
+{
+    id <PNYCache> targetCache = mockProtocol(@protocol(PNYCache));
+
+    [given([targetCache cachedValueForKey:@"someKey"]) willReturn:@"someValue"];
+
+    PNYCacheMemory *memoryCache = [[PNYCacheMemory alloc] initWithTargetCache:targetCache];
+
+    // Check if target cache is accessed.
+
+    XCTAssertEqualObjects([memoryCache cachedValueForKey:@"someKey"], @"someValue");
+
+    [verify(targetCache) cachedValueForKey:@"someKey"];
+
+    // Check if target cache is not accessed again, since the value is in memory.
+
+    XCTAssertEqualObjects([memoryCache cachedValueForKey:@"someKey"], @"someValue");
+
+    [verifyCount(targetCache, times(1)) cachedValueForKey:@"someKey"];
+
+    // Check if particular value is removed.
+
+    [memoryCache cacheValue:@"otherValue" forKey:@"otherKey"];
+
+    XCTAssertNotNil([memoryCache cachedValueForKey:@"otherKey"]);
+
+    [memoryCache removeCachedValueForKey:@"otherKey"];
+
+    [verify(targetCache) removeCachedValueForKey:@"otherKey"];
+
+    XCTAssertNil([memoryCache cachedValueForKey:@"otherKey"]);
+
+    [verify(targetCache) cachedValueForKey:@"otherKey"];
+
+    XCTAssertNotNil([memoryCache cachedValueForKey:@"someKey"]);
+
+    [verifyCount(targetCache, times(1)) cachedValueForKey:@"someKey"];
+
+    // Check if all values are removed.
+
+    [memoryCache removeAllCachedValues];
+
+    [verify(targetCache) removeAllCachedValues];
+
+    [given([targetCache cachedValueForKey:@"someKey"]) willReturn:nil];
+
+    XCTAssertNil([memoryCache cachedValueForKey:@"someKey"]);
+}
+
 #pragma mark - Private
 
 - (PNYCacheTests_MappedObject *)buildMappedObject
