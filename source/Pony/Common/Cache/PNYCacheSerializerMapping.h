@@ -11,6 +11,7 @@
 
 - (instancetype)initWithValueClass:(Class)aValueClass;
 
++ (instancetype)new __unavailable;
 - (instancetype)init __unavailable;
 
 @end

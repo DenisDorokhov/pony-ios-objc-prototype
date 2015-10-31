@@ -27,7 +27,7 @@
 - (void)setupLogging
 {
     DDTTYLogger *logger = [DDTTYLogger sharedInstance];
-    logger.logFormatter = [[PNYLogFormatter alloc] init];
+    logger.logFormatter = [PNYLogFormatter new];
     [DDLog addLogger:logger withLevel:DDLogLevelDebug];
 }
 

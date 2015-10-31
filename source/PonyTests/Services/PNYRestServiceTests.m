@@ -33,9 +33,9 @@ static NSString *const DEMO_PASSWORD = @"demo";
 
     OCMStub([urlProvider serverUrl]).andReturn([NSURL URLWithString:DEMO_URL]);
 
-    service = [[PNYRestServiceImpl alloc] init];
+    service = [PNYRestServiceImpl new];
     service.urlProvider = urlProvider;
-    service.tokenPairDao = [[PNYTokenPairDaoMock alloc] init];
+    service.tokenPairDao = [PNYTokenPairDaoMock new];
 }
 
 - (void)testGetInstallation
@@ -200,7 +200,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
 {
     XCTestExpectation *expectation = PNYTestExpectationCreate();
 
-    PNYCredentialsDto *credentials = [[PNYCredentialsDto alloc] init];
+    PNYCredentialsDto *credentials = [PNYCredentialsDto new];
 
     credentials.email = DEMO_EMAIL;
     credentials.password = DEMO_PASSWORD;
@@ -219,7 +219,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
 
     PNYTestExpectationWait();
 
-    PNYTokenPair *tokenPair = [[PNYTokenPair alloc] init];
+    PNYTokenPair *tokenPair = [PNYTokenPair new];
 
     tokenPair.accessToken = authentication.accessToken;
     tokenPair.accessTokenExpiration = authentication.accessTokenExpiration;

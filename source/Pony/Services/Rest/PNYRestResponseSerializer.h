@@ -15,6 +15,7 @@
 
 + (instancetype)serializer __unavailable;
 
++ (instancetype)new __unavailable;
 - (instancetype)init __unavailable;
 
 @end

@@ -11,6 +11,7 @@
 
 - (instancetype)initWithCache:(id <PNYCache>)aCache;
 
++ (instancetype)new __unavailable;
 - (instancetype)init __unavailable;
 
 - (void)cachedValueForKey:(NSString *)aKey completion:(void (^)(id aCachedValue))aCompletion;

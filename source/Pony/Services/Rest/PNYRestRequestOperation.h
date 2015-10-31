@@ -13,6 +13,7 @@
 
 - (instancetype)initWithOperation:(NSOperation *)aOperation;
 
++ (instancetype)new __unavailable;
 - (instancetype)init __unavailable;
 
 @end

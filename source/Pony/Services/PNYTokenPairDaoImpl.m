@@ -61,7 +61,7 @@ static NSString *const KEY_REFRESH_TOKEN_EXPIRATION = @"refreshTokenExpiration";
 
     if (aDictionary != nil) {
 
-        tokenPair = [[PNYTokenPair alloc] init];
+        tokenPair = [PNYTokenPair new];
 
         tokenPair.accessToken = aDictionary[KEY_ACCESS_TOKEN];
         tokenPair.accessTokenExpiration = [NSDate dateWithTimeIntervalSince1970:[aDictionary[KEY_ACCESS_TOKEN_EXPIRATION] doubleValue]];

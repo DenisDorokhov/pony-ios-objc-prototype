@@ -15,6 +15,7 @@
 
 - (instancetype)initWithFilePath:(NSString *)aFilePath;
 
++ (instancetype)new __unavailable;
 - (instancetype)init __unavailable;
 
 @end

@@ -17,7 +17,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         DDTTYLogger *logger = [DDTTYLogger sharedInstance];
-        logger.logFormatter = [[PNYLogFormatter alloc] init];
+        logger.logFormatter = [PNYLogFormatter new];
         [DDLog addLogger:logger];
     });
 }

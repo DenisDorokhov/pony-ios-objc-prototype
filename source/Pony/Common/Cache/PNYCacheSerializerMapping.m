@@ -9,6 +9,7 @@
 #import <EasyMapping/EKRelationshipMapping.h>
 #import <EasyMapping/EKSerializer.h>
 #import "PNYErrorUtils.h"
+#import "PNYMacros.h"
 
 @implementation PNYCacheSerializerMapping
 
@@ -26,6 +27,8 @@ static const NSPropertyListFormat PLIST_FORMAT = NSPropertyListBinaryFormat_v1_0
 
 - (NSData *)serializeValue:(id)aValue
 {
+    PNYAssert(_valueClass != nil);
+
     NSData *serializedValue = nil;
 
     if ([aValue isKindOfClass:[NSArray class]]) {
@@ -53,6 +56,8 @@ static const NSPropertyListFormat PLIST_FORMAT = NSPropertyListBinaryFormat_v1_0
 
 - (id)unserializeValue:(NSData *)aValue
 {
+    PNYAssert(_valueClass != nil);
+
     id mappedValue = [NSPropertyListSerialization propertyListWithData:aValue options:NSPropertyListImmutable
                                                                 format:nil error:nil];
 

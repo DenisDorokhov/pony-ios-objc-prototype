@@ -17,6 +17,7 @@
 
 - (instancetype)initWithTargetService:(id <PNYRestService>)aTargetService;
 
++ (instancetype)new __unavailable;
 - (instancetype)init __unavailable;
 
 @end

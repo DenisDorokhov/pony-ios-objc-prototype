@@ -15,11 +15,11 @@
 #import "PNYInstallationDto.h"
 #import "PNYResponseDto.h"
 
-@interface DtoMappingTests : PNYTestCase
+@interface PNYDtoMappingTests : PNYTestCase
 
 @end
 
-@implementation DtoMappingTests
+@implementation PNYDtoMappingTests
 
 - (void)testAlbumDto
 {

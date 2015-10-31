@@ -16,10 +16,8 @@
     self = [super init];
 
     if (self != nil) {
-
-        dateFormatter = [[NSDateFormatter alloc] init];
-
-        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
+        dateFormatter = [NSDateFormatter new];
+        dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss.SSS";
     }
 
     return self;

@@ -60,7 +60,7 @@
     _data = [NSMutableDictionary dictionaryWithContentsOfFile:_filePath];
 
     if (_data == nil) {
-        _data = [[NSMutableDictionary alloc] init];
+        _data = [NSMutableDictionary dictionary];
     }
 
     isInvalid = NO;

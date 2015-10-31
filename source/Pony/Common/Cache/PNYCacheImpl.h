@@ -13,6 +13,7 @@
 
 - (instancetype)initWithFolderPath:(NSString *)aFolderPath serializer:(id <PNYCacheSerializer>)aSerializer;
 
++ (instancetype)new __unavailable;
 - (instancetype)init __unavailable;
 
 @end

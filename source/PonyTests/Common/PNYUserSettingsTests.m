@@ -24,7 +24,7 @@
 
 - (void)testUserSettings
 {
-    PNYUserSettingsImpl *service = [[PNYUserSettingsImpl alloc] init];
+    PNYUserSettingsImpl *service = [PNYUserSettingsImpl new];
 
     [service addDelegate:self];
 

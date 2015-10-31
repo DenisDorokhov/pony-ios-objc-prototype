@@ -29,7 +29,7 @@
 
         NSString *cacheKey = @"installation";
 
-        PNYRestRequestProxy *request = [[PNYRestRequestProxy alloc] init];
+        PNYRestRequestProxy *request = [PNYRestRequestProxy new];
 
         [_cacheInstallation cachedValueForKey:cacheKey completion:^(PNYInstallationDto *aInstallation) {
             if (!request.cancelled) {
@@ -78,7 +78,7 @@
 
         NSString *cacheKey = @"currentUser";
 
-        PNYRestRequestProxy *request = [[PNYRestRequestProxy alloc] init];
+        PNYRestRequestProxy *request = [PNYRestRequestProxy new];
 
         [_cacheCurrentUser cachedValueForKey:cacheKey completion:^(PNYUserDto *aUser) {
             if (!request.cancelled) {
@@ -118,7 +118,7 @@
 
         NSString *cacheKey = @"artists";
 
-        PNYRestRequestProxy *request = [[PNYRestRequestProxy alloc] init];
+        PNYRestRequestProxy *request = [PNYRestRequestProxy new];
 
         [_cacheArtists cachedValueForKey:cacheKey completion:^(NSArray *aArtists) {
             if (!request.cancelled) {
@@ -151,7 +151,7 @@
 
         NSString *cacheKey = [NSString stringWithFormat:@"artistAlbums.[%@]", aArtistIdOrName];
 
-        PNYRestRequestProxy *request = [[PNYRestRequestProxy alloc] init];
+        PNYRestRequestProxy *request = [PNYRestRequestProxy new];
 
         [_cacheArtistAlbums cachedValueForKey:cacheKey completion:^(PNYArtistAlbumsDto *aArtistAlbums) {
             if (!request.cancelled) {

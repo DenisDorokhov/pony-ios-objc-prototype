@@ -24,7 +24,7 @@
 {
     self = [super init];
     if (self != nil) {
-        memoryCache = [[NSCache alloc] init];
+        memoryCache = [NSCache new];
     }
     return self;
 }

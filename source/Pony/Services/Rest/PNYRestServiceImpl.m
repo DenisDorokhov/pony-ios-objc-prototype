@@ -25,8 +25,8 @@
     self = [super init];
     if (self != nil) {
 
-        operationQueue = [[NSOperationQueue alloc] init];
-        requestSerializer = [[AFJSONRequestSerializer alloc] init];
+        operationQueue = [NSOperationQueue new];
+        requestSerializer = [AFJSONRequestSerializer new];
 
         self.maxConcurrentRequestCount = 5;
     }

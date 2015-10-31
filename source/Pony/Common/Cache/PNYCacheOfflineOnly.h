@@ -11,6 +11,7 @@
 
 - (instancetype)initWithTargetCache:(id <PNYCache>)aTargetCache;
 
++ (instancetype)new __unavailable;
 - (instancetype)init __unavailable;
 
 @end
