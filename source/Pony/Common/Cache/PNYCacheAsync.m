@@ -18,7 +18,7 @@
 
 #pragma mark - Public
 
-- (void)cachedValueForKey:(NSString *)aKey completion:(void (^)(id))aCompletion
+- (void)cachedValueForKey:(NSString *)aKey completion:(void (^)(id aCachedValue))aCompletion
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 

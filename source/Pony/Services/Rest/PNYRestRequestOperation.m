@@ -24,6 +24,13 @@
     return self;
 }
 
+#pragma mark - <PNYRestRequest>
+
+- (BOOL)cancelled
+{
+    return self.operation.cancelled;
+}
+
 - (void)cancel
 {
     [self.operation cancel];

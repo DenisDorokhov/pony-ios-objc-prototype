@@ -13,7 +13,7 @@
 
 - (instancetype)init __unavailable;
 
-- (void)cachedValueForKey:(NSString *)aKey completion:(void(^)(id))aCompletion;
+- (void)cachedValueForKey:(NSString *)aKey completion:(void (^)(id aCachedValue))aCompletion;
 - (void)cacheValue:(id)aValue forKey:(NSString *)aKey completion:(void(^)())aCompletion;
 
 - (void)removeCachedValueForKey:(NSString *)aKey completion:(void(^)())aCompletion;

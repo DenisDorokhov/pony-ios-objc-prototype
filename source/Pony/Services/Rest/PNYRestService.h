@@ -29,7 +29,6 @@ typedef void (^PNYRestServiceFailureBlock)(NSArray *aErrors);
 - (id <PNYRestRequest>)refreshTokenWithSuccess:(void (^)(PNYAuthenticationDto *aAuthentication))aSuccess
                                        failure:(PNYRestServiceFailureBlock)aFailure;
 
-
 - (id <PNYRestRequest>)getArtistsWithSuccess:(void (^)(NSArray *aArtists))aSuccess
                                      failure:(PNYRestServiceFailureBlock)aFailure;
 
