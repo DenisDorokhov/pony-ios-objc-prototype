@@ -3,7 +3,9 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-@interface PNYCacheSerializerMapping : NSObject
+#import "PNYCacheSerializer.h"
+
+@interface PNYCacheSerializerMapping : NSObject <PNYCacheSerializer>
 
 @property (nonatomic, readonly) Class valueClass;
 
