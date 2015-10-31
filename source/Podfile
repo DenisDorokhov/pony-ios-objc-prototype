@@ -8,5 +8,6 @@ pod 'CocoaLumberjack', '2.2.0'
 pod 'Typhoon', '3.3.4'
 pod 'AFNetworking', '2.6.0'
 pod 'EasyMapping', '0.15.3'
+pod 'OCMock', '3.2'
 
 link_with 'Pony', 'PonyTests'

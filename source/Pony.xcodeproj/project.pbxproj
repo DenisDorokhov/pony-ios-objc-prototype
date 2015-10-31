@@ -14,11 +14,11 @@
 		26A10E731BCA82AC00C63AD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26A10E711BCA82AC00C63AD8 /* LaunchScreen.storyboard */; settings = {ASSET_TAGS = (); }; };
 		26A10E741BCA82AC00C63AD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26A10E721BCA82AC00C63AD8 /* Main.storyboard */; settings = {ASSET_TAGS = (); }; };
 		26A10E781BCA830800C63AD8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 26A10E7A1BCA830800C63AD8 /* Localizable.strings */; };
-		B3D3900C9967C5D362F0BBF1 /* PNYRestServiceUrlProviderMock.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39069BD655B9EFAA306AF /* PNYRestServiceUrlProviderMock.m */; };
 		B3D3902286B75DF12386E41C /* PNYErrorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39C0E7A9941EFFC30B786 /* PNYErrorUtils.m */; };
 		B3D390A54750435BD3319095 /* PNYRestServiceImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D395F07109A88C4362C9F4 /* PNYRestServiceImpl.m */; };
 		B3D390E6BA6AEBB13DD247A8 /* PNYRestServiceUrlProviderImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39AD705148365FC6681FC /* PNYRestServiceUrlProviderImpl.m */; };
 		B3D39162FD5DF01A51EDEFCC /* PNYArtistDto.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39BAE619FFB4CF8E5E5B6 /* PNYArtistDto.m */; };
+		B3D391850A05A353F2C987E7 /* PNYTokenPairDaoMock.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39292D9D9E42A2127E915 /* PNYTokenPairDaoMock.m */; };
 		B3D39189B7E1C5A3F4A9CD50 /* PNYCacheSerializerString.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39D2E85CC6FEE194A376E /* PNYCacheSerializerString.m */; };
 		B3D391E2CFA8C8BB100755FB /* PNYUserSettingsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39B6C7ACB8CF3C2913096 /* PNYUserSettingsTests.m */; };
 		B3D3926EFEA289477996E0BC /* PNYViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39D47F9A73E3FA1DE02DD /* PNYViewController.m */; };
@@ -96,17 +96,18 @@
 		B3D39020D72F023ACB7847E7 /* PNYCacheSerializerMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYCacheSerializerMapping.m; sourceTree = "<group>"; };
 		B3D3902CA4ED7D40946D8765 /* PNYTestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYTestDelegate.h; sourceTree = "<group>"; };
 		B3D3903CF667BDE3D5A4C6B2 /* PNYRestServiceCached.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYRestServiceCached.h; sourceTree = "<group>"; };
-		B3D39069BD655B9EFAA306AF /* PNYRestServiceUrlProviderMock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYRestServiceUrlProviderMock.m; sourceTree = "<group>"; };
 		B3D39085EABDD6576B6C0549 /* PNYCacheSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYCacheSerializer.h; sourceTree = "<group>"; };
 		B3D390B9485FF4F5F6CA8152 /* PNYRestRequestProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYRestRequestProxy.m; sourceTree = "<group>"; };
 		B3D390E01BCCE78D565E805C /* PNYFileUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYFileUtils.m; sourceTree = "<group>"; };
 		B3D390E7C011934D8D3FFB51 /* PNYAbstractDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYAbstractDto.m; sourceTree = "<group>"; };
+		B3D390F517A95882E947C3BF /* PNYTokenPairDaoMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYTokenPairDaoMock.h; sourceTree = "<group>"; };
 		B3D39120FDDF909790FC02ED /* PNYGenreDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYGenreDto.h; sourceTree = "<group>"; };
 		B3D3913CC3DE978561D1E58C /* PNYResponseDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYResponseDto.m; sourceTree = "<group>"; };
 		B3D3917B32DD4FC934F11A8F /* PNYLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYLogFormatter.m; sourceTree = "<group>"; };
 		B3D391C9CD2C8F4AE2B13861 /* NSOrderedSet+PNYNSValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOrderedSet+PNYNSValue.h"; sourceTree = "<group>"; };
 		B3D391FBCD40EB1F47409605 /* PNYTokenPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYTokenPair.h; sourceTree = "<group>"; };
 		B3D3923F576927FB4A4B0A2E /* PNYAlbumSongsDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYAlbumSongsDto.h; sourceTree = "<group>"; };
+		B3D39292D9D9E42A2127E915 /* PNYTokenPairDaoMock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYTokenPairDaoMock.m; sourceTree = "<group>"; };
 		B3D392B68B8B3F9F45827436 /* PNYRestServiceCached.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYRestServiceCached.m; sourceTree = "<group>"; };
 		B3D392B9914BE6B21650C1DA /* PNYUrlUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYUrlUtils.h; sourceTree = "<group>"; };
 		B3D392D23D3D6B301653E472 /* PNYAuthenticationDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYAuthenticationDto.h; sourceTree = "<group>"; };
@@ -139,7 +140,6 @@
 		B3D39761ED3DBEADA0EBDD83 /* NSMutableOrderedSet+PNYNSValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableOrderedSet+PNYNSValue.m"; sourceTree = "<group>"; };
 		B3D3976E7FB49650A4172719 /* PNYArtistDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYArtistDto.h; sourceTree = "<group>"; };
 		B3D397804D6A323876FFD58F /* PNYConfigImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYConfigImpl.h; sourceTree = "<group>"; };
-		B3D397911810003EA302074E /* PNYRestServiceUrlProviderMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYRestServiceUrlProviderMock.h; sourceTree = "<group>"; };
 		B3D397A5BD83C072E52C3804 /* PNYTokenPair.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYTokenPair.m; sourceTree = "<group>"; };
 		B3D397B25E6422A0FD46AA88 /* PNYUserSettingsKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYUserSettingsKeys.h; sourceTree = "<group>"; };
 		B3D397B6B51BF3F432A4F68F /* PNYCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYCache.h; sourceTree = "<group>"; };
@@ -339,8 +339,6 @@
 				B3D399653C72D6C7FC8F88E8 /* PNYRestServiceUrlProvider.h */,
 				B3D39AD705148365FC6681FC /* PNYRestServiceUrlProviderImpl.m */,
 				B3D39DA3765DC0144F1F2441 /* PNYRestServiceUrlProviderImpl.h */,
-				B3D39069BD655B9EFAA306AF /* PNYRestServiceUrlProviderMock.m */,
-				B3D397911810003EA302074E /* PNYRestServiceUrlProviderMock.h */,
 				B3D392B68B8B3F9F45827436 /* PNYRestServiceCached.m */,
 				B3D3903CF667BDE3D5A4C6B2 /* PNYRestServiceCached.h */,
 				B3D390B9485FF4F5F6CA8152 /* PNYRestRequestProxy.m */,
@@ -537,6 +535,8 @@
 			isa = PBXGroup;
 			children = (
 				B3D39F9F651894E047A3F591 /* PNYRestServiceTests.m */,
+				B3D39292D9D9E42A2127E915 /* PNYTokenPairDaoMock.m */,
+				B3D390F517A95882E947C3BF /* PNYTokenPairDaoMock.h */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -815,7 +815,6 @@
 				B3D39619C3D114479685A568 /* PNYUrlUtils.m in Sources */,
 				B3D3902286B75DF12386E41C /* PNYErrorUtils.m in Sources */,
 				B3D390E6BA6AEBB13DD247A8 /* PNYRestServiceUrlProviderImpl.m in Sources */,
-				B3D3900C9967C5D362F0BBF1 /* PNYRestServiceUrlProviderMock.m in Sources */,
 				B3D39631FC96270B19C247A8 /* PNYDtoUtils.m in Sources */,
 				B3D39BCB40786C5E31A4EB8F /* PNYCacheAsync.m in Sources */,
 				B3D39EF1DC1EB0B828614D72 /* PNYCacheImpl.m in Sources */,
@@ -827,6 +826,7 @@
 				B3D398C643AACD1EF33CBB51 /* PNYRestRequestProxy.m in Sources */,
 				B3D3995BF4C83F58AD42CE45 /* PNYCacheOfflineOnly.m in Sources */,
 				B3D399D573BEC50B65C4DA0C /* PNYCacheMemory.m in Sources */,
+				B3D391850A05A353F2C987E7 /* PNYTokenPairDaoMock.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

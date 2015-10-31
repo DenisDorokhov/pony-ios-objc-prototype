@@ -3,21 +3,18 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
+#import <OCMock/OCMock.h>
 #import "PNYTestCase.h"
 #import "PNYRestServiceImpl.h"
-#import "PNYRestServiceUrlProviderMock.h"
-#import "PNYTokenPairDaoImpl.h"
-#import "PNYPersistentDictionaryImpl.h"
-#import "PNYFileUtils.h"
 #import "PNYAlbumDto.h"
 #import "PNYAlbumSongsDto.h"
 #import "PNYSongDto.h"
+#import "PNYTokenPairDaoMock.h"
 
 @interface PNYRestServiceTests : PNYTestCase
 {
 @private
     PNYRestServiceImpl *service;
-    PNYTokenPairDaoImpl *tokenPairDao;
 }
 
 @end
@@ -32,14 +29,13 @@ static NSString *const DEMO_PASSWORD = @"demo";
 {
     [super setUp];
 
-    NSString *persistenceFilePath = [PNYFileUtils filePathInDocuments:@"PNYRestServiceTests"];
+    id <PNYRestServiceUrlProvider> urlProvider = OCMProtocolMock(@protocol(PNYRestServiceUrlProvider));
 
-    tokenPairDao = [[PNYTokenPairDaoImpl alloc] init];
-    tokenPairDao.persistentDictionary = [[PNYPersistentDictionaryImpl alloc] initWithFilePath:persistenceFilePath];
+    OCMStub([urlProvider serverUrl]).andReturn([NSURL URLWithString:DEMO_URL]);
 
     service = [[PNYRestServiceImpl alloc] init];
-    service.urlProvider = [PNYRestServiceUrlProviderMock serviceUrlProviderWithUrlToReturn:DEMO_URL];
-    service.tokenPairDao = tokenPairDao;
+    service.urlProvider = urlProvider;
+    service.tokenPairDao = [[PNYTokenPairDaoMock alloc] init];
 }
 
 - (void)testGetInstallation
@@ -231,7 +227,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
     tokenPair.refreshToken = authentication.refreshToken;
     tokenPair.refreshTokenExpiration = authentication.refreshTokenExpiration;
 
-    [tokenPairDao storeTokenPair:tokenPair];
+    [service.tokenPairDao storeTokenPair:tokenPair];
 
     return authentication;
 }
