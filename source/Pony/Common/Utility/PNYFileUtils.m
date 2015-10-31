@@ -11,45 +11,39 @@
 + (NSString *)documentsPath
 {
     static NSString *_documentsPath = nil;
-
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
 
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 
-        _documentsPath = [self createDirectoryIfNotExists:paths[0]];
+        _documentsPath = [self createNotExistingDirectory:paths[0]];
     });
-
     return _documentsPath;
 }
 
 + (NSString *)cachePath
 {
     static NSString *_cachePath = nil;
-
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
 
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
 
-        _cachePath = [self createDirectoryIfNotExists:paths[0]];
+        _cachePath = [self createNotExistingDirectory:paths[0]];
     });
-
     return _cachePath;
 }
 
 + (NSString *)sessionTemporaryPath
 {
     static NSString *_temporaryPath = nil;
-
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
 
         _temporaryPath = [self randomFilePathInPath:NSTemporaryDirectory()];
 
-        [self createDirectoryIfNotExists:_temporaryPath];
+        [self createNotExistingDirectory:_temporaryPath];
     });
-
     return _temporaryPath;
 }
 
@@ -57,7 +51,7 @@
 {
     NSString *tempPath = [self sessionTemporaryPath];
 
-    [self createDirectoryIfNotExists:tempPath];
+    [self createNotExistingDirectory:tempPath];
 
     return [self randomFilePathInPath:tempPath];
 }
@@ -96,7 +90,7 @@
     return [[NSBundle bundleForClass:aClass] pathForResource:aFileName ofType:nil];
 }
 
-+ (NSString *)createDirectoryIfNotExists:(NSString *)aPath
++ (NSString *)createNotExistingDirectory:(NSString *)aPath
 {
     if (![[NSFileManager defaultManager] fileExistsAtPath:aPath]) {
         [[NSFileManager defaultManager] createDirectoryAtPath:aPath withIntermediateDirectories:YES

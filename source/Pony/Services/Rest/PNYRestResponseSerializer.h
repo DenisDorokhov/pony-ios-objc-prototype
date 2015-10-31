@@ -13,8 +13,8 @@
 
 - (instancetype)initWithDataClass:(Class)aDataClass;
 
-+ (instancetype) __unavailable serializer;
++ (instancetype)serializer __unavailable;
 
-- (instancetype) __unavailable init;
+- (instancetype)init __unavailable;
 
 @end

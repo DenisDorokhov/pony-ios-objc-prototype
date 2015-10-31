@@ -17,7 +17,7 @@
 + (NSString *)filePathInCache:(NSString *)aFilePath;
 + (NSString *)filePathInBundleOfClass:(Class)aClass withName:(NSString *)aFileName;
 
-+ (NSString *)createDirectoryIfNotExists:(NSString *)aPath;
++ (NSString *)createNotExistingDirectory:(NSString *)aPath;
 
 + (NSString *)randomFilePathInPath:(NSString *)aPath;
 
