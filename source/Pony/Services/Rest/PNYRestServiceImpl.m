@@ -187,12 +187,18 @@
 
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *aOperation, PNYResponseDto *aResponse) {
             if (aResponse.successful) {
-                aSuccess(aResponse.data);
+                if (aSuccess != nil) {
+                    aSuccess(aResponse.data);
+                }
             } else {
-                aFailure(aResponse.errors);
+                if (aFailure != nil) {
+                    aFailure(aResponse.errors);
+                }
             }
-        }                                failure:^(AFHTTPRequestOperation *aOperation, NSError *aError) {
-            aFailure([self errorToDtoArray:aError]);
+        } failure:^(AFHTTPRequestOperation *aOperation, NSError *aError) {
+            if (aFailure != nil) {
+                aFailure([self errorToDtoArray:aError]);
+            }
         }];
 
         [operationQueue addOperation:operation];
@@ -200,7 +206,9 @@
         return operation;
 
     } else {
-        aFailure([self errorToDtoArray:error]);
+        if (aFailure != nil) {
+            aFailure([self errorToDtoArray:error]);
+        }
     }
 
     return nil;
