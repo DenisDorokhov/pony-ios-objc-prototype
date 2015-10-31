@@ -18,3 +18,9 @@
 #pragma clang diagnostic pop
 
 static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+
+#define HC_SHORTHAND
+#import <OCHamcrest/OCHamcrest.h>
+
+#define MOCKITO_SHORTHAND
+#import <OCMockito/OCMockito.h>

@@ -3,7 +3,6 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-#import <OCMock/OCMock.h>
 #import "PNYTestCase.h"
 #import "PNYRestServiceImpl.h"
 #import "PNYAlbumDto.h"
@@ -29,9 +28,9 @@ static NSString *const DEMO_PASSWORD = @"demo";
 {
     [super setUp];
 
-    id <PNYRestServiceUrlProvider> urlProvider = OCMProtocolMock(@protocol(PNYRestServiceUrlProvider));
+    id <PNYRestServiceUrlProvider> urlProvider = mockProtocol(@protocol(PNYRestServiceUrlProvider));
 
-    OCMStub([urlProvider serverUrl]).andReturn([NSURL URLWithString:DEMO_URL]);
+    [given([urlProvider serverUrl]) willReturn:[NSURL URLWithString:DEMO_URL]];
 
     service = [PNYRestServiceImpl new];
     service.urlProvider = urlProvider;

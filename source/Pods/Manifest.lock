@@ -32,7 +32,9 @@ PODS:
     - EasyMapping/Core (= 0.15.3)
   - EasyMapping/Core (0.15.3)
   - NSHash (1.0.1)
-  - OCMock (3.2)
+  - OCHamcrest (4.3.0)
+  - OCMockito (1.4.0):
+    - OCHamcrest (~> 4.0)
   - Typhoon (3.3.4):
     - Typhoon/no-arc (= 3.3.4)
   - Typhoon/no-arc (3.3.4)
@@ -42,7 +44,8 @@ DEPENDENCIES:
   - CocoaLumberjack (= 2.2.0)
   - EasyMapping (= 0.15.3)
   - NSHash (= 1.0.1)
-  - OCMock (= 3.2)
+  - OCHamcrest (= 4.3.0)
+  - OCMockito (= 1.4.0)
   - Typhoon (= 3.3.4)
 
 SPEC CHECKSUMS:
@@ -50,7 +53,8 @@ SPEC CHECKSUMS:
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
   EasyMapping: 5baf5a9a814538fdac4859cf56270ae761dd904a
   NSHash: d0112ce250f5d2618ab452718c6882f5276e2d4f
-  OCMock: 28def049ef47f996b515a8eeea958be7ccab2dbb
+  OCHamcrest: cd63d27f48a266d4412c0b295b01b8f0940efa81
+  OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
   Typhoon: 555e580d7edaaf61c5367c2a80c15a0ddb368406
 
 COCOAPODS: 0.39.0
