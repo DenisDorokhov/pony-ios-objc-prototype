@@ -4,7 +4,6 @@
 //
 
 #import "PNYRestRequestOperation.h"
-#import "PNYMacros.h"
 
 @implementation PNYRestRequestOperation
 

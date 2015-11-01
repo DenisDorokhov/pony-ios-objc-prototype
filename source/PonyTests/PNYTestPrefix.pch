@@ -25,3 +25,5 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 #define MOCKITO_SHORTHAND
 #import <OCMockito/OCMockito.h>
+
+#import "PNYMacros.h"

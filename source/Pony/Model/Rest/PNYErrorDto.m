@@ -23,6 +23,30 @@
     return self;
 }
 
+#pragma mark - Public
+
++ (NSArray *)fetchArrayOfErrorsFromArray:(NSArray *)aErrors withCodes:(NSArray *)aCodes
+{
+    NSMutableArray *result = [NSMutableArray array];
+
+    for (PNYErrorDto *error in aErrors) {
+        for (NSString *code in aCodes) {
+            if ([error.code isEqualToString:code] || [error.code hasPrefix:[NSString stringWithFormat:@"%@.", code]]) {
+                [result addObject:error];
+            }
+        }
+    }
+
+    return result;
+}
+
++ (PNYErrorDto *)fetchErrorFromArray:(NSArray *)aErrors withCodes:(NSArray *)aCodes
+{
+    NSArray *errors = [self fetchArrayOfErrorsFromArray:aErrors withCodes:aCodes];
+
+    return [errors count] > 0 ? errors[0] : nil;
+}
+
 #pragma mark - <EKMappingProtocol>
 
 + (EKObjectMapping *)objectMapping

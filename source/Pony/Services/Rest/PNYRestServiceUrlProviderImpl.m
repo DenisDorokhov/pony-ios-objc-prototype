@@ -5,7 +5,6 @@
 
 #import "PNYRestServiceUrlProviderImpl.h"
 #import "PNYUserSettingsKeys.h"
-#import "PNYMacros.h"
 
 @implementation PNYRestServiceUrlProviderImpl
 

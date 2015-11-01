@@ -4,7 +4,6 @@
 //
 
 #import "PNYConfigImpl.h"
-#import "PNYMacros.h"
 
 @implementation PNYConfigImpl
 {

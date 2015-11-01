@@ -6,7 +6,6 @@
 #import <NSHash/NSString+NSHash.h>
 #import "PNYCacheImpl.h"
 #import "PNYFileUtils.h"
-#import "PNYMacros.h"
 
 @implementation PNYCacheImpl
 

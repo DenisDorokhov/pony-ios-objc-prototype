@@ -5,7 +5,6 @@
 
 #import "PNYConfigFactoryImpl.h"
 #import "PNYConfigImpl.h"
-#import "PNYMacros.h"
 
 @implementation PNYConfigFactoryImpl
 

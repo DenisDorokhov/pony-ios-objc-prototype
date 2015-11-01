@@ -4,7 +4,6 @@
 //
 
 #import "PNYPersistentDictionaryImpl.h"
-#import "PNYMacros.h"
 
 @implementation PNYPersistentDictionaryImpl
 {

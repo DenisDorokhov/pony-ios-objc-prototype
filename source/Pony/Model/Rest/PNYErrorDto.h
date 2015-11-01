@@ -41,4 +41,8 @@ static NSString *const PNYErrorDtoCodeSongsCountInvalid = @"errorSongsCountInval
 
 - (instancetype)initWithCode:(NSString *)aCode text:(NSString *)aText arguments:(NSArray *)aArguments;
 
++ (NSArray *)fetchArrayOfErrorsFromArray:(NSArray *)aErrors withCodes:(NSArray *)aCodes;
+
++ (PNYErrorDto *)fetchErrorFromArray:(NSArray *)aErrors withCodes:(NSArray *)aCodes;
+
 @end

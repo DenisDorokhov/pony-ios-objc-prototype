@@ -5,7 +5,6 @@
 
 #import "PNYAppDelegate.h"
 #import "PNYLogFormatter.h"
-#import "PNYMacros.h"
 
 @interface PNYAppDelegate ()
 

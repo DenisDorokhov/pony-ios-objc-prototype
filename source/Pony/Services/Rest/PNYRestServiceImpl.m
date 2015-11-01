@@ -6,7 +6,6 @@
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
 #import <EasyMapping/EKSerializer.h>
 #import "PNYRestServiceImpl.h"
-#import "PNYMacros.h"
 #import "PNYRestRequestOperation.h"
 #import "PNYRestResponseSerializer.h"
 #import "PNYResponseDto.h"
