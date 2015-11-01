@@ -5,7 +5,7 @@
 
 #import "PNYCache.h"
 
-@interface PNYCacheOfflineOnly : NSObject <PNYCache>
+@interface PNYOfflineOnlyCache : NSObject <PNYCache>
 
 @property (nonatomic, readonly) id <PNYCache> targetCache;
 

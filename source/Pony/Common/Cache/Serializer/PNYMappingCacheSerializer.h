@@ -5,7 +5,7 @@
 
 #import "PNYCacheSerializer.h"
 
-@interface PNYCacheSerializerMapping : NSObject <PNYCacheSerializer>
+@interface PNYMappingCacheSerializer : NSObject <PNYCacheSerializer>
 
 @property (nonatomic, readonly) Class valueClass;
 

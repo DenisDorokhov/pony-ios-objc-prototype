@@ -3,9 +3,9 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-#import "PNYCacheMemory.h"
+#import "PNYMemoryCache.h"
 
-@implementation PNYCacheMemory
+@implementation PNYMemoryCache
 {
 @private
     NSCache *memoryCache;

@@ -5,6 +5,6 @@
 
 #import "PNYCacheSerializer.h"
 
-@interface PNYCacheSerializerImage : NSObject <PNYCacheSerializer>
+@interface PNYDataCacheSerializer : NSObject <PNYCacheSerializer>
 
 @end

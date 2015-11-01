@@ -4,10 +4,10 @@
 //
 
 #import <AFNetworking/AFNetworkReachabilityManager.h>
-#import "PNYCacheOfflineOnly.h"
+#import "PNYOfflineOnlyCache.h"
 #import "PNYMacros.h"
 
-@implementation PNYCacheOfflineOnly
+@implementation PNYOfflineOnlyCache
 
 - (instancetype)initWithTargetCache:(id <PNYCache>)aTargetCache
 {

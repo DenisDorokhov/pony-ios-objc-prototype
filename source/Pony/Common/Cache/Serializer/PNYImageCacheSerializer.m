@@ -3,10 +3,10 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-#import "PNYCacheSerializerImage.h"
+#import "PNYImageCacheSerializer.h"
 #import "PNYErrorUtils.h"
 
-@implementation PNYCacheSerializerImage
+@implementation PNYImageCacheSerializer
 
 #pragma mark - <PNYCacheSerializer>
 

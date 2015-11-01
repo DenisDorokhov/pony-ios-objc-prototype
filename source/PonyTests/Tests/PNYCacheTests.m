@@ -3,14 +3,14 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-#import "PNYCacheSerializerData.h"
-#import "PNYCacheSerializerImage.h"
+#import "PNYDataCacheSerializer.h"
+#import "PNYImageCacheSerializer.h"
 #import "PNYTestCase.h"
 #import "PNYTestUtils.h"
-#import "PNYCacheSerializerString.h"
+#import "PNYStringCacheSerializer.h"
 #import "PNYInstallationDto.h"
-#import "PNYCacheSerializerMapping.h"
-#import "PNYCacheMemory.h"
+#import "PNYMappingCacheSerializer.h"
+#import "PNYMemoryCache.h"
 #import "PNYCacheImpl.h"
 #import "PNYFileUtils.h"
 
@@ -40,7 +40,7 @@
 
 - (void)testDataSerializer
 {
-    PNYCacheSerializerData *serializer = [PNYCacheSerializerData new];
+    PNYDataCacheSerializer *serializer = [PNYDataCacheSerializer new];
 
     XCTAssertThrows([serializer serializeValue:[NSObject new]]);
 
@@ -52,7 +52,7 @@
 
 - (void)testImageSerializer
 {
-    PNYCacheSerializerImage *serializer = [PNYCacheSerializerImage new];
+    PNYImageCacheSerializer *serializer = [PNYImageCacheSerializer new];
 
     XCTAssertThrows([serializer serializeValue:[NSObject new]]);
 
@@ -64,7 +64,7 @@
 
 - (void)testStringSerializer
 {
-    PNYCacheSerializerString *serializer = [PNYCacheSerializerString new];
+    PNYStringCacheSerializer *serializer = [PNYStringCacheSerializer new];
 
     XCTAssertThrows([serializer serializeValue:[NSObject new]]);
 
@@ -76,7 +76,7 @@
 
 - (void)testMappingSerializer
 {
-    PNYCacheSerializerMapping *serializer = [[PNYCacheSerializerMapping alloc] initWithValueClass:[PNYCacheTests_MappedObject class]];
+    PNYMappingCacheSerializer *serializer = [[PNYMappingCacheSerializer alloc] initWithValueClass:[PNYCacheTests_MappedObject class]];
 
     XCTAssertThrows([serializer serializeValue:[NSObject new]]);
 
@@ -105,7 +105,7 @@
 
     [given([targetCache cachedValueForKey:@"someKey"]) willReturn:@"someValue"];
 
-    PNYCacheMemory *memoryCache = [[PNYCacheMemory alloc] initWithTargetCache:targetCache];
+    PNYMemoryCache *memoryCache = [[PNYMemoryCache alloc] initWithTargetCache:targetCache];
 
     // Check if target cache is accessed.
 
@@ -141,7 +141,7 @@
 
 - (void)testCache
 {
-    PNYCacheSerializerString *serializer = [PNYCacheSerializerString new];
+    PNYStringCacheSerializer *serializer = [PNYStringCacheSerializer new];
 
     PNYCacheImpl *cache = [[PNYCacheImpl alloc] initWithFolderPath:[PNYFileUtils filePathInDocuments:@"PNYCacheTests"]
                                                         serializer:serializer];

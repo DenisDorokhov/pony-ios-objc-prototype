@@ -3,7 +3,7 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-#import "PNYCacheSerializerMapping.h"
+#import "PNYMappingCacheSerializer.h"
 #import <EasyMapping/EKMappingProtocol.h>
 #import <EasyMapping/EKMapper.h>
 #import <EasyMapping/EKRelationshipMapping.h>
@@ -11,7 +11,7 @@
 #import "PNYErrorUtils.h"
 #import "PNYMacros.h"
 
-@implementation PNYCacheSerializerMapping
+@implementation PNYMappingCacheSerializer
 
 static const NSPropertyListFormat PLIST_FORMAT = NSPropertyListBinaryFormat_v1_0;
 

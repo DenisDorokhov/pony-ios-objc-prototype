@@ -10,10 +10,10 @@
 
 @property (nonatomic, readonly) id <PNYRestService> targetService;
 
-@property (nonatomic, strong) PNYCacheAsync *cacheInstallation;
-@property (nonatomic, strong) PNYCacheAsync *cacheCurrentUser;
-@property (nonatomic, strong) PNYCacheAsync *cacheArtists;
-@property (nonatomic, strong) PNYCacheAsync *cacheArtistAlbums;
+@property (nonatomic, strong) PNYCacheAsync *installationCache;
+@property (nonatomic, strong) PNYCacheAsync *currentUserCache;
+@property (nonatomic, strong) PNYCacheAsync *artistsCache;
+@property (nonatomic, strong) PNYCacheAsync *artistAlbumsCache;
 
 - (instancetype)initWithTargetService:(id <PNYRestService>)aTargetService;
 
