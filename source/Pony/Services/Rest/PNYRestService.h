@@ -15,7 +15,7 @@ typedef void (^PNYRestServiceFailureBlock)(NSArray *aErrors);
 @protocol PNYRestService <NSObject>
 
 - (id <PNYRestRequest>)getInstallationWithSuccess:(void (^)(PNYInstallationDto *aInstallation))aSuccess
-                            failure:(PNYRestServiceFailureBlock)aFailure;
+                                          failure:(PNYRestServiceFailureBlock)aFailure;
 
 - (id <PNYRestRequest>)authenticate:(PNYCredentialsDto *)aCredentials
                             success:(void (^)(PNYAuthenticationDto *aAuthentication))aSuccess

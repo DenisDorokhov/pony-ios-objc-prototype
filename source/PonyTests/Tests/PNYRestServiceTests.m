@@ -41,17 +41,21 @@ static NSString *const DEMO_PASSWORD = @"demo";
 {
     XCTestExpectation *expectation = PNYTestExpectationCreate();
 
+    __block PNYInstallationDto *installation = nil;
+
     [service getInstallationWithSuccess:^(PNYInstallationDto *aInstallation) {
 
         [expectation fulfill];
 
-        XCTAssertNotNil(aInstallation.version);
+        installation = aInstallation;
 
     } failure:^(NSArray *aErrors) {
         [self failExpectation:expectation withErrors:aErrors];
     }];
 
     PNYTestExpectationWait();
+
+    XCTAssertNotNil(installation.version);
 }
 
 - (void)testAuthenticate
