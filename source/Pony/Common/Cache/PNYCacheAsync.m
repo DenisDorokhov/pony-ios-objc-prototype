@@ -93,4 +93,14 @@
     });
 }
 
+#pragma mark - Override
+
+- (NSString *)description
+{
+    NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: ", NSStringFromClass([self class])];
+    [description appendFormat:@"cache=%@", self.cache];
+    [description appendString:@">"];
+    return description;
+}
+
 @end

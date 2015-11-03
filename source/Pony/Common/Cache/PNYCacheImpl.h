@@ -12,7 +12,6 @@
 @property (nonatomic, readonly) id <PNYCacheSerializer> serializer;
 
 - (instancetype)initWithFolderPath:(NSString *)aFolderPath serializer:(id <PNYCacheSerializer>)aSerializer;
-- (instancetype)initWithFolderPath:(NSString *)aFolderPath serializer:(id <PNYCacheSerializer>)aSerializer name:(NSString *)aName;
 
 + (instancetype)new __unavailable;
 - (instancetype)init __unavailable;

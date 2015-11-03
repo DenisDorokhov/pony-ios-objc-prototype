@@ -46,11 +46,6 @@
 
 #pragma mark - <PNYCache>
 
-- (NSString *)name
-{
-    return _name != nil ? _name : [self.targetCache name];
-}
-
 - (BOOL)cachedValueExistsForKey:(NSString *)aKey
 {
     return [memoryCache objectForKey:aKey] != nil || [self.targetCache cachedValueExistsForKey:aKey];
@@ -84,6 +79,17 @@
 {
     [self.targetCache removeAllCachedValues];
     [memoryCache removeAllObjects];
+}
+
+#pragma mark - Override
+
+- (NSString *)description
+{
+    NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: ", NSStringFromClass([self class])];
+    [description appendFormat:@"%p", (__bridge void *)self];
+    [description appendFormat:@", targetCache=%@", self.targetCache];
+    [description appendString:@">"];
+    return description;
 }
 
 @end

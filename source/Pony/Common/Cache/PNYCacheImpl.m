@@ -8,24 +8,14 @@
 #import "PNYFileUtils.h"
 
 @implementation PNYCacheImpl
-{
-@private
-    NSString *_name;
-}
 
 - (instancetype)initWithFolderPath:(NSString *)aFolderPath serializer:(id <PNYCacheSerializer>)aSerializer
-{
-    return [self initWithFolderPath:aFolderPath serializer:aSerializer name:nil];
-}
-
-- (instancetype)initWithFolderPath:(NSString *)aFolderPath serializer:(id <PNYCacheSerializer>)aSerializer name:(NSString *)aName
 {
     self = [super init];
     if (self != nil) {
 
         _folderPath = [aFolderPath copy];
         _serializer = aSerializer;
-        _name = aName;
 
         [PNYFileUtils createNotExistingDirectory:self.folderPath];
     }
@@ -33,11 +23,6 @@
 }
 
 #pragma mark - <PNYCache>
-
-- (NSString *)name
-{
-    return _name;
-}
 
 - (BOOL)cachedValueExistsForKey:(NSString *)aKey
 {
@@ -85,6 +70,16 @@
     }
 
     PNYLogDebug(@"Removed all values in folder [%@].", self.folderPath);
+}
+
+#pragma mark - Override
+
+- (NSString *)description
+{
+    NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: ", NSStringFromClass([self class])];
+    [description appendFormat:@"folderPath=%@", self.folderPath];
+    [description appendString:@">"];
+    return description;
 }
 
 #pragma mark - Private

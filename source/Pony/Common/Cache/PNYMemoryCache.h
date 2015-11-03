@@ -7,8 +7,6 @@
 
 @interface PNYMemoryCache : NSObject <PNYCache>
 
-@property (nonatomic, copy) NSString *name;
-
 @property (nonatomic, readonly) id <PNYCache> targetCache;
 
 @property (nonatomic) NSUInteger memoryCacheCapacity;

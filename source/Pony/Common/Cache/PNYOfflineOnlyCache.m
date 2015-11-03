@@ -19,13 +19,6 @@
 
 #pragma mark - <PNYCache>
 
-- (NSString *)name
-{
-    PNYAssert(self.targetCache != nil);
-
-    return [self.targetCache name];
-}
-
 - (BOOL)cachedValueExistsForKey:(NSString *)aKey
 {
     PNYAssert(self.targetCache != nil);
@@ -59,6 +52,16 @@
     PNYAssert(self.targetCache != nil);
 
     [self.targetCache removeAllCachedValues];
+}
+
+#pragma mark - Override
+
+- (NSString *)description
+{
+    NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: ", NSStringFromClass([self class])];
+    [description appendFormat:@"targetCache=%@", self.targetCache];
+    [description appendString:@">"];
+    return description;
 }
 
 #pragma mark - Private

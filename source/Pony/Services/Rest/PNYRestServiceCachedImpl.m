@@ -160,11 +160,7 @@ static NSString *const KEY_ARTIST_ALBUMS = @"artistAlbums.%@";
             if (!request.cancelled) {
                 if (aCachedValue != nil) {
 
-                    if (aCache.cache.name != nil) {
-                        PNYLogVerbose(@"Cache hit for key [%@] in cache [%@].", aKey, aCache.cache.name);
-                    } else {
-                        PNYLogVerbose(@"Cache hit for key [%@].", aKey);
-                    }
+                    PNYLogVerbose(@"Cache hit for key [%@] in cache %@.", aKey, aCache);
 
                     if (aSuccess != nil) {
                         aSuccess(aCachedValue);
@@ -172,11 +168,7 @@ static NSString *const KEY_ARTIST_ALBUMS = @"artistAlbums.%@";
 
                 } else {
 
-                    if (aCache.cache.name != nil) {
-                        PNYLogVerbose(@"Cache miss for key [%@] in cache [%@].", aKey, aCache.cache.name);
-                    } else {
-                        PNYLogVerbose(@"Cache miss for key [%@].", aKey);
-                    }
+                    PNYLogVerbose(@"Cache miss for key [%@] in cache %@.", aKey, aCache);
 
                     request.targetRequest = aBlock(^(id aData) {
                         if (aData != nil) {
