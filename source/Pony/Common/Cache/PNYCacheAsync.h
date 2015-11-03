@@ -14,6 +14,7 @@
 + (instancetype)new __unavailable;
 - (instancetype)init __unavailable;
 
+- (void)cachedValueExistsForKey:(NSString *)aKey completion:(void (^)(BOOL aCachedValueExists))aCompletion;
 - (void)cachedValueForKey:(NSString *)aKey completion:(void (^)(id aCachedValue))aCompletion;
 - (void)cacheValue:(id)aValue forKey:(NSString *)aKey completion:(void(^)())aCompletion;
 

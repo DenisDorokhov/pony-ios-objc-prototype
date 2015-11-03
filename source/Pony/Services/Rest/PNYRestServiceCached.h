@@ -1,23 +1,15 @@
 //
-// Created by Denis Dorokhov on 31/10/15.
+// Created by Denis Dorokhov on 03/11/15.
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
 #import "PNYRestService.h"
-#import "PNYCacheAsync.h"
 
-@interface PNYRestServiceCached : NSObject <PNYRestService>
+@protocol PNYRestServiceCached <PNYRestService>
 
-@property (nonatomic, readonly) id <PNYRestService> targetService;
-
-@property (nonatomic, strong) PNYCacheAsync *installationCache;
-@property (nonatomic, strong) PNYCacheAsync *currentUserCache;
-@property (nonatomic, strong) PNYCacheAsync *artistsCache;
-@property (nonatomic, strong) PNYCacheAsync *artistAlbumsCache;
-
-- (instancetype)initWithTargetService:(id <PNYRestService>)aTargetService;
-
-+ (instancetype)new __unavailable;
-- (instancetype)init __unavailable;
+- (void)cachedValueExistsForInstallation:(void (^)(BOOL aCachedValueExists))aCompletion;
+- (void)cachedValueExistsForCurrentUser:(void (^)(BOOL aCachedValueExists))aCompletion;
+- (void)cachedValueExistsForArtists:(void (^)(BOOL aCachedValueExists))aCompletion;
+- (void)cachedValueExistsForArtistAlbums:(NSString *)aArtistIdOrName completion:(void (^)(BOOL aCachedValueExists))aCompletion;
 
 @end

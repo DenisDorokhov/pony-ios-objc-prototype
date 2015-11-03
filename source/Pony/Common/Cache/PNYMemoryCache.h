@@ -9,6 +9,8 @@
 
 @property (nonatomic, readonly) id <PNYCache> targetCache;
 
+@property (nonatomic) NSUInteger memoryCacheCapacity;
+
 - (instancetype)initWithTargetCache:(id <PNYCache>)aTargetCache;
 
 @end

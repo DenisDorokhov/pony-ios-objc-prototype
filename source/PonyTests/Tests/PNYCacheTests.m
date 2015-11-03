@@ -104,10 +104,15 @@
     id <PNYCache> targetCache = mockProtocol(@protocol(PNYCache));
 
     [given([targetCache cachedValueForKey:@"someKey"]) willReturn:@"someValue"];
+    [given([targetCache cachedValueExistsForKey:@"someKey"]) willReturn:@YES];
 
     PNYMemoryCache *memoryCache = [[PNYMemoryCache alloc] initWithTargetCache:targetCache];
 
     // Check if target cache is accessed.
+
+    XCTAssertTrue([memoryCache cachedValueExistsForKey:@"someKey"]);
+
+    [verify(targetCache) cachedValueExistsForKey:@"someKey"];
 
     XCTAssertEqualObjects([memoryCache cachedValueForKey:@"someKey"], @"someValue");
 
@@ -148,6 +153,7 @@
 
     [cache cacheValue:@"someValue" forKey:@"someKey"];
 
+    XCTAssertTrue([cache cachedValueExistsForKey:@"someKey"]);
     XCTAssertEqualObjects([cache cachedValueForKey:@"someKey"], @"someValue");
 
     [cache cacheValue:@"otherValue" forKey:@"otherKey"];

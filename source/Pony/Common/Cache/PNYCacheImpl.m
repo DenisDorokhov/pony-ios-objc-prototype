@@ -24,6 +24,11 @@
 
 #pragma mark - <PNYCache>
 
+- (BOOL)cachedValueExistsForKey:(NSString *)aKey
+{
+    return [[NSFileManager defaultManager] fileExistsAtPath:[self buildFilePathNameForKey:aKey]];
+}
+
 - (id)cachedValueForKey:(NSString *)aKey
 {
     NSData *valueData = [NSData dataWithContentsOfFile:[self buildFilePathNameForKey:aKey]];

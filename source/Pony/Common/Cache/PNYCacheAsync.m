@@ -18,6 +18,20 @@
 
 #pragma mark - Public
 
+- (void)cachedValueExistsForKey:(NSString *)aKey completion:(void (^)(BOOL aCachedValueExists))aCompletion
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+        BOOL valueExists = [self.cache cachedValueExistsForKey:aKey];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (aCompletion != nil) {
+                aCompletion(valueExists);
+            }
+        });
+    });
+}
+
 - (void)cachedValueForKey:(NSString *)aKey completion:(void (^)(id aCachedValue))aCompletion
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

@@ -3,12 +3,17 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-#import "PNYRestServiceCached.h"
+#import "PNYRestServiceCachedImpl.h"
 #import "PNYRestRequestProxy.h"
 
 typedef id <PNYRestRequest>(^PNYRestServiceCachedRequestBlock)(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure);
 
-@implementation PNYRestServiceCached
+@implementation PNYRestServiceCachedImpl
+
+static NSString *const KEY_INSTALLATION = @"installation";
+static NSString *const KEY_CURRENT_USER = @"currentUser";
+static NSString *const KEY_ARTISTS = @"artists";
+static NSString *const KEY_ARTIST_ALBUMS = @"artistAlbums.[%@]";
 
 - (instancetype)initWithTargetService:(id <PNYRestService>)aTargetService
 {
@@ -19,14 +24,43 @@ typedef id <PNYRestRequest>(^PNYRestServiceCachedRequestBlock)(PNYRestServiceSuc
     return self;
 }
 
-#pragma mark - <PNYRestService>
+#pragma mark - <PNYRestServiceCached>
+
+- (void)cachedValueExistsForInstallation:(void (^)(BOOL aCachedValueExists))aCompletion
+{
+    if (self.installationCache != nil) {
+        [self.installationCache cachedValueExistsForKey:KEY_INSTALLATION completion:aCompletion];
+    }
+}
+
+- (void)cachedValueExistsForCurrentUser:(void (^)(BOOL aCachedValueExists))aCompletion
+{
+    if (self.currentUserCache != nil) {
+        [self.currentUserCache cachedValueExistsForKey:KEY_CURRENT_USER completion:aCompletion];
+    }
+}
+
+- (void)cachedValueExistsForArtists:(void (^)(BOOL aCachedValueExists))aCompletion
+{
+    if (self.artistsCache != nil) {
+        [self.artistsCache cachedValueExistsForKey:KEY_ARTISTS completion:aCompletion];
+    }
+}
+
+- (void)cachedValueExistsForArtistAlbums:(NSString *)aArtistIdOrName completion:(void (^)(BOOL aCachedValueExists))aCompletion
+{
+    if (self.artistAlbumsCache != nil) {
+
+        NSString *cacheKey = [NSString stringWithFormat:KEY_ARTIST_ALBUMS, aArtistIdOrName];
+
+        [self.artistAlbumsCache cachedValueExistsForKey:cacheKey completion:aCompletion];
+    }
+}
 
 - (id <PNYRestRequest>)getInstallationWithSuccess:(void (^)(PNYInstallationDto *aInstallation))aSuccess
                                           failure:(PNYRestServiceFailureBlock)aFailure
 {
     PNYAssert(self.targetService != nil);
-
-    NSString *cacheKey = @"installation";
 
     PNYRestServiceCachedRequestBlock requestBlock = ^id <PNYRestRequest>(
             PNYRestServiceSuccessBlock aWrappedSuccess, PNYRestServiceFailureBlock aWrappedFailure) {
@@ -34,7 +68,7 @@ typedef id <PNYRestRequest>(^PNYRestServiceCachedRequestBlock)(PNYRestServiceSuc
                                                       failure:aWrappedFailure];
     };
 
-    return [self runCachedRequestWithCache:self.installationCache key:cacheKey
+    return [self runCachedRequestWithCache:self.installationCache key:KEY_INSTALLATION
                                    success:aSuccess failure:aFailure block:requestBlock];
 }
 
@@ -60,15 +94,13 @@ typedef id <PNYRestRequest>(^PNYRestServiceCachedRequestBlock)(PNYRestServiceSuc
 {
     PNYAssert(self.targetService != nil);
 
-    NSString *cacheKey = @"currentUser";
-
     PNYRestServiceCachedRequestBlock requestBlock = ^id <PNYRestRequest>(
             PNYRestServiceSuccessBlock aWrappedSuccess, PNYRestServiceFailureBlock aWrappedFailure) {
         return [self.targetService getCurrentUserWithSuccess:aWrappedSuccess
                                                      failure:aWrappedFailure];
     };
 
-    return [self runCachedRequestWithCache:self.currentUserCache key:cacheKey
+    return [self runCachedRequestWithCache:self.currentUserCache key:KEY_CURRENT_USER
                                    success:aSuccess failure:aFailure block:requestBlock];
 }
 
@@ -85,15 +117,13 @@ typedef id <PNYRestRequest>(^PNYRestServiceCachedRequestBlock)(PNYRestServiceSuc
 {
     PNYAssert(self.targetService != nil);
 
-    NSString *cacheKey = @"artists";
-
     PNYRestServiceCachedRequestBlock requestBlock = ^id <PNYRestRequest>(
             PNYRestServiceSuccessBlock aWrappedSuccess, PNYRestServiceFailureBlock aWrappedFailure) {
         return [self.targetService getArtistsWithSuccess:aWrappedSuccess
                                                  failure:aWrappedFailure];
     };
 
-    return [self runCachedRequestWithCache:self.artistsCache key:cacheKey
+    return [self runCachedRequestWithCache:self.artistsCache key:KEY_ARTISTS
                                    success:aSuccess failure:aFailure block:requestBlock];
 }
 
@@ -103,14 +133,14 @@ typedef id <PNYRestRequest>(^PNYRestServiceCachedRequestBlock)(PNYRestServiceSuc
 {
     PNYAssert(self.targetService != nil);
 
-    NSString *cacheKey = [NSString stringWithFormat:@"artistAlbums.[%@]", aArtistIdOrName];
-
     PNYRestServiceCachedRequestBlock requestBlock = ^id <PNYRestRequest>(
             PNYRestServiceSuccessBlock aWrappedSuccess, PNYRestServiceFailureBlock aWrappedFailure) {
         return [self.targetService getArtistAlbums:aArtistIdOrName
                                            success:aWrappedSuccess
                                            failure:aWrappedFailure];
     };
+
+    NSString *cacheKey = [NSString stringWithFormat:KEY_ARTIST_ALBUMS, aArtistIdOrName];
 
     return [self runCachedRequestWithCache:self.artistAlbumsCache key:cacheKey
                                    success:aSuccess failure:aFailure block:requestBlock];

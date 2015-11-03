@@ -5,6 +5,7 @@
 
 @protocol PNYCache <NSObject>
 
+- (BOOL)cachedValueExistsForKey:(NSString *)aKey;
 - (id)cachedValueForKey:(NSString *)aKey;
 - (void)cacheValue:(id)aValue forKey:(NSString *)aKey;
 
