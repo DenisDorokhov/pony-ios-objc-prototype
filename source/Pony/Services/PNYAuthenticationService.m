@@ -151,7 +151,7 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
 
     PNYLogInfo(@"Authenticating user [%@]...", aCredentials.email);
 
-    [self.restService authenticate:aCredentials success:^(PNYAuthenticationDto *aAuthentication) {
+    [self.restService authenticateWithCredentials:aCredentials success:^(PNYAuthenticationDto *aAuthentication) {
 
         [self updateAuthentication:aAuthentication];
 
@@ -162,7 +162,7 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
         }
         [self propagateAuthentication:aAuthentication.user];
 
-    } failure:^(NSArray *aErrors) {
+    }                                     failure:^(NSArray *aErrors) {
 
         PNYLogInfo(@"Authentication failed for user [%@]: %@", aCredentials.email, aErrors);
 
@@ -209,7 +209,7 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
 {
     PNYAssert(self.tokenPairDao != nil);
 
-    PNYTokenPair *tokenPair = [[PNYTokenPair alloc] init];
+    PNYTokenPair *tokenPair = [PNYTokenPair new];
 
     tokenPair.accessToken = aAuthentication.accessToken;
     tokenPair.accessTokenExpiration = aAuthentication.accessTokenExpiration;

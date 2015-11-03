@@ -9,6 +9,7 @@
 
 @property (nonatomic, readonly) id <PNYCache> cache;
 
++ (instancetype)cacheWithCache:(id <PNYCache>)aCache;
 - (instancetype)initWithCache:(id <PNYCache>)aCache;
 
 + (instancetype)new __unavailable;

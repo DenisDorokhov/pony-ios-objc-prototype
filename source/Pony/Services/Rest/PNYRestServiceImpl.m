@@ -57,9 +57,9 @@
 }
 
 
-- (id <PNYRestRequest>)authenticate:(PNYCredentialsDto *)aCredentials
-                            success:(void (^)(PNYAuthenticationDto *aAuthentication))aSuccess
-                            failure:(PNYRestServiceFailureBlock)aFailure
+- (id <PNYRestRequest>)authenticateWithCredentials:(PNYCredentialsDto *)aCredentials
+                                           success:(void (^)(PNYAuthenticationDto *aAuthentication))aSuccess
+                                           failure:(PNYRestServiceFailureBlock)aFailure
 {
     NSDictionary *credentialsDictionary = [EKSerializer serializeObject:aCredentials
                                                             withMapping:[PNYCredentialsDto objectMapping]];
@@ -120,9 +120,9 @@
     return [PNYRestRequestOperation requestWithOperation:operation];
 }
 
-- (id <PNYRestRequest>)getArtistAlbums:(NSString *)aArtistIdOrName
-                               success:(void (^)(PNYArtistAlbumsDto *aArtistAlbums))aSuccess
-                               failure:(PNYRestServiceFailureBlock)aFailure
+- (id <PNYRestRequest>)getArtistAlbumsWithArtist:(NSString *)aArtistIdOrName
+                                         success:(void (^)(PNYArtistAlbumsDto *aArtistAlbums))aSuccess
+                                         failure:(PNYRestServiceFailureBlock)aFailure
 {
     NSString *url = [NSString stringWithFormat:@"/api/artistAlbums/%@", aArtistIdOrName];
 

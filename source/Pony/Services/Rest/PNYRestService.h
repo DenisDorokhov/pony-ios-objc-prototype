@@ -17,9 +17,9 @@ typedef void (^PNYRestServiceFailureBlock)(NSArray *aErrors);
 - (id <PNYRestRequest>)getInstallationWithSuccess:(void (^)(PNYInstallationDto *aInstallation))aSuccess
                                           failure:(PNYRestServiceFailureBlock)aFailure;
 
-- (id <PNYRestRequest>)authenticate:(PNYCredentialsDto *)aCredentials
-                            success:(void (^)(PNYAuthenticationDto *aAuthentication))aSuccess
-                            failure:(PNYRestServiceFailureBlock)aFailure;
+- (id <PNYRestRequest>)authenticateWithCredentials:(PNYCredentialsDto *)aCredentials
+                                           success:(void (^)(PNYAuthenticationDto *aAuthentication))aSuccess
+                                           failure:(PNYRestServiceFailureBlock)aFailure;
 
 - (id <PNYRestRequest>)logoutWithSuccess:(void (^)(PNYUserDto *aUser))aSuccess
                                  failure:(PNYRestServiceFailureBlock)aFailure;
@@ -33,8 +33,8 @@ typedef void (^PNYRestServiceFailureBlock)(NSArray *aErrors);
 - (id <PNYRestRequest>)getArtistsWithSuccess:(void (^)(NSArray *aArtists))aSuccess
                                      failure:(PNYRestServiceFailureBlock)aFailure;
 
-- (id <PNYRestRequest>)getArtistAlbums:(NSString *)aArtistIdOrName
-                               success:(void (^)(PNYArtistAlbumsDto *aArtistAlbums))aSuccess
-                               failure:(PNYRestServiceFailureBlock)aFailure;
+- (id <PNYRestRequest>)getArtistAlbumsWithArtist:(NSString *)aArtistIdOrName
+                                         success:(void (^)(PNYArtistAlbumsDto *aArtistAlbums))aSuccess
+                                         failure:(PNYRestServiceFailureBlock)aFailure;
 
 @end

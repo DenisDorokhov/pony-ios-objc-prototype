@@ -7,6 +7,11 @@
 
 @implementation PNYCacheAsync
 
++ (instancetype)cacheWithCache:(id <PNYCache>)aCache
+{
+    return [[self alloc] initWithCache:aCache];
+}
+
 - (instancetype)initWithCache:(id <PNYCache>)aCache
 {
     self = [super init];

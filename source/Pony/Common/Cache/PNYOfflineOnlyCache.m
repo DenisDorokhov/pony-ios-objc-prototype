@@ -19,8 +19,17 @@
 
 #pragma mark - <PNYCache>
 
+- (NSString *)name
+{
+    PNYAssert(self.targetCache != nil);
+
+    return [self.targetCache name];
+}
+
 - (BOOL)cachedValueExistsForKey:(NSString *)aKey
 {
+    PNYAssert(self.targetCache != nil);
+
     return [self isOnline] ? NO : [self.targetCache cachedValueExistsForKey:aKey];
 }
 

@@ -155,13 +155,13 @@ static NSString *const DEMO_PASSWORD = @"demo";
 
     __block PNYArtistAlbumsDto *artistAlbums = nil;
 
-    [service getArtistAlbums:albumArtist.name success:^(PNYArtistAlbumsDto *aArtistAlbums) {
+    [service getArtistAlbumsWithArtist:albumArtist.name success:^(PNYArtistAlbumsDto *aArtistAlbums) {
 
         [expectation fulfill];
 
         artistAlbums = aArtistAlbums;
 
-    } failure:^(NSArray *aErrors) {
+    }                          failure:^(NSArray *aErrors) {
         [self failExpectation:expectation withErrors:aErrors];
     }];
 
@@ -210,13 +210,13 @@ static NSString *const DEMO_PASSWORD = @"demo";
 
     __block PNYAuthenticationDto *authentication = nil;
 
-    [service authenticate:credentials success:^(PNYAuthenticationDto *aAuthentication) {
+    [service authenticateWithCredentials:credentials success:^(PNYAuthenticationDto *aAuthentication) {
 
         [expectation fulfill];
 
         authentication = aAuthentication;
 
-    }             failure:^(NSArray *aErrors) {
+    }                            failure:^(NSArray *aErrors) {
         [self failExpectation:expectation withErrors:aErrors];
     }];
 
@@ -239,7 +239,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
 {
     [aExpectation fulfill];
 
-    XCTFail(@"Request failed with errors: %@", aErrors);
+    XCTFail(@"Failed with errors: %@.", aErrors);
 }
 
 - (void)assertDemoAuthentication:(PNYAuthenticationDto *)aAuthentication

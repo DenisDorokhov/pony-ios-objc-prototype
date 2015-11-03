@@ -46,17 +46,18 @@
 
 #pragma mark - <PNYCache>
 
+- (NSString *)name
+{
+    return _name != nil ? _name : [self.targetCache name];
+}
+
 - (BOOL)cachedValueExistsForKey:(NSString *)aKey
 {
-    PNYAssert(self.targetCache != nil);
-
     return [memoryCache objectForKey:aKey] != nil || [self.targetCache cachedValueExistsForKey:aKey];
 }
 
 - (id)cachedValueForKey:(NSString *)aKey
 {
-    PNYAssert(self.targetCache != nil);
-
     id value = [memoryCache objectForKey:aKey];
     if (value == nil) {
         value = [self.targetCache cachedValueForKey:aKey];
@@ -69,24 +70,18 @@
 
 - (void)cacheValue:(id)aValue forKey:(NSString *)aKey
 {
-    PNYAssert(self.targetCache != nil);
-
     [self.targetCache cacheValue:aValue forKey:aKey];
     [memoryCache setObject:aValue forKey:aKey];
 }
 
 - (void)removeCachedValueForKey:(NSString *)aKey
 {
-    PNYAssert(self.targetCache != nil);
-
     [self.targetCache removeCachedValueForKey:aKey];
     [memoryCache removeObjectForKey:aKey];
 }
 
 - (void)removeAllCachedValues
 {
-    PNYAssert(self.targetCache != nil);
-
     [self.targetCache removeAllCachedValues];
     [memoryCache removeAllObjects];
 }
