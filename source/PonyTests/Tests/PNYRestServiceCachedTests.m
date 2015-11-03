@@ -47,6 +47,12 @@
     XCTAssertEqual(dto, dtoToReturn);
 
     [verifyCount(targetService, times(1)) getInstallationWithSuccess:anything() failure:anything()];
+
+    // Check cache value existence.
+
+    XCTAssertTrue([self cachedValueExistsForBlock:^(void(^aCompletion)(BOOL)) {
+        [service cachedValueExistsForInstallation:aCompletion];
+    }]);
 }
 
 - (void)testAuthenticate
@@ -125,6 +131,12 @@
     XCTAssertEqual(dto, dtoToReturn);
 
     [verifyCount(targetService, times(1)) getCurrentUserWithSuccess:anything() failure:anything()];
+
+    // Check cache value existence.
+
+    XCTAssertTrue([self cachedValueExistsForBlock:^(void(^aCompletion)(BOOL)) {
+        [service cachedValueExistsForCurrentUser:aCompletion];
+    }]);
 }
 
 - (void)testRefreshToken
@@ -182,6 +194,12 @@
     XCTAssertEqual(dto, dtoToReturn);
 
     [verifyCount(targetService, times(1)) getArtistsWithSuccess:anything() failure:anything()];
+
+    // Check cache value existence.
+
+    XCTAssertTrue([self cachedValueExistsForBlock:^(void(^aCompletion)(BOOL)) {
+        [service cachedValueExistsForArtists:aCompletion];
+    }]);
 }
 
 - (void)testGetArtistAlbums
@@ -218,6 +236,12 @@
     XCTAssertEqual(dto, dtoToReturn);
 
     [verifyCount(targetService, times(1)) getArtistAlbumsWithArtist:@"someArtist" success:anything() failure:anything()];
+
+    // Check cache value existence.
+
+    XCTAssertTrue([self cachedValueExistsForBlock:^(void(^aCompletion)(BOOL)) {
+        [service cachedValueExistsForArtistAlbums:@"someArtist" completion:aCompletion];
+    }]);
 }
 
 #pragma mark - Private
@@ -238,6 +262,21 @@
     PNYTestExpectationWait();
 
     return returnedDto;
+}
+
+- (BOOL)cachedValueExistsForBlock:(void(^)(void(^Completion)(BOOL)))aBlock
+{
+    XCTestExpectation *expectation = PNYTestExpectationCreate();
+
+    __block BOOL result = NO;
+    aBlock(^(BOOL aCompletion) {
+        result = aCompletion;
+        [expectation fulfill];
+    });
+
+    PNYTestExpectationWait();
+
+    return result;
 }
 
 @end
