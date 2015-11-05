@@ -11,6 +11,7 @@
 #import "PNYResponseDto.h"
 #import "PNYErrorDto.h"
 #import "PNYRestTokens.h"
+#import "NSURLRequest+PNYDump.h"
 
 @implementation PNYRestServiceImpl
 {
@@ -179,6 +180,8 @@
                                                    error:&error];
 
     if (error == nil) {
+
+        PNYLogVerbose(@"Running request: %@.", [urlRequest dump]);
 
         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
 
