@@ -253,15 +253,17 @@
 
 - (NSArray *)errorToDtoArray:(NSError *)aError
 {
-    if ([aError.domain isEqualToString:NSURLErrorDomain] && aError.code == NSURLErrorNotConnectedToInternet) {
-        return @[[PNYErrorDto errorWithCode:PNYErrorDtoCodeClientOffline
-                                       text:@"Could not make server request. Are you online?"
-                                  arguments:nil]];
-    } else {
-        return @[[PNYErrorDto errorWithCode:PNYErrorDtoCodeClientRequestFailed
-                                       text:[NSString stringWithFormat:@"An error occurred when making server request: %@.", aError]
-                                  arguments:@[[aError localizedDescription]]]];
+    if ([aError.domain isEqualToString:NSURLErrorDomain]) {
+        if (aError.code == NSURLErrorNotConnectedToInternet) {
+            return @[[PNYErrorDto errorWithCode:PNYErrorDtoCodeClientOffline
+                                           text:@"Could not make server request. Are you online?"
+                                      arguments:nil]];
+        }
     }
+
+    return @[[PNYErrorDto errorWithCode:PNYErrorDtoCodeClientRequestFailed
+                                   text:[NSString stringWithFormat:@"An error occurred when making server request: %@.", aError]
+                              arguments:@[[aError localizedDescription]]]];
 }
 
 @end
