@@ -49,7 +49,7 @@
 
 - (void)fillAndSavePersistentDictionary:(id <PNYPersistentDictionary>)aService
 {
-    XCTAssertEqual([aService.data count], 0);
+    assertThat(aService.data, isEmpty());
 
     aService.data[@"globalKey1"] = @{ @"testKey" : @"testValue" };
     aService.data[@"globalKey2"] = @"globalValue2";
@@ -59,8 +59,8 @@
 
 - (void)assertDictionary:(NSDictionary *)aDictionary
 {
-    XCTAssertEqualObjects(((NSDictionary *)aDictionary[@"globalKey1"])[@"testKey"], @"testValue");
-    XCTAssertEqualObjects(aDictionary[@"globalKey2"], @"globalValue2");
+    assertThat(((NSDictionary *)aDictionary[@"globalKey1"])[@"testKey"], equalTo(@"testValue"));
+    assertThat(aDictionary[@"globalKey2"], equalTo(@"globalValue2"));
 }
 
 @end

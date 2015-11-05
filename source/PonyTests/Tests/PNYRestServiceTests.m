@@ -55,7 +55,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
 
     PNYTestExpectationWait();
 
-    XCTAssertNotNil(installation.version);
+    assertThat(installation.version, notNilValue());
 }
 
 - (void)testAuthenticate
@@ -136,7 +136,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
 {
     NSArray *artists = [self authenticateAndGetArtistsSynchronously];
 
-    XCTAssertGreaterThan([artists count], 0);
+    assertThat(artists, isNot(isEmpty()));
 
     PNYArtistDto *artist = artists[0];
 
@@ -147,7 +147,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
 {
     NSArray *artists = [self authenticateAndGetArtistsSynchronously];
 
-    XCTAssertGreaterThan([artists count], 0);
+    assertThat(artists, isNot(isEmpty()));
 
     PNYArtistDto *albumArtist = artists[0];
 
@@ -167,8 +167,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
 
     PNYTestExpectationWait();
 
-    XCTAssertNotNil(artistAlbums.artist);
-    XCTAssertGreaterThan([artistAlbums.albums count], 0);
+    assertThat(artistAlbums.albums, isNot(isEmpty()));
 
     [self assertArtist:artistAlbums.artist];
     [self assertAlbumSongs:artistAlbums.albums[0]];
@@ -244,59 +243,59 @@ static NSString *const DEMO_PASSWORD = @"demo";
 
 - (void)assertDemoAuthentication:(PNYAuthenticationDto *)aAuthentication
 {
-    XCTAssertNotNil(aAuthentication.accessToken);
-    XCTAssertNotNil(aAuthentication.accessTokenExpiration);
-    XCTAssertNotNil(aAuthentication.refreshToken);
-    XCTAssertNotNil(aAuthentication.refreshTokenExpiration);
+    assertThat(aAuthentication.accessToken, notNilValue());
+    assertThat(aAuthentication.accessTokenExpiration, notNilValue());
+    assertThat(aAuthentication.refreshToken, notNilValue());
+    assertThat(aAuthentication.refreshTokenExpiration, notNilValue());
 
     [self assertDemoUser:aAuthentication.user];
 }
 
 - (void)assertDemoUser:(PNYUserDto *)aUser
 {
-    XCTAssertNotNil(aUser.name);
-    XCTAssertEqualObjects(aUser.email, DEMO_EMAIL);
-    XCTAssertNotNil(aUser.creationDate);
-    XCTAssertEqual(aUser.role, PNYRoleDtoUser);
+    assertThat(aUser.name, notNilValue());
+    assertThat(aUser.email, equalTo(DEMO_EMAIL));
+    assertThat(aUser.creationDate, notNilValue());
+    assertThatInteger(aUser.role, equalToInteger(PNYRoleDtoUser));
 }
 
 - (void)assertArtist:(PNYArtistDto *)aArtist
 {
-    XCTAssertNotNil(aArtist.id);
-    XCTAssertNotNil(aArtist.name);
-    XCTAssertNotNil(aArtist.artwork);
-    XCTAssertNotNil(aArtist.artworkUrl);
+    assertThat(aArtist.id, notNilValue());
+    assertThat(aArtist.name, notNilValue());
+    assertThat(aArtist.artwork, notNilValue());
+    assertThat(aArtist.artworkUrl, notNilValue());
 }
 
 - (void)assertAlbum:(PNYAlbumDto *)aAlbum
 {
-    XCTAssertNotNil(aAlbum.id);
-    XCTAssertNotNil(aAlbum.name);
-    XCTAssertNotNil(aAlbum.year);
-    XCTAssertNotNil(aAlbum.artwork);
-    XCTAssertNotNil(aAlbum.artworkUrl);
+    assertThat(aAlbum.id, notNilValue());
+    assertThat(aAlbum.name, notNilValue());
+    assertThat(aAlbum.year, notNilValue());
+    assertThat(aAlbum.artwork, notNilValue());
+    assertThat(aAlbum.artworkUrl, notNilValue());
 
     [self assertArtist:aAlbum.artist];
 }
 
 - (void)assertGenre:(PNYGenreDto *)aGenre
 {
-    XCTAssertNotNil(aGenre.id);
-    XCTAssertNotNil(aGenre.name);
-    XCTAssertNotNil(aGenre.artwork);
-    XCTAssertNotNil(aGenre.artworkUrl);
+    assertThat(aGenre.id, notNilValue());
+    assertThat(aGenre.name, notNilValue());
+    assertThat(aGenre.artwork, notNilValue());
+    assertThat(aGenre.artworkUrl, notNilValue());
 }
 
 - (void)assertSong:(PNYSongDto *)aSong
 {
     // Disc number can be nil, so we skip it.
 
-    XCTAssertNotNil(aSong.id);
-    XCTAssertNotNil(aSong.url);
-    XCTAssertNotNil(aSong.duration);
-    XCTAssertNotNil(aSong.trackNumber);
-    XCTAssertNotNil(aSong.artistName);
-    XCTAssertNotNil(aSong.name);
+    assertThat(aSong.id, notNilValue());
+    assertThat(aSong.url, notNilValue());
+    assertThat(aSong.duration, notNilValue());
+    assertThat(aSong.trackNumber, notNilValue());
+    assertThat(aSong.artistName, notNilValue());
+    assertThat(aSong.name, notNilValue());
 
     [self assertAlbum:aSong.album];
     [self assertGenre:aSong.genre];
@@ -306,7 +305,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
 {
     [self assertAlbum:aAlbumSongs.album];
 
-    XCTAssertGreaterThan([aAlbumSongs.songs count], 0);
+    assertThat(aAlbumSongs.songs, isNot(isEmpty()));
 
     [self assertSong:aAlbumSongs.songs[0]];
 }

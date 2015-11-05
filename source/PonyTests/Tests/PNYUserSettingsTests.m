@@ -33,23 +33,23 @@
     [service setSetting:@"someValue" forKey:@"someKey"];
     [service save];
 
-    XCTAssertEqualObjects(didCallDidSetKey, @"someKey");
-    XCTAssertEqualObjects(didCallDidSetValue, @"someValue");
-    XCTAssertNil(didCallDidRemoveKey);
-    XCTAssertTrue(didCallDidSave);
-    XCTAssertFalse(didCallDidClear);
+    assertThat(didCallDidSetKey, equalTo(@"someKey"));
+    assertThat(didCallDidSetValue, equalTo(@"someValue"));
+    assertThat(didCallDidRemoveKey, nilValue());
+    assertThatBool(didCallDidSave, isTrue());
+    assertThatBool(didCallDidClear, isFalse());
 
-    XCTAssertEqualObjects([service settingForKey:@"someKey"], @"someValue");
+    assertThat([service settingForKey:@"someKey"], equalTo(@"someValue"));
 
     [self reset];
 
     [service removeSettingForKey:@"someKey"];
 
-    XCTAssertNil(didCallDidSetKey);
-    XCTAssertNil(didCallDidSetValue);
-    XCTAssertEqualObjects(didCallDidRemoveKey, @"someKey");
-    XCTAssertFalse(didCallDidSave);
-    XCTAssertFalse(didCallDidClear);
+    assertThat(didCallDidSetKey, nilValue());
+    assertThat(didCallDidSetValue, nilValue());
+    assertThat(didCallDidRemoveKey, equalTo(@"someKey"));
+    assertThatBool(didCallDidSave, isFalse());
+    assertThatBool(didCallDidClear, isFalse());
 
     [service setSetting:@"someValue1" forKey:@"someKey1"];
 
@@ -57,11 +57,11 @@
 
     [service clear];
 
-    XCTAssertNil(didCallDidSetKey);
-    XCTAssertNil(didCallDidSetValue);
-    XCTAssertNil(didCallDidRemoveKey);
-    XCTAssertFalse(didCallDidSave);
-    XCTAssertTrue(didCallDidClear);
+    assertThat(didCallDidSetKey, nilValue());
+    assertThat(didCallDidSetValue, nilValue());
+    assertThat(didCallDidRemoveKey, nilValue());
+    assertThatBool(didCallDidSave, isFalse());
+    assertThatBool(didCallDidClear, isTrue());
 
     [service removeDelegate:self];
 
@@ -69,18 +69,18 @@
 
     [service save];
 
-    XCTAssertNil(didCallDidSetKey);
-    XCTAssertNil(didCallDidSetValue);
-    XCTAssertNil(didCallDidRemoveKey);
-    XCTAssertFalse(didCallDidSave);
-    XCTAssertFalse(didCallDidClear);
+    assertThat(didCallDidSetKey, nilValue());
+    assertThat(didCallDidSetValue, nilValue());
+    assertThat(didCallDidRemoveKey, nilValue());
+    assertThatBool(didCallDidSave, isFalse());
+    assertThatBool(didCallDidClear, isFalse());
 }
 
 #pragma mark - <PNYUserSettingsDelegate>
 
 - (void)userSettings:(id <PNYUserSettings>)aUserSettings didSetSetting:(id)aSetting forKey:(NSString *)aKey
 {
-    XCTAssertNotNil(aUserSettings);
+    assertThat(aUserSettings, notNilValue());
 
     didCallDidSetKey = aKey;
     didCallDidSetValue = aSetting;
@@ -88,21 +88,21 @@
 
 - (void)userSettings:(id <PNYUserSettings>)aUserSettings didRemoveSettingForKey:(NSString *)aKey
 {
-    XCTAssertNotNil(aUserSettings);
+    assertThat(aUserSettings, notNilValue());
 
     didCallDidRemoveKey = aKey;
 }
 
 - (void)userSettingsDidSave:(id <PNYUserSettings>)aUserSettings
 {
-    XCTAssertNotNil(aUserSettings);
+    assertThat(aUserSettings, notNilValue());
 
     didCallDidSave = YES;
 }
 
 - (void)userSettingsDidClear:(id <PNYUserSettings>)aUserSettings
 {
-    XCTAssertNotNil(aUserSettings);
+    assertThat(aUserSettings, notNilValue());
 
     didCallDidClear = YES;
 }

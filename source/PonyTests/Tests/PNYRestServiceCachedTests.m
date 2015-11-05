@@ -37,22 +37,22 @@
     // Check that first time target service is used.
 
     dto = [self runMethodAndWait:methodBlock];
-    XCTAssertEqual(dto, dtoToReturn);
+    assertThat(dto, sameInstance(dtoToReturn));
 
     [verify(targetService) getInstallationWithSuccess:anything() failure:anything()];
 
     // Check that second time cache is used and target service is not called.
 
     dto = [self runMethodAndWait:methodBlock];
-    XCTAssertEqual(dto, dtoToReturn);
+    assertThat(dto, sameInstance(dtoToReturn));
 
     [verifyCount(targetService, times(1)) getInstallationWithSuccess:anything() failure:anything()];
 
     // Check cache value existence.
 
-    XCTAssertTrue([self cachedValueExistsForBlock:^(void(^aCompletion)(BOOL)) {
+    assertThatBool([self cachedValueExistsForBlock:^(void(^aCompletion)(BOOL)) {
         [service cachedValueExistsForInstallation:aCompletion];
-    }]);
+    }], isTrue());
 }
 
 - (void)testAuthenticate
@@ -73,7 +73,7 @@
     id dto = [self runMethodAndWait:^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure) {
         [service authenticateWithCredentials:nil success:aSuccess failure:aFailure];
     }];
-    XCTAssertEqual(dto, dtoToReturn);
+    assertThat(dto, sameInstance(dtoToReturn));
 }
 
 - (void)testLogout
@@ -94,7 +94,7 @@
     id dto = [self runMethodAndWait:^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure) {
         [service logoutWithSuccess:aSuccess failure:aFailure];
     }];
-    XCTAssertEqual(dto, dtoToReturn);
+    assertThat(dto, sameInstance(dtoToReturn));
 }
 
 - (void)testGetCurrentUser
@@ -121,22 +121,22 @@
     // Check that first time target service is used.
 
     dto = [self runMethodAndWait:methodBlock];
-    XCTAssertEqual(dto, dtoToReturn);
+    assertThat(dto, sameInstance(dtoToReturn));
 
     [verify(targetService) getCurrentUserWithSuccess:anything() failure:anything()];
 
     // Check that second time cache is used and target service is not called.
 
     dto = [self runMethodAndWait:methodBlock];
-    XCTAssertEqual(dto, dtoToReturn);
+    assertThat(dto, sameInstance(dtoToReturn));
 
     [verifyCount(targetService, times(1)) getCurrentUserWithSuccess:anything() failure:anything()];
 
     // Check cache value existence.
 
-    XCTAssertTrue([self cachedValueExistsForBlock:^(void(^aCompletion)(BOOL)) {
+    assertThatBool([self cachedValueExistsForBlock:^(void(^aCompletion)(BOOL)) {
         [service cachedValueExistsForCurrentUser:aCompletion];
-    }]);
+    }], isTrue());
 }
 
 - (void)testRefreshToken
@@ -157,7 +157,7 @@
     id dto = [self runMethodAndWait:^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure) {
         [service refreshTokenWithSuccess:aSuccess failure:aFailure];
     }];
-    XCTAssertEqual(dto, dtoToReturn);
+    assertThat(dto, sameInstance(dtoToReturn));
 }
 
 - (void)testGetArtists
@@ -184,22 +184,22 @@
     // Check that first time target service is used.
 
     dto = [self runMethodAndWait:methodBlock];
-    XCTAssertEqual(dto, dtoToReturn);
+    assertThat(dto, sameInstance(dtoToReturn));
 
     [verify(targetService) getArtistsWithSuccess:anything() failure:anything()];
 
     // Check that second time cache is used and target service is not called.
 
     dto = [self runMethodAndWait:methodBlock];
-    XCTAssertEqual(dto, dtoToReturn);
+    assertThat(dto, sameInstance(dtoToReturn));
 
     [verifyCount(targetService, times(1)) getArtistsWithSuccess:anything() failure:anything()];
 
     // Check cache value existence.
 
-    XCTAssertTrue([self cachedValueExistsForBlock:^(void(^aCompletion)(BOOL)) {
+    assertThatBool([self cachedValueExistsForBlock:^(void(^aCompletion)(BOOL)) {
         [service cachedValueExistsForArtists:aCompletion];
-    }]);
+    }], isTrue());
 }
 
 - (void)testGetArtistAlbums
@@ -226,22 +226,22 @@
     // Check that first time target service is used.
 
     dto = [self runMethodAndWait:methodBlock];
-    XCTAssertEqual(dto, dtoToReturn);
+    assertThat(dto, sameInstance(dtoToReturn));
 
     [verify(targetService) getArtistAlbumsWithArtist:@"someArtist" success:anything() failure:anything()];
 
     // Check that second time cache is used and target service is not called.
 
     dto = [self runMethodAndWait:methodBlock];
-    XCTAssertEqual(dto, dtoToReturn);
+    assertThat(dto, sameInstance(dtoToReturn));
 
     [verifyCount(targetService, times(1)) getArtistAlbumsWithArtist:@"someArtist" success:anything() failure:anything()];
 
     // Check cache value existence.
 
-    XCTAssertTrue([self cachedValueExistsForBlock:^(void(^aCompletion)(BOOL)) {
+    assertThatBool([self cachedValueExistsForBlock:^(void(^aCompletion)(BOOL)) {
         [service cachedValueExistsForArtistAlbums:@"someArtist" completion:aCompletion];
-    }]);
+    }], isTrue());
 }
 
 #pragma mark - Private

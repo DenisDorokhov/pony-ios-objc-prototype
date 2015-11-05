@@ -43,10 +43,10 @@
 
     [eventBus fireEvent:[PNYEvent eventWithType:@"someType"]];
 
-    XCTAssertEqual(countCallbackWithArgument, 1);
-    XCTAssertEqual(countCallbackWithTwoArguments, 1);
-    XCTAssertEqual(countCallbackWithoutArguments, 1);
-    XCTAssertEqual(countCallbackWithCancellation, 0);
+    assertThatUnsignedInteger(countCallbackWithArgument, equalTo(@1));
+    assertThatUnsignedInteger(countCallbackWithTwoArguments, equalTo(@1));
+    assertThatUnsignedInteger(countCallbackWithoutArguments, equalTo(@1));
+    assertThatUnsignedInteger(countCallbackWithCancellation, equalTo(@0));
 
     // Test callback not firing.
 
@@ -54,10 +54,10 @@
 
     [eventBus fireEvent:[PNYEvent eventWithType:@"otherType"]];
 
-    XCTAssertEqual(countCallbackWithArgument, 0);
-    XCTAssertEqual(countCallbackWithTwoArguments, 0);
-    XCTAssertEqual(countCallbackWithoutArguments, 0);
-    XCTAssertEqual(countCallbackWithCancellation, 0);
+    assertThatUnsignedInteger(countCallbackWithArgument, equalTo(@0));
+    assertThatUnsignedInteger(countCallbackWithTwoArguments, equalTo(@0));
+    assertThatUnsignedInteger(countCallbackWithoutArguments, equalTo(@0));
+    assertThatUnsignedInteger(countCallbackWithCancellation, equalTo(@0));
 
     [self reset];
 
@@ -67,10 +67,10 @@
 
     [eventBus fireEvent:[PNYEvent eventWithType:@"someType"]];
 
-    XCTAssertEqual(countCallbackWithArgument, 1);
-    XCTAssertEqual(countCallbackWithTwoArguments, 1);
-    XCTAssertEqual(countCallbackWithoutArguments, 0);
-    XCTAssertEqual(countCallbackWithCancellation, 0);
+    assertThatUnsignedInteger(countCallbackWithArgument, equalTo(@1));
+    assertThatUnsignedInteger(countCallbackWithTwoArguments, equalTo(@1));
+    assertThatUnsignedInteger(countCallbackWithoutArguments, equalTo(@0));
+    assertThatUnsignedInteger(countCallbackWithCancellation, equalTo(@0));
 
     // Test removal of all listeners.
 
@@ -80,10 +80,10 @@
 
     [eventBus fireEvent:[PNYEvent eventWithType:@"someType"]];
 
-    XCTAssertEqual(countCallbackWithArgument, 0);
-    XCTAssertEqual(countCallbackWithTwoArguments, 0);
-    XCTAssertEqual(countCallbackWithoutArguments, 0);
-    XCTAssertEqual(countCallbackWithCancellation, 0);
+    assertThatUnsignedInteger(countCallbackWithArgument, equalTo(@0));
+    assertThatUnsignedInteger(countCallbackWithTwoArguments, equalTo(@0));
+    assertThatUnsignedInteger(countCallbackWithoutArguments, equalTo(@0));
+    assertThatUnsignedInteger(countCallbackWithCancellation, equalTo(@0));
 }
 
 - (void)testEventCancellation
@@ -95,27 +95,27 @@
 
     [eventBus fireEvent:[PNYEvent eventWithType:@"someType"]];
 
-    XCTAssertEqual(countCallbackWithArgument, 0);
-    XCTAssertEqual(countCallbackWithTwoArguments, 0);
-    XCTAssertEqual(countCallbackWithoutArguments, 0);
-    XCTAssertEqual(countCallbackWithCancellation, 1);
+    assertThatUnsignedInteger(countCallbackWithArgument, equalTo(@0));
+    assertThatUnsignedInteger(countCallbackWithTwoArguments, equalTo(@0));
+    assertThatUnsignedInteger(countCallbackWithoutArguments, equalTo(@0));
+    assertThatUnsignedInteger(countCallbackWithCancellation, equalTo(@1));
 }
 
 #pragma mark - Events
 
 - (void)callback:(PNYEvent *)aEvent
 {
-    XCTAssertNotNil(aEvent);
-    XCTAssertEqual(aEvent.type, @"someType");
+    assertThat(aEvent, notNilValue());
+    assertThat(aEvent.type, equalTo(@"someType"));
 
     countCallbackWithArgument++;
 }
 
 - (void)callback:(PNYEvent *)aEvent argument:(NSObject *)aSomeArgument
 {
-    XCTAssertNotNil(aEvent);
-    XCTAssertEqual(aEvent.type, @"someType");
-    XCTAssertNil(aSomeArgument);
+    assertThat(aEvent, notNilValue());
+    assertThat(aEvent.type, equalTo(@"someType"));
+    assertThat(aSomeArgument, nilValue());
 
     countCallbackWithTwoArguments++;
 }
@@ -127,8 +127,8 @@
 
 - (void)callbackWithCancellation:(PNYEvent *)aEvent
 {
-    XCTAssertNotNil(aEvent);
-    XCTAssertEqual(aEvent.type, @"someType");
+    assertThat(aEvent, notNilValue());
+    assertThat(aEvent.type, equalTo(@"someType"));
 
     [aEvent cancel];
 

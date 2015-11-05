@@ -46,7 +46,7 @@
 
     [self assertArtistDto:dto.artist];
 
-    XCTAssertEqual([dto.albums count], 1);
+    assertThat(dto.albums, hasCountOf(1));
     [self assertAlbumSongsDto:dto.albums[0]];
 }
 
@@ -68,10 +68,10 @@
             @"user" : [self buildUserDtoDictionary],
     } withMapping:[PNYAuthenticationDto objectMapping]];
 
-    XCTAssertEqualObjects(dto.accessToken, @"someAccessToken");
-    XCTAssertEqualObjects(dto.accessTokenExpiration, [NSDate dateWithTimeIntervalSince1970:999999]);
-    XCTAssertEqualObjects(dto.refreshToken, @"someRefreshToken");
-    XCTAssertEqualObjects(dto.refreshTokenExpiration, [NSDate dateWithTimeIntervalSince1970:888888]);
+    assertThat(dto.accessToken, equalTo(@"someAccessToken"));
+    assertThat(dto.accessTokenExpiration, equalTo([NSDate dateWithTimeIntervalSince1970:999999]));
+    assertThat(dto.refreshToken, equalTo(@"someRefreshToken"));
+    assertThat(dto.refreshTokenExpiration, equalTo([NSDate dateWithTimeIntervalSince1970:888888]));
 
     [self assertUserDto:dto.user];
 }
@@ -83,8 +83,8 @@
             @"password" : @"somePassword",
     } withMapping:[PNYCredentialsDto objectMapping]];
 
-    XCTAssertEqualObjects(dto.email, @"someEmail");
-    XCTAssertEqualObjects(dto.password, @"somePassword");
+    assertThat(dto.email, equalTo(@"someEmail"));
+    assertThat(dto.password, equalTo(@"somePassword"));
 }
 
 - (void)testErrorDto
@@ -109,7 +109,7 @@
         @"version" : @"someVersion"
     } withMapping:[PNYInstallationDto objectMapping]];
 
-    XCTAssertEqualObjects(dto.version, @"someVersion");
+    assertThat(dto.version, equalTo(@"someVersion"));
 }
 
 - (void)testSongDto
@@ -139,7 +139,7 @@
 
     [self assertResponseDtoExcludingData:dto];
 
-    XCTAssertTrue([dto.data isKindOfClass:[PNYAlbumSongsDto class]]);
+    assertThatBool([dto.data isKindOfClass:[PNYAlbumSongsDto class]], isTrue());
     [self assertAlbumSongsDto:dto.data];
 
     // Test array data.
@@ -149,8 +149,8 @@
 
     [self assertResponseDtoExcludingData:dto];
 
-    XCTAssertTrue([dto.data isKindOfClass:[NSArray class]]);
-    XCTAssertEqual([dto.data count], 1);
+    assertThatBool([dto.data isKindOfClass:[NSArray class]], isTrue());
+    assertThat(dto.data, hasCountOf(1));
     [self assertArtistDto:dto.data[0]];
 
     // Test nil data.
@@ -160,7 +160,7 @@
 
     [self assertResponseDtoExcludingData:dto];
 
-    XCTAssertNil(dto.data);
+    assertThat(dto.data, nilValue());
 }
 
 #pragma mark - Private
@@ -257,45 +257,45 @@
 {
     [self assertAlbumDto:aDto.album];
 
-    XCTAssertEqual([aDto.songs count], 1);
+    assertThat(aDto.songs, hasCountOf(1));
     [self assertSongDto:aDto.songs[0]];
 }
 
 - (void)assertAlbumDto:(PNYAlbumDto *)aDto
 {
-    XCTAssertEqualObjects(aDto.id, @1);
-    XCTAssertEqualObjects(aDto.name, @"albumName");
-    XCTAssertEqualObjects(aDto.year, @2015);
-    XCTAssertEqualObjects(aDto.artwork, @2);
-    XCTAssertEqualObjects(aDto.artworkUrl, @"albumArtworkUrl");
+    assertThat(aDto.id, equalTo(@1));
+    assertThat(aDto.name, equalTo(@"albumName"));
+    assertThat(aDto.year, equalTo(@2015));
+    assertThat(aDto.artwork, equalTo(@2));
+    assertThat(aDto.artworkUrl, equalTo(@"albumArtworkUrl"));
 
     [self assertArtistDto:aDto.artist];
 }
 
 - (void)assertGenreDto:(PNYGenreDto *)aDto
 {
-    XCTAssertEqualObjects(aDto.id, @1);
-    XCTAssertEqualObjects(aDto.name, @"genreName");
-    XCTAssertEqualObjects(aDto.artwork, @2);
-    XCTAssertEqualObjects(aDto.artworkUrl, @"genreArtworkUrl");
+    assertThat(aDto.id, equalTo(@1));
+    assertThat(aDto.name, equalTo(@"genreName"));
+    assertThat(aDto.artwork, equalTo(@2));
+    assertThat(aDto.artworkUrl, equalTo(@"genreArtworkUrl"));
 }
 
 - (void)assertArtistDto:(PNYArtistDto *)aDto
 {
-    XCTAssertEqualObjects(aDto.name, @"artistName");
-    XCTAssertEqualObjects(aDto.artwork, @3);
-    XCTAssertEqualObjects(aDto.artworkUrl, @"artistArtworkUrl");
+    assertThat(aDto.name, equalTo(@"artistName"));
+    assertThat(aDto.artwork, equalTo(@3));
+    assertThat(aDto.artworkUrl, equalTo(@"artistArtworkUrl"));
 }
 
 - (void)assertSongDto:(PNYSongDto *)aDto
 {
-    XCTAssertEqualObjects(aDto.id, @1);
-    XCTAssertEqualObjects(aDto.url, @"songUrl");
-    XCTAssertEqualObjects(aDto.duration, @1);
-    XCTAssertEqualObjects(aDto.discNumber, @2);
-    XCTAssertEqualObjects(aDto.trackNumber, @3);
-    XCTAssertEqualObjects(aDto.artistName, @"songArtistName");
-    XCTAssertEqualObjects(aDto.name, @"songName");
+    assertThat(aDto.id, equalTo(@1));
+    assertThat(aDto.url, equalTo(@"songUrl"));
+    assertThat(aDto.duration, equalTo(@1));
+    assertThat(aDto.discNumber, equalTo(@2));
+    assertThat(aDto.trackNumber, equalTo(@3));
+    assertThat(aDto.artistName, equalTo(@"songArtistName"));
+    assertThat(aDto.name, equalTo(@"songName"));
 
     [self assertAlbumDto:aDto.album];
     [self assertGenreDto:aDto.genre];
@@ -303,30 +303,30 @@
 
 - (void)assertUserDto:(PNYUserDto *)aUser
 {
-    XCTAssertEqualObjects(aUser.id, @1);
-    XCTAssertEqualObjects(aUser.creationDate, [NSDate dateWithTimeIntervalSince1970:111111]);
-    XCTAssertEqualObjects(aUser.updateDate, [NSDate dateWithTimeIntervalSince1970:222222]);
-    XCTAssertEqualObjects(aUser.name, @"userName");
-    XCTAssertEqualObjects(aUser.email, @"userEmail");
-    XCTAssertEqual(aUser.role, PNYRoleDtoUser);
+    assertThat(aUser.id, equalTo(@1));
+    assertThat(aUser.creationDate, equalTo([NSDate dateWithTimeIntervalSince1970:111111]));
+    assertThat(aUser.updateDate, equalTo([NSDate dateWithTimeIntervalSince1970:222222]));
+    assertThat(aUser.name, equalTo(@"userName"));
+    assertThat(aUser.email, equalTo(@"userEmail"));
+    assertThatInteger(aUser.role, equalToInteger(PNYRoleDtoUser));
 }
 
 - (void)assertErrorDto:(PNYErrorDto *)aDto
 {
-    XCTAssertEqualObjects(aDto.field, @"someField");
-    XCTAssertEqualObjects(aDto.code, @"someCode");
-    XCTAssertEqualObjects(aDto.text, @"someText");
+    assertThat(aDto.field, equalTo(@"someField"));
+    assertThat(aDto.code, equalTo(@"someCode"));
+    assertThat(aDto.text, equalTo(@"someText"));
 
-    XCTAssertEqual([aDto.arguments count], 1);
-    XCTAssertEqualObjects(aDto.arguments[0], @"someArgument");
+    assertThat(aDto.arguments, hasCountOf(1));
+    assertThat(aDto.arguments[0], equalTo(@"someArgument"));
 }
 
 - (void)assertResponseDtoExcludingData:(PNYResponseDto *)aDto
 {
-    XCTAssertEqualObjects(aDto.version, @"someVersion");
-    XCTAssertTrue(aDto.successful);
+    assertThat(aDto.version, equalTo(@"someVersion"));
+    assertThatBool(aDto.successful, isTrue());
 
-    XCTAssertEqual([aDto.errors count], 1);
+    assertThat(aDto.errors, hasCountOf(1));
     [self assertErrorDto:aDto.errors[0]];
 }
 

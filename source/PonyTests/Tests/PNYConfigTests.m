@@ -30,40 +30,40 @@
             @"color" : @{ @"red" : @10, @"green" : @20, @"blue" : @30, @"alpha" : @40 },
     }];
 
-    XCTAssertEqualObjects([config stringValue:@"string1"], @"value");
-    XCTAssertEqualObjects([config stringValue:@"string2"], @"123");
+    assertThat([config stringValue:@"string1"], equalTo(@"value"));
+    assertThat([config stringValue:@"string2"], equalTo(@"123"));
 
-    XCTAssert([[config numberValue:@"number"] isKindOfClass:[NSNumber class]]);
-    XCTAssertEqualWithAccuracy([[config numberValue:@"number"] floatValue], 1.23f, 0.001f);
+    assertThatBool([[config numberValue:@"number"] isKindOfClass:[NSNumber class]], isTrue());
+    assertThatFloat([[config numberValue:@"number"] floatValue], closeTo(1.23, 0.001));
 
-    XCTAssertEqual([config boolValue:@"bool"], YES);
-    XCTAssertEqual([config intValue:@"int"], 123);
-    XCTAssertEqualWithAccuracy([config floatValue:@"float"], 1.23f, 0.001f);
-    XCTAssertEqualWithAccuracy([config doubleValue:@"double"], 1.23, 0.001);
+    assertThatBool([config boolValue:@"bool"], isTrue());
+    assertThatInt([config intValue:@"int"], equalTo(@123));
+    assertThatFloat([config floatValue:@"float"], closeTo(1.23, 0.001));
+    assertThatDouble([config doubleValue:@"double"], closeTo(1.23, 0.001));
 
     CGPoint point = [config pointValue:@"point"];
 
-    XCTAssertEqual(point.x, 1.0f);
-    XCTAssertEqual(point.y, 2.0f);
+    assertThatFloat(point.x, equalTo(@1));
+    assertThatFloat(point.y, equalTo(@2));
 
     CGSize size = [config sizeValue:@"size"];
 
-    XCTAssertEqual(size.width, 1.0f);
-    XCTAssertEqual(size.height, 2.0f);
+    assertThatFloat(size.width, equalTo(@1));
+    assertThatFloat(size.height, equalTo(@2));
 
     CGRect rect = [config rectValue:@"rect"];
 
-    XCTAssertEqual(rect.origin.x, 1.0f);
-    XCTAssertEqual(rect.origin.y, 2.0f);
-    XCTAssertEqual(rect.size.width, 3.0f);
-    XCTAssertEqual(rect.size.height, 4.0f);
+    assertThatFloat(rect.origin.x, equalTo(@1));
+    assertThatFloat(rect.origin.y, equalTo(@2));
+    assertThatFloat(rect.size.width, equalTo(@3));
+    assertThatFloat(rect.size.height, equalTo(@4));
 
     UIEdgeInsets insets = [config insetsValue:@"insets"];
 
-    XCTAssertEqual(insets.top, 1.0f);
-    XCTAssertEqual(insets.bottom, 2.0f);
-    XCTAssertEqual(insets.left, 3.0f);
-    XCTAssertEqual(insets.right, 4.0f);
+    assertThatFloat(insets.top, equalTo(@1));
+    assertThatFloat(insets.bottom, equalTo(@2));
+    assertThatFloat(insets.left, equalTo(@3));
+    assertThatFloat(insets.right, equalTo(@4));
 
     UIColor *color = [config colorValue:@"color"];
 
@@ -71,25 +71,25 @@
 
     [color getRed:&red green:&green blue:&blue alpha:&alpha];
 
-    XCTAssertEqualWithAccuracy(red * 255.0f, 10, 0.001f);
-    XCTAssertEqualWithAccuracy(green * 255.0f, 20, 0.001f);
-    XCTAssertEqualWithAccuracy(blue * 255.0f, 30, 0.001f);
-    XCTAssertEqualWithAccuracy(alpha * 255.0f, 40, 0.001f);
+    assertThatFloat(red * 255.0f, closeTo(10, 0.001f));
+    assertThatFloat(green * 255.0f, closeTo(20, 0.001f));
+    assertThatFloat(blue * 255.0f, closeTo(30, 0.001f));
+    assertThatFloat(alpha * 255.0f, closeTo(40, 0.001f));
 
-    XCTAssertNil([config stringValue:@"point"]);
-    XCTAssertNil([config numberValue:@"string1"]);
+    assertThat([config stringValue:@"point"], nilValue());
+    assertThat([config numberValue:@"string1"], nilValue());
 
-    XCTAssertEqual([config boolValue:@"string1"], NO);
-    XCTAssertEqual([config intValue:@"string1"], 0);
-    XCTAssertEqual([config floatValue:@"string1"], 0.0f);
-    XCTAssertEqual([config doubleValue:@"string1"], 0.0);
+    assertThatBool([config boolValue:@"string1"], isFalse());
+    assertThatInt([config intValue:@"string1"], equalTo(@0));
+    assertThatFloat([config floatValue:@"string1"], equalTo(@0));
+    assertThatDouble([config doubleValue:@"string1"], equalTo(@0));
 
-    XCTAssert(CGPointEqualToPoint([config pointValue:@"string1"], CGPointZero));
-    XCTAssert(CGSizeEqualToSize([config sizeValue:@"string1"], CGSizeZero));
-    XCTAssert(CGRectEqualToRect([config rectValue:@"string1"], CGRectZero));
-    XCTAssert(UIEdgeInsetsEqualToEdgeInsets([config insetsValue:@"string1"], UIEdgeInsetsZero));
+    assertThatBool(CGPointEqualToPoint([config pointValue:@"string1"], CGPointZero), isTrue());
+    assertThatBool(CGSizeEqualToSize([config sizeValue:@"string1"], CGSizeZero), isTrue());
+    assertThatBool(CGRectEqualToRect([config rectValue:@"string1"], CGRectZero), isTrue());
+    assertThatBool(UIEdgeInsetsEqualToEdgeInsets([config insetsValue:@"string1"], UIEdgeInsetsZero), isTrue());
 
-    XCTAssertNil([config colorValue:@"string1"]);
+    assertThat([config colorValue:@"string1"], nilValue());
 }
 
 - (void)testConfigFactory
@@ -108,8 +108,8 @@
 
     id <PNYConfig> config = [factory createConfig];
 
-    XCTAssertEqualObjects([config stringValue:@"key1"], @"value3");
-    XCTAssertEqualObjects([config stringValue:@"key2"], @"value2");
+    assertThat([config stringValue:@"key1"], equalTo(@"value3"));
+    assertThat([config stringValue:@"key2"], equalTo(@"value2"));
 }
 
 @end

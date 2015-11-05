@@ -42,47 +42,55 @@
 {
     PNYDataCacheSerializer *serializer = [PNYDataCacheSerializer new];
 
-    XCTAssertThrows([serializer serializeValue:[NSObject new]]);
+    assertThat(^{
+        [serializer serializeValue:[NSObject new]];
+    }, throwsException(anything()));
 
     NSData *value = [NSData data];
 
-    XCTAssertEqual([serializer serializeValue:value], value);
-    XCTAssertEqual([serializer unserializeValue:value], value);
+    assertThat([serializer serializeValue:value], equalTo(value));
+    assertThat([serializer unserializeValue:value], equalTo(value));
 }
 
 - (void)testImageSerializer
 {
     PNYImageCacheSerializer *serializer = [PNYImageCacheSerializer new];
 
-    XCTAssertThrows([serializer serializeValue:[NSObject new]]);
+    assertThat(^{
+        [serializer serializeValue:[NSObject new]];
+    }, throwsException(anything()));
 
     UIImage *value = [PNYTestUtils generateImageWithSize:CGSizeMake(10, 10)];
 
-    XCTAssertNotNil([serializer serializeValue:value]);
-    XCTAssertNotNil([serializer unserializeValue:UIImagePNGRepresentation(value)]);
+    assertThat([serializer serializeValue:value], notNilValue());
+    assertThat([serializer unserializeValue:UIImagePNGRepresentation(value)], notNilValue());
 }
 
 - (void)testStringSerializer
 {
     PNYStringCacheSerializer *serializer = [PNYStringCacheSerializer new];
 
-    XCTAssertThrows([serializer serializeValue:[NSObject new]]);
+    assertThat(^{
+        [serializer serializeValue:[NSObject new]];
+    }, throwsException(anything()));
 
     NSString *value = @"test";
 
-    XCTAssertNotNil([serializer serializeValue:value]);
-    XCTAssertEqualObjects([serializer unserializeValue:[value dataUsingEncoding:NSUTF8StringEncoding]], @"test");
+    assertThat([serializer serializeValue:value], notNilValue());
+    assertThat([serializer unserializeValue:[value dataUsingEncoding:NSUTF8StringEncoding]], equalTo(@"test"));
 }
 
 - (void)testMappingSerializer
 {
     PNYMappingCacheSerializer *serializer = [[PNYMappingCacheSerializer alloc] initWithValueClass:[PNYCacheTests_MappedObject class]];
 
-    XCTAssertThrows([serializer serializeValue:[NSObject new]]);
+    assertThat(^{
+        [serializer serializeValue:[NSObject new]];
+    }, throwsException(anything()));
 
     NSData *data = [serializer serializeValue:[self buildMappedObject]];
 
-    XCTAssertNotNil(data);
+    assertThat(data, notNilValue());
 
     PNYCacheTests_MappedObject *mappedObject = [serializer unserializeValue:data];
 
@@ -90,11 +98,11 @@
 
     data = [serializer serializeValue:@[[self buildMappedObject]]];
 
-    XCTAssertNotNil(data);
+    assertThat(data, notNilValue());
 
     NSArray *mappedObjectArray = [serializer unserializeValue:data];
 
-    XCTAssertEqual([mappedObjectArray count], 1);
+    assertThat(mappedObjectArray, hasCountOf(1));
 
     [self assertMappedObject:mappedObjectArray[0]];
 }
@@ -110,17 +118,17 @@
 
     // Check if target cache is accessed.
 
-    XCTAssertTrue([memoryCache cachedValueExistsForKey:@"someKey"]);
+    assertThatBool([memoryCache cachedValueExistsForKey:@"someKey"], isTrue());
 
     [verify(targetCache) cachedValueExistsForKey:@"someKey"];
 
-    XCTAssertEqualObjects([memoryCache cachedValueForKey:@"someKey"], @"someValue");
+    assertThat([memoryCache cachedValueForKey:@"someKey"], equalTo(@"someValue"));
 
     [verify(targetCache) cachedValueForKey:@"someKey"];
 
     // Check if target cache is not accessed again, since the value is in memory.
 
-    XCTAssertEqualObjects([memoryCache cachedValueForKey:@"someKey"], @"someValue");
+    assertThat([memoryCache cachedValueForKey:@"someKey"], equalTo(@"someValue"));
 
     [verifyCount(targetCache, times(1)) cachedValueForKey:@"someKey"];
 
@@ -128,12 +136,12 @@
 
     [memoryCache cacheValue:@"otherValue" forKey:@"otherKey"];
 
-    XCTAssertNotNil([memoryCache cachedValueForKey:@"otherKey"]);
+    assertThat([memoryCache cachedValueForKey:@"otherKey"], notNilValue());
 
     [memoryCache removeCachedValueForKey:@"otherKey"];
 
-    XCTAssertNil([memoryCache cachedValueForKey:@"otherKey"]);
-    XCTAssertNotNil([memoryCache cachedValueForKey:@"someKey"]);
+    assertThat([memoryCache cachedValueForKey:@"otherKey"], nilValue());
+    assertThat([memoryCache cachedValueForKey:@"someKey"], notNilValue());
 
     // Check if all values are removed.
 
@@ -141,7 +149,7 @@
 
     [given([targetCache cachedValueForKey:@"someKey"]) willReturn:nil];
 
-    XCTAssertNil([memoryCache cachedValueForKey:@"someKey"]);
+    assertThat([memoryCache cachedValueForKey:@"someKey"], nilValue());
 }
 
 - (void)testCache
@@ -153,19 +161,19 @@
 
     [cache cacheValue:@"someValue" forKey:@"someKey"];
 
-    XCTAssertTrue([cache cachedValueExistsForKey:@"someKey"]);
-    XCTAssertEqualObjects([cache cachedValueForKey:@"someKey"], @"someValue");
+    assertThatBool([cache cachedValueExistsForKey:@"someKey"], isTrue());
+    assertThat([cache cachedValueForKey:@"someKey"], equalTo(@"someValue"));
 
     [cache cacheValue:@"otherValue" forKey:@"otherKey"];
 
     [cache removeCachedValueForKey:@"otherKey"];
 
-    XCTAssertNil([cache cachedValueForKey:@"otherKey"]);
-    XCTAssertEqualObjects([cache cachedValueForKey:@"someKey"], @"someValue");
+    assertThat([cache cachedValueForKey:@"otherKey"], nilValue());
+    assertThat([cache cachedValueForKey:@"someKey"], equalTo(@"someValue"));
 
     [cache removeAllCachedValues];
 
-    XCTAssertNil([cache cachedValueForKey:@"someKey"]);
+    assertThat([cache cachedValueForKey:@"someKey"], nilValue());
 }
 
 #pragma mark - Private
@@ -182,8 +190,8 @@
 
 - (void)assertMappedObject:(PNYCacheTests_MappedObject *)aMappedObject
 {
-    XCTAssertEqualObjects(aMappedObject.property1, @"test1");
-    XCTAssertEqualObjects(aMappedObject.property2, @"test2");
+    assertThat(aMappedObject.property1, equalTo(@"test1"));
+    assertThat(aMappedObject.property2, equalTo(@"test2"));
 }
 
 @end
