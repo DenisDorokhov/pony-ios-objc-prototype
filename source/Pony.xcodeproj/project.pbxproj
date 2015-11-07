@@ -310,10 +310,10 @@
 			children = (
 				B3D390F4F45430CC988EF10C /* Common */,
 				B3D39EF7CE61550B7430B921 /* Resources */,
+				B3D39C79C3F1ED800E2A2D33 /* Tests */,
 				B3D3902CA4ED7D40946D8765 /* PNYTestDelegate.h */,
 				B3D39C072125E1E9E864A7CA /* PNYTestDelegate.m */,
 				B3D39712F2E561301A479EB0 /* PNYTestPrefix.pch */,
-				B3D39C79C3F1ED800E2A2D33 /* Tests */,
 			);
 			path = PonyTests;
 			sourceTree = "<group>";
@@ -355,6 +355,7 @@
 				B3D39E9BFA75C5FF5B9C8C10 /* PNYRestResponseSerializer.h */,
 				B3D39E012D5199AAB1966EC9 /* PNYRestResponseSerializer.m */,
 				B3D39E976BF72F88852899BB /* PNYRestService.h */,
+				B3D3969B5D19535C12B57F09 /* PNYRestServiceCached.h */,
 				B3D3903CF667BDE3D5A4C6B2 /* PNYRestServiceCachedImpl.h */,
 				B3D392B68B8B3F9F45827436 /* PNYRestServiceCachedImpl.m */,
 				B3D39DBFC193CDBE0028A17A /* PNYRestServiceImpl.h */,
@@ -363,7 +364,6 @@
 				B3D39DA3765DC0144F1F2441 /* PNYRestServiceUrlProviderImpl.h */,
 				B3D39AD705148365FC6681FC /* PNYRestServiceUrlProviderImpl.m */,
 				B3D39F62CD510A6792FD34EE /* PNYRestTokens.h */,
-				B3D3969B5D19535C12B57F09 /* PNYRestServiceCached.h */,
 			);
 			path = Rest;
 			sourceTree = "<group>";
@@ -371,12 +371,12 @@
 		B3D390F4F45430CC988EF10C /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				B3D3905644D9CA04AB3CA449 /* PNYTestUtils.h */,
-				B3D3926FD4A78F7F30BEAF29 /* PNYTestUtils.m */,
 				B3D3983E23171938B94D7370 /* PNYTestCase.h */,
 				B3D39FDFCBA3AEB05ECBE92D /* PNYTestCase.m */,
-				B3D396A8ED996A57A2112EEC /* PNYTokenPairDaoMock.m */,
+				B3D3905644D9CA04AB3CA449 /* PNYTestUtils.h */,
+				B3D3926FD4A78F7F30BEAF29 /* PNYTestUtils.m */,
 				B3D39B963F7523C9EC091F52 /* PNYTokenPairDaoMock.h */,
+				B3D396A8ED996A57A2112EEC /* PNYTokenPairDaoMock.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -424,6 +424,8 @@
 				B3D39761ED3DBEADA0EBDD83 /* NSMutableOrderedSet+PNYNSValue.m */,
 				B3D391C9CD2C8F4AE2B13861 /* NSOrderedSet+PNYNSValue.h */,
 				B3D3990C5423562FEEE9FCFE /* NSOrderedSet+PNYNSValue.m */,
+				B3D39210F502A2A733162927 /* NSURLRequest+PNYDump.h */,
+				B3D394DCACE1658EDAC1D4BD /* NSURLRequest+PNYDump.m */,
 				B3D39AC908FBC287E5F87F39 /* PNYErrorUtils.h */,
 				B3D39C0E7A9941EFFC30B786 /* PNYErrorUtils.m */,
 				B3D396358D3E2070A4C68830 /* PNYFileUtils.h */,
@@ -435,8 +437,6 @@
 				B3D393C6740A53B13D9A4243 /* PNYRandomUtils.m */,
 				B3D392B9914BE6B21650C1DA /* PNYUrlUtils.h */,
 				B3D39DEEA0BB3E6C58BA30B6 /* PNYUrlUtils.m */,
-				B3D394DCACE1658EDAC1D4BD /* NSURLRequest+PNYDump.m */,
-				B3D39210F502A2A733162927 /* NSURLRequest+PNYDump.h */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -445,13 +445,13 @@
 			isa = PBXGroup;
 			children = (
 				B3D39020ED3364726090209A /* Rest */,
+				B3D39D198F830E735BD87D8E /* PNYAuthenticationService.h */,
+				B3D39ED659EE7866A88142B3 /* PNYAuthenticationService.m */,
+				B3D39D2D0B3D471BF0D75B07 /* PNYBootstrapService.h */,
+				B3D39E9230C109403DF13A22 /* PNYBootstrapService.m */,
 				B3D39D333640215BF19662E8 /* PNYTokenPairDao.h */,
 				B3D3954FADD3D3E7CC1CC91B /* PNYTokenPairDaoImpl.h */,
 				B3D394E791F893472DB82FFC /* PNYTokenPairDaoImpl.m */,
-				B3D39ED659EE7866A88142B3 /* PNYAuthenticationService.m */,
-				B3D39D198F830E735BD87D8E /* PNYAuthenticationService.h */,
-				B3D39E9230C109403DF13A22 /* PNYBootstrapService.m */,
-				B3D39D2D0B3D471BF0D75B07 /* PNYBootstrapService.h */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -459,34 +459,34 @@
 		B3D397595F13977268CED296 /* Rest */ = {
 			isa = PBXGroup;
 			children = (
-				B3D3937ACFBC5848C0666C06 /* PNYUserDto.h */,
-				B3D39E109AE1D7063F7A838F /* PNYArtistAlbumsDto.h */,
-				B3D3967460C6628E9494BDDF /* PNYErrorDto.h */,
-				B3D3995600AE5CE23610B184 /* PNYSongDto.m */,
-				B3D39C3F3DBF2B4C5E5314B1 /* PNYAlbumDto.m */,
-				B3D3923F576927FB4A4B0A2E /* PNYAlbumSongsDto.h */,
-				B3D3913CC3DE978561D1E58C /* PNYResponseDto.m */,
-				B3D39CBEC04ACB7665C72B8B /* PNYUserDto.m */,
-				B3D39BAE619FFB4CF8E5E5B6 /* PNYArtistDto.m */,
-				B3D39510C765D9DDF84BD112 /* PNYCredentialsDto.h */,
-				B3D394B5E333CBAA50FD8B3A /* PNYResponseDto.h */,
-				B3D398180C62FD23BB66EB69 /* PNYSongDto.h */,
-				B3D39A2C51BA3021FF06A858 /* PNYArtistAlbumsDto.m */,
-				B3D392D23D3D6B301653E472 /* PNYAuthenticationDto.h */,
-				B3D396942BCF3AE4E2FADAF6 /* PNYCredentialsDto.m */,
-				B3D3938FC91988B3DEF557D3 /* PNYAlbumSongsDto.m */,
-				B3D39D932971B10FF713DC4C /* PNYInstallationDto.m */,
 				B3D39D1A20E5292BFA617B46 /* PNYAbstractDto.h */,
-				B3D39F113A4FF3718432753E /* PNYErrorDto.m */,
-				B3D3976E7FB49650A4172719 /* PNYArtistDto.h */,
-				B3D39120FDDF909790FC02ED /* PNYGenreDto.h */,
-				B3D39DCB3A7DAB9E11F40B08 /* PNYAuthenticationDto.m */,
 				B3D390E7C011934D8D3FFB51 /* PNYAbstractDto.m */,
 				B3D39B840F48F930040DB292 /* PNYAlbumDto.h */,
+				B3D39C3F3DBF2B4C5E5314B1 /* PNYAlbumDto.m */,
+				B3D3923F576927FB4A4B0A2E /* PNYAlbumSongsDto.h */,
+				B3D3938FC91988B3DEF557D3 /* PNYAlbumSongsDto.m */,
+				B3D39E109AE1D7063F7A838F /* PNYArtistAlbumsDto.h */,
+				B3D39A2C51BA3021FF06A858 /* PNYArtistAlbumsDto.m */,
+				B3D3976E7FB49650A4172719 /* PNYArtistDto.h */,
+				B3D39BAE619FFB4CF8E5E5B6 /* PNYArtistDto.m */,
+				B3D392D23D3D6B301653E472 /* PNYAuthenticationDto.h */,
+				B3D39DCB3A7DAB9E11F40B08 /* PNYAuthenticationDto.m */,
+				B3D39510C765D9DDF84BD112 /* PNYCredentialsDto.h */,
+				B3D396942BCF3AE4E2FADAF6 /* PNYCredentialsDto.m */,
+				B3D39585D8BF3E7BB8D47065 /* PNYDtoUtils.h */,
+				B3D39AB4E3AD5FC94BBBE61E /* PNYDtoUtils.m */,
+				B3D3967460C6628E9494BDDF /* PNYErrorDto.h */,
+				B3D39F113A4FF3718432753E /* PNYErrorDto.m */,
+				B3D39120FDDF909790FC02ED /* PNYGenreDto.h */,
 				B3D39645724712A53DD17270 /* PNYGenreDto.m */,
 				B3D39AFC163ABC4CBA0B2E05 /* PNYInstallationDto.h */,
-				B3D39AB4E3AD5FC94BBBE61E /* PNYDtoUtils.m */,
-				B3D39585D8BF3E7BB8D47065 /* PNYDtoUtils.h */,
+				B3D39D932971B10FF713DC4C /* PNYInstallationDto.m */,
+				B3D394B5E333CBAA50FD8B3A /* PNYResponseDto.h */,
+				B3D3913CC3DE978561D1E58C /* PNYResponseDto.m */,
+				B3D398180C62FD23BB66EB69 /* PNYSongDto.h */,
+				B3D3995600AE5CE23610B184 /* PNYSongDto.m */,
+				B3D3937ACFBC5848C0666C06 /* PNYUserDto.h */,
+				B3D39CBEC04ACB7665C72B8B /* PNYUserDto.m */,
 			);
 			path = Rest;
 			sourceTree = "<group>";
@@ -494,17 +494,17 @@
 		B3D397625117AD4D1A2C984B /* Cache */ = {
 			isa = PBXGroup;
 			children = (
+				B3D39E6C507148AAAB12C1A7 /* Serializer */,
 				B3D397B6B51BF3F432A4F68F /* PNYCache.h */,
 				B3D39703BA343836CAD9EE01 /* PNYCacheAsync.h */,
 				B3D39ABFC10B71E0B05A727C /* PNYCacheAsync.m */,
 				B3D392E3F142B25F564E3EE2 /* PNYCacheImpl.h */,
 				B3D39ED46006B6A282D47CF2 /* PNYCacheImpl.m */,
+				B3D39085EABDD6576B6C0549 /* PNYCacheSerializer.h */,
 				B3D39FF19391F1368BDE4F00 /* PNYMemoryCache.h */,
 				B3D39E070E51874195F809FF /* PNYMemoryCache.m */,
 				B3D39D32D60D119B223B9A37 /* PNYOfflineOnlyCache.h */,
 				B3D39B728AEA86E900F715B8 /* PNYOfflineOnlyCache.m */,
-				B3D39085EABDD6576B6C0549 /* PNYCacheSerializer.h */,
-				B3D39E6C507148AAAB12C1A7 /* Serializer */,
 			);
 			path = Cache;
 			sourceTree = "<group>";
@@ -557,14 +557,14 @@
 		B3D39C79C3F1ED800E2A2D33 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				B3D39627463E0BCDFF58EFF9 /* PNYConfigTests.m */,
-				B3D39657432999E906A1309E /* PNYPersistenceTests.m */,
 				B3D39E2EE718F3BB85150559 /* PNYCacheTests.m */,
-				B3D399F75FE4B62BCEBF0C77 /* PNYEventBusTests.m */,
-				B3D39C6C63B323380D02C073 /* PNYUserSettingsTests.m */,
+				B3D39627463E0BCDFF58EFF9 /* PNYConfigTests.m */,
 				B3D39BED7E275CA04A22BD27 /* PNYDtoMappingTests.m */,
-				B3D3998E335F6FB0725A8D79 /* PNYRestServiceTests.m */,
+				B3D399F75FE4B62BCEBF0C77 /* PNYEventBusTests.m */,
+				B3D39657432999E906A1309E /* PNYPersistenceTests.m */,
 				B3D3989DA33D43FB64CF9347 /* PNYRestServiceCachedTests.m */,
+				B3D3998E335F6FB0725A8D79 /* PNYRestServiceTests.m */,
+				B3D39C6C63B323380D02C073 /* PNYUserSettingsTests.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";

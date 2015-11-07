@@ -13,6 +13,11 @@
 
 #pragma mark - <PNYRestRequest>
 
+- (BOOL)finished
+{
+    return self.targetRequest.finished;
+}
+
 - (BOOL)cancelled
 {
     return self.targetRequest != nil ? self.targetRequest.cancelled : _cancelled;

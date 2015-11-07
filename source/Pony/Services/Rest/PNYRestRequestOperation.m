@@ -25,6 +25,11 @@
 
 #pragma mark - <PNYRestRequest>
 
+- (BOOL)finished
+{
+    return self.operation.finished;
+}
+
 - (BOOL)cancelled
 {
     return self.operation.cancelled;

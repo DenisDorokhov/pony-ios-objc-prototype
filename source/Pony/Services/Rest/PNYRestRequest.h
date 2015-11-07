@@ -5,6 +5,7 @@
 
 @protocol PNYRestRequest <NSObject>
 
+@property (nonatomic, readonly) BOOL finished;
 @property (nonatomic, readonly) BOOL cancelled;
 
 - (void)cancel;
