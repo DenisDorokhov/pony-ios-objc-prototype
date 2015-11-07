@@ -13,9 +13,4 @@
 - (PNYCacheAsync *)artistsCacheAsync;
 - (PNYCacheAsync *)artistAlbumsCacheAsync;
 
-- (id <PNYCache>)installationCache;
-- (id <PNYCache>)currentUserCache;
-- (id <PNYCache>)artistsCache;
-- (id <PNYCache>)artistAlbumsCache;
-
 @end

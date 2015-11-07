@@ -49,6 +49,8 @@
     }];
 }
 
+#pragma mark - Private
+
 - (id <PNYCache>)installationCache
 {
     return [TyphoonDefinition withClass:[PNYCacheImpl class] configuration:^(TyphoonDefinition *aDefinition) {

@@ -14,19 +14,27 @@ static NSString *const KEY_ACCESS_TOKEN_EXPIRATION = @"accessTokenExpiration";
 static NSString *const KEY_REFRESH_TOKEN = @"refreshToken";
 static NSString *const KEY_REFRESH_TOKEN_EXPIRATION = @"refreshTokenExpiration";
 
+- (instancetype)initWithPersistentDictionary:(id <PNYPersistentDictionary>)aPersistentDictionary
+{
+    PNYAssert(aPersistentDictionary != nil);
+
+    self = [super init];
+    if (self != nil) {
+        _persistentDictionary = aPersistentDictionary;
+    }
+    return self;
+}
+
 #pragma mark - <PNYSecurityStorage>
 
 - (PNYTokenPair *)fetchTokenPair
 {
-    PNYAssert(self.persistentDictionary != nil);
-
     return [self fromDictionary:self.persistentDictionary.data[KEY_TOKEN_PAIR]];
 }
 
 - (void)storeTokenPair:(PNYTokenPair *)aTokenPair
 {
     PNYAssert(aTokenPair != nil);
-    PNYAssert(self.persistentDictionary != nil);
 
     self.persistentDictionary.data[KEY_TOKEN_PAIR] = [self toDictionary:aTokenPair];
 
@@ -35,8 +43,6 @@ static NSString *const KEY_REFRESH_TOKEN_EXPIRATION = @"refreshTokenExpiration";
 
 - (void)removeTokenPair
 {
-    PNYAssert(self.persistentDictionary != nil);
-
     [self.persistentDictionary.data removeObjectForKey:KEY_TOKEN_PAIR];
 
     [self.persistentDictionary save];

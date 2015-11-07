@@ -12,7 +12,6 @@
 #import "PNYPersistentDictionary.h"
 #import "PNYKeychainDictionary.h"
 #import "PNYTokenPairDaoImpl.h"
-#import "PNYCacheSerializer.h"
 #import "PNYRestServiceCachedImpl.h"
 
 @implementation PNYServiceAssembly
@@ -82,7 +81,9 @@
 - (id <PNYTokenPairDao>)tokenPairDao
 {
     return [TyphoonDefinition withClass:[PNYTokenPairDaoImpl class] configuration:^(TyphoonDefinition *aDefinition) {
-        [aDefinition injectProperty:@selector(persistentDictionary) with:[self keychainDictionary]];
+        [aDefinition useInitializer:@selector(initWithPersistentDictionary:) parameters:^(TyphoonMethod *aInitializer) {
+            [aInitializer injectParameterWith:[self keychainDictionary]];
+        }];
     }];
 }
 
