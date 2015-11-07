@@ -14,6 +14,11 @@
 
 static const NSPropertyListFormat PLIST_FORMAT = NSPropertyListBinaryFormat_v1_0;
 
++ (instancetype)mappingCacheSerializerWithValueClass:(Class)aValueClass
+{
+    return [[self alloc] initWithValueClass:aValueClass];
+}
+
 - (instancetype)initWithValueClass:(Class)aValueClass{
     self = [super init];
     if (self != nil) {

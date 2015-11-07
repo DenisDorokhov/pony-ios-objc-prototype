@@ -9,6 +9,7 @@
 
 @property (nonatomic, readonly) Class valueClass;
 
++ (instancetype)mappingCacheSerializerWithValueClass:(Class)aValueClass;
 - (instancetype)initWithValueClass:(Class)aValueClass;
 
 + (instancetype)new __unavailable;

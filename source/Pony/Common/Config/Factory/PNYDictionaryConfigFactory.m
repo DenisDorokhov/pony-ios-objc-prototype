@@ -1,36 +1,20 @@
 //
-// Created by Denis Dorokhov on 12/10/15.
+// Created by Denis Dorokhov on 07/11/15.
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-#import "PNYConfigFactoryImpl.h"
+#import "PNYDictionaryConfigFactory.h"
 #import "PNYConfigImpl.h"
 
-@implementation PNYConfigFactoryImpl
+@implementation PNYDictionaryConfigFactory
 
-- (instancetype)initWithDictionaries:(NSArray *)aDictionaries
-{
-    self = [super init];
+#pragma mark - Public
 
-    if (self != nil) {
-        _dictionaries = aDictionaries;
-    }
-
-    return self;
-}
-
-- (instancetype)init
-{
-    return [self initWithDictionaries:[NSArray array]];
-}
-
-#pragma mark - <PNYConfigFactory>
-
-- (id <PNYConfig>)createConfig
+- (id <PNYConfig>)configWithDictionaries:(NSArray *)aDictionaries
 {
     NSMutableDictionary *resultDictionary = [NSMutableDictionary dictionary];
 
-    for (NSDictionary *dictionary in self.dictionaries) {
+    for (NSDictionary *dictionary in aDictionaries) {
         [dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *aKey, id aValue, BOOL *aStop) {
 
             if (resultDictionary[aKey] != nil) {

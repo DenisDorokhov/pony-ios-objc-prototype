@@ -370,6 +370,7 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
 
 - (void)propagateAuthentication:(PNYUserDto *)aUser
 {
+    // TODO: remove casting when AppCode finally supports this
     [(NSOrderedSet *)delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYAuthenticationServiceDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
         if ([aObject respondsToSelector:@selector(authenticationService:didAuthenticateWithUser:)]) {
             [aObject authenticationService:self didAuthenticateWithUser:aUser];
@@ -379,6 +380,7 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
 
 - (void)propagateStatusUpdate:(PNYUserDto *)aUser
 {
+    // TODO: remove casting when AppCode finally supports this
     [(NSOrderedSet *)delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYAuthenticationServiceDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
         if ([aObject respondsToSelector:@selector(authenticationService:didUpdateStatusWithUser:)]) {
             [aObject authenticationService:self didUpdateStatusWithUser:aUser];
@@ -388,6 +390,7 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
 
 - (void)propagateLogOut:(PNYUserDto *)aUser
 {
+    // TODO: remove casting when AppCode finally supports this
     [(NSOrderedSet *)delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYAuthenticationServiceDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
         if ([aObject respondsToSelector:@selector(authenticationService:didLogOutWithUser:)]) {
             [aObject authenticationService:self didLogOutWithUser:aUser];

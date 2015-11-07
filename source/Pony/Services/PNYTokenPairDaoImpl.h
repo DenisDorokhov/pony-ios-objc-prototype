@@ -8,6 +8,6 @@
 
 @interface PNYTokenPairDaoImpl : NSObject <PNYTokenPairDao>
 
-@property (nonatomic, strong) id <PNYPersistentDictionary> persistentDictionary;
+@property (nonatomic, strong) id <PNYPersistentDictionary> persistentDictionary; // TODO: refactor to initWithPersistentDictionary
 
 @end

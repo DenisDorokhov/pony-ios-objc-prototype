@@ -3,9 +3,9 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-#import "PNYConfigFactoryImpl.h"
 #import "PNYTestCase.h"
 #import "PNYConfigImpl.h"
+#import "PNYDictionaryConfigFactory.h"
 
 @interface PNYConfigTests : PNYTestCase
 
@@ -92,7 +92,7 @@
     assertThat([config colorValue:@"string1"], nilValue());
 }
 
-- (void)testConfigFactory
+- (void)testDictionaryConfigFactory
 {
     NSArray *dictionaries = @[
             @{
@@ -104,9 +104,9 @@
             }
     ];
 
-    PNYConfigFactoryImpl *factory = [[PNYConfigFactoryImpl alloc] initWithDictionaries:dictionaries];
+    PNYDictionaryConfigFactory *factory = [PNYDictionaryConfigFactory new];
 
-    id <PNYConfig> config = [factory createConfig];
+    id <PNYConfig> config = [factory configWithDictionaries:dictionaries];
 
     assertThat([config stringValue:@"key1"], equalTo(@"value3"));
     assertThat([config stringValue:@"key2"], equalTo(@"value2"));
