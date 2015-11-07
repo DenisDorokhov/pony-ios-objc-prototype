@@ -197,7 +197,7 @@
                     aFailure(aResponse.errors);
                 }
             }
-        } failure:^(AFHTTPRequestOperation *aOperation, NSError *aError) {
+        }                                failure:^(AFHTTPRequestOperation *aOperation, NSError *aError) {
             if (aFailure != nil) {
                 aFailure([self errorToDtoArray:aError]);
             }
@@ -223,9 +223,9 @@
     PNYAssert(self.tokenPairDao != nil);
 
     NSMutableURLRequest *urlRequest = [requestSerializer requestWithMethod:aMethod
-                                                          URLString:[[self buildUrl:aRelativeUrl] absoluteString]
-                                                         parameters:aParameters
-                                                              error:aError];
+                                                                 URLString:[[self buildUrl:aRelativeUrl] absoluteString]
+                                                                parameters:aParameters
+                                                                     error:aError];
 
     if (*aError == nil) {
 

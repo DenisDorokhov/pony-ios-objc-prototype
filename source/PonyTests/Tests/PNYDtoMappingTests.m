@@ -42,7 +42,7 @@
     PNYArtistAlbumsDto *dto = [EKMapper objectFromExternalRepresentation:@{
             @"artist" : [self buildArtistDtoDictionary],
             @"albums" : @[[self buildAlbumSongsDtoDictionary]],
-    } withMapping:[PNYArtistAlbumsDto objectMapping]];
+    }                                                        withMapping:[PNYArtistAlbumsDto objectMapping]];
 
     [self assertArtistDto:dto.artist];
 
@@ -66,7 +66,7 @@
             @"refreshToken" : @"someRefreshToken",
             @"refreshTokenExpiration" : @888888,
             @"user" : [self buildUserDtoDictionary],
-    } withMapping:[PNYAuthenticationDto objectMapping]];
+    }                                                          withMapping:[PNYAuthenticationDto objectMapping]];
 
     assertThat(dto.accessToken, equalTo(@"someAccessToken"));
     assertThat(dto.accessTokenExpiration, equalTo([NSDate dateWithTimeIntervalSince1970:999999]));
@@ -81,7 +81,7 @@
     PNYCredentialsDto *dto = [EKMapper objectFromExternalRepresentation:@{
             @"email" : @"someEmail",
             @"password" : @"somePassword",
-    } withMapping:[PNYCredentialsDto objectMapping]];
+    }                                                       withMapping:[PNYCredentialsDto objectMapping]];
 
     assertThat(dto.email, equalTo(@"someEmail"));
     assertThat(dto.password, equalTo(@"somePassword"));
@@ -106,8 +106,8 @@
 - (void)testInstallationDto
 {
     PNYInstallationDto *dto = [EKMapper objectFromExternalRepresentation:@{
-        @"version" : @"someVersion"
-    } withMapping:[PNYInstallationDto objectMapping]];
+            @"version" : @"someVersion"
+    }                                                        withMapping:[PNYInstallationDto objectMapping]];
 
     assertThat(dto.version, equalTo(@"someVersion"));
 }
@@ -184,6 +184,7 @@
             @"artist" : [self buildArtistDtoDictionary],
     };
 }
+
 - (NSDictionary *)buildSongDtoDictionary
 {
     return @{

@@ -49,7 +49,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
 
         installation = aInstallation;
 
-    } failure:^(NSArray *aErrors) {
+    }                           failure:^(NSArray *aErrors) {
         [self failExpectation:expectation withErrors:aErrors];
     }];
 
@@ -77,7 +77,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
 
         user = aUser;
 
-    } failure:^(NSArray *aErrors) {
+    }                  failure:^(NSArray *aErrors) {
         [self failExpectation:expectation withErrors:aErrors];
     }];
 
@@ -100,7 +100,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
 
         user = aUser;
 
-    } failure:^(NSArray *aErrors) {
+    }                          failure:^(NSArray *aErrors) {
         [self failExpectation:expectation withErrors:aErrors];
     }];
 
@@ -123,7 +123,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
 
         authentication = aAuthentication;
 
-    } failure:^(NSArray *aErrors) {
+    }                        failure:^(NSArray *aErrors) {
         [self failExpectation:expectation withErrors:aErrors];
     }];
 
@@ -189,7 +189,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
 
         artists = aArtists;
 
-    } failure:^(NSArray *aErrors) {
+    }                      failure:^(NSArray *aErrors) {
         [self failExpectation:expectation withErrors:aErrors];
     }];
 

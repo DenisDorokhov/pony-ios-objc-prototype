@@ -18,19 +18,19 @@
 
     [mapping mapKeyPath:@"creationDate" toProperty:@"creationDate" withValueBlock:^(NSString *aKey, NSNumber *aValue) {
         return [PNYDtoUtils timestampToDate:aValue];
-    } reverseBlock:^id(NSDate *aValue) {
+    }      reverseBlock:^id(NSDate *aValue) {
         return [PNYDtoUtils dateToTimestamp:aValue];
     }];
     [mapping mapKeyPath:@"updateDate" toProperty:@"updateDate" withValueBlock:^(NSString *aKey, NSNumber *aValue) {
         return [PNYDtoUtils timestampToDate:aValue];
-    } reverseBlock:^id(NSDate *aValue) {
+    }      reverseBlock:^id(NSDate *aValue) {
         return [PNYDtoUtils dateToTimestamp:aValue];
     }];
 
-    NSDictionary *roles = @{ @"USER": @(PNYRoleDtoUser), @"ADMIN": @(PNYRoleDtoAdmin) };
+    NSDictionary *roles = @{@"USER" : @(PNYRoleDtoUser), @"ADMIN" : @(PNYRoleDtoAdmin)};
     [mapping mapKeyPath:@"role" toProperty:@"role" withValueBlock:^(NSString *aKey, id aValue) {
         return aValue != (id)[NSNull null] ? roles[aValue] : @(PNYRoleDtoUser);
-    } reverseBlock:^id(id aValue) {
+    }      reverseBlock:^id(id aValue) {
         return aValue != (id)[NSNull null] ? [roles allKeysForObject:aValue].lastObject : @"USER";
     }];
 

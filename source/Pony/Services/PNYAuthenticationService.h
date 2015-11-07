@@ -15,9 +15,6 @@
 @optional
 
 - (void)authenticationService:(PNYAuthenticationService *)aAuthenticationService
-        didInitializeWithUser:(PNYUserDto *)aUser;
-
-- (void)authenticationService:(PNYAuthenticationService *)aAuthenticationService
       didAuthenticateWithUser:(PNYUserDto *)aUser;
 
 - (void)authenticationService:(PNYAuthenticationService *)aAuthenticationService
@@ -36,21 +33,21 @@ typedef void (^PNYAuthenticationServiceFailureBlock)(NSArray *aErrors);
 @property (nonatomic, strong) id <PNYTokenPairDao> tokenPairDao;
 @property (nonatomic, strong) id <PNYRestService> restService;
 
-@property (nonatomic, readonly) BOOL isAuthenticated;
+@property (nonatomic, readonly) BOOL authenticated;
 @property (nonatomic, readonly) PNYUserDto *currentUser;
 
 - (void)addDelegate:(id <PNYAuthenticationServiceDelegate>)aDelegate;
 - (void)removeDelegate:(id <PNYAuthenticationServiceDelegate>)aDelegate;
 
-- (void)initializeWithSuccess:(PNYAuthenticationServiceSuccessBlock)aSuccess
-                      failure:(PNYAuthenticationServiceFailureBlock)aFailure;
-
-- (void)updateStatusWithSuccess:(PNYAuthenticationServiceSuccessBlock)aSuccess
-                        failure:(PNYAuthenticationServiceFailureBlock)aFailure;
+- (void)authenticateWithSuccess:(PNYAuthenticationServiceSuccessBlock)aSuccess
+        failure:(PNYAuthenticationServiceFailureBlock)aFailure;
 
 - (void)authenticateWithCredentials:(PNYCredentialsDto *)aCredentials
                             success:(PNYAuthenticationServiceSuccessBlock)aSuccess
                             failure:(PNYAuthenticationServiceFailureBlock)aFailure;
+
+- (void)updateStatusWithSuccess:(PNYAuthenticationServiceSuccessBlock)aSuccess
+                        failure:(PNYAuthenticationServiceFailureBlock)aFailure;
 
 - (void)logoutWithSuccess:(PNYAuthenticationServiceSuccessBlock)aSuccess
                   failure:(PNYAuthenticationServiceFailureBlock)aFailure;
