@@ -18,7 +18,7 @@
 
     PNYAssert(self.config != nil);
 
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Bootstrap" bundle:[NSBundle mainBundle]];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [self.config colorValue:@"window.backgroundColor"];
