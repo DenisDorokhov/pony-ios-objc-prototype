@@ -13,5 +13,13 @@
         <key>alpha</key>
         <integer>255</integer>
     </dict>
+    <key>cache.installationFolder</key>
+    <string>OfflineData/Installation</string>
+    <key>cache.currentUserFolder</key>
+    <string>OfflineData/CurrentUser</string>
+    <key>cache.artistsFolder</key>
+    <string>OfflineData/Artists</string>
+    <key>cache.artistAlbumsFolder</key>
+    <string>OfflineData/ArtistAlbums</string>
 </dict>
 </plist>

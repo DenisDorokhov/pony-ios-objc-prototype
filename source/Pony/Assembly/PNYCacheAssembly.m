@@ -3,12 +3,14 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
+#import <Typhoon/TyphoonConfigPostProcessor.h>
 #import "PNYCacheAssembly.h"
 #import "PNYCacheImpl.h"
-#import "PNYFileUtils.h"
 #import "PNYMappingCacheSerializer.h"
 #import "PNYInstallationDto.h"
 #import "PNYOfflineOnlyCache.h"
+#import "PNYArtistAlbumsDto.h"
+#import "PNYUserDto.h"
 
 @implementation PNYCacheAssembly
 
@@ -100,8 +102,8 @@
 {
     return [TyphoonDefinition withClass:[PNYCacheImpl class] configuration:^(TyphoonDefinition *aDefinition) {
         aDefinition.scope = TyphoonScopeLazySingleton;
-        [aDefinition useInitializer:@selector(initWithFolderPath:serializer:) parameters:^(TyphoonMethod *aInitializer) {
-            [aInitializer injectParameterWith:[PNYFileUtils filePathInDocuments:@"Cache/Installation"]];
+        [aDefinition useInitializer:@selector(initWithFolderPathInDocuments:serializer:) parameters:^(TyphoonMethod *aInitializer) {
+            [aInitializer injectParameterWith:TyphoonConfig(@"cache.installationFolder")];
             [aInitializer injectParameterWith:[PNYMappingCacheSerializer mappingCacheSerializerWithValueClass:[PNYInstallationDto class]]];
         }];
     }];
@@ -111,9 +113,9 @@
 {
     return [TyphoonDefinition withClass:[PNYCacheImpl class] configuration:^(TyphoonDefinition *aDefinition) {
         aDefinition.scope = TyphoonScopeLazySingleton;
-        [aDefinition useInitializer:@selector(initWithFolderPath:serializer:) parameters:^(TyphoonMethod *aInitializer) {
-            [aInitializer injectParameterWith:[PNYFileUtils filePathInDocuments:@"Cache/CurrentUser"]];
-            [aInitializer injectParameterWith:[PNYMappingCacheSerializer mappingCacheSerializerWithValueClass:[PNYInstallationDto class]]];
+        [aDefinition useInitializer:@selector(initWithFolderPathInDocuments:serializer:) parameters:^(TyphoonMethod *aInitializer) {
+            [aInitializer injectParameterWith:TyphoonConfig(@"cache.currentUserFolder")];
+            [aInitializer injectParameterWith:[PNYMappingCacheSerializer mappingCacheSerializerWithValueClass:[PNYUserDto class]]];
         }];
     }];
 }
@@ -122,9 +124,9 @@
 {
     return [TyphoonDefinition withClass:[PNYCacheImpl class] configuration:^(TyphoonDefinition *aDefinition) {
         aDefinition.scope = TyphoonScopeLazySingleton;
-        [aDefinition useInitializer:@selector(initWithFolderPath:serializer:) parameters:^(TyphoonMethod *aInitializer) {
-            [aInitializer injectParameterWith:[PNYFileUtils filePathInDocuments:@"Cache/Artists"]];
-            [aInitializer injectParameterWith:[PNYMappingCacheSerializer mappingCacheSerializerWithValueClass:[PNYInstallationDto class]]];
+        [aDefinition useInitializer:@selector(initWithFolderPathInDocuments:serializer:) parameters:^(TyphoonMethod *aInitializer) {
+            [aInitializer injectParameterWith:TyphoonConfig(@"cache.artistsFolder")];
+            [aInitializer injectParameterWith:[PNYMappingCacheSerializer mappingCacheSerializerWithValueClass:[PNYArtistDto class]]];
         }];
     }];
 }
@@ -133,9 +135,9 @@
 {
     return [TyphoonDefinition withClass:[PNYCacheImpl class] configuration:^(TyphoonDefinition *aDefinition) {
         aDefinition.scope = TyphoonScopeLazySingleton;
-        [aDefinition useInitializer:@selector(initWithFolderPath:serializer:) parameters:^(TyphoonMethod *aInitializer) {
-            [aInitializer injectParameterWith:[PNYFileUtils filePathInDocuments:@"Cache/ArtistAlbums"]];
-            [aInitializer injectParameterWith:[PNYMappingCacheSerializer mappingCacheSerializerWithValueClass:[PNYInstallationDto class]]];
+        [aDefinition useInitializer:@selector(initWithFolderPathInDocuments:serializer:) parameters:^(TyphoonMethod *aInitializer) {
+            [aInitializer injectParameterWith:TyphoonConfig(@"cache.artistAlbumsFolder")];
+            [aInitializer injectParameterWith:[PNYMappingCacheSerializer mappingCacheSerializerWithValueClass:[PNYArtistAlbumsDto class]]];
         }];
     }];
 }

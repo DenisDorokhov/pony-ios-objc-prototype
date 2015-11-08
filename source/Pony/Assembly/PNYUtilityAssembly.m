@@ -3,12 +3,18 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-#import "PNYLogAssembly.h"
+#import "PNYUtilityAssembly.h"
 #import "PNYLogFormatter.h"
+#import <Typhoon/TyphoonDefinition+Infrastructure.h>
 
-@implementation PNYLogAssembly
+@implementation PNYUtilityAssembly
 
 #pragma mark - Private
+
+- (id)configPostProcessor
+{
+    return [TyphoonDefinition configDefinitionWithName:@"Config.plist"];
+}
 
 - (id)logging
 {

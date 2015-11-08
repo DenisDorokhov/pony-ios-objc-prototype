@@ -22,6 +22,16 @@
     return self;
 }
 
+- (instancetype)initWithFolderPathInDocuments:(NSString *)aFolderPath serializer:(id <PNYCacheSerializer>)aSerializer
+{
+    return [self initWithFolderPath:[PNYFileUtils filePathInDocuments:aFolderPath] serializer:aSerializer];
+}
+
+- (instancetype)initWithFolderPathInCache:(NSString *)aFolderPath serializer:(id <PNYCacheSerializer>)aSerializer
+{
+    return [self initWithFolderPath:[PNYFileUtils filePathInCache:aFolderPath] serializer:aSerializer];
+}
+
 #pragma mark - <PNYCache>
 
 - (BOOL)cachedValueExistsForKey:(NSString *)aKey
