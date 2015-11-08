@@ -1,11 +1,11 @@
 //
-// Created by Denis Dorokhov on 11/10/15.
+// Created by Denis Dorokhov on 08/11/15.
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
 #import "PNYEvent.h"
 
-@interface PNYEventBus : NSObject
+@protocol PNYEventBus <NSObject>
 
 - (void)addListener:(NSString *)aType object:(id)aObject selector:(SEL)aSelector;
 - (void)removeListener:(NSString *)aType object:(id)aObject selector:(SEL)aSelector;

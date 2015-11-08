@@ -13,6 +13,7 @@
 #import "PNYKeychainDictionary.h"
 #import "PNYTokenPairDaoImpl.h"
 #import "PNYRestServiceCachedImpl.h"
+#import "PNYEventBusImpl.h"
 #import <Typhoon/TyphoonFactoryDefinition.h>
 
 @implementation PNYServiceAssembly
@@ -33,9 +34,9 @@
                             }];
 }
 
-- (PNYEventBus *)eventBus
+- (id <PNYEventBus>)eventBus
 {
-    return [TyphoonDefinition withClass:[PNYEventBus class] configuration:^(TyphoonDefinition *aDefinition) {
+    return [TyphoonDefinition withClass:[PNYEventBusImpl class] configuration:^(TyphoonDefinition *aDefinition) {
         aDefinition.scope = TyphoonScopeLazySingleton;
     }];
 }

@@ -5,11 +5,11 @@
 
 #import <Typhoon/TyphoonAssembly.h>
 #import "PNYConfig.h"
-#import "PNYEventBus.h"
 #import "PNYUserSettings.h"
 #import "PNYCacheAssembly.h"
 #import "PNYRestServiceCached.h"
 #import "PNYBootstrapService.h"
+#import "PNYEventBus.h"
 
 @interface PNYServiceAssembly : TyphoonAssembly
 
@@ -17,7 +17,7 @@
 
 - (id <PNYConfig>)config;
 
-- (PNYEventBus *)eventBus;
+- (id <PNYEventBus>)eventBus;
 
 - (id <PNYUserSettings>)userSettings;
 

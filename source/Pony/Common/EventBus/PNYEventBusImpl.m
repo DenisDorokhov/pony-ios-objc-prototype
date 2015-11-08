@@ -3,7 +3,7 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-#import "PNYEventBus.h"
+#import "PNYEventBusImpl.h"
 
 @interface PNYEventBus_Invocation : NSObject
 
@@ -50,7 +50,7 @@
 
 @end
 
-@implementation PNYEventBus
+@implementation PNYEventBusImpl
 {
 @private
     NSMutableDictionary *typeToInvocations; // NSString => NSMutableOrderedSet of PNYEventBus_Invocation.

@@ -4,7 +4,7 @@
 //
 
 #import "PNYConfig.h"
-#import "PNYEventBus.h"
+#import "PNYEventBusImpl.h"
 #import "PNYBootstrapService.h"
 
 @interface PNYBootstrapViewController : UIViewController

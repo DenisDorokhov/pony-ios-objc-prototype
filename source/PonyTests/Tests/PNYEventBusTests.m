@@ -4,7 +4,7 @@
 //
 
 #import "PNYTestCase.h"
-#import "PNYEventBus.h"
+#import "PNYEventBusImpl.h"
 
 @interface PNYEventBusTests : PNYTestCase
 
@@ -28,7 +28,7 @@
 
 - (void)testEventFiring
 {
-    PNYEventBus *eventBus = [PNYEventBus new];
+    PNYEventBusImpl *eventBus = [PNYEventBusImpl new];
 
     [eventBus addListener:@"someType" object:self selector:@selector(callback:)];
 
@@ -88,7 +88,7 @@
 
 - (void)testEventCancellation
 {
-    PNYEventBus *eventBus = [PNYEventBus new];
+    PNYEventBusImpl *eventBus = [PNYEventBusImpl new];
 
     [eventBus addListener:@"someType" object:self selector:@selector(callbackWithCancellation:)];
     [eventBus addListener:@"someType" object:self selector:@selector(callback)];
