@@ -4,49 +4,15 @@
 //
 
 #import "PNYServiceAssembly.h"
-#import "PNYPlistConfigFactory.h"
 #import "PNYRestServiceUrlProvider.h"
-#import "PNYUserSettingsImpl.h"
 #import "PNYRestServiceUrlProviderImpl.h"
 #import "PNYRestServiceImpl.h"
-#import "PNYPersistentDictionary.h"
-#import "PNYKeychainDictionary.h"
 #import "PNYTokenPairDaoImpl.h"
 #import "PNYRestServiceCachedImpl.h"
-#import "PNYEventBusImpl.h"
-#import <Typhoon/TyphoonFactoryDefinition.h>
 
 @implementation PNYServiceAssembly
 
 #pragma mark - Public
-
-- (id <PNYConfig>)config
-{
-    return [TyphoonDefinition withFactory:[self plistConfigFactory]
-                                 selector:@selector(configWithPlistPaths:)
-                               parameters:^(TyphoonMethod *aFactoryMethod) {
-                                   [aFactoryMethod injectParameterWith:@[
-                                           [[NSBundle mainBundle] pathForResource:@"Config" ofType:@"plist"]
-                                   ]];
-                               }
-                            configuration:^(TyphoonFactoryDefinition *aDefinition) {
-                                aDefinition.scope = TyphoonScopeLazySingleton;
-                            }];
-}
-
-- (id <PNYEventBus>)eventBus
-{
-    return [TyphoonDefinition withClass:[PNYEventBusImpl class] configuration:^(TyphoonDefinition *aDefinition) {
-        aDefinition.scope = TyphoonScopeLazySingleton;
-    }];
-}
-
-- (id <PNYUserSettings>)userSettings
-{
-    return [TyphoonDefinition withClass:[PNYUserSettingsImpl class] configuration:^(TyphoonDefinition *aDefinition) {
-        aDefinition.scope = TyphoonScopeLazySingleton;
-    }];
-}
 
 - (id <PNYRestServiceCached>)restServiceCached
 {
@@ -66,7 +32,7 @@
 {
     return [TyphoonDefinition withClass:[PNYBootstrapService class] configuration:^(TyphoonDefinition *aDefinition) {
         aDefinition.scope = TyphoonScopeLazySingleton;
-        [aDefinition injectProperty:@selector(userSettings) with:[self userSettings]];
+        [aDefinition injectProperty:@selector(userSettings) with:[self.utilityAssembly userSettings]];
         [aDefinition injectProperty:@selector(authenticationService) with:[self authenticationService]];
     }];
 }
@@ -96,7 +62,7 @@
     return [TyphoonDefinition withClass:[PNYTokenPairDaoImpl class] configuration:^(TyphoonDefinition *aDefinition) {
         aDefinition.scope = TyphoonScopeLazySingleton;
         [aDefinition useInitializer:@selector(initWithPersistentDictionary:) parameters:^(TyphoonMethod *aInitializer) {
-            [aInitializer injectParameterWith:[self keychainDictionary]];
+            [aInitializer injectParameterWith:[self.utilityAssembly securedPersistentDictionary]];
         }];
     }];
 }
@@ -105,21 +71,7 @@
 {
     return [TyphoonDefinition withClass:[PNYRestServiceUrlProviderImpl class] configuration:^(TyphoonDefinition *aDefinition) {
         aDefinition.scope = TyphoonScopeLazySingleton;
-        [aDefinition injectProperty:@selector(userSettings) with:[self userSettings]];
-    }];
-}
-
-- (id <PNYPersistentDictionary>)keychainDictionary
-{
-    return [TyphoonDefinition withClass:[PNYKeychainDictionary class] configuration:^(TyphoonDefinition *aDefinition) {
-        aDefinition.scope = TyphoonScopeLazySingleton;
-    }];
-}
-
-- (PNYPlistConfigFactory *)plistConfigFactory
-{
-    return [TyphoonDefinition withClass:[PNYPlistConfigFactory class] configuration:^(TyphoonDefinition *aDefinition) {
-        aDefinition.scope = TyphoonScopeLazySingleton;
+        [aDefinition injectProperty:@selector(userSettings) with:[self.utilityAssembly userSettings]];
     }];
 }
 

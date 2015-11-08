@@ -5,9 +5,51 @@
 
 #import "PNYUtilityAssembly.h"
 #import "PNYLogFormatter.h"
+#import "PNYPlistConfigFactory.h"
+#import "PNYEventBusImpl.h"
+#import "PNYUserSettingsImpl.h"
+#import "PNYKeychainDictionary.h"
+#import <Typhoon/TyphoonFactoryDefinition.h>
 #import <Typhoon/TyphoonDefinition+Infrastructure.h>
 
 @implementation PNYUtilityAssembly
+
+#pragma mark - Public
+
+- (id <PNYConfig>)config
+{
+    return [TyphoonDefinition withFactory:[self plistConfigFactory]
+                                 selector:@selector(configWithPlistPaths:)
+                               parameters:^(TyphoonMethod *aFactoryMethod) {
+                                   [aFactoryMethod injectParameterWith:@[
+                                           [[NSBundle mainBundle] pathForResource:@"Config" ofType:@"plist"]
+                                   ]];
+                               }
+                            configuration:^(TyphoonFactoryDefinition *aDefinition) {
+                                aDefinition.scope = TyphoonScopeLazySingleton;
+                            }];
+}
+
+- (id <PNYEventBus>)eventBus
+{
+    return [TyphoonDefinition withClass:[PNYEventBusImpl class] configuration:^(TyphoonDefinition *aDefinition) {
+        aDefinition.scope = TyphoonScopeLazySingleton;
+    }];
+}
+
+- (id <PNYUserSettings>)userSettings
+{
+    return [TyphoonDefinition withClass:[PNYUserSettingsImpl class] configuration:^(TyphoonDefinition *aDefinition) {
+        aDefinition.scope = TyphoonScopeLazySingleton;
+    }];
+}
+
+- (id <PNYPersistentDictionary>)securedPersistentDictionary
+{
+    return [TyphoonDefinition withClass:[PNYKeychainDictionary class] configuration:^(TyphoonDefinition *aDefinition) {
+        aDefinition.scope = TyphoonScopeLazySingleton;
+    }];
+}
 
 #pragma mark - Private
 
@@ -38,6 +80,13 @@
 - (id <DDLogFormatter>)logFormatter
 {
     return [TyphoonDefinition withClass:[PNYLogFormatter class]];
+}
+
+- (PNYPlistConfigFactory *)plistConfigFactory
+{
+    return [TyphoonDefinition withClass:[PNYPlistConfigFactory class] configuration:^(TyphoonDefinition *aDefinition) {
+        aDefinition.scope = TyphoonScopeLazySingleton;
+    }];
 }
 
 @end

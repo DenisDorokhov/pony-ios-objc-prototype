@@ -13,7 +13,7 @@
 - (PNYAppDelegate *)appDelegate
 {
     return [TyphoonDefinition withClass:[PNYAppDelegate class] configuration:^(TyphoonDefinition *aDefinition) {
-        [aDefinition injectProperty:@selector(config) with:[self.serviceAssembly config]];
+        [aDefinition injectProperty:@selector(config) with:[self.utilityAssembly config]];
     }];
 }
 

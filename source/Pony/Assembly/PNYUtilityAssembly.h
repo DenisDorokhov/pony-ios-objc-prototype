@@ -4,7 +4,19 @@
 //
 
 #import <Typhoon/TyphoonAssembly.h>
+#import "PNYUserSettings.h"
+#import "PNYEventBus.h"
+#import "PNYConfig.h"
+#import "PNYPersistentDictionary.h"
 
 @interface PNYUtilityAssembly : TyphoonAssembly
+
+- (id <PNYConfig>)config;
+
+- (id <PNYEventBus>)eventBus;
+
+- (id <PNYUserSettings>)userSettings;
+
+- (id <PNYPersistentDictionary>)securedPersistentDictionary;
 
 @end

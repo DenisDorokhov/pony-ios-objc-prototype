@@ -4,22 +4,16 @@
 //
 
 #import <Typhoon/TyphoonAssembly.h>
-#import "PNYConfig.h"
-#import "PNYUserSettings.h"
 #import "PNYCacheAssembly.h"
 #import "PNYRestServiceCached.h"
 #import "PNYBootstrapService.h"
 #import "PNYEventBus.h"
+#import "PNYUtilityAssembly.h"
 
 @interface PNYServiceAssembly : TyphoonAssembly
 
+@property (nonatomic, strong) PNYUtilityAssembly *utilityAssembly;
 @property (nonatomic, strong) PNYCacheAssembly *cacheAssembly;
-
-- (id <PNYConfig>)config;
-
-- (id <PNYEventBus>)eventBus;
-
-- (id <PNYUserSettings>)userSettings;
 
 - (id <PNYRestServiceCached>)restServiceCached;
 
