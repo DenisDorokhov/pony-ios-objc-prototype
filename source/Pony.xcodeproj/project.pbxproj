@@ -67,7 +67,7 @@
 		B3D39BFA2E9F872C0A88FC75 /* PNYAlbumSongsDto.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D3938FC91988B3DEF557D3 /* PNYAlbumSongsDto.m */; };
 		B3D39C2DB78EDC8495B5A415 /* PNYDtoMappingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39BED7E275CA04A22BD27 /* PNYDtoMappingTests.m */; };
 		B3D39C3436205E1B9DF072CD /* PNYConfigImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39F2DF2AC670996725553 /* PNYConfigImpl.m */; };
-		B3D39C5ED9582036AE99D520 /* Config1.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3D39F33F8A2DC7E5E2AED4C /* Config1.plist */; };
+		B3D39C5ED9582036AE99D520 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3D39F33F8A2DC7E5E2AED4C /* Config.plist */; };
 		B3D39C645277D2B3F3A2A5E5 /* PNYPersistenceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39657432999E906A1309E /* PNYPersistenceTests.m */; };
 		B3D39CB6A2ABBC0F469E6DC4 /* PNYTokenPair.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D397A5BD83C072E52C3804 /* PNYTokenPair.m */; };
 		B3D39D0DDCED0E6C3285ACBC /* PNYUserSettingsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39C6C63B323380D02C073 /* PNYUserSettingsTests.m */; };
@@ -251,7 +251,7 @@
 		B3D39F1B66BB8D70F284C783 /* PNYImageCacheSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYImageCacheSerializer.h; sourceTree = "<group>"; };
 		B3D39F2DF2AC670996725553 /* PNYConfigImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYConfigImpl.m; sourceTree = "<group>"; };
 		B3D39F2EFFF5E1BC8985602F /* PNYRandomUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYRandomUtils.h; sourceTree = "<group>"; };
-		B3D39F33F8A2DC7E5E2AED4C /* Config1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Config1.plist; sourceTree = "<group>"; };
+		B3D39F33F8A2DC7E5E2AED4C /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Config.plist; sourceTree = "<group>"; };
 		B3D39F419FA74F77D4E37E83 /* PNYBootstrapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYBootstrapViewController.h; sourceTree = "<group>"; };
 		B3D39F62CD510A6792FD34EE /* PNYRestTokens.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYRestTokens.h; sourceTree = "<group>"; };
 		B3D39F9037CF0E65542335D4 /* PNYPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYPrefix.pch; sourceTree = "<group>"; };
@@ -409,7 +409,7 @@
 				26A10E701BCA82AC00C63AD8 /* Storyboards */,
 				26A10E6A1BCA806D00C63AD8 /* Assets.xcassets */,
 				26A10E6C1BCA807F00C63AD8 /* Info.plist */,
-				B3D39F33F8A2DC7E5E2AED4C /* Config1.plist */,
+				B3D39F33F8A2DC7E5E2AED4C /* Config.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -760,7 +760,7 @@
 				26A10E781BCA830800C63AD8 /* Localizable.strings in Resources */,
 				26A10E6B1BCA806D00C63AD8 /* Assets.xcassets in Resources */,
 				26A10E731BCA82AC00C63AD8 /* LaunchScreen.storyboard in Resources */,
-				B3D39C5ED9582036AE99D520 /* Config1.plist in Resources */,
+				B3D39C5ED9582036AE99D520 /* Config.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

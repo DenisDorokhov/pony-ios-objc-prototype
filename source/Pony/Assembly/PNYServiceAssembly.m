@@ -25,7 +25,7 @@
                                  selector:@selector(configWithPlistPaths:)
                                parameters:^(TyphoonMethod *aFactoryMethod) {
                                    [aFactoryMethod injectParameterWith:@[
-                                           [[NSBundle mainBundle] pathForResource:@"Config1" ofType:@"plist"]
+                                           [[NSBundle mainBundle] pathForResource:@"Config" ofType:@"plist"]
                                    ]];
                                }
                             configuration:^(TyphoonFactoryDefinition *aDefinition) {
