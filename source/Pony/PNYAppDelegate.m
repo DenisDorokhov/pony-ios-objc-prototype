@@ -4,30 +4,18 @@
 //
 
 #import "PNYAppDelegate.h"
-#import "PNYLogFormatter.h"
-
-@interface PNYAppDelegate ()
-
-@end
 
 @implementation PNYAppDelegate
 
 - (BOOL)application:(UIApplication *)aApplication didFinishLaunchingWithOptions:(NSDictionary *)aLaunchOptions
 {
-    [self setupLogging];
+    PNYAssert(self.config != nil);
 
     PNYLogInfo(@"Application started.");
 
+    self.window.tintColor = [self.config colorValue:@"window.tintColor"];
+
     return YES;
-}
-
-#pragma mark - Private
-
-- (void)setupLogging
-{
-    DDTTYLogger *logger = [DDTTYLogger sharedInstance];
-    logger.logFormatter = [PNYLogFormatter new];
-    [DDLog addLogger:logger withLevel:DDLogLevelDebug];
 }
 
 @end

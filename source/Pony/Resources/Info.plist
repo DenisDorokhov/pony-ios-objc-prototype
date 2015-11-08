@@ -29,9 +29,11 @@
 	</dict>
 	<key>TyphoonInitialAssemblies</key>
 	<array>
+		<string>PNYLogAssembly</string>
 		<string>PNYCacheAssembly</string>
 		<string>PNYServiceAssembly</string>
 		<string>PNYViewControllerAssembly</string>
+		<string>PNYAppAssembly</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
