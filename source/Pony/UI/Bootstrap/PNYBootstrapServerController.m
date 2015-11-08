@@ -19,9 +19,6 @@
     self.httpsLabel.text = PNYLocalized(@"bootstrap.server.httpsLabel");
 
     [self.saveButton setTitle:PNYLocalized(@"bootstrap.server.saveButton") forState:UIControlStateNormal];
-
-    self.serverText.text = @"";
-    self.httpsSwitch.on = NO;
 }
 
 @end

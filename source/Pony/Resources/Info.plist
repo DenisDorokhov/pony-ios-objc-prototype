@@ -27,18 +27,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>TyphoonInitialAssemblies</key>
-	<array>
-		<string>PNYUtilityAssembly</string>
-		<string>PNYCacheAssembly</string>
-		<string>PNYServiceAssembly</string>
-		<string>PNYViewControllerAssembly</string>
-		<string>PNYAppAssembly</string>
-	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

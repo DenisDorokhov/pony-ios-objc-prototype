@@ -5,9 +5,11 @@
 
 #import <Typhoon/TyphoonAssembly.h>
 #import "PNYUtilityAssembly.h"
+#import "PNYServiceAssembly.h"
 
 @interface PNYAppAssembly : TyphoonAssembly
 
 @property (nonatomic, strong) PNYUtilityAssembly *utilityAssembly;
+@property(nonatomic, strong) PNYServiceAssembly *serviceAssembly;
 
 @end

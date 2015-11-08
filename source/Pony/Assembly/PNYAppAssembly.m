@@ -5,6 +5,7 @@
 
 #import "PNYAppAssembly.h"
 #import "PNYAppDelegate.h"
+#import "PNYBootstrapController.h"
 
 @implementation PNYAppAssembly
 
@@ -14,6 +15,13 @@
 {
     return [TyphoonDefinition withClass:[PNYAppDelegate class] configuration:^(TyphoonDefinition *aDefinition) {
         [aDefinition injectProperty:@selector(config) with:[self.utilityAssembly config]];
+    }];
+}
+
+- (PNYBootstrapController *)bootstrapViewController
+{
+    return [TyphoonDefinition withClass:[PNYBootstrapController class] configuration:^(TyphoonDefinition *aDefinition) {
+        [aDefinition injectProperty:@selector(bootstrapService) with:[self.serviceAssembly bootstrapService]];
     }];
 }
 

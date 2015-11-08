@@ -46,7 +46,6 @@
 		B3D39631FC96270B19C247A8 /* PNYDtoUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39AB4E3AD5FC94BBBE61E /* PNYDtoUtils.m */; };
 		B3D3965AEA13D4324151E635 /* PNYArtistAlbumsDto.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39A2C51BA3021FF06A858 /* PNYArtistAlbumsDto.m */; };
 		B3D3966117014DD824574DAA /* PNYRestResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39E012D5199AAB1966EC9 /* PNYRestResponseSerializer.m */; };
-		B3D3969CD151128FE6B6063F /* PNYViewControllerAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39328397728A7B26A69C8 /* PNYViewControllerAssembly.m */; };
 		B3D3970B04957A2769F21BED /* PNYSongDto.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D3995600AE5CE23610B184 /* PNYSongDto.m */; };
 		B3D39727412D37D4A95ACDA6 /* PNYBootstrapAuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D3930A72E05C1C96491112 /* PNYBootstrapAuthenticationController.m */; };
 		B3D39790DC74035F184E8E0B /* PNYMappingCacheSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D3948A806BA97AEE14B1C2 /* PNYMappingCacheSerializer.m */; };
@@ -144,7 +143,6 @@
 		B3D392EF87130A6ACC3EBC9E /* PNYAppAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYAppAssembly.h; sourceTree = "<group>"; };
 		B3D3930A72E05C1C96491112 /* PNYBootstrapAuthenticationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYBootstrapAuthenticationController.m; sourceTree = "<group>"; };
 		B3D3930FBAA697968C05AB29 /* PNYKeychainDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYKeychainDictionary.h; sourceTree = "<group>"; };
-		B3D39328397728A7B26A69C8 /* PNYViewControllerAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYViewControllerAssembly.m; sourceTree = "<group>"; };
 		B3D3937ACFBC5848C0666C06 /* PNYUserDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYUserDto.h; sourceTree = "<group>"; };
 		B3D3938FC91988B3DEF557D3 /* PNYAlbumSongsDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYAlbumSongsDto.m; sourceTree = "<group>"; };
 		B3D393C6740A53B13D9A4243 /* PNYRandomUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYRandomUtils.m; sourceTree = "<group>"; };
@@ -163,7 +161,6 @@
 		B3D3953A37EEDE3BF635FAB6 /* PNYCacheAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYCacheAssembly.m; sourceTree = "<group>"; };
 		B3D3954FADD3D3E7CC1CC91B /* PNYTokenPairDaoImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYTokenPairDaoImpl.h; sourceTree = "<group>"; };
 		B3D3954FC059A034D092FE4A /* NSMutableOrderedSet+PNYNSValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableOrderedSet+PNYNSValue.h"; sourceTree = "<group>"; };
-		B3D395772E1ADAE8C48856B7 /* PNYViewControllerAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYViewControllerAssembly.h; sourceTree = "<group>"; };
 		B3D39585D8BF3E7BB8D47065 /* PNYDtoUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYDtoUtils.h; sourceTree = "<group>"; };
 		B3D395CF25911CE80E4ADB5D /* PNYPlistConfigFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYPlistConfigFactory.h; sourceTree = "<group>"; };
 		B3D395F07109A88C4362C9F4 /* PNYRestServiceImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYRestServiceImpl.m; sourceTree = "<group>"; };
@@ -584,8 +581,6 @@
 				B3D39C195F2298B1AC8A3153 /* PNYServiceAssembly.m */,
 				B3D39C74956E2BE72679D0EF /* PNYUtilityAssembly.h */,
 				B3D39D1752DD21473DB8AB7E /* PNYUtilityAssembly.m */,
-				B3D395772E1ADAE8C48856B7 /* PNYViewControllerAssembly.h */,
-				B3D39328397728A7B26A69C8 /* PNYViewControllerAssembly.m */,
 			);
 			path = Assembly;
 			sourceTree = "<group>";
@@ -946,7 +941,6 @@
 				B3D39EAA54CDB8D9FCAE44BC /* PNYDictionaryConfigFactory.m in Sources */,
 				B3D39F4C23480726884CE890 /* PNYPlistConfigFactory.m in Sources */,
 				B3D39E8374F51BBA77D20DBC /* PNYServiceAssembly.m in Sources */,
-				B3D3969CD151128FE6B6063F /* PNYViewControllerAssembly.m in Sources */,
 				B3D39E6BFA837DB80775685A /* PNYCacheAssembly.m in Sources */,
 				B3D393496FFACD4234706C92 /* PNYAppAssembly.m in Sources */,
 				B3D39060B66CC3B380598914 /* PNYUtilityAssembly.m in Sources */,
