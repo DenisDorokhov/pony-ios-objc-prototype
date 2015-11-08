@@ -52,10 +52,10 @@
     PNYAssert(self.restServiceUrlDao != nil);
     PNYAssert(self.restService != nil);
 
-    self.serverLabel.text = PNYLocalized(@"bootstrap.server.serverLabel");
-    self.httpsLabel.text = PNYLocalized(@"bootstrap.server.httpsLabel");
+    self.serverLabel.text = PNYLocalized(@"bootstrapServerLabel");
+    self.httpsLabel.text = PNYLocalized(@"bootstrapServerHttpsLabel");
 
-    [self.saveButton setTitle:PNYLocalized(@"bootstrap.server.saveButton") forState:UIControlStateNormal];
+    [self.saveButton setTitle:PNYLocalized(@"bootstrapServerSaveButton") forState:UIControlStateNormal];
 }
 
 #pragma mark - Private

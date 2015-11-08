@@ -20,9 +20,9 @@
 {
     [super viewDidLoad];
 
-    self.retryLabel.text = PNYLocalized(@"bootstrap.retry.retryLabel");
+    self.retryLabel.text = PNYLocalized(@"bootstrapRetryLabel");
 
-    [self.retryButton setTitle:PNYLocalized(@"bootstrap.retry.retryButton") forState:UIControlStateNormal];
+    [self.retryButton setTitle:PNYLocalized(@"bootstrapRetryButton") forState:UIControlStateNormal];
 }
 
 @end

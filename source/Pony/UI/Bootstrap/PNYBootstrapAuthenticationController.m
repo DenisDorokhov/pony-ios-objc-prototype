@@ -51,10 +51,10 @@
 
     PNYAssert(self.authenticationService != nil);
 
-    self.loginLabel.text = PNYLocalized(@"bootstrap.login.loginLabel");
-    self.passwordLabel.text = PNYLocalized(@"bootstrap.login.passwordLabel");
+    self.loginLabel.text = PNYLocalized(@"bootstrapAuthenticationLoginLabel");
+    self.passwordLabel.text = PNYLocalized(@"bootstrapAuthenticationPasswordLabel");
 
-    [self.loginButton setTitle:PNYLocalized(@"bootstrap.login.loginButton") forState:UIControlStateNormal];
+    [self.loginButton setTitle:PNYLocalized(@"bootstrapAuthenticationLoginButton") forState:UIControlStateNormal];
 }
 
 #pragma mark - Private
