@@ -28,12 +28,12 @@ static NSString *const DEMO_PASSWORD = @"demo";
 {
     [super setUp];
 
-    id <PNYRestServiceUrlProvider> urlProvider = mockProtocol(@protocol(PNYRestServiceUrlProvider));
+    id <PNYRestServiceUrlDao> urlDao = mockProtocol(@protocol(PNYRestServiceUrlDao));
 
-    [given([urlProvider serverUrl]) willReturn:[NSURL URLWithString:DEMO_URL]];
+    [given([urlDao fetchUrl]) willReturn:[NSURL URLWithString:DEMO_URL]];
 
     service = [PNYRestServiceImpl new];
-    service.urlProvider = urlProvider;
+    service.urlDao = urlDao;
     service.tokenPairDao = [PNYTokenPairDaoMock new];
 }
 

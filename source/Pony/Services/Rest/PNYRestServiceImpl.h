@@ -4,12 +4,12 @@
 //
 
 #import "PNYRestService.h"
-#import "PNYRestServiceUrlProvider.h"
 #import "PNYTokenPairDao.h"
+#import "PNYRestServiceUrlDao.h"
 
 @interface PNYRestServiceImpl : NSObject <PNYRestService>
 
-@property (nonatomic, strong) id <PNYRestServiceUrlProvider> urlProvider;
+@property (nonatomic, strong) id <PNYRestServiceUrlDao> urlDao;
 @property (nonatomic, strong) id <PNYTokenPairDao> tokenPairDao;
 
 @property (nonatomic) NSInteger maxConcurrentRequestCount;

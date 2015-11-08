@@ -249,9 +249,9 @@
 
 - (NSURL *)buildUrl:(NSString *)aRelativeUrl
 {
-    PNYAssert(self.urlProvider != nil);
+    PNYAssert(self.urlDao != nil);
 
-    return [[self.urlProvider serverUrl] URLByAppendingPathComponent:aRelativeUrl];
+    return [[self.urlDao fetchUrl] URLByAppendingPathComponent:aRelativeUrl];
 }
 
 - (NSArray *)errorToDtoArray:(NSError *)aError

@@ -1,0 +1,7 @@
+"bootstrap.server.serverLabel" = "Server:";
+"bootstrap.server.httpsLabel" = "HTTPS:";
+"bootstrap.server.saveButton" = "Save";
+
+"bootstrap.login.loginLabel" = "Login:";
+"bootstrap.login.passwordLabel" = "Password:";
+"bootstrap.login.loginButton" = "Login";

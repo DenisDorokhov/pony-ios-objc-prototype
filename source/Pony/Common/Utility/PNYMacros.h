@@ -11,4 +11,4 @@
 #define PNYLogWarn(format, ...) DDLogWarn(format, ##__VA_ARGS__)
 #define PNYLogError(format, ...) DDLogError(format, ##__VA_ARGS__)
 
-#define PNYLocalize(key, ...) [NSString stringWithFormat:NSLocalizedString(key, nil), ##__VA_ARGS__]
+#define PNYLocalized(key, ...) [NSString stringWithFormat:NSLocalizedString(key, nil), ##__VA_ARGS__]

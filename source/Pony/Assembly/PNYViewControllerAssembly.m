@@ -4,13 +4,13 @@
 //
 
 #import "PNYViewControllerAssembly.h"
-#import "PNYBootstrapViewController.h"
+#import "PNYBootstrapController.h"
 
 @implementation PNYViewControllerAssembly
 
-- (PNYBootstrapViewController *)bootstrapViewController
+- (PNYBootstrapController *)bootstrapViewController
 {
-    return [TyphoonDefinition withClass:[PNYBootstrapViewController class] configuration:^(TyphoonDefinition *aDefinition) {
+    return [TyphoonDefinition withClass:[PNYBootstrapController class] configuration:^(TyphoonDefinition *aDefinition) {
         [aDefinition injectProperty:@selector(bootstrapService) with:[self.serviceAssembly bootstrapService]];
     }];
 }

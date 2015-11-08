@@ -4,15 +4,22 @@
 //
 
 #import "PNYServiceAssembly.h"
-#import "PNYRestServiceUrlProvider.h"
-#import "PNYRestServiceUrlProviderImpl.h"
 #import "PNYRestServiceImpl.h"
 #import "PNYTokenPairDaoImpl.h"
 #import "PNYRestServiceCachedImpl.h"
+#import "PNYRestServiceUrlDaoImpl.h"
 
 @implementation PNYServiceAssembly
 
 #pragma mark - Public
+
+- (id <PNYRestServiceUrlDao>)restServiceUrlDao
+{
+    return [TyphoonDefinition withClass:[PNYRestServiceUrlDaoImpl class] configuration:^(TyphoonDefinition *aDefinition) {
+        aDefinition.scope = TyphoonScopeLazySingleton;
+        [aDefinition injectProperty:@selector(userSettings) with:[self.utilityAssembly userSettings]];
+    }];
+}
 
 - (id <PNYRestServiceCached>)restServiceCached
 {
@@ -32,7 +39,8 @@
 {
     return [TyphoonDefinition withClass:[PNYBootstrapService class] configuration:^(TyphoonDefinition *aDefinition) {
         aDefinition.scope = TyphoonScopeLazySingleton;
-        [aDefinition injectProperty:@selector(userSettings) with:[self.utilityAssembly userSettings]];
+        [aDefinition injectProperty:@selector(restServiceUrlDao) with:[self restServiceUrlDao]];
+        [aDefinition injectProperty:@selector(restService) with:[self restServiceCached]];
         [aDefinition injectProperty:@selector(authenticationService) with:[self authenticationService]];
     }];
 }
@@ -52,7 +60,7 @@
 {
     return [TyphoonDefinition withClass:[PNYRestServiceImpl class] configuration:^(TyphoonDefinition *aDefinition) {
         aDefinition.scope = TyphoonScopeLazySingleton;
-        [aDefinition injectProperty:@selector(urlProvider) with:[self restServiceUrlProvider]];
+        [aDefinition injectProperty:@selector(urlDao) with:[self restServiceUrlDao]];
         [aDefinition injectProperty:@selector(tokenPairDao) with:[self tokenPairDao]];
     }];
 }
@@ -64,14 +72,6 @@
         [aDefinition useInitializer:@selector(initWithPersistentDictionary:) parameters:^(TyphoonMethod *aInitializer) {
             [aInitializer injectParameterWith:[self.utilityAssembly securedPersistentDictionary]];
         }];
-    }];
-}
-
-- (id <PNYRestServiceUrlProvider>)restServiceUrlProvider
-{
-    return [TyphoonDefinition withClass:[PNYRestServiceUrlProviderImpl class] configuration:^(TyphoonDefinition *aDefinition) {
-        aDefinition.scope = TyphoonScopeLazySingleton;
-        [aDefinition injectProperty:@selector(userSettings) with:[self.utilityAssembly userSettings]];
     }];
 }
 

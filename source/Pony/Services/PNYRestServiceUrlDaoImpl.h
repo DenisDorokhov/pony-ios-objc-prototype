@@ -1,12 +1,12 @@
 //
-// Created by Denis Dorokhov on 25/10/15.
+// Created by Denis Dorokhov on 08/11/15.
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-#import "PNYRestServiceUrlProvider.h"
+#import "PNYRestServiceUrlDao.h"
 #import "PNYUserSettings.h"
 
-@interface PNYRestServiceUrlProviderImpl : NSObject <PNYRestServiceUrlProvider>
+@interface PNYRestServiceUrlDaoImpl : NSObject <PNYRestServiceUrlDao>
 
 @property (nonatomic, strong) id <PNYUserSettings> userSettings;
 

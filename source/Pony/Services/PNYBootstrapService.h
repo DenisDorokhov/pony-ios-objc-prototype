@@ -3,7 +3,8 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-#import "PNYUserSettings.h"
+#import "PNYRestServiceUrlDao.h"
+#import "PNYRestService.h"
 #import "PNYAuthenticationService.h"
 
 @class PNYBootstrapService;
@@ -12,6 +13,8 @@
 
 - (void)bootstrapServiceDidStartBootstrap:(PNYBootstrapService *)aBootstrapService;
 - (void)bootstrapServiceDidFinishBootstrap:(PNYBootstrapService *)aBootstrapService;
+
+- (void)bootstrapServiceDidStartBackgroundActivity:(PNYBootstrapService *)aBootstrapService;
 
 - (void)bootstrapServiceDidRequireRestUrl:(PNYBootstrapService *)aBootstrapService;
 - (void)bootstrapServiceDidRequireAuthentication:(PNYBootstrapService *)aBootstrapService;
@@ -22,7 +25,8 @@
 
 @interface PNYBootstrapService : NSObject
 
-@property (nonatomic, strong) id <PNYUserSettings> userSettings;
+@property (nonatomic, strong) id <PNYRestServiceUrlDao> restServiceUrlDao;
+@property (nonatomic, strong) id <PNYRestService> restService;
 @property (nonatomic, strong) PNYAuthenticationService *authenticationService;
 
 @property (nonatomic, weak) id <PNYBootstrapServiceDelegate> delegate;
