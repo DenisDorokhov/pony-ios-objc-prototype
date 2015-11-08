@@ -170,19 +170,8 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
                         aSuccess(aAuthentication.user);
                     }
                 }                     failure:^(NSArray *aRefreshTokenErrors) {
-
                     if (aFailure != nil) {
                         aFailure(aErrors);
-                    }
-
-                    if ([PNYErrorDto fetchErrorFromArray:aErrors withCodes:@[PNYErrorDtoCodeAccessDenied]]) {
-
-                        PNYUserDto *lastUser = self.currentUser;
-
-                        [self clearAuthentication];
-                        if (lastUser != nil) {
-                            [self propagateLogOut:lastUser];
-                        }
                     }
                 }];
 
@@ -208,7 +197,11 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
 {
     PNYAssert(self.restService != nil);
 
-    PNYLogInfo(@"Logging out user [%@]...", self.currentUser.email);
+    if (self.currentUser != nil) {
+        PNYLogInfo(@"Logging out user [%@]...", self.currentUser.email);
+    } else {
+        PNYLogInfo(@"Logging out...");
+    }
 
     [self.restService logoutWithSuccess:^(PNYUserDto *aUser) {
 
@@ -296,6 +289,16 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
 
             if (aFailure != nil) {
                 aFailure(aErrors);
+            }
+
+            if ([PNYErrorDto fetchErrorFromArray:aErrors withCodes:@[PNYErrorDtoCodeAccessDenied]]) {
+
+                PNYUserDto *lastUser = self.currentUser;
+
+                [self clearAuthentication];
+                if (lastUser != nil) {
+                    [self propagateLogOut:lastUser];
+                }
             }
         }];
 
