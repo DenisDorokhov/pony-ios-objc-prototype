@@ -5,13 +5,15 @@
 
 #import "PNYBootstrapService.h"
 #import "PNYBootstrapStepController.h"
+#import "PNYBootstrapRetryController.h"
 
-@interface PNYBootstrapController : UIViewController <PNYBootstrapServiceDelegate, PNYBootstrapStepControllerDelegate>
+@interface PNYBootstrapController : UIViewController <PNYBootstrapServiceDelegate, PNYBootstrapStepControllerDelegate, PNYBootstrapRetryControllerDelegate>
 
 @property (nonatomic, strong) PNYBootstrapService *bootstrapService;
 
 @property (nonatomic, strong) IBOutlet UIView *serverStepContainer;
 @property (nonatomic, strong) IBOutlet UIView *authenticationStepContainer;
+@property (nonatomic, strong) IBOutlet UIView *retryContainer;
 
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
 

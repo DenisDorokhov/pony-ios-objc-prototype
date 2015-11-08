@@ -24,31 +24,54 @@
         [self.delegate bootstrapServiceDidStartBootstrap:self];
 
         if ([self.restServiceUrlDao fetchUrl] != nil) {
-
-            [self.delegate bootstrapServiceDidFinishBootstrap:self];
-
-            if (self.authenticationService.authenticated) {
-
-                [self.delegate bootstrapServiceDidFinishBootstrap:self];
-
-            } else {
-
-                [self.delegate bootstrapServiceDidStartBackgroundActivity:self];
-
-                [self.authenticationService authenticateWithSuccess:^(PNYUserDto *aUser) {
-                    if (aUser != nil) {
-                        [self.delegate bootstrapServiceDidFinishBootstrap:self];
-                    } else {
-                        [self.delegate bootstrapServiceDidRequireAuthentication:self];
-                    }
-                }                                           failure:^(NSArray *aErrors) {
-                    [self.delegate bootstrapService:self didFailRequestWithErrors:aErrors];
-                }];
-            }
+            [self validateRestService];
         } else {
             [self.delegate bootstrapServiceDidRequireRestUrl:self];
         }
     }
+}
+
+#pragma mark - Private
+
+- (void)validateRestService
+{
+    [self.delegate bootstrapServiceDidStartBackgroundActivity:self];
+
+    [self.restService getInstallationWithSuccess:^(PNYInstallationDto *aInstallation) {
+        if (self.authenticationService.authenticated) {
+
+            isBootstrapping = NO;
+
+            [self.delegate bootstrapServiceDidFinishBootstrap:self];
+
+        } else {
+            [self validateAuthentication];
+        }
+    }                                    failure:^(NSArray *aErrors) {
+
+        isBootstrapping = NO;
+
+        [self.delegate bootstrapService:self didFailRestServiceRequestWithErrors:aErrors];
+    }];
+}
+
+- (void)validateAuthentication
+{
+    [self.authenticationService authenticateWithSuccess:^(PNYUserDto *aUser) {
+
+        isBootstrapping = NO;
+
+        if (aUser != nil) {
+            [self.delegate bootstrapServiceDidFinishBootstrap:self];
+        } else {
+            [self.delegate bootstrapServiceDidRequireAuthentication:self];
+        }
+    }                                           failure:^(NSArray *aErrors) {
+
+        isBootstrapping = NO;
+
+        [self.delegate bootstrapService:self didFailAuthenticationRequestWithErrors:aErrors];
+    }];
 }
 
 @end

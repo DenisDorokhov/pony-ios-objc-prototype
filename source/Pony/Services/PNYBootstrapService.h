@@ -19,7 +19,8 @@
 - (void)bootstrapServiceDidRequireRestUrl:(PNYBootstrapService *)aBootstrapService;
 - (void)bootstrapServiceDidRequireAuthentication:(PNYBootstrapService *)aBootstrapService;
 
-- (void)bootstrapService:(PNYBootstrapService *)aBootstrapService didFailRequestWithErrors:(NSArray *)aErrors;
+- (void)bootstrapService:(PNYBootstrapService *)aBootstrapService didFailRestServiceRequestWithErrors:(NSArray *)aErrors;
+- (void)bootstrapService:(PNYBootstrapService *)aBootstrapService didFailAuthenticationRequestWithErrors:(NSArray *)aErrors;
 
 @end
 

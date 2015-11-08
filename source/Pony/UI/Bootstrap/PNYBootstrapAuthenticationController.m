@@ -9,16 +9,59 @@
 
 @synthesize delegate = _delegate;
 
+#pragma mark - Public
+
+- (IBAction)onLoginButtonTouch
+{
+    [self authenticate];
+}
+
+#pragma mark - <PNYBootstrapStepController>
+
+- (void)reset
+{
+    self.loginText.text = @"";
+    self.passwordText.text = @"";
+}
+
+- (void)retry
+{
+    // TODO: implement
+}
+
+#pragma mark - <UITextFieldDelegate>
+
+- (BOOL)textFieldShouldReturn:(UITextField *)aTextField
+{
+    if (aTextField == self.loginText) {
+        [self.passwordText becomeFirstResponder];
+    } else if (aTextField == self.passwordText) {
+        [self.passwordText resignFirstResponder];
+        [self authenticate];
+    }
+
+    return YES;
+}
+
 #pragma mark - Override
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
+    PNYAssert(self.authenticationService != nil);
+
     self.loginLabel.text = PNYLocalized(@"bootstrap.login.loginLabel");
     self.passwordLabel.text = PNYLocalized(@"bootstrap.login.passwordLabel");
 
-    [self.loginButton setTitle:PNYLocalized(@"bootstrap.login.passwordLabel") forState:UIControlStateNormal];
+    [self.loginButton setTitle:PNYLocalized(@"bootstrap.login.loginButton") forState:UIControlStateNormal];
+}
+
+#pragma mark - Private
+
+- (void)authenticate
+{
+    // TODO: implement
 }
 
 @end

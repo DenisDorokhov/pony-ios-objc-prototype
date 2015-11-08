@@ -4,13 +4,18 @@
 //
 
 #import "PNYBootstrapStepController.h"
+#import "PNYAuthenticationService.h"
 
-@interface PNYBootstrapAuthenticationController : UIViewController <PNYBootstrapStepController>
+@interface PNYBootstrapAuthenticationController : UIViewController <PNYBootstrapStepController, UITextFieldDelegate>
+
+@property (nonatomic, strong) PNYAuthenticationService *authenticationService;
 
 @property (nonatomic, strong) IBOutlet UILabel *loginLabel;
 @property (nonatomic, strong) IBOutlet UILabel *passwordLabel;
 @property (nonatomic, strong) IBOutlet UITextField *loginText;
 @property (nonatomic, strong) IBOutlet UITextField *passwordText;
 @property (nonatomic, strong) IBOutlet UIButton *loginButton;
+
+- (IBAction)onLoginButtonTouch;
 
 @end

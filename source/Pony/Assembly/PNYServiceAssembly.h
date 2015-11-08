@@ -15,6 +15,7 @@
 @property (nonatomic, strong) PNYUtilityAssembly *utilityAssembly;
 @property (nonatomic, strong) PNYCacheAssembly *cacheAssembly;
 
+- (id <PNYRestServiceUrlDao>)restServiceUrlDao;
 - (id <PNYRestServiceCached>)restServiceCached;
 
 - (PNYBootstrapService *)bootstrapService;

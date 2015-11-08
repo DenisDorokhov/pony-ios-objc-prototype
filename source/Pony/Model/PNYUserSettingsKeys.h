@@ -3,5 +3,4 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-static NSString *const PNYUserSettingsKeyRestProtocol = @"PNYUserSettings.restProtocol";
-static NSString *const PNYUserSettingsKeyRestUrl = @"PNYUserSettings.restUrl";
+static NSString *const PNYUserSettingsKeyRestServiceUrl = @"PNYUserSettings.restUrl";

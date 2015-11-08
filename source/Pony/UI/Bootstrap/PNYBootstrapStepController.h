@@ -7,14 +7,19 @@
 
 @protocol PNYBootstrapStepControllerDelegate <NSObject>
 
-- (void)bootstrapStepControllerDidStartActivity:(id <PNYBootstrapStepController>)aStepController;
-- (void)bootstrapStepControllerDidFinishActivity:(id <PNYBootstrapStepController>)aStepController;
-- (void)bootstrapStepControllerDidFailActivity:(id <PNYBootstrapStepController>)aStepController;
+- (void)bootstrapStepControllerDidStartBackgroundActivity:(id <PNYBootstrapStepController>)aStepController;
+- (void)bootstrapStepControllerDidFinishBackgroundActivity:(id <PNYBootstrapStepController>)aStepController;
+- (void)bootstrapStepControllerDidFailBackgroundActivity:(id <PNYBootstrapStepController>)aStepController;
+
+- (void)bootstrapStepControllerDidRequestBootstrap:(id <PNYBootstrapStepController>)aStepController;
 
 @end
 
 @protocol PNYBootstrapStepController <NSObject>
 
 @property (nonatomic, weak) id <PNYBootstrapStepControllerDelegate> delegate;
+
+- (void)reset;
+- (void)retry;
 
 @end

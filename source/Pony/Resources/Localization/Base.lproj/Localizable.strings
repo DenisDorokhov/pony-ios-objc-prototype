@@ -5,3 +5,6 @@
 "bootstrap.login.loginLabel" = "Login:";
 "bootstrap.login.passwordLabel" = "Password:";
 "bootstrap.login.loginButton" = "Login";
+
+"bootstrap.retry.retryLabel" = "Server request failed. Please try again later.";
+"bootstrap.retry.retryButton" = "Retry";
