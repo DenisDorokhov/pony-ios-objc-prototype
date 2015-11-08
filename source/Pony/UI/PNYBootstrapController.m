@@ -37,6 +37,11 @@ typedef NS_ENUM(NSInteger, PNYBootstraoControllerState)
     PNYBootstrapRetryController *bootstrapRetryController;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - <PNYBootstrapServiceDelegate>
 
 - (void)bootstrapServiceDidStartBootstrap:(PNYBootstrapService *)aBootstrapService
@@ -146,6 +151,11 @@ typedef NS_ENUM(NSInteger, PNYBootstraoControllerState)
     self.retryContainer.alpha = 0;
 
     [self.bootstrapService bootstrap];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboardDidShow:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)aSegue sender:(id)aSender
@@ -245,6 +255,20 @@ typedef NS_ENUM(NSInteger, PNYBootstraoControllerState)
                          self.authenticationStepContainer.alpha = authenticationStepContainerAlpha;
                          self.retryContainer.alpha = retryContainerAlpha;
                      } completion:nil];
+}
+
+- (void)onKeyboardDidShow:(NSNotification*)aNotification
+{
+    NSDictionary *info = [aNotification userInfo];
+
+    CGSize keyboardSize = [info[UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+
+    self.scrollView.contentInset = self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize.height, 0.0);
+}
+
+- (void)onKeyboardWillHide:(NSNotification*)aNotification
+{
+    self.scrollView.contentInset = self.scrollView.scrollIndicatorInsets = UIEdgeInsetsZero;
 }
 
 @end

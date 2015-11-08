@@ -11,6 +11,8 @@
 
 @property (nonatomic, strong) PNYBootstrapService *bootstrapService;
 
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
+
 @property (nonatomic, strong) IBOutlet UIView *serverStepContainer;
 @property (nonatomic, strong) IBOutlet UIView *authenticationStepContainer;
 @property (nonatomic, strong) IBOutlet UIView *retryContainer;
