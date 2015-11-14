@@ -3,6 +3,8 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
+#import "PNYBootstrapChildController.h"
+
 @protocol PNYBootstrapConfigController;
 
 @protocol PNYBootstrapConfigControllerDelegate <NSObject>
@@ -15,9 +17,7 @@
 
 @end
 
-@protocol PNYBootstrapConfigController <NSObject>
-
-@property (nonatomic) BOOL active;
+@protocol PNYBootstrapConfigController <PNYBootstrapChildController>
 
 @property (nonatomic, weak) id <PNYBootstrapConfigControllerDelegate> delegate;
 

@@ -3,6 +3,8 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
+#import "PNYBootstrapChildControllerAbstract.h"
+
 @class PNYBootstrapRetryController;
 
 @protocol PNYBootstrapRetryControllerDelegate <NSObject>
@@ -12,7 +14,7 @@
 
 @end
 
-@interface PNYBootstrapRetryController : UIViewController
+@interface PNYBootstrapRetryController : PNYBootstrapChildControllerAbstract
 
 @property (nonatomic, weak) id <PNYBootstrapRetryControllerDelegate> delegate;
 

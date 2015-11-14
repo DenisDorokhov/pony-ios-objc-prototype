@@ -16,11 +16,11 @@
     <key>window.tintColor</key>
     <dict>
         <key>red</key>
-        <integer>0</integer>
+        <integer>112</integer>
         <key>green</key>
-        <integer>0</integer>
+        <integer>112</integer>
         <key>blue</key>
-        <integer>0</integer>
+        <integer>112</integer>
         <key>alpha</key>
         <integer>255</integer>
     </dict>

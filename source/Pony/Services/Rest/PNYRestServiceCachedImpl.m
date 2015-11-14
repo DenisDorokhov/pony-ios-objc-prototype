@@ -160,7 +160,7 @@ static NSString *const KEY_ARTIST_ALBUMS = @"artistAlbums.%@";
             if (!request.cancelled) {
                 if (aCachedValue != nil) {
 
-                    PNYLogVerbose(@"Cache hit for key [%@] in cache %@.", aKey, aCache);
+                    PNYLogDebug(@"Cache hit for key [%@] in cache %@.", aKey, aCache);
 
                     if (aSuccess != nil) {
                         aSuccess(aCachedValue);

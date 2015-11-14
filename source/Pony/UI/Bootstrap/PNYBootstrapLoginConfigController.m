@@ -7,6 +7,7 @@
 #import "PNYBootstrapConfigControllerAbstract+Protected.h"
 #import "PNYErrorDto.h"
 #import "PNYAlertFactory.h"
+#import "PNYBootstrapChildControllerAbstract+Protected.h"
 
 @implementation PNYBootstrapLoginConfigController
 
@@ -104,6 +105,13 @@
             [self showConnectionAlert];
         }
     }];
+}
+
+- (void)showValidationAlert
+{
+    [self presentViewController:[PNYAlertFactory createOKAlertWithTitle:PNYLocalized(@"bootstrapLoginConfig_validationAlert_title")
+                                                                message:PNYLocalized(@"bootstrapLoginConfig_validationAlert_message")]
+                       animated:YES completion:nil];
 }
 
 - (void)showCredentialsAlert

@@ -35,14 +35,16 @@ static NSString *const USER_DEFAULTS_KEY_HAS_TOKEN = @"PNYTokenPairDaoImpl.hasTo
 
 - (PNYTokenPair *)fetchTokenPair
 {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:USER_DEFAULTS_KEY_HAS_TOKEN]) {
+    PNYTokenPair *tokenPair = [self fromDictionary:self.persistentDictionary.data[KEY_TOKEN_PAIR]];
+
+    if (tokenPair != nil && ![[NSUserDefaults standardUserDefaults] boolForKey:USER_DEFAULTS_KEY_HAS_TOKEN]) {
 
         PNYLogDebug(@"It seems like application was uninstalled. Returning no token.");
 
         return nil;
     }
 
-    return [self fromDictionary:self.persistentDictionary.data[KEY_TOKEN_PAIR]];
+    return tokenPair;
 }
 
 - (void)storeTokenPair:(PNYTokenPair *)aTokenPair

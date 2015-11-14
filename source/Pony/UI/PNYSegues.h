@@ -4,3 +4,4 @@
 //
 
 static NSString *const PNYSegueBootstrapToMain = @"bootstrapToMain";
+static NSString *const PNYSegueBootstrapFromMain = @"bootstrapFromMain";

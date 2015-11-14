@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Main Controller-->
         <scene sceneID="Y6s-3s-MFd">
             <objects>
-                <viewController id="o6K-iR-UIr" sceneMemberID="viewController">
+                <viewController id="o6K-iR-UIr" customClass="PNYMainController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jRf-zH-9YK"/>
                         <viewControllerLayoutGuide type="bottom" id="CHe-9w-W1F"/>
@@ -23,15 +23,28 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E27-xp-bwz">
+                                <rect key="frame" x="276" y="318" width="48" height="30"/>
+                                <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="onLogoutButtonTouch" destination="o6K-iR-UIr" eventType="touchUpInside" id="H8e-nS-uMX"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="E27-xp-bwz" firstAttribute="top" secondItem="4D9-L6-bmC" secondAttribute="bottom" constant="8" id="16h-QS-8Wx"/>
+                            <constraint firstItem="E27-xp-bwz" firstAttribute="centerX" secondItem="gqc-Ve-IGh" secondAttribute="centerX" id="Dae-Yr-LnE"/>
                             <constraint firstItem="4D9-L6-bmC" firstAttribute="centerX" secondItem="gqc-Ve-IGh" secondAttribute="centerX" id="cHV-ql-qIs"/>
                             <constraint firstItem="4D9-L6-bmC" firstAttribute="centerY" secondItem="gqc-Ve-IGh" secondAttribute="centerY" id="gtc-eR-Fnt"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <segue destination="VlD-LL-V91" kind="unwind" identifier="bootstrapFromMain" unwindAction="bootstrapFromMain:" id="Q82-bi-Rwq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Sl-VT-Fpc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="VlD-LL-V91" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="439" y="294"/>
         </scene>

@@ -7,13 +7,9 @@
 
 @interface PNYBootstrapConfigControllerAbstract (Protected)
 
-- (void)activate;
-- (void)passivate;
-
 - (void)startBackgroundActivity;
 - (void)finishBackgroundActivity;
 
-- (void)showValidationAlert;
 - (void)showConnectionAlert;
 - (void)showOfflineAlert;
 

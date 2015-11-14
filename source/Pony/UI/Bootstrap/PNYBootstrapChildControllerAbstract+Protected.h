@@ -4,8 +4,10 @@
 //
 
 #import "PNYBootstrapChildControllerAbstract.h"
-#import "PNYBootstrapConfigController.h"
 
-@interface PNYBootstrapConfigControllerAbstract : PNYBootstrapChildControllerAbstract <PNYBootstrapConfigController>
+@interface PNYBootstrapChildControllerAbstract (Protected)
+
+- (void)activate;
+- (void)passivate;
 
 @end

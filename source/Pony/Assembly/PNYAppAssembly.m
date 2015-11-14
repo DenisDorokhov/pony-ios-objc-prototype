@@ -8,6 +8,7 @@
 #import "PNYBootstrapController.h"
 #import "PNYBootstrapLoginConfigController.h"
 #import "PNYBootstrapServerConfigController.h"
+#import "PNYMainController.h"
 
 @implementation PNYAppAssembly
 
@@ -17,6 +18,13 @@
 {
     return [TyphoonDefinition withClass:[PNYAppDelegate class] configuration:^(TyphoonDefinition *aDefinition) {
         [aDefinition injectProperty:@selector(config) with:[self.utilityAssembly config]];
+    }];
+}
+
+- (PNYMainController *)mainController
+{
+    return [TyphoonDefinition withClass:[PNYMainController class] configuration:^(TyphoonDefinition *aDefinition) {
+        [aDefinition injectProperty:@selector(authenticationService) with:[self.serviceAssembly authenticationService]];
     }];
 }
 

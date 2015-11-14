@@ -13,7 +13,7 @@
 
 @interface PNYBootstrapController ()
 
-@property (nonatomic, strong) UIViewController <PNYBootstrapConfigController> *currentConfigController;
+@property (nonatomic, strong) UIViewController <PNYBootstrapChildController> *currentChildController;
 @property (nonatomic) BOOL backgroundActivityStarted;
 
 @end
@@ -31,11 +31,18 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+#pragma mark - Public
+
+- (IBAction)bootstrapFromMain:(UIStoryboardSegue *)aSegue
+{
+    // Do nothing.
+}
+
 #pragma mark - <PNYBootstrapServiceDelegate>
 
 - (void)bootstrapServiceDidStartBootstrap:(PNYBootstrapService *)aBootstrapService
 {
-    self.currentConfigController = nil;
+    self.currentChildController = nil;
 }
 
 - (void)bootstrapServiceDidFinishBootstrap:(PNYBootstrapService *)aBootstrapService
@@ -53,22 +60,19 @@
 - (void)bootstrapServiceDidRequireRestUrl:(PNYBootstrapService *)aBootstrapService
 {
     self.backgroundActivityStarted = NO;
-    self.currentConfigController = bootstrapServerConfigController;
+    self.currentChildController = bootstrapServerConfigController;
 }
 
 - (void)bootstrapServiceDidRequireAuthentication:(PNYBootstrapService *)aBootstrapService
 {
     self.backgroundActivityStarted = NO;
-    self.currentConfigController = bootstrapLoginConfigController;
+    self.currentChildController = bootstrapLoginConfigController;
 }
 
 - (void)bootstrapService:(PNYBootstrapService *)aBootstrapService didFailWithErrors:(NSArray *)aErrors
 {
     self.backgroundActivityStarted = NO;
-
-    self.currentConfigController = nil;
-
-    [self showView:bootstrapRetryController.view.superview];
+    self.currentChildController = bootstrapRetryController;
 }
 
 #pragma mark - <PNYBootstrapConfigController>
@@ -87,7 +91,8 @@
 {
     self.backgroundActivityStarted = NO;
 
-    [self clearBootstrapData];
+    [self.bootstrapService clearBootstrapData];
+    [self.bootstrapService bootstrap];
 }
 
 - (void)bootstrapConfigControllerDidRequestBootstrap:(id <PNYBootstrapConfigController>)aStepController
@@ -104,9 +109,10 @@
 
 - (void)bootstrapRetryControllerDidRequestOtherServer:(PNYBootstrapRetryController *)aRetryController
 {
-    [self hideView:bootstrapRetryController.view.superview];
+    self.currentChildController = nil;
 
-    [self clearBootstrapData];
+    [self.bootstrapService clearBootstrapData];
+    [self.bootstrapService bootstrap];
 }
 
 #pragma mark - Override
@@ -143,6 +149,13 @@
     [self.bootstrapService bootstrap];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    [self.bootstrapService bootstrap];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)aSegue sender:(id)aSender
 {
     [super prepareForSegue:aSegue sender:aSender];
@@ -158,25 +171,19 @@
 
 #pragma mark - Private
 
-- (void)clearBootstrapData
+- (void)setCurrentChildController:(UIViewController <PNYBootstrapChildController> *)currentChildController
 {
-    [self.bootstrapService clearBootstrapData];
-    [self.bootstrapService bootstrap];
-}
+    UIViewController <PNYBootstrapChildController> *oldController = _currentChildController;
 
-- (void)setCurrentConfigController:(UIViewController <PNYBootstrapConfigController> *)currentConfigController
-{
-    UIViewController <PNYBootstrapConfigController> *oldController = _currentConfigController;
-
-    _currentConfigController = currentConfigController;
+    _currentChildController = currentChildController;
 
     oldController.active = NO;
 
     [self hideView:oldController.view.superview];
 
-    _currentConfigController.active = YES;
+    _currentChildController.active = YES;
 
-    [self showView:_currentConfigController.view.superview];
+    [self showView:_currentChildController.view.superview];
 }
 
 - (void)setBackgroundActivityStarted:(BOOL)aBackgroundActivityStarted
@@ -209,7 +216,7 @@
                      } completion:nil];
 }
 
-- (void)onKeyboardDidShow:(NSNotification*)aNotification
+- (void)onKeyboardDidShow:(NSNotification *)aNotification
 {
     NSDictionary *info = [aNotification userInfo];
 
@@ -218,7 +225,7 @@
     self.scrollView.contentInset = self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize.height, 0.0);
 }
 
-- (void)onKeyboardWillHide:(NSNotification*)aNotification
+- (void)onKeyboardWillHide:(NSNotification *)aNotification
 {
     self.scrollView.contentInset = self.scrollView.scrollIndicatorInsets = UIEdgeInsetsZero;
 }

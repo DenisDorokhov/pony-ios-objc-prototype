@@ -66,8 +66,6 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
         return;
     }
 
-    PNYLogInfo(@"Authenticating with stored credentials...");
-
     PNYTokenPair *tokenPair = [self.tokenPairDao fetchTokenPair];
 
     if (tokenPair != nil) {
@@ -144,7 +142,7 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
 
         _currentUser = aUser;
 
-        PNYLogVerbose(@"User [%@] is authenticated.", aUser.email);
+        PNYLogDebug(@"User [%@] is authenticated.", aUser.email);
 
         if (aSuccess != nil) {
             aSuccess(aUser);

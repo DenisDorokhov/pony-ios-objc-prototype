@@ -6,6 +6,8 @@
 #import "PNYBootstrapServerConfigController.h"
 #import "PNYBootstrapConfigControllerAbstract+Protected.h"
 #import "PNYErrorDto.h"
+#import "PNYAlertFactory.h"
+#import "PNYBootstrapChildControllerAbstract+Protected.h"
 
 @implementation PNYBootstrapServerConfigController
 
@@ -103,6 +105,13 @@
     } else {
         [self showValidationAlert];
     }
+}
+
+- (void)showValidationAlert
+{
+    [self presentViewController:[PNYAlertFactory createOKAlertWithTitle:PNYLocalized(@"bootstrapServerConfig_validationAlert_title")
+                                                                message:PNYLocalized(@"bootstrapServerConfig_validationAlert_message")]
+                       animated:YES completion:nil];
 }
 
 - (NSString *)urlToString:(NSURL *)aUrl
