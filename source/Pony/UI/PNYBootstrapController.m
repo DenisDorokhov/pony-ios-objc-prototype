@@ -9,6 +9,7 @@
 #import "PNYBootstrapController.h"
 #import "PNYBootstrapServerConfigController.h"
 #import "PNYBootstrapLoginConfigController.h"
+#import "PNYSegues.h"
 
 @interface PNYBootstrapController ()
 
@@ -40,7 +41,8 @@
 - (void)bootstrapServiceDidFinishBootstrap:(PNYBootstrapService *)aBootstrapService
 {
     self.backgroundActivityStarted = NO;
-    // TODO: perform segue to main screen
+
+    [self performSegueWithIdentifier:PNYSegueBootstrapToMain sender:self];
 }
 
 - (void)bootstrapServiceDidStartBackgroundActivity:(PNYBootstrapService *)aBootstrapService

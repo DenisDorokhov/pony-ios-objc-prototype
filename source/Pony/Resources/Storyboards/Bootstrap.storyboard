@@ -103,6 +103,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="WVz-jH-3dn" id="Uud-GV-rwu"/>
                         <outlet property="scrollView" destination="xsD-CK-7hq" id="7FJ-lf-rH3"/>
+                        <segue destination="ON9-Up-Ii5" kind="presentation" identifier="bootstrapToMain" modalTransitionStyle="crossDissolve" id="rpy-ve-1xJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -331,6 +332,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xbf-Rd-bsp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1031" y="646"/>
+        </scene>
+        <!--Main-->
+        <scene sceneID="qTi-sw-L7b">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" id="ON9-Up-Ii5" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nHM-hg-Ih0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="462.5" y="843"/>
         </scene>
     </scenes>
     <resources>
