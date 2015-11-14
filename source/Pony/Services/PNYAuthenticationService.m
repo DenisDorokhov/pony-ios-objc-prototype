@@ -198,27 +198,34 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
     PNYAssert(self.restService != nil);
 
     if (self.currentUser != nil) {
+
         PNYLogInfo(@"Logging out user [%@]...", self.currentUser.email);
+
+        [self.restService logoutWithSuccess:^(PNYUserDto *aUser) {
+
+            PNYLogInfo(@"User [%@] has logged out.", aUser.email);
+
+            if (aSuccess != nil) {
+                aSuccess(aUser);
+            }
+
+        }                           failure:^(NSArray *aErrors) {
+
+            PNYLogError(@"Could not log out: %@.", aErrors);
+
+            if (aFailure != nil) {
+                aFailure(aErrors);
+            }
+        }];
     } else {
-        PNYLogInfo(@"Logging out...");
-    }
 
-    [self.restService logoutWithSuccess:^(PNYUserDto *aUser) {
-
-        PNYLogInfo(@"User [%@] has logged out.", aUser.email);
-
-        if (aSuccess != nil) {
-            aSuccess(aUser);
-        }
-
-    }                           failure:^(NSArray *aErrors) {
-
-        PNYLogError(@"Could not log out: %@.", aErrors);
+        PNYLogInfo(@"Could not log out: user is not authenticated.");
 
         if (aFailure != nil) {
-            aFailure(aErrors);
+            aFailure(@[[PNYErrorDto errorWithCode:PNYErrorDtoCodeAccessDenied
+                                             text:@"Access denied." arguments:nil]]);
         }
-    }];
+    }
 
     PNYUserDto *lastUser = self.currentUser;
 

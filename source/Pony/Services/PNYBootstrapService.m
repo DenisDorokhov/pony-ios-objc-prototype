@@ -4,6 +4,8 @@
 //
 
 #import "PNYBootstrapService.h"
+#import "PNYErrorDto.h"
+#import <AFNetworking/AFNetworkReachabilityManager.h>
 
 @implementation PNYBootstrapService
 {
@@ -21,17 +23,56 @@
 
     if (!isBootstrapping) {
 
+        isBootstrapping = YES;
+
         [self.delegate bootstrapServiceDidStartBootstrap:self];
 
-        if ([self.restServiceUrlDao fetchUrl] != nil) {
-            [self validateRestService];
+        AFNetworkReachabilityManager *reachabilityManager = [AFNetworkReachabilityManager sharedManager];
+
+        if (reachabilityManager.networkReachabilityStatus == AFNetworkReachabilityStatusUnknown) {
+
+            __weak AFNetworkReachabilityManager *weakReachabilityManager = reachabilityManager;
+
+            [reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+
+                [self doBootstrap];
+
+                [weakReachabilityManager setReachabilityStatusChangeBlock:nil];
+            }];
+            [reachabilityManager startMonitoring];
+
         } else {
-            [self.delegate bootstrapServiceDidRequireRestUrl:self];
+            [self doBootstrap];
         }
+
+    } else {
+        PNYLogWarn(@"Could not bootstrap: already bootstrapping.");
     }
 }
 
+- (void)clearBootstrapData
+{
+    [self.authenticationService logoutWithSuccess:nil failure:nil];
+    [self.restServiceUrlDao removeUrl];
+}
+
 #pragma mark - Private
+
+- (void)doBootstrap
+{
+    if ([self.restServiceUrlDao fetchUrl] != nil) {
+
+        [self validateRestService];
+
+    } else {
+
+        isBootstrapping = NO;
+
+        PNYLogInfo(@"Bootstrapping requires server URL.");
+
+        [self.delegate bootstrapServiceDidRequireRestUrl:self];
+    }
+}
 
 - (void)validateRestService
 {
@@ -42,7 +83,7 @@
 
             isBootstrapping = NO;
 
-            [self.delegate bootstrapServiceDidFinishBootstrap:self];
+            [self propagateDidFinishBootstrap];
 
         } else {
             [self validateAuthentication];
@@ -51,7 +92,9 @@
 
         isBootstrapping = NO;
 
-        [self.delegate bootstrapService:self didFailRestServiceRequestWithErrors:aErrors];
+        PNYLogError(@"Could not validate server: %@.", aErrors);
+
+        [self.delegate bootstrapService:self didFailWithErrors:aErrors];
     }];
 }
 
@@ -62,7 +105,7 @@
         isBootstrapping = NO;
 
         if (aUser != nil) {
-            [self.delegate bootstrapServiceDidFinishBootstrap:self];
+            [self propagateDidFinishBootstrap];
         } else {
             [self.delegate bootstrapServiceDidRequireAuthentication:self];
         }
@@ -70,8 +113,21 @@
 
         isBootstrapping = NO;
 
-        [self.delegate bootstrapService:self didFailAuthenticationRequestWithErrors:aErrors];
+        PNYLogError(@"Could not authenticate: %@.", aErrors);
+
+        if ([PNYErrorDto fetchErrorFromArray:aErrors withCodes:@[PNYErrorDtoCodeAccessDenied]]) {
+            [self.delegate bootstrapServiceDidRequireAuthentication:self];
+        } else {
+            [self.delegate bootstrapService:self didFailWithErrors:aErrors];
+        }
     }];
+}
+
+- (void)propagateDidFinishBootstrap
+{
+    PNYLogInfo(@"Bootstrap finished.");
+
+    [self.delegate bootstrapServiceDidFinishBootstrap:self];
 }
 
 @end

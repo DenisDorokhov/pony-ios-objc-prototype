@@ -26,6 +26,8 @@
     PNYAssert(self.userSettings != nil);
 
     [self.userSettings setSetting:[aServiceUrl absoluteString] forKey:PNYUserSettingsKeyRestServiceUrl];
+
+    PNYLogDebug(@"URL stored: [%@].", [aServiceUrl absoluteString]);
 }
 
 - (void)removeUrl
@@ -35,6 +37,8 @@
     [self.userSettings removeSettingForKey:PNYUserSettingsKeyRestServiceUrl];
 
     [self.userSettings save];
+
+    PNYLogDebug(@"URL removed.");
 }
 
 @end

@@ -51,6 +51,8 @@
     assertThatBool(didCallDidSave, isFalse());
     assertThatBool(didCallDidClear, isFalse());
 
+    assertThat([service settingForKey:@"someKey"], nilValue());
+
     [service setSetting:@"someValue1" forKey:@"someKey1"];
 
     [self reset];

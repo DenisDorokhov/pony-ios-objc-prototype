@@ -7,33 +7,21 @@
 //
 
 #import "PNYBootstrapController.h"
-#import "PNYBootstrapServerController.h"
-#import "PNYBootstrapAuthenticationController.h"
-
-typedef NS_ENUM(NSInteger, PNYBootstraoControllerState)
-{
-    PNYBootstrapControllerStateBootstrapStarted,
-    PNYBootstrapControllerStateBootstrapActivity,
-    PNYBootstrapControllerStateServerRequired,
-    PNYBootstrapControllerStateServerActivity,
-    PNYBootstrapControllerStateServerRetry,
-    PNYBootstrapControllerStateAuthenticationRequired,
-    PNYBootstrapControllerStateAuthenticationActivity,
-    PNYBootstrapControllerStateAuthenticationRetry,
-    PNYBootstrapControllerStateBootstrapped,
-};
+#import "PNYBootstrapServerConfigController.h"
+#import "PNYBootstrapLoginConfigController.h"
 
 @interface PNYBootstrapController ()
 
-@property(nonatomic) PNYBootstraoControllerState state;
+@property (nonatomic, strong) UIViewController <PNYBootstrapConfigController> *currentConfigController;
+@property (nonatomic) BOOL backgroundActivityStarted;
 
 @end
 
 @implementation PNYBootstrapController
 {
 @private
-    PNYBootstrapServerController *bootstrapServerController;
-    PNYBootstrapAuthenticationController *bootstrapAuthenticationController;
+    PNYBootstrapServerConfigController *bootstrapServerConfigController;
+    PNYBootstrapLoginConfigController *bootstrapLoginConfigController;
     PNYBootstrapRetryController *bootstrapRetryController;
 }
 
@@ -46,69 +34,61 @@ typedef NS_ENUM(NSInteger, PNYBootstraoControllerState)
 
 - (void)bootstrapServiceDidStartBootstrap:(PNYBootstrapService *)aBootstrapService
 {
-    self.state = PNYBootstrapControllerStateBootstrapStarted;
+    self.currentConfigController = nil;
 }
 
 - (void)bootstrapServiceDidFinishBootstrap:(PNYBootstrapService *)aBootstrapService
 {
-    self.state = PNYBootstrapControllerStateBootstrapped;
+    self.backgroundActivityStarted = NO;
+    // TODO: perform segue to main screen
 }
 
 - (void)bootstrapServiceDidStartBackgroundActivity:(PNYBootstrapService *)aBootstrapService
 {
-    self.state = PNYBootstrapControllerStateBootstrapActivity;
+    self.backgroundActivityStarted = YES;
 }
 
 - (void)bootstrapServiceDidRequireRestUrl:(PNYBootstrapService *)aBootstrapService
 {
-    self.state = PNYBootstrapControllerStateServerRequired;
+    self.backgroundActivityStarted = NO;
+    self.currentConfigController = bootstrapServerConfigController;
 }
 
 - (void)bootstrapServiceDidRequireAuthentication:(PNYBootstrapService *)aBootstrapService
 {
-    self.state = PNYBootstrapControllerStateAuthenticationRequired;
+    self.backgroundActivityStarted = NO;
+    self.currentConfigController = bootstrapLoginConfigController;
 }
 
-- (void)bootstrapService:(PNYBootstrapService *)aBootstrapService didFailRestServiceRequestWithErrors:(NSArray *)aErrors
+- (void)bootstrapService:(PNYBootstrapService *)aBootstrapService didFailWithErrors:(NSArray *)aErrors
 {
-    self.state = PNYBootstrapControllerStateServerRequired;
+    self.backgroundActivityStarted = NO;
+
+    self.currentConfigController = nil;
+
+    [self showView:bootstrapRetryController.view.superview];
 }
 
-- (void)bootstrapService:(PNYBootstrapService *)aBootstrapService didFailAuthenticationRequestWithErrors:(NSArray *)aErrors
+#pragma mark - <PNYBootstrapConfigController>
+
+- (void)bootstrapConfigControllerDidStartBackgroundActivity:(id <PNYBootstrapConfigController>)aStepController
 {
-    self.state = PNYBootstrapControllerStateAuthenticationRequired;
+    self.backgroundActivityStarted = YES;
 }
 
-#pragma mark - <PNYBootstrapStepController>
-
-- (void)bootstrapStepControllerDidStartBackgroundActivity:(id <PNYBootstrapStepController>)aStepController
+- (void)bootstrapConfigControllerDidFinishBackgroundActivity:(id <PNYBootstrapConfigController>)aStepController
 {
-    if (aStepController == bootstrapServerController) {
-        self.state = PNYBootstrapControllerStateServerActivity;
-    } else if (aStepController == bootstrapAuthenticationController) {
-        self.state = PNYBootstrapControllerStateAuthenticationActivity;
-    }
+    self.backgroundActivityStarted = NO;
 }
 
-- (void)bootstrapStepControllerDidFinishBackgroundActivity:(id <PNYBootstrapStepController>)aStepController
+- (void)bootstrapConfigControllerDidRequestOtherServer:(id <PNYBootstrapConfigController>)aStepController
 {
-    if (aStepController == bootstrapServerController) {
-        self.state = PNYBootstrapControllerStateServerRequired;
-    } else if (aStepController == bootstrapAuthenticationController) {
-        self.state = PNYBootstrapControllerStateAuthenticationRequired;
-    }
+    self.backgroundActivityStarted = NO;
+
+    [self clearBootstrapData];
 }
 
-- (void)bootstrapStepControllerDidFailBackgroundActivity:(id <PNYBootstrapStepController>)aStepController
-{
-    if (aStepController == bootstrapServerController) {
-        self.state = PNYBootstrapControllerStateServerRetry;
-    } else if (aStepController == bootstrapAuthenticationController) {
-        self.state = PNYBootstrapControllerStateAuthenticationRetry;
-    }
-}
-
-- (void)bootstrapStepControllerDidRequestBootstrap:(id <PNYBootstrapStepController>)aStepController
+- (void)bootstrapConfigControllerDidRequestBootstrap:(id <PNYBootstrapConfigController>)aStepController
 {
     [self.bootstrapService bootstrap];
 }
@@ -117,11 +97,14 @@ typedef NS_ENUM(NSInteger, PNYBootstraoControllerState)
 
 - (void)bootstrapRetryControllerDidRequestRetry:(PNYBootstrapRetryController *)aRetryController
 {
-    if (self.state == PNYBootstrapControllerStateServerRetry) {
-        [bootstrapServerController retry];
-    } else if (self.state == PNYBootstrapControllerStateAuthenticationRetry) {
-        [bootstrapAuthenticationController retry];
-    }
+    [self.bootstrapService bootstrap];
+}
+
+- (void)bootstrapRetryControllerDidRequestOtherServer:(PNYBootstrapRetryController *)aRetryController
+{
+    [self hideView:bootstrapRetryController.view.superview];
+
+    [self clearBootstrapData];
 }
 
 #pragma mark - Override
@@ -132,40 +115,40 @@ typedef NS_ENUM(NSInteger, PNYBootstraoControllerState)
 
     PNYAssert(self.bootstrapService != nil);
 
-    PNYAssert(self.serverStepContainer != nil);
-    PNYAssert(self.authenticationStepContainer != nil);
-    PNYAssert(self.retryContainer != nil);
-
-    PNYAssert(bootstrapServerController != nil);
-    PNYAssert(bootstrapAuthenticationController != nil);
+    PNYAssert(bootstrapServerConfigController != nil);
+    PNYAssert(bootstrapLoginConfigController != nil);
+    PNYAssert(bootstrapRetryController != nil);
 
     self.bootstrapService.delegate = self;
 
-    bootstrapServerController.delegate = self;
-    bootstrapAuthenticationController.delegate = self;
+    bootstrapServerConfigController.delegate = self;
+    bootstrapLoginConfigController.delegate = self;
     bootstrapRetryController.delegate = self;
 
     self.activityIndicator.alpha = 0;
-    self.serverStepContainer.alpha = 0;
-    self.authenticationStepContainer.alpha = 0;
-    self.retryContainer.alpha = 0;
 
-    [self.bootstrapService bootstrap];
+    bootstrapServerConfigController.view.superview.alpha = 0;
+    bootstrapLoginConfigController.view.superview.alpha = 0;
+    bootstrapRetryController.view.superview.alpha = 0;
+
+    [self.activityIndicator startAnimating];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboardDidShow:)
                                                  name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
+
+    [self.bootstrapService bootstrap];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)aSegue sender:(id)aSender
 {
     [super prepareForSegue:aSegue sender:aSender];
 
-    if ([aSegue.destinationViewController isKindOfClass:[PNYBootstrapServerController class]]) {
-        bootstrapServerController = (id)aSegue.destinationViewController;
-    } else if ([aSegue.destinationViewController isKindOfClass:[PNYBootstrapAuthenticationController class]]) {
-        bootstrapAuthenticationController = (id)aSegue.destinationViewController;
+    if ([aSegue.destinationViewController isKindOfClass:[PNYBootstrapServerConfigController class]]) {
+        bootstrapServerConfigController = (id)aSegue.destinationViewController;
+    } else if ([aSegue.destinationViewController isKindOfClass:[PNYBootstrapLoginConfigController class]]) {
+        bootstrapLoginConfigController = (id)aSegue.destinationViewController;
     } else if ([aSegue.destinationViewController isKindOfClass:[PNYBootstrapRetryController class]]) {
         bootstrapRetryController = (id)aSegue.destinationViewController;
     }
@@ -173,87 +156,54 @@ typedef NS_ENUM(NSInteger, PNYBootstraoControllerState)
 
 #pragma mark - Private
 
-- (void)setState:(PNYBootstraoControllerState)aState
+- (void)clearBootstrapData
 {
-    _state = aState;
+    [self.bootstrapService clearBootstrapData];
+    [self.bootstrapService bootstrap];
+}
 
-    CGFloat activityIndicatorAlpha;
-    CGFloat serverStepContainerAlpha;
-    CGFloat authenticationStepContainerAlpha;
-    CGFloat retryContainerAlpha;
+- (void)setCurrentConfigController:(UIViewController <PNYBootstrapConfigController> *)currentConfigController
+{
+    UIViewController <PNYBootstrapConfigController> *oldController = _currentConfigController;
 
-    switch (self.state) {
-        case PNYBootstrapControllerStateBootstrapStarted: {
-            activityIndicatorAlpha = 0.0f;
-            serverStepContainerAlpha = 0.0f;
-            authenticationStepContainerAlpha = 0.0f;
-            retryContainerAlpha = 0.0f;
-            break;
-        }
-        case PNYBootstrapControllerStateBootstrapActivity: {
-            activityIndicatorAlpha = 1.0f;
-            serverStepContainerAlpha = 0.0f;
-            authenticationStepContainerAlpha = 0.0f;
-            retryContainerAlpha = 0.0f;
-            break;
-        }
-        case PNYBootstrapControllerStateServerRequired: {
-            activityIndicatorAlpha = 0.0f;
-            serverStepContainerAlpha = 1.0f;
-            authenticationStepContainerAlpha = 0.0f;
-            retryContainerAlpha = 0.0f;
-            break;
-        }
-        case PNYBootstrapControllerStateServerActivity: {
-            activityIndicatorAlpha = 1.0f;
-            serverStepContainerAlpha = 0.8f;
-            authenticationStepContainerAlpha = 0.0f;
-            retryContainerAlpha = 0.0f;
-            break;
-        }
-        case PNYBootstrapControllerStateServerRetry: {
-            activityIndicatorAlpha = 0.0f;
-            serverStepContainerAlpha = 0.0f;
-            authenticationStepContainerAlpha = 0.8f;
-            retryContainerAlpha = 1.0f;
-            break;
-        }
-        case PNYBootstrapControllerStateAuthenticationRequired: {
-            activityIndicatorAlpha = 0.0f;
-            serverStepContainerAlpha = 0.0f;
-            authenticationStepContainerAlpha = 1.0f;
-            retryContainerAlpha = 0.0f;
-            break;
-        }
-        case PNYBootstrapControllerStateAuthenticationActivity: {
-            activityIndicatorAlpha = 1.0f;
-            serverStepContainerAlpha = 0.0f;
-            authenticationStepContainerAlpha = 0.8f;
-            retryContainerAlpha = 0.0f;
-            break;
-        }
-        case PNYBootstrapControllerStateAuthenticationRetry: {
-            activityIndicatorAlpha = 0.0f;
-            serverStepContainerAlpha = 0.0f;
-            authenticationStepContainerAlpha = 0.8f;
-            retryContainerAlpha = 1.0f;
-            break;
-        }
-        case PNYBootstrapControllerStateBootstrapped: {
-            activityIndicatorAlpha = 0.0f;
-            serverStepContainerAlpha = 0.0f;
-            authenticationStepContainerAlpha = 0.0f;
-            retryContainerAlpha = 0.0f;
-            break;
+    _currentConfigController = currentConfigController;
+
+    oldController.active = NO;
+
+    [self hideView:oldController.view.superview];
+
+    _currentConfigController.active = YES;
+
+    [self showView:_currentConfigController.view.superview];
+}
+
+- (void)setBackgroundActivityStarted:(BOOL)aBackgroundActivityStarted
+{
+    if (_backgroundActivityStarted != aBackgroundActivityStarted) {
+
+        _backgroundActivityStarted = aBackgroundActivityStarted;
+
+        if (_backgroundActivityStarted) {
+            [self showView:self.activityIndicator];
+        } else {
+            [self hideView:self.activityIndicator];
         }
     }
+}
 
+- (void)hideView:(UIView *)aView
+{
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
-                         self.activityIndicator.alpha = activityIndicatorAlpha;
-                         self.serverStepContainer.alpha = serverStepContainerAlpha;
-                         self.authenticationStepContainer.alpha = authenticationStepContainerAlpha;
-                         self.retryContainer.alpha = retryContainerAlpha;
+                         aView.alpha = 0.0f;
+                     } completion:nil];
+}
+
+- (void)showView:(UIView *)aView
+{
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState
+                     animations:^{
+                         aView.alpha = 1.0f;
                      } completion:nil];
 }
 

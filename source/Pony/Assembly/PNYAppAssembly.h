@@ -10,6 +10,6 @@
 @interface PNYAppAssembly : TyphoonAssembly
 
 @property (nonatomic, strong) PNYUtilityAssembly *utilityAssembly;
-@property(nonatomic, strong) PNYServiceAssembly *serviceAssembly;
+@property (nonatomic, strong) PNYServiceAssembly *serviceAssembly;
 
 @end

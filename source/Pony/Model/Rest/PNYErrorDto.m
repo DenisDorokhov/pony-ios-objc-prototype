@@ -61,9 +61,9 @@
 - (NSString *)description
 {
     NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: ", NSStringFromClass([self class])];
-    [description appendFormat:@"field=%@", self.field];
-    [description appendFormat:@", code=%@", self.code];
+    [description appendFormat:@"code=%@", self.code];
     [description appendFormat:@", text=%@", self.text];
+    [description appendFormat:@", field=%@", self.field];
     [description appendFormat:@", arguments=%@", self.arguments];
     [description appendString:@">"];
     return description;

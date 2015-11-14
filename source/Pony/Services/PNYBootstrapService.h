@@ -19,8 +19,7 @@
 - (void)bootstrapServiceDidRequireRestUrl:(PNYBootstrapService *)aBootstrapService;
 - (void)bootstrapServiceDidRequireAuthentication:(PNYBootstrapService *)aBootstrapService;
 
-- (void)bootstrapService:(PNYBootstrapService *)aBootstrapService didFailRestServiceRequestWithErrors:(NSArray *)aErrors;
-- (void)bootstrapService:(PNYBootstrapService *)aBootstrapService didFailAuthenticationRequestWithErrors:(NSArray *)aErrors;
+- (void)bootstrapService:(PNYBootstrapService *)aBootstrapService didFailWithErrors:(NSArray *)aErrors;
 
 @end
 
@@ -33,5 +32,7 @@
 @property (nonatomic, weak) id <PNYBootstrapServiceDelegate> delegate;
 
 - (void)bootstrap;
+
+- (void)clearBootstrapData;
 
 @end

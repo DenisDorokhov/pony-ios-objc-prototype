@@ -4,19 +4,14 @@
 //
 
 #import "PNYBootstrapService.h"
-#import "PNYBootstrapStepController.h"
+#import "PNYBootstrapConfigController.h"
 #import "PNYBootstrapRetryController.h"
 
-@interface PNYBootstrapController : UIViewController <PNYBootstrapServiceDelegate, PNYBootstrapStepControllerDelegate, PNYBootstrapRetryControllerDelegate>
+@interface PNYBootstrapController : UIViewController <PNYBootstrapServiceDelegate, PNYBootstrapConfigControllerDelegate, PNYBootstrapRetryControllerDelegate>
 
 @property (nonatomic, strong) PNYBootstrapService *bootstrapService;
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
-
-@property (nonatomic, strong) IBOutlet UIView *serverStepContainer;
-@property (nonatomic, strong) IBOutlet UIView *authenticationStepContainer;
-@property (nonatomic, strong) IBOutlet UIView *retryContainer;
-
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end

@@ -6,8 +6,8 @@
 #import "PNYAppAssembly.h"
 #import "PNYAppDelegate.h"
 #import "PNYBootstrapController.h"
-#import "PNYBootstrapAuthenticationController.h"
-#import "PNYBootstrapServerController.h"
+#import "PNYBootstrapLoginConfigController.h"
+#import "PNYBootstrapServerConfigController.h"
 
 @implementation PNYAppAssembly
 
@@ -27,17 +27,17 @@
     }];
 }
 
-- (PNYBootstrapServerController *)bootstrapServerController
+- (PNYBootstrapServerConfigController *)bootstrapServerController
 {
-    return [TyphoonDefinition withClass:[PNYBootstrapServerController class] configuration:^(TyphoonDefinition *aDefinition) {
+    return [TyphoonDefinition withClass:[PNYBootstrapServerConfigController class] configuration:^(TyphoonDefinition *aDefinition) {
         [aDefinition injectProperty:@selector(restServiceUrlDao) with:[self.serviceAssembly restServiceUrlDao]];
         [aDefinition injectProperty:@selector(restService) with:[self.serviceAssembly restServiceCached]];
     }];
 }
 
-- (PNYBootstrapAuthenticationController *)bootstrapAuthenticationController
+- (PNYBootstrapLoginConfigController *)bootstrapAuthenticationController
 {
-    return [TyphoonDefinition withClass:[PNYBootstrapAuthenticationController class] configuration:^(TyphoonDefinition *aDefinition) {
+    return [TyphoonDefinition withClass:[PNYBootstrapLoginConfigController class] configuration:^(TyphoonDefinition *aDefinition) {
         [aDefinition injectProperty:@selector(authenticationService) with:[self.serviceAssembly authenticationService]];
     }];
 }

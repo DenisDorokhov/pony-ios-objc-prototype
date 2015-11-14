@@ -39,6 +39,8 @@ static NSString *const KEY_REFRESH_TOKEN_EXPIRATION = @"refreshTokenExpiration";
     self.persistentDictionary.data[KEY_TOKEN_PAIR] = [self toDictionary:aTokenPair];
 
     [self.persistentDictionary save];
+
+    PNYLogVerbose(@"Token pair stored.");
 }
 
 - (void)removeTokenPair
@@ -46,6 +48,8 @@ static NSString *const KEY_REFRESH_TOKEN_EXPIRATION = @"refreshTokenExpiration";
     [self.persistentDictionary.data removeObjectForKey:KEY_TOKEN_PAIR];
 
     [self.persistentDictionary save];
+
+    PNYLogVerbose(@"Token pair removed.");
 }
 
 #pragma mark - Private

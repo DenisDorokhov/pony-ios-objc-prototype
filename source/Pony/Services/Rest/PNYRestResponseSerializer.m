@@ -6,6 +6,7 @@
 #import <EasyMapping/EKMapper.h>
 #import "PNYRestResponseSerializer.h"
 #import "PNYResponseDto.h"
+#import "PNYErrorUtils.h"
 
 @implementation PNYRestResponseSerializer
 
@@ -39,6 +40,9 @@
 {
     NSDictionary *responseObject = [super responseObjectForResponse:aResponse data:aData error:aError];
 
+    if (responseObject == nil && *aError == nil) {
+        *aError = [PNYErrorUtils errorForObject:self message:@"No data is returned from the server."];
+    }
     if (*aError != nil) {
         return nil;
     }

@@ -4,11 +4,11 @@
 //
 
 #import "PNYAppDelegate.h"
-#import "TyphoonBlockComponentFactory.h"
 #import "PNYUtilityAssembly.h"
 #import "PNYCacheAssembly.h"
 #import "PNYServiceAssembly.h"
 #import "PNYAppAssembly.h"
+#import <Typhoon/TyphoonBlockComponentFactory.h>
 
 @implementation PNYAppDelegate
 
@@ -25,9 +25,9 @@
     self.window.tintColor = [self.config colorValue:@"window.tintColor"];
     self.window.rootViewController = [storyboard instantiateInitialViewController];
 
-    [self.window makeKeyAndVisible];
-
     PNYLogInfo(@"Application started.");
+
+    [self.window makeKeyAndVisible];
 
     return YES;
 }
@@ -43,9 +43,8 @@
             [PNYAppAssembly assembly],
     ]];
 
-    [componentFactory makeDefault];
-
     [componentFactory inject:self];
+    [componentFactory makeDefault];
 
     [TyphoonComponentFactory setFactoryForResolvingUI:componentFactory];
 }

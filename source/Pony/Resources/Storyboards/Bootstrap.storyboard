@@ -102,20 +102,17 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="WVz-jH-3dn" id="Uud-GV-rwu"/>
-                        <outlet property="authenticationStepContainer" destination="FD9-7M-694" id="CbG-eZ-aNI"/>
-                        <outlet property="retryContainer" destination="Ngf-Bn-VN2" id="szg-xK-ZEh"/>
                         <outlet property="scrollView" destination="xsD-CK-7hq" id="7FJ-lf-rH3"/>
-                        <outlet property="serverStepContainer" destination="lZc-nS-Lfq" id="A12-3a-coL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="462" y="404"/>
         </scene>
-        <!--Bootstrap Authentication Controller-->
+        <!--Bootstrap Login Config Controller-->
         <scene sceneID="5oq-ft-HDd">
             <objects>
-                <viewController id="dgP-64-UgR" customClass="PNYBootstrapAuthenticationController" sceneMemberID="viewController">
+                <viewController id="dgP-64-UgR" customClass="PNYBootstrapLoginConfigController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xjg-rw-gch"/>
                         <viewControllerLayoutGuide type="bottom" id="zNt-UX-fLQ"/>
@@ -124,16 +121,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="278" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3YL-VL-qyh">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3YL-VL-qyh">
                                 <rect key="frame" x="16" y="25" width="88" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wp8-TZ-fUh">
                                 <rect key="frame" x="16" y="64" width="88" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sUA-ht-7Pj">
@@ -142,7 +139,7 @@
                                     <constraint firstAttribute="width" constant="150" id="eKW-QR-atR"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
                                 <connections>
                                     <outlet property="delegate" destination="dgP-64-UgR" id="TKc-RP-tr8"/>
                                 </connections>
@@ -165,12 +162,21 @@
                                     <action selector="onLoginButtonTouch" destination="dgP-64-UgR" eventType="touchUpInside" id="c4O-Ij-IqY"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFT-Zs-Dj7">
+                                <rect key="frame" x="16" y="105" width="94" height="30"/>
+                                <state key="normal" title="Other server?"/>
+                                <connections>
+                                    <action selector="onOtherServerButtonTouch" destination="dgP-64-UgR" eventType="touchUpInside" id="83N-sa-sxH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="sUA-ht-7Pj" firstAttribute="trailing" secondItem="9wH-Cj-pTh" secondAttribute="trailingMargin" id="1bi-yS-lQn"/>
                             <constraint firstItem="uGi-cW-I9L" firstAttribute="top" secondItem="KTC-87-fJa" secondAttribute="bottom" constant="16" id="4sM-yu-bUk"/>
                             <constraint firstItem="sUA-ht-7Pj" firstAttribute="top" secondItem="9wH-Cj-pTh" secondAttribute="topMargin" constant="20" id="AgJ-iX-9QJ"/>
+                            <constraint firstItem="IFT-Zs-Dj7" firstAttribute="leading" secondItem="9wH-Cj-pTh" secondAttribute="leadingMargin" id="Cw5-QR-Dpa"/>
+                            <constraint firstItem="IFT-Zs-Dj7" firstAttribute="top" secondItem="wp8-TZ-fUh" secondAttribute="bottom" constant="20" id="DtF-U2-QEy"/>
                             <constraint firstItem="wp8-TZ-fUh" firstAttribute="centerY" secondItem="KTC-87-fJa" secondAttribute="centerY" id="HaS-ZH-y9d"/>
                             <constraint firstItem="3YL-VL-qyh" firstAttribute="leading" secondItem="9wH-Cj-pTh" secondAttribute="leadingMargin" id="LGJ-uI-ssi"/>
                             <constraint firstItem="sUA-ht-7Pj" firstAttribute="leading" secondItem="3YL-VL-qyh" secondAttribute="trailing" constant="8" id="MKX-W6-0x4"/>
@@ -183,9 +189,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="emailLabel" destination="3YL-VL-qyh" id="ZMd-ez-cxu"/>
+                        <outlet property="emailText" destination="sUA-ht-7Pj" id="eTG-Vf-roy"/>
                         <outlet property="loginButton" destination="uGi-cW-I9L" id="2fC-VZ-erS"/>
-                        <outlet property="loginLabel" destination="3YL-VL-qyh" id="ZMd-ez-cxu"/>
-                        <outlet property="loginText" destination="sUA-ht-7Pj" id="eTG-Vf-roy"/>
+                        <outlet property="otherServerButton" destination="IFT-Zs-Dj7" id="CKu-pU-mvh"/>
                         <outlet property="passwordLabel" destination="wp8-TZ-fUh" id="qwC-i8-wLh"/>
                         <outlet property="passwordText" destination="KTC-87-fJa" id="Pep-6B-YSl"/>
                     </connections>
@@ -194,10 +201,10 @@
             </objects>
             <point key="canvasLocation" x="1031" y="404"/>
         </scene>
-        <!--Bootstrap Server Controller-->
+        <!--Bootstrap Server Config Controller-->
         <scene sceneID="1xg-AH-5kx">
             <objects>
-                <viewController id="EdU-Pe-lqU" customClass="PNYBootstrapServerController" sceneMemberID="viewController">
+                <viewController id="EdU-Pe-lqU" customClass="PNYBootstrapServerConfigController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YA4-AO-bra"/>
                         <viewControllerLayoutGuide type="bottom" id="wyG-0A-yJI"/>
@@ -207,12 +214,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NwG-ds-ssQ">
-                                <rect key="frame" x="112" y="20" width="150" height="30"/>
+                                <rect key="frame" x="92" y="20" width="170" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="D87-Jm-tHG"/>
+                                    <constraint firstAttribute="width" constant="170" id="D87-Jm-tHG"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="URL"/>
                                 <connections>
                                     <outlet property="delegate" destination="EdU-Pe-lqU" id="D3V-4h-Jxd"/>
                                 </connections>
@@ -221,15 +228,15 @@
                                 <rect key="frame" x="213" y="58" width="51" height="31"/>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Server:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5iN-Eh-mxp">
-                                <rect key="frame" x="16" y="25" width="88" height="21"/>
+                                <rect key="frame" x="16" y="25" width="68" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HTTPS:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B0y-Th-ibg">
-                                <rect key="frame" x="16" y="63" width="88" height="21"/>
+                                <rect key="frame" x="16" y="63" width="68" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eNk-bF-ILO">
@@ -286,28 +293,38 @@
                                     <constraint firstAttribute="height" constant="70" id="T3i-61-3vU"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PfI-Vl-VXj">
-                                <rect key="frame" x="121" y="98" width="37" height="30"/>
+                                <rect key="frame" x="16" y="98" width="94" height="30"/>
+                                <state key="normal" title="Other server?"/>
+                                <connections>
+                                    <action selector="onOtherServerButtonTouch" destination="VE4-Sr-R9J" eventType="touchUpInside" id="KjB-6H-DUZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tn6-kF-Saq">
+                                <rect key="frame" x="225" y="98" width="37" height="30"/>
                                 <state key="normal" title="Retry"/>
                                 <connections>
-                                    <action selector="onRetryButtonTouch" destination="VE4-Sr-R9J" eventType="touchUpInside" id="TgJ-df-KPv"/>
+                                    <action selector="onRetryButtonTouch" destination="VE4-Sr-R9J" eventType="touchUpInside" id="X3y-aU-gpO"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="PfI-Vl-VXj" firstAttribute="centerX" secondItem="VVf-Wd-kiv" secondAttribute="centerX" id="AOo-q0-0Xg"/>
+                            <constraint firstItem="PfI-Vl-VXj" firstAttribute="leading" secondItem="VVf-Wd-kiv" secondAttribute="leadingMargin" id="CXU-oR-Hao"/>
+                            <constraint firstItem="tn6-kF-Saq" firstAttribute="top" secondItem="6Ji-hh-R1Y" secondAttribute="bottom" constant="8" id="F9C-bj-dmH"/>
                             <constraint firstItem="6Ji-hh-R1Y" firstAttribute="top" secondItem="VVf-Wd-kiv" secondAttribute="topMargin" constant="20" id="OK9-wp-qwL"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="tn6-kF-Saq" secondAttribute="trailing" id="Ucg-qr-IBw"/>
                             <constraint firstItem="6Ji-hh-R1Y" firstAttribute="trailing" secondItem="VVf-Wd-kiv" secondAttribute="trailingMargin" id="UqP-U5-FQG"/>
                             <constraint firstItem="6Ji-hh-R1Y" firstAttribute="leading" secondItem="VVf-Wd-kiv" secondAttribute="leadingMargin" id="cAA-Sd-laK"/>
                             <constraint firstItem="PfI-Vl-VXj" firstAttribute="top" secondItem="6Ji-hh-R1Y" secondAttribute="bottom" constant="8" id="yeS-Ll-s4C"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="retryButton" destination="PfI-Vl-VXj" id="EyX-HE-HeF"/>
+                        <outlet property="otherServerButton" destination="PfI-Vl-VXj" id="kVY-hP-o8T"/>
+                        <outlet property="retryButton" destination="tn6-kF-Saq" id="QCA-Ex-7ob"/>
                         <outlet property="retryLabel" destination="6Ji-hh-R1Y" id="FpX-UH-8ML"/>
                     </connections>
                 </viewController>

@@ -50,7 +50,7 @@
 {
     [userDefaults setObject:aSetting forKey:[self buildKey:aKey]];
 
-    PNYLogInfo(@"Setting for key [%@] has been set [%@].", aKey, aSetting);
+    PNYLogVerbose(@"Setting for key [%@] has been set: [%@].", aKey, aSetting);
 
     // TODO: remove casting when AppCode finally supports this
     [(NSOrderedSet *)delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYUserSettingsDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
@@ -62,9 +62,9 @@
 
 - (void)removeSettingForKey:(NSString *)aKey
 {
-    [userDefaults removeObjectForKey:aKey];
+    [userDefaults removeObjectForKey:[self buildKey:aKey]];
 
-    PNYLogInfo(@"Setting for key [%@] has been removed.", aKey);
+    PNYLogVerbose(@"Setting for key [%@] has been removed.", aKey);
 
     // TODO: remove casting when AppCode finally supports this
     [(NSOrderedSet *)delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYUserSettingsDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
@@ -78,7 +78,7 @@
 {
     [userDefaults synchronize];
 
-    PNYLogInfo(@"User settings have been saved.");
+    PNYLogVerbose(@"User settings have been saved.");
 
     // TODO: remove casting when AppCode finally supports this
     [(NSOrderedSet *)delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYUserSettingsDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
@@ -100,7 +100,7 @@
         [userDefaults removeObjectForKey:key];
     }
 
-    PNYLogInfo(@"User settings have been cleared.");
+    PNYLogVerbose(@"User settings have been cleared.");
 
     // TODO: remove casting when AppCode finally supports this
     [(NSOrderedSet *)delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYUserSettingsDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {

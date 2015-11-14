@@ -3,11 +3,11 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-#import "PNYBootstrapStepController.h"
+#import "PNYBootstrapConfigControllerAbstract.h"
 #import "PNYRestServiceUrlDao.h"
 #import "PNYRestService.h"
 
-@interface PNYBootstrapServerController : UIViewController <PNYBootstrapStepController, UITextFieldDelegate>
+@interface PNYBootstrapServerConfigController : PNYBootstrapConfigControllerAbstract <UITextFieldDelegate>
 
 @property (nonatomic, strong) id <PNYRestServiceUrlDao> restServiceUrlDao;
 @property (nonatomic, strong) id <PNYRestService> restService;
