@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="74R-RD-2hm">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="74R-RD-2hm">
                                 <rect key="frame" x="161" y="50" width="278" height="67"/>
                             </imageView>
                         </subviews>
@@ -35,6 +35,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo.png" width="278" height="67"/>
+        <image name="logo" width="278" height="67"/>
     </resources>
 </document>

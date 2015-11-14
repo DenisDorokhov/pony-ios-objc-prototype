@@ -57,18 +57,14 @@
 {
     [super startBackgroundActivity];
 
-    self.serverText.enabled = NO;
-    self.httpsSwitch.enabled = NO;
-    self.saveButton.enabled = NO;
+    self.view.userInteractionEnabled = NO;
 }
 
 - (void)finishBackgroundActivity
 {
     [super finishBackgroundActivity];
 
-    self.serverText.enabled = YES;
-    self.httpsSwitch.enabled = YES;
-    self.saveButton.enabled = YES;
+    self.view.userInteractionEnabled = YES;
 }
 
 #pragma mark - Private

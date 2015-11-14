@@ -24,7 +24,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r8l-bq-0uH" userLabel="Scrollable Content">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="307"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="8pU-az-zP1">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="8pU-az-zP1">
                                                 <rect key="frame" x="161" y="50" width="278" height="67"/>
                                             </imageView>
                                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="WVz-jH-3dn">
@@ -343,6 +343,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo.png" width="278" height="67"/>
+        <image name="logo" width="278" height="67"/>
     </resources>
 </document>

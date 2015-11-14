@@ -63,20 +63,14 @@
 {
     [super startBackgroundActivity];
 
-    self.emailText.enabled = NO;
-    self.passwordText.enabled = NO;
-    self.loginButton.enabled = NO;
-    self.otherServerButton.enabled = NO;
+    self.view.userInteractionEnabled = NO;
 }
 
 - (void)finishBackgroundActivity
 {
     [super finishBackgroundActivity];
 
-    self.emailText.enabled = YES;
-    self.passwordText.enabled = YES;
-    self.loginButton.enabled = YES;
-    self.otherServerButton.enabled = YES;
+    self.view.userInteractionEnabled = YES;
 }
 
 #pragma mark - Private

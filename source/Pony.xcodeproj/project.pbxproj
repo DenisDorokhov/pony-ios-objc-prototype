@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2665E0971BF77D6A002A067A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2665E0961BF77D6A002A067A /* Main.storyboard */; };
-		267C3D7C1BEE342100520251 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 267C3D7B1BEE342100520251 /* logo.png */; };
 		268126DF1BCA781500728EFF /* PNYAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 268126DE1BCA781500728EFF /* PNYAppDelegate.m */; };
 		268797ED1BCA8FDF0050724B /* PNYTestDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39C072125E1E9E864A7CA /* PNYTestDelegate.m */; };
 		26A10E6B1BCA806D00C63AD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26A10E6A1BCA806D00C63AD8 /* Assets.xcassets */; };
@@ -104,7 +103,6 @@
 /* Begin PBXFileReference section */
 		1527A31A7E89E7F6CCC3BA86 /* libPods-PonyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PonyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2665E0961BF77D6A002A067A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		267C3D7B1BEE342100520251 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		268126D71BCA781500728EFF /* Pony.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pony.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		268126DD1BCA781500728EFF /* PNYAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PNYAppDelegate.h; sourceTree = "<group>"; };
 		268126DE1BCA781500728EFF /* PNYAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PNYAppDelegate.m; sourceTree = "<group>"; };
@@ -423,7 +421,6 @@
 		B3D391B398A6D54ABCCA845C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				B3D39CC13270580C23CA0D41 /* Images */,
 				26A10E751BCA82FD00C63AD8 /* Localization */,
 				26A10E701BCA82AC00C63AD8 /* Storyboards */,
 				26A10E6A1BCA806D00C63AD8 /* Assets.xcassets */,
@@ -659,14 +656,6 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
-		B3D39CC13270580C23CA0D41 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				267C3D7B1BEE342100520251 /* logo.png */,
-			);
-			path = Images;
-			sourceTree = "<group>";
-		};
 		B3D39E6C507148AAAB12C1A7 /* Serializer */ = {
 			isa = PBXGroup;
 			children = (
@@ -812,7 +801,6 @@
 			files = (
 				2665E0971BF77D6A002A067A /* Main.storyboard in Resources */,
 				26A10E741BCA82AC00C63AD8 /* Bootstrap.storyboard in Resources */,
-				267C3D7C1BEE342100520251 /* logo.png in Resources */,
 				26A10E781BCA830800C63AD8 /* Localizable.strings in Resources */,
 				26A10E6B1BCA806D00C63AD8 /* Assets.xcassets in Resources */,
 				26A10E731BCA82AC00C63AD8 /* LaunchScreen.storyboard in Resources */,
