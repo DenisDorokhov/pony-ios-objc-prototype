@@ -467,6 +467,10 @@
 		B3D393B65C4F0EF9B615ACAB /* Bootstrap */ = {
 			isa = PBXGroup;
 			children = (
+				B3D393450BC88E37E3E6ECA9 /* PNYBootstrapChildController.h */,
+				B3D39D082263320F729003B2 /* PNYBootstrapChildControllerAbstract.h */,
+				B3D39A0D694D3F80D694F685 /* PNYBootstrapChildControllerAbstract.m */,
+				B3D39F1593801327C22AE206 /* PNYBootstrapChildControllerAbstract+Protected.h */,
 				B3D397734DBC49731296C79E /* PNYBootstrapConfigController.h */,
 				B3D39A2C6FA7A452CD5CCE84 /* PNYBootstrapConfigControllerAbstract.h */,
 				B3D39813934BF46FF50E1636 /* PNYBootstrapConfigControllerAbstract.m */,
@@ -477,10 +481,6 @@
 				B3D399CABB8080FF65C6D07A /* PNYBootstrapRetryController.m */,
 				B3D392DDC654A8792342E652 /* PNYBootstrapServerConfigController.h */,
 				B3D39B52774F30DC0E0BDB01 /* PNYBootstrapServerConfigController.m */,
-				B3D393450BC88E37E3E6ECA9 /* PNYBootstrapChildController.h */,
-				B3D39A0D694D3F80D694F685 /* PNYBootstrapChildControllerAbstract.m */,
-				B3D39D082263320F729003B2 /* PNYBootstrapChildControllerAbstract.h */,
-				B3D39F1593801327C22AE206 /* PNYBootstrapChildControllerAbstract+Protected.h */,
 			);
 			path = Bootstrap;
 			sourceTree = "<group>";
