@@ -14,6 +14,12 @@ static NSString *const KEY_ACCESS_TOKEN_EXPIRATION = @"accessTokenExpiration";
 static NSString *const KEY_REFRESH_TOKEN = @"refreshToken";
 static NSString *const KEY_REFRESH_TOKEN_EXPIRATION = @"refreshTokenExpiration";
 
+/**
+ * When NSUserDefaults value for this key does not exists, no token data will be fetched.
+ * This behavior is implemented to avoid token fetching when the application was uninstalled.
+ */
+static NSString *const USER_DEFAULTS_KEY_HAS_TOKEN = @"PNYTokenPairDaoImpl.hasToken";
+
 - (instancetype)initWithPersistentDictionary:(id <PNYPersistentDictionary>)aPersistentDictionary
 {
     PNYAssert(aPersistentDictionary != nil);
@@ -29,6 +35,13 @@ static NSString *const KEY_REFRESH_TOKEN_EXPIRATION = @"refreshTokenExpiration";
 
 - (PNYTokenPair *)fetchTokenPair
 {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:USER_DEFAULTS_KEY_HAS_TOKEN]) {
+
+        PNYLogDebug(@"It seems like application was uninstalled. Returning no token.");
+
+        return nil;
+    }
+
     return [self fromDictionary:self.persistentDictionary.data[KEY_TOKEN_PAIR]];
 }
 
@@ -40,6 +53,9 @@ static NSString *const KEY_REFRESH_TOKEN_EXPIRATION = @"refreshTokenExpiration";
 
     [self.persistentDictionary save];
 
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:USER_DEFAULTS_KEY_HAS_TOKEN];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
     PNYLogVerbose(@"Token pair stored.");
 }
 
@@ -48,6 +64,9 @@ static NSString *const KEY_REFRESH_TOKEN_EXPIRATION = @"refreshTokenExpiration";
     [self.persistentDictionary.data removeObjectForKey:KEY_TOKEN_PAIR];
 
     [self.persistentDictionary save];
+
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USER_DEFAULTS_KEY_HAS_TOKEN];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 
     PNYLogVerbose(@"Token pair removed.");
 }
