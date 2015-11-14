@@ -145,8 +145,6 @@
                                                  name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
-
-    [self.bootstrapService bootstrap];
 }
 
 - (void)viewWillAppear:(BOOL)animated
