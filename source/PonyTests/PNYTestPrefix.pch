@@ -10,7 +10,3 @@
 
 #import <OCHamcrest/OCHamcrest.h>
 #import <OCMockito/OCMockito.h>
-
-extern NSUInteger ddLogLevel;
-
-#import "PNYMacros.h"

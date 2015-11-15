@@ -14,7 +14,7 @@
 #import <CocoaLumberjack/DDTTYLogger.h>
 
 #ifdef DEBUG
-NSUInteger ddLogLevel = DDLogLevelDebug;
+NSUInteger ddLogLevel = DDLogLevelVerbose;
 #else
 NSUInteger ddLogLevel = DDLogLevelOff;
 #endif
@@ -67,11 +67,12 @@ NSUInteger ddLogLevel = DDLogLevelOff;
 
 - (id)logging
 {
-    return [TyphoonDefinition withClass:[DDLog class] configuration:^(TyphoonDefinition *definition) {
-        definition.scope = TyphoonScopeSingleton;
-        [definition useInitializer:@selector(class)];
-        [definition injectMethod:@selector(addLogger:) parameters:^(TyphoonMethod *aMethod) {
+    return [TyphoonDefinition withClass:[DDLog class] configuration:^(TyphoonDefinition *aDefinition) {
+        aDefinition.scope = TyphoonScopeSingleton;
+        [aDefinition useInitializer:@selector(class)];
+        [aDefinition injectMethod:@selector(addLogger:withLevel:) parameters:^(TyphoonMethod *aMethod) {
             [aMethod injectParameterWith:[self ttyLogger]];
+            [aMethod injectParameterWith:@(DDLogLevelDebug)];
         }];
     }];
 }

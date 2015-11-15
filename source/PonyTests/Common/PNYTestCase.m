@@ -8,8 +8,6 @@
 #import "PNYFileUtils.h"
 #import <CocoaLumberjack/DDTTYLogger.h>
 
-NSUInteger ddLogLevel = DDLogLevelVerbose;
-
 @implementation PNYTestCase
 
 + (void)setUp
