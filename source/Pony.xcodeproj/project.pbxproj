@@ -14,7 +14,8 @@
 		26A10E731BCA82AC00C63AD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26A10E711BCA82AC00C63AD8 /* LaunchScreen.storyboard */; };
 		26A10E741BCA82AC00C63AD8 /* Bootstrap.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26A10E721BCA82AC00C63AD8 /* Bootstrap.storyboard */; };
 		26A10E781BCA830800C63AD8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 26A10E7A1BCA830800C63AD8 /* Localizable.strings */; };
-		B2BC622F75FB8750DA777FE3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F62753A735279544E00994 /* libPods.a */; };
+		497BC14B3AFD619B1D48086C /* Pods_PonyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A2AA0BA5546F10FF43D9C05 /* Pods_PonyTests.framework */; };
+		776BB7EE5590D184E09A544F /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7939B284CFACA2296CE1E2 /* Pods.framework */; };
 		B3D3902286B75DF12386E41C /* PNYErrorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39C0E7A9941EFFC30B786 /* PNYErrorUtils.m */; };
 		B3D39025C59A4483DC8D78A7 /* PNYImageCacheSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D396B491CE0189A7ACCAF8 /* PNYImageCacheSerializer.m */; };
 		B3D39060B66CC3B380598914 /* PNYUtilityAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39D1752DD21473DB8AB7E /* PNYUtilityAssembly.m */; };
@@ -89,7 +90,6 @@
 		B3D39F9BDD1B98D3D2264656 /* PNYBootstrapChildControllerAbstract.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39A0D694D3F80D694F685 /* PNYBootstrapChildControllerAbstract.m */; };
 		B3D39FAA1CD20225F53D2E8B /* PNYErrorDto.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39F113A4FF3718432753E /* PNYErrorDto.m */; };
 		B3D39FF22972BA59AEC4D92C /* PNYObjectUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39E8374414C848F16E718 /* PNYObjectUtils.m */; };
-		F331F95D91540BC2C153C686 /* libPods-PonyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1527A31A7E89E7F6CCC3BA86 /* libPods-PonyTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,7 +103,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1527A31A7E89E7F6CCC3BA86 /* libPods-PonyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PonyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2665E0961BF77D6A002A067A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		268126D71BCA781500728EFF /* Pony.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pony.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		268126DD1BCA781500728EFF /* PNYAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PNYAppDelegate.h; sourceTree = "<group>"; };
@@ -115,9 +114,9 @@
 		26A10E711BCA82AC00C63AD8 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		26A10E721BCA82AC00C63AD8 /* Bootstrap.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Bootstrap.storyboard; sourceTree = "<group>"; };
 		26A10E791BCA830800C63AD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		42F62753A735279544E00994 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		50218CE241D7C1D9AE5640D1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		58FF68CD2205C6F16F439131 /* Pods-PonyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PonyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PonyTests/Pods-PonyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6A2AA0BA5546F10FF43D9C05 /* Pods_PonyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PonyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD4AD2461299F9BF1D67A1A5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B11DC015A7EA92371FC36E33 /* Pods-PonyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PonyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PonyTests/Pods-PonyTests.release.xcconfig"; sourceTree = "<group>"; };
 		B3D3902CA4ED7D40946D8765 /* PNYTestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYTestDelegate.h; sourceTree = "<group>"; };
@@ -281,6 +280,7 @@
 		B3D39F9037CF0E65542335D4 /* PNYPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYPrefix.pch; sourceTree = "<group>"; };
 		B3D39FDFCBA3AEB05ECBE92D /* PNYTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYTestCase.m; sourceTree = "<group>"; };
 		B3D39FF19391F1368BDE4F00 /* PNYMemoryCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYMemoryCache.h; sourceTree = "<group>"; };
+		BE7939B284CFACA2296CE1E2 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -288,7 +288,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2BC622F75FB8750DA777FE3 /* libPods.a in Frameworks */,
+				776BB7EE5590D184E09A544F /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,7 +296,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F331F95D91540BC2C153C686 /* libPods-PonyTests.a in Frameworks */,
+				497BC14B3AFD619B1D48086C /* Pods_PonyTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,8 +306,8 @@
 		1B5BE1C476B52E5E43666951 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				42F62753A735279544E00994 /* libPods.a */,
-				1527A31A7E89E7F6CCC3BA86 /* libPods-PonyTests.a */,
+				BE7939B284CFACA2296CE1E2 /* Pods.framework */,
+				6A2AA0BA5546F10FF43D9C05 /* Pods_PonyTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

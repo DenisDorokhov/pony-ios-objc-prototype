@@ -82,3 +82,18 @@ strip_invalid_archs() {
   fi
 }
 
+
+if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods/AFNetworking.framework"
+  install_framework "Pods/CocoaLumberjack.framework"
+  install_framework "Pods/EasyMapping.framework"
+  install_framework "Pods/NSHash.framework"
+  install_framework "Pods/Typhoon.framework"
+fi
+if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods/AFNetworking.framework"
+  install_framework "Pods/CocoaLumberjack.framework"
+  install_framework "Pods/EasyMapping.framework"
+  install_framework "Pods/NSHash.framework"
+  install_framework "Pods/Typhoon.framework"
+fi

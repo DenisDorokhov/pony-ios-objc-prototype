@@ -1,4 +1,5 @@
 inhibit_all_warnings!
+use_frameworks!
 
 pod 'NSHash', '1.0.1'
 pod 'CocoaLumberjack', '2.2.0'
