@@ -11,6 +11,13 @@
 #import "PNYKeychainDictionary.h"
 #import <Typhoon/TyphoonFactoryDefinition.h>
 #import <Typhoon/TyphoonDefinition+Infrastructure.h>
+#import <CocoaLumberjack/DDTTYLogger.h>
+
+#ifdef DEBUG
+NSUInteger ddLogLevel = DDLogLevelDebug;
+#else
+NSUInteger ddLogLevel = DDLogLevelOff;
+#endif
 
 @implementation PNYUtilityAssembly
 

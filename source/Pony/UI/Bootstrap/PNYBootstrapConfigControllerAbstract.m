@@ -4,7 +4,6 @@
 //
 
 #import "PNYBootstrapConfigControllerAbstract.h"
-#import "PNYBootstrapConfigControllerAbstract+Protected.h"
 #import "PNYAlertFactory.h"
 
 @implementation PNYBootstrapConfigControllerAbstract

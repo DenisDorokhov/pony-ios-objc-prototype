@@ -3,6 +3,8 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
+#import <CocoaLumberjack/DDLog.h>
+
 @interface PNYLogFormatter : NSObject <DDLogFormatter>
 
 @end

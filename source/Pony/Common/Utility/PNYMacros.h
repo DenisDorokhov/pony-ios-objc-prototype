@@ -3,6 +3,8 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
+#import <CocoaLumberjack/DDLogMacros.h>
+
 #define PNYAssert(expression) NSAssert(expression, @"" #expression)
 
 #define PNYLogVerbose(format, ...) DDLogVerbose(format, ##__VA_ARGS__)
