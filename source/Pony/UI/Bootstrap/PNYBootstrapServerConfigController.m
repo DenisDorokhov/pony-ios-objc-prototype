@@ -100,7 +100,7 @@
             } else {
                 [self showOfflineAlert];
             }
-        }];
+        }                                   useCache:NO];
 
     } else {
         [self showValidationAlert];

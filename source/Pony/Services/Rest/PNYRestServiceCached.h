@@ -12,4 +12,21 @@
 - (void)cachedValueExistsForArtists:(void (^)(BOOL aCachedValueExists))aCompletion;
 - (void)cachedValueExistsForArtistAlbums:(NSString *)aArtistIdOrName completion:(void (^)(BOOL aCachedValueExists))aCompletion;
 
+- (id <PNYRestRequest>)getInstallationWithSuccess:(void (^)(PNYInstallationDto *aInstallation))aSuccess
+                                          failure:(PNYRestServiceFailureBlock)aFailure
+                                         useCache:(BOOL)aUseCache;
+
+- (id <PNYRestRequest>)getCurrentUserWithSuccess:(void (^)(PNYUserDto *aUser))aSuccess
+                                         failure:(PNYRestServiceFailureBlock)aFailure
+                                        useCache:(BOOL)aUseCache;
+
+- (id <PNYRestRequest>)getArtistsWithSuccess:(void (^)(NSArray *aArtists))aSuccess
+                                     failure:(PNYRestServiceFailureBlock)aFailure
+                                    useCache:(BOOL)aUseCache;
+
+- (id <PNYRestRequest>)getArtistAlbumsWithArtist:(NSString *)aArtistIdOrName
+                                         success:(void (^)(PNYArtistAlbumsDto *aArtistAlbums))aSuccess
+                                         failure:(PNYRestServiceFailureBlock)aFailure
+                                        useCache:(BOOL)aUseCache;
+
 @end
