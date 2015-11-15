@@ -4,6 +4,7 @@
 //
 
 #import "PNYTokenPairDaoImpl.h"
+#import "PNYMacros.h"
 
 @implementation PNYTokenPairDaoImpl
 

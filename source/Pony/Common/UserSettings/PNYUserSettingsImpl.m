@@ -6,6 +6,7 @@
 #import "PNYUserSettingsImpl.h"
 #import "NSMutableOrderedSet+PNYNSValue.h"
 #import "NSOrderedSet+PNYNSValue.h"
+#import "PNYMacros.h"
 
 @implementation PNYUserSettingsImpl
 {

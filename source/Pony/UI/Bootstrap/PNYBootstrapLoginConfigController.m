@@ -8,6 +8,7 @@
 #import "PNYErrorDto.h"
 #import "PNYAlertFactory.h"
 #import "PNYBootstrapChildControllerAbstract+Protected.h"
+#import "PNYMacros.h"
 
 @implementation PNYBootstrapLoginConfigController
 

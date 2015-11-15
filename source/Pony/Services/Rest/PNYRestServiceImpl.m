@@ -12,6 +12,7 @@
 #import "PNYErrorDto.h"
 #import "PNYRestTokens.h"
 #import "NSURLRequest+PNYDump.h"
+#import "PNYMacros.h"
 
 @implementation PNYRestServiceImpl
 {

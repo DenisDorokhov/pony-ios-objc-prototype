@@ -4,6 +4,7 @@
 //
 
 #import "PNYBootstrapRetryController.h"
+#import "PNYMacros.h"
 
 @implementation PNYBootstrapRetryController
 

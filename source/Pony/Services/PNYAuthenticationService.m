@@ -7,6 +7,7 @@
 #import "NSMutableOrderedSet+PNYNSValue.h"
 #import "NSOrderedSet+PNYNSValue.h"
 #import "PNYErrorDto.h"
+#import "PNYMacros.h"
 
 @implementation PNYAuthenticationService
 {

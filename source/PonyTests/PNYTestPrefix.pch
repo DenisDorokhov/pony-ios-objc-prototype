@@ -3,10 +3,9 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
 #import <XCTest/XCTest.h>
 
 #import <OCHamcrest/OCHamcrest.h>
 #import <OCMockito/OCMockito.h>
+
+extern NSUInteger ddLogLevel;

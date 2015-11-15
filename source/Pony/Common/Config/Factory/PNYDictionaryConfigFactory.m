@@ -5,6 +5,7 @@
 
 #import "PNYDictionaryConfigFactory.h"
 #import "PNYConfigImpl.h"
+#import "PNYMacros.h"
 
 @implementation PNYDictionaryConfigFactory
 

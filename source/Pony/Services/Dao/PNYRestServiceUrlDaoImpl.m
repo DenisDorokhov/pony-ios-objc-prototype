@@ -5,6 +5,7 @@
 
 #import "PNYRestServiceUrlDaoImpl.h"
 #import "PNYUserSettingsKeys.h"
+#import "PNYMacros.h"
 
 @implementation PNYRestServiceUrlDaoImpl
 

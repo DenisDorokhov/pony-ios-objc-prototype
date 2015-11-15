@@ -9,6 +9,7 @@
 #import "PNYServiceAssembly.h"
 #import "PNYAppAssembly.h"
 #import <Typhoon/TyphoonBlockComponentFactory.h>
+#import "PNYMacros.h"
 
 @implementation PNYAppDelegate
 

@@ -9,6 +9,7 @@
 #import <EasyMapping/EKRelationshipMapping.h>
 #import <EasyMapping/EKSerializer.h>
 #import "PNYErrorUtils.h"
+#import "PNYMacros.h"
 
 @implementation PNYMappingCacheSerializer
 

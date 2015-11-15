@@ -6,6 +6,7 @@
 #import "PNYBootstrapService.h"
 #import "PNYErrorDto.h"
 #import <AFNetworking/AFNetworkReachabilityManager.h>
+#import "PNYMacros.h"
 
 @implementation PNYBootstrapService
 {

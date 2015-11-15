@@ -10,6 +10,7 @@
 #import "PNYBootstrapServerConfigController.h"
 #import "PNYBootstrapLoginConfigController.h"
 #import "PNYSegues.h"
+#import "PNYMacros.h"
 
 @interface PNYBootstrapController ()
 

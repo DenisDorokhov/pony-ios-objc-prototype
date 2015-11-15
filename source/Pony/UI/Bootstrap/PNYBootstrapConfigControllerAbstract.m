@@ -5,6 +5,7 @@
 
 #import "PNYBootstrapConfigControllerAbstract.h"
 #import "PNYAlertFactory.h"
+#import "PNYMacros.h"
 
 @implementation PNYBootstrapConfigControllerAbstract
 

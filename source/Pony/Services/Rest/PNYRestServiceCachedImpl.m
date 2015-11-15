@@ -5,6 +5,7 @@
 
 #import "PNYRestServiceCachedImpl.h"
 #import "PNYRestRequestProxy.h"
+#import "PNYMacros.h"
 
 typedef id <PNYRestRequest>(^PNYRestServiceCachedRequestBlock)(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure);
 

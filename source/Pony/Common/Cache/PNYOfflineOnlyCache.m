@@ -5,6 +5,7 @@
 
 #import <AFNetworking/AFNetworkReachabilityManager.h>
 #import "PNYOfflineOnlyCache.h"
+#import "PNYMacros.h"
 
 @implementation PNYOfflineOnlyCache
 
