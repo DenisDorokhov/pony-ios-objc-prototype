@@ -72,7 +72,7 @@ static NSString *const KEY_ARTIST_ALBUMS = @"artistAlbums.%@";
 
     return [self runCachedRequestWithCache:self.installationCache key:KEY_INSTALLATION
                                    success:aSuccess failure:aFailure
-                                  useCache:aUseCache block:requestBlock];
+                                  useCache:aUseCache requestBlock:requestBlock];
 }
 
 - (id <PNYRestRequest>)getCurrentUserWithSuccess:(void (^)(PNYUserDto *aUser))aSuccess
@@ -89,7 +89,7 @@ static NSString *const KEY_ARTIST_ALBUMS = @"artistAlbums.%@";
 
     return [self runCachedRequestWithCache:self.currentUserCache key:KEY_CURRENT_USER
                                    success:aSuccess failure:aFailure
-                                  useCache:aUseCache block:requestBlock];
+                                  useCache:aUseCache requestBlock:requestBlock];
 }
 
 - (id <PNYRestRequest>)getArtistsWithSuccess:(void (^)(NSArray *aArtists))aSuccess
@@ -106,7 +106,7 @@ static NSString *const KEY_ARTIST_ALBUMS = @"artistAlbums.%@";
 
     return [self runCachedRequestWithCache:self.artistsCache key:KEY_ARTISTS
                                    success:aSuccess failure:aFailure
-                                  useCache:aUseCache block:requestBlock];
+                                  useCache:aUseCache requestBlock:requestBlock];
 }
 
 - (id <PNYRestRequest>)getArtistAlbumsWithArtist:(NSString *)aArtistIdOrName
@@ -127,7 +127,7 @@ static NSString *const KEY_ARTIST_ALBUMS = @"artistAlbums.%@";
 
     return [self runCachedRequestWithCache:self.artistAlbumsCache key:cacheKey
                                    success:aSuccess failure:aFailure
-                                  useCache:aUseCache block:requestBlock];
+                                  useCache:aUseCache requestBlock:requestBlock];
 }
 
 #pragma mark - <PNYRestService>
@@ -186,14 +186,14 @@ static NSString *const KEY_ARTIST_ALBUMS = @"artistAlbums.%@";
 
 - (id <PNYRestRequest>)runCachedRequestWithCache:(PNYCacheAsync *)aCache key:(NSString *)aKey
                                          success:(PNYRestServiceSuccessBlock)aSuccess failure:(PNYRestServiceFailureBlock)aFailure
-                                        useCache:(BOOL)aUseCache block:(PNYRestServiceCachedRequestBlock)aBlock
+                                        useCache:(BOOL)aUseCache requestBlock:(PNYRestServiceCachedRequestBlock)aRequestBlock
 {
     if (aCache != nil) {
 
         PNYRestRequestProxy *request = [PNYRestRequestProxy new];
 
         void (^doRequestAndCacheResult)() = ^{
-            request.targetRequest = aBlock(^(id aData) {
+            request.targetRequest = aRequestBlock(^(id aData) {
                 if (aData != nil) {
                     [aCache cacheValue:aData forKey:aKey completion:^{
                         if (aSuccess != nil) {
@@ -230,7 +230,7 @@ static NSString *const KEY_ARTIST_ALBUMS = @"artistAlbums.%@";
         return request;
     }
 
-    return aBlock(aSuccess, aFailure);
+    return aRequestBlock(aSuccess, aFailure);
 }
 
 @end
