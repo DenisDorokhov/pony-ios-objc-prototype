@@ -85,7 +85,7 @@
 		B3D39EAA54CDB8D9FCAE44BC /* PNYDictionaryConfigFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D397DEC5BA1F4ED48FB1A6 /* PNYDictionaryConfigFactory.m */; };
 		B3D39ECE55F828F906B1F55C /* PNYConfigTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39627463E0BCDFF58EFF9 /* PNYConfigTests.m */; };
 		B3D39EEA629D93D32FEF4C40 /* PNYRestServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D3998E335F6FB0725A8D79 /* PNYRestServiceTests.m */; };
-		B3D39EF1DC1EB0B828614D72 /* PNYCacheImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39ED46006B6A282D47CF2 /* PNYCacheImpl.m */; };
+		B3D39EF1DC1EB0B828614D72 /* PNYFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39ED46006B6A282D47CF2 /* PNYFileCache.m */; };
 		B3D39F4C23480726884CE890 /* PNYPlistConfigFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D3946413EA4200DC4F6BDE /* PNYPlistConfigFactory.m */; };
 		B3D39F9BDD1B98D3D2264656 /* PNYBootstrapChildControllerAbstract.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39A0D694D3F80D694F685 /* PNYBootstrapChildControllerAbstract.m */; };
 		B3D39FAA1CD20225F53D2E8B /* PNYErrorDto.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39F113A4FF3718432753E /* PNYErrorDto.m */; };
@@ -143,7 +143,7 @@
 		B3D392B9914BE6B21650C1DA /* PNYUrlUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYUrlUtils.h; sourceTree = "<group>"; };
 		B3D392D23D3D6B301653E472 /* PNYAuthenticationDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYAuthenticationDto.h; sourceTree = "<group>"; };
 		B3D392DDC654A8792342E652 /* PNYBootstrapServerConfigController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYBootstrapServerConfigController.h; sourceTree = "<group>"; };
-		B3D392E3F142B25F564E3EE2 /* PNYCacheImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYCacheImpl.h; sourceTree = "<group>"; };
+		B3D392E3F142B25F564E3EE2 /* PNYFileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYFileCache.h; sourceTree = "<group>"; };
 		B3D392EF87130A6ACC3EBC9E /* PNYAppAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYAppAssembly.h; sourceTree = "<group>"; };
 		B3D3930A72E05C1C96491112 /* PNYBootstrapLoginConfigController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYBootstrapLoginConfigController.m; sourceTree = "<group>"; };
 		B3D3930FBAA697968C05AB29 /* PNYKeychainDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYKeychainDictionary.h; sourceTree = "<group>"; };
@@ -264,7 +264,7 @@
 		B3D39E9BFA75C5FF5B9C8C10 /* PNYRestResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYRestResponseSerializer.h; sourceTree = "<group>"; };
 		B3D39EBA42B8FCD5362C67A2 /* PNYPersistentDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYPersistentDictionary.h; sourceTree = "<group>"; };
 		B3D39ECF099A49159AEA672C /* PNYMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYMacros.h; sourceTree = "<group>"; };
-		B3D39ED46006B6A282D47CF2 /* PNYCacheImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYCacheImpl.m; sourceTree = "<group>"; };
+		B3D39ED46006B6A282D47CF2 /* PNYFileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYFileCache.m; sourceTree = "<group>"; };
 		B3D39ED659EE7866A88142B3 /* PNYAuthenticationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYAuthenticationService.m; sourceTree = "<group>"; };
 		B3D39EE4FB10DF6542CA3E22 /* PNYRestServiceUrlDaoImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYRestServiceUrlDaoImpl.m; sourceTree = "<group>"; };
 		B3D39F04F1FCCBA262298C5B /* PNYBootstrapConfigControllerAbstract+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PNYBootstrapConfigControllerAbstract+Protected.h"; sourceTree = "<group>"; };
@@ -573,8 +573,8 @@
 				B3D397B6B51BF3F432A4F68F /* PNYCache.h */,
 				B3D39703BA343836CAD9EE01 /* PNYCacheAsync.h */,
 				B3D39ABFC10B71E0B05A727C /* PNYCacheAsync.m */,
-				B3D392E3F142B25F564E3EE2 /* PNYCacheImpl.h */,
-				B3D39ED46006B6A282D47CF2 /* PNYCacheImpl.m */,
+				B3D392E3F142B25F564E3EE2 /* PNYFileCache.h */,
+				B3D39ED46006B6A282D47CF2 /* PNYFileCache.m */,
 				B3D39085EABDD6576B6C0549 /* PNYCacheSerializer.h */,
 				B3D39FF19391F1368BDE4F00 /* PNYMemoryCache.h */,
 				B3D39E070E51874195F809FF /* PNYMemoryCache.m */,
@@ -966,7 +966,7 @@
 				B3D3902286B75DF12386E41C /* PNYErrorUtils.m in Sources */,
 				B3D39631FC96270B19C247A8 /* PNYDtoUtils.m in Sources */,
 				B3D39BCB40786C5E31A4EB8F /* PNYCacheAsync.m in Sources */,
-				B3D39EF1DC1EB0B828614D72 /* PNYCacheImpl.m in Sources */,
+				B3D39EF1DC1EB0B828614D72 /* PNYFileCache.m in Sources */,
 				B3D393DF0D4406896A4333D4 /* PNYRestServiceCachedImpl.m in Sources */,
 				B3D398C643AACD1EF33CBB51 /* PNYRestRequestProxy.m in Sources */,
 				B3D3995BF4C83F58AD42CE45 /* PNYOfflineOnlyCache.m in Sources */,

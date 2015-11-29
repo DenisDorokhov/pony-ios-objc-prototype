@@ -4,11 +4,11 @@
 //
 
 #import <NSHash/NSString+NSHash.h>
-#import "PNYCacheImpl.h"
+#import "PNYFileCache.h"
 #import "PNYFileUtils.h"
 #import "PNYMacros.h"
 
-@implementation PNYCacheImpl
+@implementation PNYFileCache
 
 - (instancetype)initWithFolderPath:(NSString *)aFolderPath serializer:(id <PNYCacheSerializer>)aSerializer
 {

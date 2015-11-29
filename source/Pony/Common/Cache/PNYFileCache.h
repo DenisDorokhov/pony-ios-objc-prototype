@@ -6,7 +6,7 @@
 #import "PNYCache.h"
 #import "PNYCacheSerializer.h"
 
-@interface PNYCacheImpl : NSObject <PNYCache>
+@interface PNYFileCache : NSObject <PNYCache>
 
 @property (nonatomic, readonly) NSString *folderPath;
 @property (nonatomic, readonly) id <PNYCacheSerializer> serializer;

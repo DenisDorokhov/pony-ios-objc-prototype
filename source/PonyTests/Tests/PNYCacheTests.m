@@ -11,7 +11,7 @@
 #import "PNYInstallationDto.h"
 #import "PNYMappingCacheSerializer.h"
 #import "PNYMemoryCache.h"
-#import "PNYCacheImpl.h"
+#import "PNYFileCache.h"
 #import "PNYFileUtils.h"
 
 @interface PNYCacheTests_MappedObject : NSObject <EKMappingProtocol>
@@ -156,7 +156,7 @@
 {
     PNYStringCacheSerializer *serializer = [PNYStringCacheSerializer new];
 
-    PNYCacheImpl *cache = [[PNYCacheImpl alloc] initWithFolderPath:[PNYFileUtils filePathInDocuments:@"PNYCacheTests"]
+    PNYFileCache *cache = [[PNYFileCache alloc] initWithFolderPath:[PNYFileUtils filePathInDocuments:@"PNYCacheTests"]
                                                         serializer:serializer];
 
     [cache cacheValue:@"someValue" forKey:@"someKey"];
