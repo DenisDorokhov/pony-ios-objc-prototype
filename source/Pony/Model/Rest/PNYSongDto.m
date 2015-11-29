@@ -5,6 +5,7 @@
 
 #import "PNYSongDto.h"
 #import "PNYObjectUtils.h"
+#import "PNYDtoUtils.h"
 
 @implementation PNYSongDto
 
@@ -15,6 +16,12 @@
     EKObjectMapping *mapping = [super objectMapping];
 
     [mapping mapPropertiesFromArray:@[@"url", @"duration", @"discNumber", @"trackNumber", @"artistName", @"name"]];
+
+    [mapping mapKeyPath:@"updateDate" toProperty:@"updateDate" withValueBlock:^(NSString *aKey, NSNumber *aValue) {
+        return [PNYDtoUtils timestampToDate:aValue];
+    }      reverseBlock:^id(NSDate *aValue) {
+        return [PNYDtoUtils dateToTimestamp:aValue];
+    }];
 
     [mapping hasOne:[PNYAlbumDto class] forKeyPath:@"album"];
     [mapping hasOne:[PNYGenreDto class] forKeyPath:@"genre"];

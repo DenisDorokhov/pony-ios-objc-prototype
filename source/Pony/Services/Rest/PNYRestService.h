@@ -38,6 +38,10 @@ typedef void (^PNYRestServiceFailureBlock)(NSArray *aErrors);
                                          success:(void (^)(PNYArtistAlbumsDto *aArtistAlbums))aSuccess
                                          failure:(PNYRestServiceFailureBlock)aFailure;
 
+- (id <PNYRestRequest>)getSongsWithIds:(NSArray *)aSongIds
+                               success:(void (^)(NSArray *aSongs))aSuccess
+                               failure:(PNYRestServiceFailureBlock)aFailure;
+
 - (id <PNYRestRequest>)getImage:(NSString *)aAbsoluteUrl
                         success:(void (^)(UIImage *aImage))aSuccess
                         failure:(PNYRestServiceFailureBlock)aFailure;

@@ -9,6 +9,8 @@
 
 @interface PNYSongDto : PNYAbstractDto
 
+@property (nonatomic, strong) NSDate *updateDate;
+
 @property (nonatomic, strong) NSString *url;
 
 @property (nonatomic, strong) NSNumber *duration;

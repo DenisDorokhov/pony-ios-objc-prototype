@@ -13,6 +13,7 @@
 #import "PNYRestTokens.h"
 #import "NSURLRequest+PNYDump.h"
 #import "PNYMacros.h"
+#import "PNYSongDto.h"
 
 @implementation PNYRestServiceImpl
 {
@@ -146,6 +147,16 @@
 
     AFHTTPRequestOperation *operation = [self runOperationWithUrl:url method:@"GET"
                                                 responseDataClass:[PNYArtistAlbumsDto class]
+                                                          success:aSuccess failure:aFailure];
+
+    return [PNYRestRequestOperation requestWithOperation:operation];
+}
+
+- (id <PNYRestRequest>)getSongsWithIds:(NSArray *)aSongIds success:(void (^)(NSArray *aSongs))aSuccess failure:(PNYRestServiceFailureBlock)aFailure
+{
+    AFHTTPRequestOperation *operation = [self runOperationWithUrl:@"/api/getSongs" method:@"POST"
+                                                       parameters:aSongIds
+                                                responseDataClass:[PNYSongDto class]
                                                           success:aSuccess failure:aFailure];
 
     return [PNYRestRequestOperation requestWithOperation:operation];

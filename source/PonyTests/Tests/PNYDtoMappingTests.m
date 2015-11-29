@@ -189,6 +189,7 @@
 {
     return @{
             @"id" : @1,
+            @"updateDate" : @333333,
             @"url" : @"songUrl",
             @"duration" : @1,
             @"discNumber" : @2,
@@ -291,6 +292,7 @@
 - (void)assertSongDto:(PNYSongDto *)aDto
 {
     assertThat(aDto.id, equalTo(@1));
+    assertThat(aDto.updateDate, equalTo([NSDate dateWithTimeIntervalSince1970:333333]));
     assertThat(aDto.url, equalTo(@"songUrl"));
     assertThat(aDto.duration, equalTo(@1));
     assertThat(aDto.discNumber, equalTo(@2));

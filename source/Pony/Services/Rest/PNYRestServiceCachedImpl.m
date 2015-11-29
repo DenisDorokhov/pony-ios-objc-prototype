@@ -235,9 +235,18 @@ static NSString *const KEY_IMAGES = @"images:%@";
     return [self getArtistAlbumsWithArtist:aArtistIdOrName success:aSuccess failure:aFailure useCache:YES];
 }
 
+- (id <PNYRestRequest>)getSongsWithIds:(NSArray *)aSongIds
+                               success:(void (^)(NSArray *aSongs))aSuccess
+                               failure:(PNYRestServiceFailureBlock)aFailure
+{
+    PNYAssert(self.targetService != nil);
+
+    return [self.targetService getSongsWithIds:aSongIds success:aSuccess failure:aFailure];
+}
+
 - (id <PNYRestRequest>)getImage:(NSString *)aAbsoluteUrl
                         success:(void (^)(UIImage *aImage))aSuccess
-                        failure:(PNYRestServiceFailureBlock)aFailure
+        failure:(PNYRestServiceFailureBlock)aFailure
 {
     return [self getImage:aAbsoluteUrl success:aSuccess failure:aFailure useCache:YES];
 }

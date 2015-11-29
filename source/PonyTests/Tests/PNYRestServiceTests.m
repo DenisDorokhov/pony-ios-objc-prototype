@@ -145,6 +145,81 @@ static NSString *const DEMO_PASSWORD = @"demo";
 
 - (void)testGetArtistAlbums
 {
+    PNYArtistAlbumsDto *artistAlbums = [self authenticateAndGetArtistAlbumsSynchronously];
+
+    assertThat(artistAlbums.albums, isNot(isEmpty()));
+
+    [self assertArtist:artistAlbums.artist];
+    [self assertAlbumSongs:artistAlbums.albums[0]];
+}
+
+- (void)testGetSongs
+{
+    PNYArtistAlbumsDto *artistAlbums = [self authenticateAndGetArtistAlbumsSynchronously];
+
+    assertThat(artistAlbums.albums, isNot(isEmpty()));
+
+    PNYAlbumSongsDto *albumSongs = artistAlbums.albums[0];
+
+    NSMutableArray *songIds = [NSMutableArray array];
+    for (PNYSongDto *song in albumSongs.songs) {
+        [songIds addObject:song.id];
+    }
+
+    XCTestExpectation *expectation = PNYTestExpectationCreate();
+
+    __block NSArray *songs = nil;
+
+    [service getSongsWithIds:songIds success:^(NSArray *aSongs) {
+
+        [expectation fulfill];
+
+        songs = aSongs;
+
+    }                failure:^(NSArray *aErrors) {
+        [self failExpectation:expectation withErrors:aErrors];
+    }];
+
+    PNYTestExpectationWait();
+
+    assertThat(songs, hasCountOf([songIds count]));
+
+    for (PNYSongDto *song in songs) {
+        [self assertSong:song];
+    }
+}
+
+- (void)testGetImage
+{
+    NSArray *artists = [self authenticateAndGetArtistsSynchronously];
+
+    assertThat(artists, isNot(isEmpty()));
+
+    PNYArtistDto *artist = artists[0];
+
+    XCTestExpectation *expectation = PNYTestExpectationCreate();
+
+    __block UIImage *image = nil;
+
+    [service getImage:artist.artworkUrl success:^(UIImage *aImage) {
+
+        [expectation fulfill];
+
+        image = aImage;
+
+    }         failure:^(NSArray *aErrors) {
+        [self failExpectation:expectation withErrors:aErrors];
+    }];
+
+    PNYTestExpectationWait();
+
+    assertThat(image, notNilValue());
+}
+
+#pragma mark - Private
+
+- (PNYArtistAlbumsDto *)authenticateAndGetArtistAlbumsSynchronously
+{
     NSArray *artists = [self authenticateAndGetArtistsSynchronously];
 
     assertThat(artists, isNot(isEmpty()));
@@ -167,36 +242,8 @@ static NSString *const DEMO_PASSWORD = @"demo";
 
     PNYTestExpectationWait();
 
-    assertThat(artistAlbums.albums, isNot(isEmpty()));
-
-    [self assertArtist:artistAlbums.artist];
-    [self assertAlbumSongs:artistAlbums.albums[0]];
+    return artistAlbums;
 }
-
-- (void)testGetImage
-{
-    PNYArtistDto *artist = [self authenticateAndGetArtistsSynchronously][0];
-
-    XCTestExpectation *expectation = PNYTestExpectationCreate();
-
-    __block UIImage *image = nil;
-
-    [service getImage:artist.artworkUrl success:^(UIImage *aImage) {
-
-        [expectation fulfill];
-
-        image = aImage;
-
-    }         failure:^(NSArray *aErrors) {
-        [self failExpectation:expectation withErrors:aErrors];
-    }];
-
-    PNYTestExpectationWait();
-
-    assertThat(image, notNilValue());
-}
-
-#pragma mark - Private
 
 - (NSArray *)authenticateAndGetArtistsSynchronously
 {

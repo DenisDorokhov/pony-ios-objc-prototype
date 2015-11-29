@@ -7,6 +7,7 @@
 #import "PNYRestServiceCachedImpl.h"
 #import "PNYMemoryCache.h"
 #import "PNYTestUtils.h"
+#import "PNYSongDto.h"
 
 @interface PNYRestServiceCachedTests : PNYTestCase
 
@@ -275,6 +276,27 @@
     assertThatBool([self cachedValueExistsForBlock:^(void(^aCompletion)(BOOL)) {
         [service cachedValueExistsForArtistAlbums:@"someArtist" completion:aCompletion];
     }], isTrue());
+}
+
+- (void)testGetSongs
+{
+    id dtoToReturn = @[[PNYSongDto new]];
+
+    id <PNYRestService> targetService = mockProtocol(@protocol(PNYRestService));
+    [given([targetService getSongsWithIds:anything() success:anything() failure:anything()]) willDo:^id(NSInvocation *invocation) {
+        void (^success)(id) = [invocation mkt_arguments][1];
+        success(dtoToReturn);
+        return nil;
+    }];
+
+    PNYRestServiceCachedImpl *service = [[PNYRestServiceCachedImpl alloc] initWithTargetService:targetService];
+
+    // Check that target service is used.
+
+    id dto = [self runMethodAndWait:^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, BOOL aUseCache) {
+        [service getSongsWithIds:nil success:aSuccess failure:aFailure];
+    }];
+    assertThat(dto, sameInstance(dtoToReturn));
 }
 
 - (void)testGetImage
