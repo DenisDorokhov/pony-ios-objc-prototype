@@ -12,6 +12,7 @@
 #import "PNYArtistAlbumsDto.h"
 #import "PNYUserDto.h"
 #import "PNYImageCacheSerializer.h"
+#import "PNYMemoryCache.h"
 
 @implementation PNYCacheAssembly
 
@@ -62,12 +63,22 @@
     return [TyphoonDefinition withClass:[PNYCacheAsync class] configuration:^(TyphoonDefinition *aDefinition) {
         aDefinition.scope = TyphoonScopeLazySingleton;
         [aDefinition useInitializer:@selector(initWithCache:) parameters:^(TyphoonMethod *aInitializer) {
-            [aInitializer injectParameterWith:[self imageCacheOfflineOnly]];
+            [aInitializer injectParameterWith:[self imageCacheMemory]];
         }];
     }];
 }
 
 #pragma mark - Private
+
+- (id <PNYCache>)imageCacheMemory
+{
+    return [TyphoonDefinition withClass:[PNYMemoryCache class] configuration:^(TyphoonDefinition *aDefinition) {
+        aDefinition.scope = TyphoonScopeLazySingleton;
+        [aDefinition useInitializer:@selector(initWithTargetCache:) parameters:^(TyphoonMethod *aInitializer) {
+            [aInitializer injectParameterWith:[self imageCacheOfflineOnly]];
+        }];
+    }];
+}
 
 - (id <PNYCache>)installationCacheOfflineOnly
 {

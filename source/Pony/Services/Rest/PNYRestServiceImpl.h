@@ -12,6 +12,7 @@
 @property (nonatomic, strong) id <PNYRestServiceUrlDao> urlDao;
 @property (nonatomic, strong) id <PNYTokenPairDao> tokenPairDao;
 
-@property (nonatomic) NSInteger maxConcurrentRequestCount;
+@property (nonatomic) NSInteger maxConcurrentRestRequestCount;
+@property (nonatomic) NSInteger maxConcurrentImageRequestCount;
 
 @end

@@ -17,8 +17,11 @@
 @implementation PNYRestServiceImpl
 {
 @private
-    NSOperationQueue *operationQueue;
+
     AFJSONRequestSerializer *requestSerializer;
+
+    NSOperationQueue *restOperationQueue;
+    NSOperationQueue *imageOperationQueue;
 }
 
 - (instancetype)init
@@ -26,24 +29,37 @@
     self = [super init];
     if (self != nil) {
 
-        operationQueue = [NSOperationQueue new];
         requestSerializer = [AFJSONRequestSerializer new];
 
-        self.maxConcurrentRequestCount = 5;
+        restOperationQueue = [NSOperationQueue new];
+        imageOperationQueue = [NSOperationQueue new];
+
+        self.maxConcurrentRestRequestCount = 5;
+        self.maxConcurrentImageRequestCount = 5;
     }
     return self;
 }
 
 #pragma mark - Public
 
-- (NSInteger)maxConcurrentRequestCount
+- (NSInteger)maxConcurrentRestRequestCount
 {
-    return operationQueue.maxConcurrentOperationCount;
+    return restOperationQueue.maxConcurrentOperationCount;
 }
 
-- (void)setMaxConcurrentRequestCount:(NSInteger)aMaxConcurrentRequestCount
+- (void)setMaxConcurrentRestRequestCount:(NSInteger)aMaxConcurrentRestRequestCount
 {
-    operationQueue.maxConcurrentOperationCount = aMaxConcurrentRequestCount;
+    restOperationQueue.maxConcurrentOperationCount = aMaxConcurrentRestRequestCount;
+}
+
+- (NSInteger)maxConcurrentImageRequestCount
+{
+    return imageOperationQueue.maxConcurrentOperationCount;
+}
+
+- (void)setMaxConcurrentImageRequestCount:(NSInteger)aMaxConcurrentImageRequestCount
+{
+    imageOperationQueue.maxConcurrentOperationCount = aMaxConcurrentImageRequestCount;
 }
 
 #pragma mark - <PNYRestService>
@@ -162,7 +178,7 @@
             }
         }];
 
-        [operationQueue addOperation:operation];
+        [imageOperationQueue addOperation:operation];
 
         return [PNYRestRequestOperation requestWithOperation:operation];
 
@@ -243,7 +259,7 @@
             }
         }];
 
-        [operationQueue addOperation:operation];
+        [restOperationQueue addOperation:operation];
 
         return operation;
 
