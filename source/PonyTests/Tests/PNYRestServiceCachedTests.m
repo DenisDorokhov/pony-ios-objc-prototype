@@ -6,6 +6,7 @@
 #import "PNYTestCase.h"
 #import "PNYRestServiceCachedImpl.h"
 #import "PNYMemoryCache.h"
+#import "PNYTestUtils.h"
 
 @interface PNYRestServiceCachedTests : PNYTestCase
 
@@ -273,6 +274,56 @@
 
     assertThatBool([self cachedValueExistsForBlock:^(void(^aCompletion)(BOOL)) {
         [service cachedValueExistsForArtistAlbums:@"someArtist" completion:aCompletion];
+    }], isTrue());
+}
+
+- (void)testGetImage
+{
+    UIImage *imageToReturn = [PNYTestUtils generateImageWithSize:CGSizeMake(10, 10)];
+
+    id <PNYRestService> targetService = mockProtocol(@protocol(PNYRestService));
+    [given([targetService getImage:@"someUrl" success:anything() failure:anything()]) willDo:^id(NSInvocation *invocation) {
+        void (^success)(id) = [invocation mkt_arguments][1];
+        success(imageToReturn);
+        return nil;
+    }];
+
+    PNYRestServiceCachedImpl *service = [[PNYRestServiceCachedImpl alloc] initWithTargetService:targetService];
+
+    service.imageCache = [PNYCacheAsync cacheWithCache:[PNYMemoryCache new]];
+
+    void (^methodBlock)(PNYRestServiceSuccessBlock, PNYRestServiceFailureBlock, BOOL) =
+            ^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, BOOL aUseCache) {
+                [service getImage:@"someUrl" success:aSuccess failure:aFailure useCache:aUseCache];
+            };
+
+    UIImage *image;
+
+    // Check that first time target service is used.
+
+    image = [self runMethodAndWait:methodBlock];
+    assertThat(image, sameInstance(imageToReturn));
+
+    [verify(targetService) getImage:@"someUrl" success:anything() failure:anything()];
+
+    // Check that second time cache is used and target service is not called.
+
+    image = [self runMethodAndWait:methodBlock];
+    assertThat(image, sameInstance(imageToReturn));
+
+    [verifyCount(targetService, times(1)) getImage:@"someUrl" success:anything() failure:anything()];
+
+    // Check that target service is used  when useCache is NO.
+
+    image = [self runMethodAndWait:methodBlock useCache:NO];
+    assertThat(image, sameInstance(imageToReturn));
+
+    [verifyCount(targetService, times(2)) getImage:@"someUrl" success:anything() failure:anything()];
+
+    // Check cache value existence.
+
+    assertThatBool([self cachedValueExistsForBlock:^(void(^aCompletion)(BOOL)) {
+        [service cachedValueExistsForImage:@"someUrl" completion:aCompletion];
     }], isTrue());
 }
 

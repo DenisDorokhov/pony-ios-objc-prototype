@@ -6,6 +6,7 @@
 #import "PNYRestServiceCachedImpl.h"
 #import "PNYRestRequestProxy.h"
 #import "PNYMacros.h"
+#import "PNYErrorDto.h"
 
 typedef id <PNYRestRequest>(^PNYRestServiceCachedRequestBlock)(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure);
 
@@ -14,7 +15,8 @@ typedef id <PNYRestRequest>(^PNYRestServiceCachedRequestBlock)(PNYRestServiceSuc
 static NSString *const KEY_INSTALLATION = @"installation";
 static NSString *const KEY_CURRENT_USER = @"currentUser";
 static NSString *const KEY_ARTISTS = @"artists";
-static NSString *const KEY_ARTIST_ALBUMS = @"artistAlbums.%@";
+static NSString *const KEY_ARTIST_ALBUMS = @"artistAlbums:%@";
+static NSString *const KEY_IMAGES = @"images:%@";
 
 - (instancetype)initWithTargetService:(id <PNYRestService>)aTargetService
 {
@@ -31,6 +33,10 @@ static NSString *const KEY_ARTIST_ALBUMS = @"artistAlbums.%@";
 {
     if (self.installationCache != nil) {
         [self.installationCache cachedValueExistsForKey:KEY_INSTALLATION completion:aCompletion];
+    } else {
+        if (aCompletion != nil) {
+            aCompletion(NO);
+        }
     }
 }
 
@@ -38,6 +44,10 @@ static NSString *const KEY_ARTIST_ALBUMS = @"artistAlbums.%@";
 {
     if (self.currentUserCache != nil) {
         [self.currentUserCache cachedValueExistsForKey:KEY_CURRENT_USER completion:aCompletion];
+    } else {
+        if (aCompletion != nil) {
+            aCompletion(NO);
+        }
     }
 }
 
@@ -45,6 +55,10 @@ static NSString *const KEY_ARTIST_ALBUMS = @"artistAlbums.%@";
 {
     if (self.artistsCache != nil) {
         [self.artistsCache cachedValueExistsForKey:KEY_ARTISTS completion:aCompletion];
+    } else {
+        if (aCompletion != nil) {
+            aCompletion(NO);
+        }
     }
 }
 
@@ -55,6 +69,26 @@ static NSString *const KEY_ARTIST_ALBUMS = @"artistAlbums.%@";
         NSString *cacheKey = [NSString stringWithFormat:KEY_ARTIST_ALBUMS, aArtistIdOrName];
 
         [self.artistAlbumsCache cachedValueExistsForKey:cacheKey completion:aCompletion];
+
+    } else {
+        if (aCompletion != nil) {
+            aCompletion(NO);
+        }
+    }
+}
+
+- (void)cachedValueExistsForImage:(NSString *)aAbsoluteUrl completion:(void (^)(BOOL aCachedValueExists))aCompletion
+{
+    if (self.imageCache != nil) {
+
+        NSString *cacheKey = [NSString stringWithFormat:KEY_IMAGES, aAbsoluteUrl];
+
+        [self.imageCache cachedValueExistsForKey:cacheKey completion:aCompletion];
+
+    } else {
+        if (aCompletion != nil) {
+            aCompletion(NO);
+        }
     }
 }
 
@@ -130,6 +164,25 @@ static NSString *const KEY_ARTIST_ALBUMS = @"artistAlbums.%@";
                                   useCache:aUseCache requestBlock:requestBlock];
 }
 
+- (id <PNYRestRequest>)getImage:(NSString *)aAbsoluteUrl
+                        success:(void (^)(UIImage *aImage))aSuccess
+                        failure:(PNYRestServiceFailureBlock)aFailure
+                       useCache:(BOOL)aUseCache
+{
+    PNYAssert(self.targetService != nil);
+
+    PNYRestServiceCachedRequestBlock requestBlock = ^id <PNYRestRequest>(
+            PNYRestServiceSuccessBlock aWrappedSuccess, PNYRestServiceFailureBlock aWrappedFailure) {
+        return [self.targetService getImage:aAbsoluteUrl success:aWrappedSuccess failure:aWrappedFailure];
+    };
+
+    NSString *cacheKey = [NSString stringWithFormat:KEY_IMAGES, aAbsoluteUrl];
+
+    return [self runCachedRequestWithCache:self.imageCache key:cacheKey
+                                   success:aSuccess failure:aFailure
+                                  useCache:aUseCache requestBlock:requestBlock];
+}
+
 #pragma mark - <PNYRestService>
 
 - (id <PNYRestRequest>)getInstallationWithSuccess:(void (^)(PNYInstallationDto *aInstallation))aSuccess
@@ -182,6 +235,13 @@ static NSString *const KEY_ARTIST_ALBUMS = @"artistAlbums.%@";
     return [self getArtistAlbumsWithArtist:aArtistIdOrName success:aSuccess failure:aFailure useCache:YES];
 }
 
+- (id <PNYRestRequest>)getImage:(NSString *)aAbsoluteUrl
+                        success:(void (^)(UIImage *aImage))aSuccess
+                        failure:(PNYRestServiceFailureBlock)aFailure
+{
+    return [self getImage:aAbsoluteUrl success:aSuccess failure:aFailure useCache:YES];
+}
+
 #pragma mark - Private
 
 - (id <PNYRestRequest>)runCachedRequestWithCache:(PNYCacheAsync *)aCache key:(NSString *)aKey
@@ -194,13 +254,11 @@ static NSString *const KEY_ARTIST_ALBUMS = @"artistAlbums.%@";
 
         void (^doRequestAndCacheResult)() = ^{
             request.targetRequest = aRequestBlock(^(id aData) {
-                if (aData != nil) {
-                    [aCache cacheValue:aData forKey:aKey completion:^{
-                        if (aSuccess != nil) {
-                            aSuccess(aData);
-                        }
-                    }];
-                }
+                [aCache cacheValue:aData forKey:aKey completion:^{
+                    if (aSuccess != nil) {
+                        aSuccess(aData);
+                    }
+                }];
             }, aFailure);
         };
 
@@ -220,6 +278,11 @@ static NSString *const KEY_ARTIST_ALBUMS = @"artistAlbums.%@";
                         PNYLogVerbose(@"Cache miss for key [%@] in cache %@.", aKey, aCache);
 
                         doRequestAndCacheResult();
+                    }
+                } else {
+                    if (aFailure != nil) {
+                        aFailure(@[[PNYErrorDto errorWithCode:PNYErrorDtoCodeClientRequestCancelled
+                                                         text:@"Server request has been cancelled." arguments:nil]]);
                     }
                 }
             }];

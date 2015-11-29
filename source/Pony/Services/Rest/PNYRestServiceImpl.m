@@ -135,6 +135,46 @@
     return [PNYRestRequestOperation requestWithOperation:operation];
 }
 
+- (id <PNYRestRequest>)getImage:(NSString *)aAbsoluteUrl
+                        success:(void (^)(UIImage *aImage))aSuccess
+                        failure:(PNYRestServiceFailureBlock)aFailure
+{
+    NSError *error = nil;
+
+    NSURLRequest *urlRequest = [self buildRequestWithAbsoluteUrl:aAbsoluteUrl method:@"GET"
+                                                         headers:nil parameters:nil error:&error];
+
+    if (error == nil) {
+
+        PNYLogVerbose(@"Running image request: %@.", [urlRequest dump]);
+
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
+
+        operation.responseSerializer = [AFImageResponseSerializer serializer];
+
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *aOperation, UIImage *aImage) {
+            if (aSuccess != nil) {
+                aSuccess(aImage);
+            }
+        }                                failure:^(AFHTTPRequestOperation *aOperation, NSError *aError) {
+            if (aFailure != nil) {
+                aFailure([self errorToDtoArray:aError]);
+            }
+        }];
+
+        [operationQueue addOperation:operation];
+
+        return [PNYRestRequestOperation requestWithOperation:operation];
+
+    } else {
+        if (aFailure != nil) {
+            aFailure([self errorToDtoArray:error]);
+        }
+    }
+
+    return nil;
+}
+
 #pragma mark - Private
 
 - (AFHTTPRequestOperation *)runOperationWithUrl:(NSString *)aRelativeUrl method:(NSString *)aMethod
@@ -176,13 +216,12 @@
 {
     NSError *error = nil;
 
-    NSURLRequest *urlRequest = [self buildRequestWithUrl:aRelativeUrl method:aMethod
-                                              parameters:aParameters headers:aHeaders
-                                                   error:&error];
+    NSURLRequest *urlRequest = [self buildRequestWithRelativeUrl:aRelativeUrl method:aMethod
+                                                         headers:aHeaders parameters:aParameters error:&error];
 
     if (error == nil) {
 
-        PNYLogVerbose(@"Running request: %@.", [urlRequest dump]);
+        PNYLogVerbose(@"Running REST request: %@.", [urlRequest dump]);
 
         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
 
@@ -217,16 +256,21 @@
     return nil;
 }
 
-- (NSURLRequest *)buildRequestWithUrl:(NSString *)aRelativeUrl method:(NSString *)aMethod
-                           parameters:(id)aParameters headers:(NSDictionary *)aHeaders
-                                error:(NSError **)aError
+- (NSURLRequest *)buildRequestWithRelativeUrl:(NSString *)aRelativeUrl method:(NSString *)aMethod
+                                      headers:(NSDictionary *)aHeaders parameters:(id)aParameters
+                                        error:(NSError **)aError
+{
+    return [self buildRequestWithAbsoluteUrl:[self buildUrl:aRelativeUrl] method:aMethod headers:aHeaders parameters:aParameters error:aError];
+}
+
+- (NSURLRequest *)buildRequestWithAbsoluteUrl:(NSString *)aAbsoluteUrl method:(NSString *)aMethod
+                                      headers:(NSDictionary *)aHeaders parameters:(id)aParameters
+                                        error:(NSError **)aError
 {
     PNYAssert(self.tokenPairDao != nil);
 
-    NSMutableURLRequest *urlRequest = [requestSerializer requestWithMethod:aMethod
-                                                                 URLString:[[self buildUrl:aRelativeUrl] absoluteString]
-                                                                parameters:aParameters
-                                                                     error:aError];
+    NSMutableURLRequest *urlRequest = [requestSerializer requestWithMethod:aMethod URLString:aAbsoluteUrl
+                                                                parameters:aParameters error:aError];
 
     if (*aError == nil) {
 
@@ -248,11 +292,11 @@
     return *aError == nil ? urlRequest : nil;
 }
 
-- (NSURL *)buildUrl:(NSString *)aRelativeUrl
+- (NSString *)buildUrl:(NSString *)aRelativeUrl
 {
     PNYAssert(self.urlDao != nil);
 
-    return [[self.urlDao fetchUrl] URLByAppendingPathComponent:aRelativeUrl];
+    return [[[self.urlDao fetchUrl] URLByAppendingPathComponent:aRelativeUrl] absoluteString];
 }
 
 - (NSArray *)errorToDtoArray:(NSError *)aError

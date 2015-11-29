@@ -10,6 +10,7 @@
 #import "PNYInstallationDto.h"
 
 typedef void (^PNYRestServiceSuccessBlock)(id aData);
+
 typedef void (^PNYRestServiceFailureBlock)(NSArray *aErrors);
 
 @protocol PNYRestService <NSObject>
@@ -36,5 +37,9 @@ typedef void (^PNYRestServiceFailureBlock)(NSArray *aErrors);
 - (id <PNYRestRequest>)getArtistAlbumsWithArtist:(NSString *)aArtistIdOrName
                                          success:(void (^)(PNYArtistAlbumsDto *aArtistAlbums))aSuccess
                                          failure:(PNYRestServiceFailureBlock)aFailure;
+
+- (id <PNYRestRequest>)getImage:(NSString *)aAbsoluteUrl
+                        success:(void (^)(UIImage *aImage))aSuccess
+                        failure:(PNYRestServiceFailureBlock)aFailure;
 
 @end

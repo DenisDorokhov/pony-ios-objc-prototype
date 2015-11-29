@@ -32,5 +32,7 @@
     <string>OfflineData/Artists</string>
     <key>cache.artistAlbumsFolder</key>
     <string>OfflineData/ArtistAlbums</string>
+    <key>cache.imagesFolder</key>
+    <string>OfflineData/Images</string>
 </dict>
 </plist>

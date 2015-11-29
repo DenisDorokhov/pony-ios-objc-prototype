@@ -10,6 +10,7 @@
 
 @property (nonatomic, readonly) NSString *folderPath;
 @property (nonatomic, readonly) id <PNYCacheSerializer> serializer;
+@property (nonatomic) BOOL excludeFromBackup;
 
 - (instancetype)initWithFolderPath:(NSString *)aFolderPath serializer:(id <PNYCacheSerializer>)aSerializer;
 - (instancetype)initWithFolderPathInDocuments:(NSString *)aFolderPath serializer:(id <PNYCacheSerializer>)aSerializer;

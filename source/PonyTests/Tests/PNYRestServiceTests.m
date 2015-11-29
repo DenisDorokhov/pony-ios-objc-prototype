@@ -173,6 +173,29 @@ static NSString *const DEMO_PASSWORD = @"demo";
     [self assertAlbumSongs:artistAlbums.albums[0]];
 }
 
+- (void)testGetImage
+{
+    PNYArtistDto *artist = [self authenticateAndGetArtistsSynchronously][0];
+
+    XCTestExpectation *expectation = PNYTestExpectationCreate();
+
+    __block UIImage *image = nil;
+
+    [service getImage:artist.artworkUrl success:^(UIImage *aImage) {
+
+        [expectation fulfill];
+
+        image = aImage;
+
+    }         failure:^(NSArray *aErrors) {
+        [self failExpectation:expectation withErrors:aErrors];
+    }];
+
+    PNYTestExpectationWait();
+
+    assertThat(image, notNilValue());
+}
+
 #pragma mark - Private
 
 - (NSArray *)authenticateAndGetArtistsSynchronously

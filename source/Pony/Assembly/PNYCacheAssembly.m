@@ -11,6 +11,7 @@
 #import "PNYOfflineOnlyCache.h"
 #import "PNYArtistAlbumsDto.h"
 #import "PNYUserDto.h"
+#import "PNYImageCacheSerializer.h"
 
 @implementation PNYCacheAssembly
 
@@ -52,6 +53,16 @@
         aDefinition.scope = TyphoonScopeLazySingleton;
         [aDefinition useInitializer:@selector(initWithCache:) parameters:^(TyphoonMethod *aInitializer) {
             [aInitializer injectParameterWith:[self artistAlbumsCacheOfflineOnly]];
+        }];
+    }];
+}
+
+- (PNYCacheAsync *)imageCacheAsync
+{
+    return [TyphoonDefinition withClass:[PNYCacheAsync class] configuration:^(TyphoonDefinition *aDefinition) {
+        aDefinition.scope = TyphoonScopeLazySingleton;
+        [aDefinition useInitializer:@selector(initWithCache:) parameters:^(TyphoonMethod *aInitializer) {
+            [aInitializer injectParameterWith:[self imageCacheOfflineOnly]];
         }];
     }];
 }
@@ -98,6 +109,16 @@
     }];
 }
 
+- (id <PNYCache>)imageCacheOfflineOnly
+{
+    return [TyphoonDefinition withClass:[PNYOfflineOnlyCache class] configuration:^(TyphoonDefinition *aDefinition) {
+        aDefinition.scope = TyphoonScopeLazySingleton;
+        [aDefinition useInitializer:@selector(initWithTargetCache:) parameters:^(TyphoonMethod *aInitializer) {
+            [aInitializer injectParameterWith:[self imageCache]];
+        }];
+    }];
+}
+
 - (id <PNYCache>)installationCache
 {
     return [TyphoonDefinition withClass:[PNYCacheImpl class] configuration:^(TyphoonDefinition *aDefinition) {
@@ -138,6 +159,17 @@
         [aDefinition useInitializer:@selector(initWithFolderPathInDocuments:serializer:) parameters:^(TyphoonMethod *aInitializer) {
             [aInitializer injectParameterWith:TyphoonConfig(@"cache.artistAlbumsFolder")];
             [aInitializer injectParameterWith:[PNYMappingCacheSerializer mappingCacheSerializerWithValueClass:[PNYArtistAlbumsDto class]]];
+        }];
+    }];
+}
+
+- (id <PNYCache>)imageCache
+{
+    return [TyphoonDefinition withClass:[PNYCacheImpl class] configuration:^(TyphoonDefinition *aDefinition) {
+        aDefinition.scope = TyphoonScopeLazySingleton;
+        [aDefinition useInitializer:@selector(initWithFolderPathInDocuments:serializer:) parameters:^(TyphoonMethod *aInitializer) {
+            [aInitializer injectParameterWith:TyphoonConfig(@"cache.imagesFolder")];
+            [aInitializer injectParameterWith:[PNYImageCacheSerializer new]];
         }];
     }];
 }

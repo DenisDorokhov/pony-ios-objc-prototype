@@ -11,6 +11,7 @@
 - (void)cachedValueExistsForCurrentUser:(void (^)(BOOL aCachedValueExists))aCompletion;
 - (void)cachedValueExistsForArtists:(void (^)(BOOL aCachedValueExists))aCompletion;
 - (void)cachedValueExistsForArtistAlbums:(NSString *)aArtistIdOrName completion:(void (^)(BOOL aCachedValueExists))aCompletion;
+- (void)cachedValueExistsForImage:(NSString *)aAbsoluteUrl completion:(void (^)(BOOL aCachedValueExists))aCompletion;
 
 - (id <PNYRestRequest>)getInstallationWithSuccess:(void (^)(PNYInstallationDto *aInstallation))aSuccess
                                           failure:(PNYRestServiceFailureBlock)aFailure
@@ -28,5 +29,10 @@
                                          success:(void (^)(PNYArtistAlbumsDto *aArtistAlbums))aSuccess
                                          failure:(PNYRestServiceFailureBlock)aFailure
                                         useCache:(BOOL)aUseCache;
+
+- (id <PNYRestRequest>)getImage:(NSString *)aAbsoluteUrl
+                        success:(void (^)(UIImage *aImage))aSuccess
+                        failure:(PNYRestServiceFailureBlock)aFailure
+                       useCache:(BOOL)aUseCache;
 
 @end

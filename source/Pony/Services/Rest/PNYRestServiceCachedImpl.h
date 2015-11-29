@@ -15,6 +15,7 @@
 @property (nonatomic, strong) PNYCacheAsync *currentUserCache;
 @property (nonatomic, strong) PNYCacheAsync *artistsCache;
 @property (nonatomic, strong) PNYCacheAsync *artistAlbumsCache;
+@property (nonatomic, strong) PNYCacheAsync *imageCache;
 
 - (instancetype)initWithTargetService:(id <PNYRestService>)aTargetService;
 

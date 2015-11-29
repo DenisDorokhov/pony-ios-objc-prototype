@@ -18,6 +18,8 @@
         _folderPath = [aFolderPath copy];
         _serializer = aSerializer;
 
+        self.excludeFromBackup = YES;
+
         [PNYFileUtils createNotExistingDirectory:self.folderPath];
     }
     return self;
@@ -58,7 +60,12 @@
 {
     NSData *valueData = [self.serializer serializeValue:aValue];
 
-    [valueData writeToFile:[self buildFilePathNameForKey:aKey] atomically:YES];
+    NSString *filePath = [self buildFilePathNameForKey:aKey];
+
+    [valueData writeToFile:filePath atomically:YES];
+
+    [[NSURL fileURLWithPath:filePath] setResourceValue:@(self.excludeFromBackup)
+                                                forKey:NSURLIsExcludedFromBackupKey error:nil];
 
     PNYLogVerbose(@"Cached value for key [%@] in folder [%@].", aKey, self.folderPath);
 }

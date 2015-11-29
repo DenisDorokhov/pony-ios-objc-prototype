@@ -12,5 +12,6 @@
 - (PNYCacheAsync *)currentUserCacheAsync;
 - (PNYCacheAsync *)artistsCacheAsync;
 - (PNYCacheAsync *)artistAlbumsCacheAsync;
+- (PNYCacheAsync *)imageCacheAsync;
 
 @end

@@ -32,6 +32,7 @@
         [aDefinition injectProperty:@selector(currentUserCache) with:[self.cacheAssembly currentUserCacheAsync]];
         [aDefinition injectProperty:@selector(artistsCache) with:[self.cacheAssembly artistsCacheAsync]];
         [aDefinition injectProperty:@selector(artistAlbumsCache) with:[self.cacheAssembly artistAlbumsCacheAsync]];
+        [aDefinition injectProperty:@selector(imageCache) with:[self.cacheAssembly imageCacheAsync]];
     }];
 }
 
