@@ -164,16 +164,16 @@ static NSString *const KEY_IMAGES = @"images:%@";
                                   useCache:aUseCache requestBlock:requestBlock];
 }
 
-- (id <PNYRestRequest>)getImage:(NSString *)aAbsoluteUrl
-                        success:(void (^)(UIImage *aImage))aSuccess
-                        failure:(PNYRestServiceFailureBlock)aFailure
-                       useCache:(BOOL)aUseCache
+- (id <PNYRestRequest>)downloadImage:(NSString *)aAbsoluteUrl
+                             success:(void (^)(UIImage *aImage))aSuccess
+                             failure:(PNYRestServiceFailureBlock)aFailure
+                            useCache:(BOOL)aUseCache
 {
     PNYAssert(self.targetService != nil);
 
     PNYRestServiceCachedRequestBlock requestBlock = ^id <PNYRestRequest>(
             PNYRestServiceSuccessBlock aWrappedSuccess, PNYRestServiceFailureBlock aWrappedFailure) {
-        return [self.targetService getImage:aAbsoluteUrl success:aWrappedSuccess failure:aWrappedFailure];
+        return [self.targetService downloadImage:aAbsoluteUrl success:aWrappedSuccess failure:aWrappedFailure];
     };
 
     NSString *cacheKey = [NSString stringWithFormat:KEY_IMAGES, aAbsoluteUrl];
@@ -244,11 +244,22 @@ static NSString *const KEY_IMAGES = @"images:%@";
     return [self.targetService getSongsWithIds:aSongIds success:aSuccess failure:aFailure];
 }
 
-- (id <PNYRestRequest>)getImage:(NSString *)aAbsoluteUrl
-                        success:(void (^)(UIImage *aImage))aSuccess
-        failure:(PNYRestServiceFailureBlock)aFailure
+- (id <PNYRestRequest>)downloadImage:(NSString *)aAbsoluteUrl
+                             success:(void (^)(UIImage *aImage))aSuccess
+                             failure:(PNYRestServiceFailureBlock)aFailure
 {
-    return [self getImage:aAbsoluteUrl success:aSuccess failure:aFailure useCache:YES];
+    return [self downloadImage:aAbsoluteUrl success:aSuccess failure:aFailure useCache:YES];
+}
+
+- (id <PNYRestRequest>)downloadSongWithId:(NSNumber *)aSongId toFile:(NSString *)aFilePath
+                                 progress:(void (^)(float aValue))aProgress
+                                  success:(void (^)())aSuccess
+                                  failure:(PNYRestServiceFailureBlock)aFailure
+{
+    PNYAssert(self.targetService != nil);
+
+    return [self.targetService downloadSongWithId:aSongId toFile:aFilePath
+                                         progress:aProgress success:aSuccess failure:aFailure];
 }
 
 #pragma mark - Private

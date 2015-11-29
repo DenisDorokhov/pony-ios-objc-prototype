@@ -299,12 +299,12 @@
     assertThat(dto, sameInstance(dtoToReturn));
 }
 
-- (void)testGetImage
+- (void)testDownloadImage
 {
     UIImage *imageToReturn = [PNYTestUtils generateImageWithSize:CGSizeMake(10, 10)];
 
     id <PNYRestService> targetService = mockProtocol(@protocol(PNYRestService));
-    [given([targetService getImage:@"someUrl" success:anything() failure:anything()]) willDo:^id(NSInvocation *invocation) {
+    [given([targetService downloadImage:@"someUrl" success:anything() failure:anything()]) willDo:^id(NSInvocation *invocation) {
         void (^success)(id) = [invocation mkt_arguments][1];
         success(imageToReturn);
         return nil;
@@ -316,7 +316,7 @@
 
     void (^methodBlock)(PNYRestServiceSuccessBlock, PNYRestServiceFailureBlock, BOOL) =
             ^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, BOOL aUseCache) {
-                [service getImage:@"someUrl" success:aSuccess failure:aFailure useCache:aUseCache];
+                [service downloadImage:@"someUrl" success:aSuccess failure:aFailure useCache:aUseCache];
             };
 
     UIImage *image;
@@ -326,27 +326,57 @@
     image = [self runMethodAndWait:methodBlock];
     assertThat(image, sameInstance(imageToReturn));
 
-    [verify(targetService) getImage:@"someUrl" success:anything() failure:anything()];
+    [verify(targetService) downloadImage:@"someUrl" success:anything() failure:anything()];
 
     // Check that second time cache is used and target service is not called.
 
     image = [self runMethodAndWait:methodBlock];
     assertThat(image, sameInstance(imageToReturn));
 
-    [verifyCount(targetService, times(1)) getImage:@"someUrl" success:anything() failure:anything()];
+    [verifyCount(targetService, times(1)) downloadImage:@"someUrl" success:anything() failure:anything()];
 
     // Check that target service is used  when useCache is NO.
 
     image = [self runMethodAndWait:methodBlock useCache:NO];
     assertThat(image, sameInstance(imageToReturn));
 
-    [verifyCount(targetService, times(2)) getImage:@"someUrl" success:anything() failure:anything()];
+    [verifyCount(targetService, times(2)) downloadImage:@"someUrl" success:anything() failure:anything()];
 
     // Check cache value existence.
 
     assertThatBool([self cachedValueExistsForBlock:^(void(^aCompletion)(BOOL)) {
         [service cachedValueExistsForImage:@"someUrl" completion:aCompletion];
     }], isTrue());
+}
+
+- (void)testDownloadSong
+{
+    id <PNYRestService> targetService = mockProtocol(@protocol(PNYRestService));
+    [given([targetService downloadSongWithId:anything() toFile:anything()
+                                    progress:anything()
+                                     success:anything()
+                                     failure:anything()]) willDo:^id(NSInvocation *invocation) {
+        void (^success)() = [invocation mkt_arguments][3];
+        success();
+        return nil;
+    }];
+
+    PNYRestServiceCachedImpl *service = [[PNYRestServiceCachedImpl alloc] initWithTargetService:targetService];
+
+    // Check that target service is used.
+
+    XCTestExpectation *expectation = PNYTestExpectationCreate();
+
+    [service downloadSongWithId:@123 toFile:@"somePath" progress:nil success:^{
+        [expectation fulfill];
+    } failure:^(NSArray *aErrors) {
+        [expectation fulfill];
+        XCTFail(@"Failed with errors: %@.", aErrors);
+    }];
+
+    PNYTestExpectationWait();
+
+    [verify(targetService) downloadSongWithId:@123 toFile:@"somePath" progress:nil success:anything() failure:anything()];
 }
 
 #pragma mark - Private
@@ -361,8 +391,8 @@
     XCTestExpectation *expectation = PNYTestExpectationCreate();
 
     __block PNYInstallationDto *returnedDto = nil;
-    aBlock(^(PNYInstallationDto *aInstallation) {
-        returnedDto = aInstallation;
+    aBlock(^(id aResult) {
+        returnedDto = aResult;
         [expectation fulfill];
     }, ^(NSArray *aErrors) {
         [expectation fulfill];

@@ -14,5 +14,6 @@
 
 @property (nonatomic) NSInteger maxConcurrentRestRequestCount;
 @property (nonatomic) NSInteger maxConcurrentImageRequestCount;
+@property (nonatomic) NSInteger maxConcurrentSongRequestCount;
 
 @end

@@ -42,8 +42,13 @@ typedef void (^PNYRestServiceFailureBlock)(NSArray *aErrors);
                                success:(void (^)(NSArray *aSongs))aSuccess
                                failure:(PNYRestServiceFailureBlock)aFailure;
 
-- (id <PNYRestRequest>)getImage:(NSString *)aAbsoluteUrl
-                        success:(void (^)(UIImage *aImage))aSuccess
-                        failure:(PNYRestServiceFailureBlock)aFailure;
+- (id <PNYRestRequest>)downloadImage:(NSString *)aAbsoluteUrl
+                             success:(void (^)(UIImage *aImage))aSuccess
+                             failure:(PNYRestServiceFailureBlock)aFailure;
+
+- (id <PNYRestRequest>)downloadSongWithId:(NSNumber *)aSongId toFile:(NSString *)aFilePath
+                                 progress:(void (^)(float aValue))aProgress
+                                  success:(void (^)())aSuccess
+                                  failure:(PNYRestServiceFailureBlock)aFailure;
 
 @end

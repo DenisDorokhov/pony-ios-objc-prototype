@@ -201,13 +201,13 @@ static NSString *const DEMO_PASSWORD = @"demo";
 
     __block UIImage *image = nil;
 
-    [service getImage:artist.artworkUrl success:^(UIImage *aImage) {
+    [service downloadImage:artist.artworkUrl success:^(UIImage *aImage) {
 
         [expectation fulfill];
 
         image = aImage;
 
-    }         failure:^(NSArray *aErrors) {
+    }              failure:^(NSArray *aErrors) {
         [self failExpectation:expectation withErrors:aErrors];
     }];
 

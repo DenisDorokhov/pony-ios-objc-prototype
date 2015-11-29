@@ -30,9 +30,9 @@
                                          failure:(PNYRestServiceFailureBlock)aFailure
                                         useCache:(BOOL)aUseCache;
 
-- (id <PNYRestRequest>)getImage:(NSString *)aAbsoluteUrl
-                        success:(void (^)(UIImage *aImage))aSuccess
-                        failure:(PNYRestServiceFailureBlock)aFailure
-                       useCache:(BOOL)aUseCache;
+- (id <PNYRestRequest>)downloadImage:(NSString *)aAbsoluteUrl
+                             success:(void (^)(UIImage *aImage))aSuccess
+                             failure:(PNYRestServiceFailureBlock)aFailure
+                            useCache:(BOOL)aUseCache;
 
 @end

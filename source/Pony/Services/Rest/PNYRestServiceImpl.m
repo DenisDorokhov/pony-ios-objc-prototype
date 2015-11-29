@@ -23,6 +23,7 @@
 
     NSOperationQueue *restOperationQueue;
     NSOperationQueue *imageOperationQueue;
+    NSOperationQueue *songOperationQueue;
 }
 
 - (instancetype)init
@@ -34,9 +35,11 @@
 
         restOperationQueue = [NSOperationQueue new];
         imageOperationQueue = [NSOperationQueue new];
+        songOperationQueue = [NSOperationQueue new];
 
         self.maxConcurrentRestRequestCount = 5;
         self.maxConcurrentImageRequestCount = 5;
+        self.maxConcurrentSongRequestCount = 1;
     }
     return self;
 }
@@ -61,6 +64,16 @@
 - (void)setMaxConcurrentImageRequestCount:(NSInteger)aMaxConcurrentImageRequestCount
 {
     imageOperationQueue.maxConcurrentOperationCount = aMaxConcurrentImageRequestCount;
+}
+
+- (NSInteger)maxConcurrentSongRequestCount
+{
+    return songOperationQueue.maxConcurrentOperationCount;
+}
+
+- (void)setMaxConcurrentSongRequestCount:(NSInteger)aMaxConcurrentSongRequestCount
+{
+    songOperationQueue.maxConcurrentOperationCount = aMaxConcurrentSongRequestCount;
 }
 
 #pragma mark - <PNYRestService>
@@ -162,9 +175,9 @@
     return [PNYRestRequestOperation requestWithOperation:operation];
 }
 
-- (id <PNYRestRequest>)getImage:(NSString *)aAbsoluteUrl
-                        success:(void (^)(UIImage *aImage))aSuccess
-                        failure:(PNYRestServiceFailureBlock)aFailure
+- (id <PNYRestRequest>)downloadImage:(NSString *)aAbsoluteUrl
+                             success:(void (^)(UIImage *aImage))aSuccess
+                             failure:(PNYRestServiceFailureBlock)aFailure
 {
     NSError *error = nil;
 
@@ -190,6 +203,56 @@
         }];
 
         [imageOperationQueue addOperation:operation];
+
+        return [PNYRestRequestOperation requestWithOperation:operation];
+
+    } else {
+        if (aFailure != nil) {
+            aFailure([self errorToDtoArray:error]);
+        }
+    }
+
+    return nil;
+}
+
+- (id <PNYRestRequest>)downloadSongWithId:(NSNumber *)aSongId toFile:(NSString *)aFilePath
+                                 progress:(void (^)(float aValue))aProgress
+                                  success:(void (^)())aSuccess
+                                  failure:(PNYRestServiceFailureBlock)aFailure
+{
+    NSError *error = nil;
+
+    NSString *url = [NSString stringWithFormat:@"/audio/%@", aSongId];
+
+    NSURLRequest *urlRequest = [self buildRequestWithRelativeUrl:url method:@"GET"
+                                                         headers:nil parameters:nil error:&error];
+
+    if (error == nil) {
+
+        AFURLConnectionOperation *operation = [[AFURLConnectionOperation alloc] initWithRequest:urlRequest];
+
+        operation.outputStream = [NSOutputStream outputStreamToFileAtPath:aFilePath append:NO];
+
+        __weak AFURLConnectionOperation *weakOperation = operation;
+
+        operation.completionBlock = ^{
+            if (weakOperation.error == nil) {
+                if (aSuccess != nil) {
+                    aSuccess();
+                }
+            } else {
+                if (aFailure != nil) {
+                    aFailure([self errorToDtoArray:weakOperation.error]);
+                }
+            }
+        };
+        [operation setDownloadProgressBlock:^(NSUInteger aBytesRead, long long int aTotalBytesRead, long long int aTotalBytesExpectedToRead) {
+            if (aProgress != nil) {
+                aProgress((float)(aTotalBytesRead / (double) aTotalBytesExpectedToRead));
+            }
+        }];
+
+        [songOperationQueue addOperation:operation];
 
         return [PNYRestRequestOperation requestWithOperation:operation];
 
