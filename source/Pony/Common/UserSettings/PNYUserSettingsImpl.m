@@ -53,8 +53,7 @@
 
     PNYLogVerbose(@"Setting for key [%@] has been set: [%@].", aKey, aSetting);
 
-    // TODO: remove casting when AppCode finally supports this
-    [(NSOrderedSet *)delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYUserSettingsDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
+    [delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYUserSettingsDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
         if ([aObject respondsToSelector:@selector(userSettings:didSetSetting:forKey:)]) {
             [aObject userSettings:self didSetSetting:aSetting forKey:aKey];
         }
@@ -67,8 +66,7 @@
 
     PNYLogVerbose(@"Setting for key [%@] has been removed.", aKey);
 
-    // TODO: remove casting when AppCode finally supports this
-    [(NSOrderedSet *)delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYUserSettingsDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
+    [delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYUserSettingsDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
         if ([aObject respondsToSelector:@selector(userSettings:didRemoveSettingForKey:)]) {
             [aObject userSettings:self didRemoveSettingForKey:aKey];
         }
@@ -81,8 +79,7 @@
 
     PNYLogVerbose(@"User settings have been saved.");
 
-    // TODO: remove casting when AppCode finally supports this
-    [(NSOrderedSet *)delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYUserSettingsDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
+    [delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYUserSettingsDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
         if ([aObject respondsToSelector:@selector(userSettingsDidSave:)]) {
             [aObject userSettingsDidSave:self];
         }
@@ -103,8 +100,7 @@
 
     PNYLogVerbose(@"User settings have been cleared.");
 
-    // TODO: remove casting when AppCode finally supports this
-    [(NSOrderedSet *)delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYUserSettingsDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
+    [delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYUserSettingsDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
         if ([aObject respondsToSelector:@selector(userSettingsDidClear:)]) {
             [aObject userSettingsDidClear:self];
         }

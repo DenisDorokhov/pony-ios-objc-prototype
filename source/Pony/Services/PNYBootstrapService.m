@@ -24,6 +24,8 @@
 
     if (!isBootstrapping) {
 
+        PNYLogInfo(@"Bootstrapping...");
+
         isBootstrapping = YES;
 
         [self.delegate bootstrapServiceDidStartBootstrap:self];
@@ -32,9 +34,13 @@
 
         if (reachabilityManager.networkReachabilityStatus == AFNetworkReachabilityStatusUnknown) {
 
+            PNYLogDebug(@"Waiting for network status...");
+
             __weak AFNetworkReachabilityManager *weakReachabilityManager = reachabilityManager;
 
             [reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+
+                PNYLogDebug(@"Network status updated.");
 
                 [self doBootstrap];
 
@@ -53,6 +59,8 @@
 
 - (void)clearBootstrapData
 {
+    PNYLogInfo(@"Clearing bootstrap data.");
+
     [self.authenticationService logoutWithSuccess:nil failure:nil];
     [self.restServiceUrlDao removeUrl];
 }
@@ -101,20 +109,15 @@
 
 - (void)validateAuthentication
 {
-    [self.authenticationService authenticateWithSuccess:^(PNYUserDto *aUser) {
+    [self.authenticationService updateStatusWithSuccess:^(PNYUserDto *aUser) {
 
         isBootstrapping = NO;
 
-        if (aUser != nil) {
-            [self propagateDidFinishBootstrap];
-        } else {
-            [self.delegate bootstrapServiceDidRequireAuthentication:self];
-        }
+        [self propagateDidFinishBootstrap];
+
     }                                           failure:^(NSArray *aErrors) {
 
         isBootstrapping = NO;
-
-        PNYLogError(@"Could not authenticate: %@.", aErrors);
 
         if ([PNYErrorDto fetchErrorFromArray:aErrors withCodes:@[PNYErrorDtoCodeAccessDenied]]) {
             [self.delegate bootstrapServiceDidRequireAuthentication:self];

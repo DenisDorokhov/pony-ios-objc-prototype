@@ -39,9 +39,6 @@ typedef void (^PNYAuthenticationServiceFailureBlock)(NSArray *aErrors);
 - (void)addDelegate:(id <PNYAuthenticationServiceDelegate>)aDelegate;
 - (void)removeDelegate:(id <PNYAuthenticationServiceDelegate>)aDelegate;
 
-- (void)authenticateWithSuccess:(PNYAuthenticationServiceSuccessBlock)aSuccess
-        failure:(PNYAuthenticationServiceFailureBlock)aFailure;
-
 - (void)authenticateWithCredentials:(PNYCredentialsDto *)aCredentials
                             success:(PNYAuthenticationServiceSuccessBlock)aSuccess
                             failure:(PNYAuthenticationServiceFailureBlock)aFailure;

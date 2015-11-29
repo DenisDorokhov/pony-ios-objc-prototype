@@ -12,12 +12,15 @@
 @implementation PNYAuthenticationService
 {
 @private
+
     NSMutableOrderedSet *delegates;
-    BOOL isRefreshingToken;
+
+    id <PNYRestRequest> authenticationRequest;
+    id <PNYRestRequest> updateStatusRequest;
+    id <PNYRestRequest> refreshTokenRequest;
 }
 
-static const NSTimeInterval STATUS_UPDATE_INTERVAL = 60;
-static const NSTimeInterval ACCESS_TOKEN_EXPIRATION_CHECK_INTERVAL = 15;
+static const NSTimeInterval ACCESS_TOKEN_EXPIRATION_CHECK_INTERVAL = 10;
 static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
 
 - (instancetype)init
@@ -27,8 +30,7 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
 
         delegates = [NSMutableOrderedSet orderedSet];
 
-        [self scheduleStatusUpdate];
-        [self scheduleAccessTokenExpirationCheck];
+        [self scheduleCheckAccessTokenExpiration];
     }
     return self;
 }
@@ -50,52 +52,6 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
     return self.currentUser != nil;
 }
 
-- (void)authenticateWithSuccess:(PNYAuthenticationServiceSuccessBlock)aSuccess
-                        failure:(PNYAuthenticationServiceFailureBlock)aFailure
-{
-    PNYAssert(self.tokenPairDao != nil);
-    PNYAssert(self.restService != nil);
-
-    if (self.authenticated) {
-
-        PNYLogWarn(@"User [%@] is already authenticated.", self.currentUser.email);
-
-        if (aSuccess != nil) {
-            aSuccess(self.currentUser);
-        }
-
-        return;
-    }
-
-    PNYTokenPair *tokenPair = [self.tokenPairDao fetchTokenPair];
-
-    if (tokenPair != nil) {
-
-        [self updateStatusWithSuccess:^(PNYUserDto *aUser) {
-
-            if (aSuccess != nil) {
-                aSuccess(aUser);
-            }
-            [self propagateAuthentication:aUser];
-
-            [self checkAccessTokenExpirationWithBlock:nil];
-
-        }                     failure:^(NSArray *aErrors) {
-            if (aFailure != nil) {
-                aFailure(aErrors);
-            }
-        }];
-
-    } else {
-
-        PNYLogInfo(@"User is not authenticated.");
-
-        if (aSuccess != nil) {
-            aSuccess(nil);
-        }
-    }
-}
-
 - (void)authenticateWithCredentials:(PNYCredentialsDto *)aCredentials
                             success:(PNYAuthenticationServiceSuccessBlock)aSuccess
                             failure:(PNYAuthenticationServiceFailureBlock)aFailure
@@ -111,9 +67,18 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
 
     PNYLogInfo(@"Authenticating user [%@]...", aCredentials.email);
 
-    [self.restService authenticateWithCredentials:aCredentials success:^(PNYAuthenticationDto *aAuthentication) {
+    [updateStatusRequest cancel];
+    updateStatusRequest = nil;
+
+    [refreshTokenRequest cancel];
+    refreshTokenRequest = nil;
+
+    [authenticationRequest cancel];
+    authenticationRequest = [self.restService authenticateWithCredentials:aCredentials success:^(PNYAuthenticationDto *aAuthentication) {
 
         [self updateAuthentication:aAuthentication];
+
+        authenticationRequest = nil;
 
         PNYLogInfo(@"User [%@] has authenticated.", aAuthentication.user.email);
 
@@ -123,6 +88,8 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
         [self propagateAuthentication:aAuthentication.user];
 
     }                                     failure:^(NSArray *aErrors) {
+
+        authenticationRequest = nil;
 
         PNYLogInfo(@"Authentication failed for user [%@]: %@", aCredentials.email, aErrors);
 
@@ -135,60 +102,85 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
 - (void)updateStatusWithSuccess:(PNYAuthenticationServiceSuccessBlock)aSuccess
                         failure:(PNYAuthenticationServiceFailureBlock)aFailure
 {
+    PNYAssert(self.tokenPairDao != nil);
     PNYAssert(self.restService != nil);
 
-    PNYLogDebug(@"Updating authentication status...");
+    PNYTokenPair *tokenPair = [self.tokenPairDao fetchTokenPair];
 
-    [self.restService getCurrentUserWithSuccess:^(PNYUserDto *aUser) {
+    if (tokenPair != nil) {
 
-        _currentUser = aUser;
+        PNYLogInfo(@"Updating authentication status...");
 
-        PNYLogDebug(@"User [%@] is authenticated.", aUser.email);
+        [authenticationRequest cancel];
+        authenticationRequest = nil;
 
-        if (aSuccess != nil) {
-            aSuccess(aUser);
-        }
-        [self propagateStatusUpdate:aUser];
+        [updateStatusRequest cancel];
+        updateStatusRequest = [self.restService getCurrentUserWithSuccess:^(PNYUserDto *aUser) {
 
-    }                                   failure:^(NSArray *aErrors) {
+            _currentUser = aUser;
 
-        if ([PNYErrorDto fetchErrorFromArray:aErrors withCodes:@[PNYErrorDtoCodeClientRequestFailed, PNYErrorDtoCodeClientOffline]] != nil) {
+            updateStatusRequest = nil;
 
-            PNYLogError(@"Could not update authentication status (client error): %@.", aErrors);
+            PNYLogInfo(@"User [%@] is authenticated.", aUser.email);
 
-            if (aFailure != nil) {
-                aFailure(aErrors);
+            if (aSuccess != nil) {
+                aSuccess(aUser);
             }
+            [self propagateStatusUpdate:aUser];
 
-        } else if ([PNYErrorDto fetchErrorFromArray:aErrors withCodes:@[PNYErrorDtoCodeAccessDenied]]) {
+        }                                                         failure:^(NSArray *aErrors) {
 
-            if (self.authenticated && !isRefreshingToken) {
+            updateStatusRequest = nil;
 
-                [self refreshTokenWithSuccess:^(PNYAuthenticationDto *aAuthentication) {
-                    if (aSuccess != nil) {
-                        aSuccess(aAuthentication.user);
-                    }
-                }                     failure:^(NSArray *aRefreshTokenErrors) {
+            if ([PNYErrorDto fetchErrorFromArray:aErrors withCodes:@[PNYErrorDtoCodeClientRequestFailed, PNYErrorDtoCodeClientOffline]] != nil) {
+
+                PNYLogError(@"Could not update authentication status (client error): %@.", aErrors);
+
+                if (aFailure != nil) {
+                    aFailure(aErrors);
+                }
+
+            } else if ([PNYErrorDto fetchErrorFromArray:aErrors withCodes:@[PNYErrorDtoCodeAccessDenied]]) {
+
+                if (refreshTokenRequest == nil) {
+
+                    PNYLogInfo(@"Could not update authentication status, access is denied, trying to refresh token...");
+
+                    [self refreshTokenWithSuccess:^(PNYAuthenticationDto *aAuthentication) {
+                        if (aSuccess != nil) {
+                            aSuccess(aAuthentication.user);
+                        }
+                    }                     failure:^(NSArray *aRefreshTokenErrors) {
+                        if (aFailure != nil) {
+                            aFailure(aErrors);
+                        }
+                    }];
+
+                } else {
                     if (aFailure != nil) {
                         aFailure(aErrors);
                     }
-                }];
+                }
 
             } else {
+
+                PNYLogError(@"Could not update authentication status (server error): %@.", aErrors);
+
                 if (aFailure != nil) {
                     aFailure(aErrors);
                 }
             }
+        }];
 
-        } else {
+    } else {
 
-            PNYLogError(@"Could not update authentication status (server error): %@.", aErrors);
+        PNYLogInfo(@"Skipping status update: no token found.");
 
-            if (aFailure != nil) {
-                aFailure(aErrors);
-            }
+        if (aFailure != nil) {
+            aFailure(@[[PNYErrorDto errorWithCode:PNYErrorDtoCodeAccessDenied
+                                             text:@"Access denied." arguments:nil]]);
         }
-    }];
+    }
 }
 
 - (void)logoutWithSuccess:(PNYAuthenticationServiceSuccessBlock)aSuccess
@@ -196,18 +188,23 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
 {
     PNYAssert(self.restService != nil);
 
+    [authenticationRequest cancel];
+    authenticationRequest = nil;
+
+    [updateStatusRequest cancel];
+    updateStatusRequest = nil;
+
+    [refreshTokenRequest cancel];
+    refreshTokenRequest = nil;
+
     if (self.currentUser != nil) {
 
         PNYLogInfo(@"Logging out user [%@]...", self.currentUser.email);
 
         [self.restService logoutWithSuccess:^(PNYUserDto *aUser) {
-
-            PNYLogInfo(@"User [%@] has logged out.", aUser.email);
-
             if (aSuccess != nil) {
                 aSuccess(aUser);
             }
-
         }                           failure:^(NSArray *aErrors) {
 
             PNYLogError(@"Could not log out: %@.", aErrors);
@@ -216,9 +213,10 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
                 aFailure(aErrors);
             }
         }];
+
     } else {
 
-        PNYLogInfo(@"Could not log out: user is not authenticated.");
+        PNYLogInfo(@"Skipping log out: user is not authenticated.");
 
         if (aFailure != nil) {
             aFailure(@[[PNYErrorDto errorWithCode:PNYErrorDtoCodeAccessDenied
@@ -230,6 +228,9 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
 
     [self clearAuthentication];
     if (lastUser != nil) {
+
+        PNYLogInfo(@"User [%@] has logged out.", lastUser.email);
+
         [self propagateLogOut:lastUser];
     }
 }
@@ -267,19 +268,18 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
 {
     PNYAssert(self.tokenPairDao != nil);
 
-    PNYLogInfo(@"Refreshing access token...");
-
     PNYTokenPair *tokenPair = [self.tokenPairDao fetchTokenPair];
 
     if (tokenPair != nil) {
 
-        isRefreshingToken = YES;
+        PNYLogInfo(@"Refreshing access token...");
 
-        [self.restService refreshTokenWithSuccess:^(PNYAuthenticationDto *aAuthentication) {
+        [refreshTokenRequest cancel];
+        refreshTokenRequest = [self.restService refreshTokenWithSuccess:^(PNYAuthenticationDto *aAuthentication) {
 
             [self updateAuthentication:aAuthentication];
 
-            isRefreshingToken = NO;
+            refreshTokenRequest = nil;
 
             PNYLogInfo(@"Token for user [%@] has been refreshed.", aAuthentication.user.email);
 
@@ -289,7 +289,7 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
 
         }                                 failure:^(NSArray *aErrors) {
 
-            isRefreshingToken = NO;
+            refreshTokenRequest = nil;
 
             PNYLogError(@"Could not refresh token: %@", aErrors);
 
@@ -310,7 +310,7 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
 
     } else {
 
-        PNYLogError(@"Could not refresh token: no token found.");
+        PNYLogInfo(@"Skipping token refresh: no token found.");
 
         if (aFailure != nil) {
             aFailure(@[[PNYErrorDto errorWithCode:PNYErrorDtoCodeAccessDenied
@@ -325,8 +325,8 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
 
     PNYTokenPair *tokenPair = [self.tokenPairDao fetchTokenPair];
 
-    if (!isRefreshingToken && tokenPair != nil &&
-            [tokenPair.accessTokenExpiration timeIntervalSinceNow] <= REFRESH_TOKEN_TIME_BEFORE_EXPIRATION) {
+    if (refreshTokenRequest == nil && authenticationRequest == nil &&
+            tokenPair != nil && [tokenPair.accessTokenExpiration timeIntervalSinceNow] <= REFRESH_TOKEN_TIME_BEFORE_EXPIRATION) {
 
         [self refreshTokenWithSuccess:^(PNYAuthenticationDto *aAuthentication) {
             if (aCompletion != nil) {
@@ -345,42 +345,24 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
     }
 }
 
-- (void)scheduleAccessTokenExpirationCheck
+- (void)scheduleCheckAccessTokenExpiration
 {
     __weak typeof(self) weakSelf = self;
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(ACCESS_TOKEN_EXPIRATION_CHECK_INTERVAL * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (weakSelf.authenticated) {
             [weakSelf checkAccessTokenExpirationWithBlock:^{
-                [self scheduleAccessTokenExpirationCheck];
+                [self scheduleCheckAccessTokenExpiration];
             }];
         } else {
-            [self scheduleAccessTokenExpirationCheck];
-        }
-    });
-}
-
-- (void)scheduleStatusUpdate
-{
-    __weak typeof(self) weakSelf = self;
-
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(STATUS_UPDATE_INTERVAL * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (weakSelf.authenticated) {
-            [weakSelf updateStatusWithSuccess:^(PNYUserDto *aUser) {
-                [weakSelf scheduleStatusUpdate];
-            }                         failure:^(NSArray *aErrors) {
-                [weakSelf scheduleStatusUpdate];
-            }];
-        } else {
-            [weakSelf scheduleStatusUpdate];
+            [self scheduleCheckAccessTokenExpiration];
         }
     });
 }
 
 - (void)propagateAuthentication:(PNYUserDto *)aUser
 {
-    // TODO: remove casting when AppCode finally supports this
-    [(NSOrderedSet *)delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYAuthenticationServiceDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
+    [delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYAuthenticationServiceDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
         if ([aObject respondsToSelector:@selector(authenticationService:didAuthenticateWithUser:)]) {
             [aObject authenticationService:self didAuthenticateWithUser:aUser];
         }
@@ -389,8 +371,7 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
 
 - (void)propagateStatusUpdate:(PNYUserDto *)aUser
 {
-    // TODO: remove casting when AppCode finally supports this
-    [(NSOrderedSet *)delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYAuthenticationServiceDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
+    [delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYAuthenticationServiceDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
         if ([aObject respondsToSelector:@selector(authenticationService:didUpdateStatusWithUser:)]) {
             [aObject authenticationService:self didUpdateStatusWithUser:aUser];
         }
@@ -399,8 +380,7 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
 
 - (void)propagateLogOut:(PNYUserDto *)aUser
 {
-    // TODO: remove casting when AppCode finally supports this
-    [(NSOrderedSet *)delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYAuthenticationServiceDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
+    [delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYAuthenticationServiceDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
         if ([aObject respondsToSelector:@selector(authenticationService:didLogOutWithUser:)]) {
             [aObject authenticationService:self didLogOutWithUser:aUser];
         }

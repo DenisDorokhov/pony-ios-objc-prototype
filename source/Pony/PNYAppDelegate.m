@@ -13,6 +13,8 @@
 
 @implementation PNYAppDelegate
 
+#pragma mark - <UIApplicationDelegate>
+
 - (BOOL)application:(UIApplication *)aApplication didFinishLaunchingWithOptions:(NSDictionary *)aLaunchOptions
 {
     [self setupTyphoon];
@@ -31,6 +33,21 @@
     [self.window makeKeyAndVisible];
 
     return YES;
+}
+
+- (void)applicationWillResignActive:(UIApplication *)application
+{
+    PNYLogInfo(@"Application paused.");
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    PNYLogInfo(@"Application became active.");
+}
+
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
+{
+    PNYLogInfo(@"Application received memory warning.");
 }
 
 #pragma mark - Private
