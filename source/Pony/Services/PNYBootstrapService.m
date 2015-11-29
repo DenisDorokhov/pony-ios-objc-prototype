@@ -120,7 +120,11 @@
         isBootstrapping = NO;
 
         if ([PNYErrorDto fetchErrorFromArray:aErrors withCodes:@[PNYErrorDtoCodeAccessDenied]]) {
+
+            PNYLogInfo(@"Bootstrapping requires authentication.");
+
             [self.delegate bootstrapServiceDidRequireAuthentication:self];
+
         } else {
             [self.delegate bootstrapService:self didFailWithErrors:aErrors];
         }
