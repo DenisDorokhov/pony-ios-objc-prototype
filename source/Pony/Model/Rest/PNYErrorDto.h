@@ -6,6 +6,7 @@
 #import <EasyMapping/EKMappingProtocol.h>
 
 static NSString *const PNYErrorDtoCodeClientRequestFailed = @"errorClientRequestFailed";
+static NSString *const PNYErrorDtoCodeClientRequestCancelled = @"errorClientRequestCancelled";
 static NSString *const PNYErrorDtoCodeClientOffline = @"errorClientOffline";
 static NSString *const PNYErrorDtoCodeInvalidContentType = @"errorInvalidContentType";
 static NSString *const PNYErrorDtoCodeInvalidRequest = @"errorInvalidRequest";

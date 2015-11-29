@@ -262,6 +262,10 @@
             return @[[PNYErrorDto errorWithCode:PNYErrorDtoCodeClientOffline
                                            text:@"Could not make server request. Are you online?"
                                       arguments:nil]];
+        } else if (aError.code == NSURLErrorCancelled) {
+            return @[[PNYErrorDto errorWithCode:PNYErrorDtoCodeClientRequestCancelled
+                                           text:@"Server request has been cancelled."
+                                      arguments:nil]];
         }
     }
 

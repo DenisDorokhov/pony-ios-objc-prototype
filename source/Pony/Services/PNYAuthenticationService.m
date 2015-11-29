@@ -132,7 +132,10 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
 
             updateStatusRequest = nil;
 
-            if ([PNYErrorDto fetchErrorFromArray:aErrors withCodes:@[PNYErrorDtoCodeClientRequestFailed, PNYErrorDtoCodeClientOffline]] != nil) {
+            if ([PNYErrorDto fetchErrorFromArray:aErrors withCodes:@[
+                    PNYErrorDtoCodeClientRequestFailed,
+                    PNYErrorDtoCodeClientRequestCancelled,
+                    PNYErrorDtoCodeClientOffline]] != nil) {
 
                 PNYLogError(@"Could not update authentication status (client error): %@.", aErrors);
 
