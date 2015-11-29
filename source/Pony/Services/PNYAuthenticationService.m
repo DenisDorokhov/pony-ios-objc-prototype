@@ -180,8 +180,7 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
         PNYLogInfo(@"Skipping status update: no token found.");
 
         if (aFailure != nil) {
-            aFailure(@[[PNYErrorDto errorWithCode:PNYErrorDtoCodeAccessDenied
-                                             text:@"Access denied." arguments:nil]]);
+            aFailure(@[[PNYErrorDtoFactory createErrorAccessDenied]]);
         }
     }
 }
@@ -222,8 +221,7 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
         PNYLogInfo(@"Skipping log out: user is not authenticated.");
 
         if (aFailure != nil) {
-            aFailure(@[[PNYErrorDto errorWithCode:PNYErrorDtoCodeAccessDenied
-                                             text:@"Access denied." arguments:nil]]);
+            aFailure(@[[PNYErrorDtoFactory createErrorAccessDenied]]);
         }
     }
 
@@ -316,8 +314,7 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
         PNYLogInfo(@"Skipping token refresh: no token found.");
 
         if (aFailure != nil) {
-            aFailure(@[[PNYErrorDto errorWithCode:PNYErrorDtoCodeAccessDenied
-                                             text:@"Access denied." arguments:nil]]);
+            aFailure(@[[PNYErrorDtoFactory createErrorAccessDenied]]);
         }
     }
 }

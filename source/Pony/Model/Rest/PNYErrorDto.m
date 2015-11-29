@@ -7,9 +7,19 @@
 
 @implementation PNYErrorDto
 
++ (instancetype)errorWithCode:(NSString *)aCode text:(NSString *)aText
+{
+    return [[self alloc] initWithCode:aCode text:aText];
+}
+
 + (instancetype)errorWithCode:(NSString *)aCode text:(NSString *)aText arguments:(NSArray *)aArguments
 {
     return [[self alloc] initWithCode:aCode text:aText arguments:aArguments];
+}
+
+- (instancetype)initWithCode:(NSString *)aCode text:(NSString *)aText
+{
+    return [self initWithCode:aCode text:aText arguments:nil];
 }
 
 - (instancetype)initWithCode:(NSString *)aCode text:(NSString *)aText arguments:(NSArray *)aArguments
@@ -67,6 +77,28 @@
     [description appendFormat:@", arguments=%@", self.arguments];
     [description appendString:@">"];
     return description;
+}
+
+@end
+
+@implementation PNYErrorDtoFactory
+
++ (PNYErrorDto *)createErrorClientOffline
+{
+    return [PNYErrorDto errorWithCode:PNYErrorDtoCodeClientOffline
+                                 text:@"Could not make server request. Are you online?"];
+}
+
++ (PNYErrorDto *)createErrorClientRequestCancelled
+{
+    return [PNYErrorDto errorWithCode:PNYErrorDtoCodeClientRequestCancelled
+                                 text:@"Client request has been cancelled."];
+}
+
++ (PNYErrorDto *)createErrorAccessDenied
+{
+    return [PNYErrorDto errorWithCode:PNYErrorDtoCodeAccessDenied
+                                 text:@"Access denied."];
 }
 
 @end

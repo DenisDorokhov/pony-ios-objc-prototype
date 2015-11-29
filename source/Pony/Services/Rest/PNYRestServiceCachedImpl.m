@@ -281,8 +281,7 @@ static NSString *const KEY_IMAGES = @"images:%@";
                     }
                 } else {
                     if (aFailure != nil) {
-                        aFailure(@[[PNYErrorDto errorWithCode:PNYErrorDtoCodeClientRequestCancelled
-                                                         text:@"Server request has been cancelled." arguments:nil]]);
+                        aFailure(@[[PNYErrorDtoFactory createErrorClientRequestCancelled]]);
                     }
                 }
             }];

@@ -303,13 +303,9 @@
 {
     if ([aError.domain isEqualToString:NSURLErrorDomain]) {
         if (aError.code == NSURLErrorNotConnectedToInternet) {
-            return @[[PNYErrorDto errorWithCode:PNYErrorDtoCodeClientOffline
-                                           text:@"Could not make server request. Are you online?"
-                                      arguments:nil]];
+            return @[[PNYErrorDtoFactory createErrorClientOffline]];
         } else if (aError.code == NSURLErrorCancelled) {
-            return @[[PNYErrorDto errorWithCode:PNYErrorDtoCodeClientRequestCancelled
-                                           text:@"Server request has been cancelled."
-                                      arguments:nil]];
+            return @[[PNYErrorDtoFactory createErrorClientRequestCancelled]];
         }
     }
 

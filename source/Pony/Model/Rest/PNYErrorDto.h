@@ -38,12 +38,22 @@ static NSString *const PNYErrorDtoCodeSongsCountInvalid = @"errorSongsCountInval
 
 @property NSArray *arguments;
 
++ (instancetype)errorWithCode:(NSString *)aCode text:(NSString *)aText;
 + (instancetype)errorWithCode:(NSString *)aCode text:(NSString *)aText arguments:(NSArray *)aArguments;
 
+- (instancetype)initWithCode:(NSString *)aCode text:(NSString *)aText;
 - (instancetype)initWithCode:(NSString *)aCode text:(NSString *)aText arguments:(NSArray *)aArguments;
 
 + (NSArray *)fetchArrayOfErrorsFromArray:(NSArray *)aErrors withCodes:(NSArray *)aCodes;
 
 + (PNYErrorDto *)fetchErrorFromArray:(NSArray *)aErrors withCodes:(NSArray *)aCodes;
+
+@end
+
+@interface PNYErrorDtoFactory : NSObject
+
++ (PNYErrorDto *)createErrorClientOffline;
++ (PNYErrorDto *)createErrorClientRequestCancelled;
++ (PNYErrorDto *)createErrorAccessDenied;
 
 @end
