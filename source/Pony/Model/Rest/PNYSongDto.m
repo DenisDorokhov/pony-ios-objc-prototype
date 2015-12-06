@@ -15,7 +15,7 @@
 {
     EKObjectMapping *mapping = [super objectMapping];
 
-    [mapping mapPropertiesFromArray:@[@"url", @"duration", @"discNumber", @"trackNumber", @"artistName", @"name"]];
+    [mapping mapPropertiesFromArray:@[@"url", @"size", @"duration", @"discNumber", @"trackNumber", @"artistName", @"name"]];
 
     [mapping mapKeyPath:@"updateDate" toProperty:@"updateDate" withValueBlock:^(NSString *aKey, NSNumber *aValue) {
         return [PNYDtoUtils timestampToDate:aValue];

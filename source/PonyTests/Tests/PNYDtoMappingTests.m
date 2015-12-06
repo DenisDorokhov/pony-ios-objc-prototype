@@ -191,6 +191,7 @@
             @"id" : @1,
             @"updateDate" : @333333,
             @"url" : @"songUrl",
+            @"size" : @123456,
             @"duration" : @1,
             @"discNumber" : @2,
             @"trackNumber" : @3,
@@ -294,6 +295,7 @@
     assertThat(aDto.id, equalTo(@1));
     assertThat(aDto.updateDate, equalTo([NSDate dateWithTimeIntervalSince1970:333333]));
     assertThat(aDto.url, equalTo(@"songUrl"));
+    assertThat(aDto.size, equalTo(@123456));
     assertThat(aDto.duration, equalTo(@1));
     assertThat(aDto.discNumber, equalTo(@2));
     assertThat(aDto.trackNumber, equalTo(@3));

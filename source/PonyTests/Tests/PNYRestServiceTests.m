@@ -398,6 +398,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
 
     assertThat(aSong.id, notNilValue());
     assertThat(aSong.url, notNilValue());
+    assertThat(aSong.size, notNilValue());
     assertThat(aSong.duration, notNilValue());
     assertThat(aSong.trackNumber, notNilValue());
     assertThat(aSong.artistName, notNilValue());

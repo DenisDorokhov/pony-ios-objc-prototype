@@ -57,7 +57,7 @@
     NSMutableDictionary *songIdToTask; // NSNumber -> PNYSongDownloadServiceTask
 }
 
-static NSString *const KEY_SONG_DOWNLOAD = @"PNYSongDownloadService.songDownload";
+static NSString *const KEY_SONG_DOWNLOADS = @"PNYSongDownloadService.songDownload";
 
 static NSString *const KEY_SONG_ID = @"songId";
 static NSString *const KEY_FILE_PATH = @"filePath";
@@ -100,7 +100,7 @@ static NSString *const KEY_DATE = @"date";
 {
     PNYAssert(self.persistentDictionary != nil);
 
-    PNYSongDownloadImpl *songDownload = [self songDownloadFromDictionary:self.persistentDictionary.data[KEY_SONG_DOWNLOAD][aSongId]];
+    PNYSongDownloadImpl *songDownload = [self songDownloadFromDictionary:self.persistentDictionary.data[KEY_SONG_DOWNLOADS][aSongId]];
 
     songDownload.filePath = [[self folderPath] stringByAppendingPathComponent:songDownload.filePath];
 
@@ -130,25 +130,24 @@ static NSString *const KEY_DATE = @"date";
     task.filePath = [PNYFileUtils createTemporaryFile];
 
     task.request = [self.restService downloadSongWithId:task.songId toFile:task.filePath progress:^(float aValue) {
-
-        PNYLogVerbose(@"Song [%@] download progress [%f].", task.songId, aValue);
-
         [self progressSongDownload:task.songId value:aValue];
-
     }                                           success:^{
-
         PNYLogDebug(@"Song [%@] file downloaded to [%@].", task.songId, task.filePath);
-
         [self finishSongDownload:task.songId];
-
     }                                           failure:^(NSArray *aErrors) {
-        [self failSongDownload:task.songId errors:aErrors];
+        if ([PNYErrorDto fetchErrorFromArray:aErrors withCodes:@[PNYErrorDtoCodeClientRequestCancelled]] == nil) {
+            [self failSongDownload:task.songId errors:aErrors];
+        }
     }];
 
-    PNYLogInfo(@"Song [%@] download started.", aSongId);
+    songIdToTask[task.songId] = task;
+
+    PNYLogInfo(@"Song [%@] download started.", task.songId);
 
     [delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYSongDownloadServiceDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
-        [aObject songDownloadService:self didStartSongDownload:aSongId];
+        if ([aObject respondsToSelector:@selector(songDownloadService:didStartSongDownload:)]) {
+            [aObject songDownloadService:self didStartSongDownload:task.songId];
+        }
     }];
 }
 
@@ -188,7 +187,9 @@ static NSString *const KEY_DATE = @"date";
         [self clearRuntimeDataForSong:aSongId];
 
         [delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYSongDownloadServiceDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
-            [aObject songDownloadService:self didCancelSongDownload:aSongId];
+            if ([aObject respondsToSelector:@selector(songDownloadService:didCancelSongDownload:)]) {
+                [aObject songDownloadService:self didCancelSongDownload:aSongId];
+            }
         }];
     }
 }
@@ -200,7 +201,9 @@ static NSString *const KEY_DATE = @"date";
     progress.value = aValue;
 
     [delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYSongDownloadServiceDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
-        [aObject songDownloadService:self didProgressSongDownload:progress];
+        if ([aObject respondsToSelector:@selector(songDownloadService:didProgressSongDownload:)]) {
+            [aObject songDownloadService:self didProgressSongDownload:progress];
+        }
     }];
 }
 
@@ -226,7 +229,11 @@ static NSString *const KEY_DATE = @"date";
         songDownload.filePath = aSongId.stringValue;
         songDownload.date = [NSDate date];
 
-        self.persistentDictionary.data[KEY_SONG_DOWNLOAD][aSongId] = [self songDownloadToDictionary:songDownload];
+        NSMutableDictionary *songDownloadsDictionary = self.persistentDictionary.data[KEY_SONG_DOWNLOADS];
+        if (songDownloadsDictionary == nil) {
+            self.persistentDictionary.data[KEY_SONG_DOWNLOADS] = songDownloadsDictionary = [NSMutableDictionary dictionary];
+        }
+        songDownloadsDictionary[aSongId] = [self songDownloadToDictionary:songDownload];
 
         [self.persistentDictionary save];
 
@@ -235,7 +242,9 @@ static NSString *const KEY_DATE = @"date";
         PNYLogInfo(@"Song [%@] download complete.", aSongId);
 
         [delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYSongDownloadServiceDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
-            [aObject songDownloadService:self didCompleteSongDownload:songDownload];
+            if ([aObject respondsToSelector:@selector(songDownloadService:didCompleteSongDownload:)]) {
+                [aObject songDownloadService:self didCompleteSongDownload:songDownload];
+            }
         }];
 
     } else {
@@ -253,7 +262,9 @@ static NSString *const KEY_DATE = @"date";
     PNYLogError(@"Song [%@] download failed: %@", aSongId, aErrors);
 
     [delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYSongDownloadServiceDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
-        [aObject songDownloadService:self didFailSongDownload:aSongId errors:aErrors];
+        if ([aObject respondsToSelector:@selector(songDownloadService:didFailSongDownload:errors:)]) {
+            [aObject songDownloadService:self didFailSongDownload:aSongId errors:aErrors];
+        }
     }];
 }
 

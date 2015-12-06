@@ -13,6 +13,8 @@
 
 @property (nonatomic, strong) NSString *url;
 
+@property (nonatomic, strong) NSNumber *size;
+
 @property (nonatomic, strong) NSNumber *duration;
 @property (nonatomic, strong) NSNumber *discNumber;
 @property (nonatomic, strong) NSNumber *trackNumber;

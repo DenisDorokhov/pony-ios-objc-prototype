@@ -14,6 +14,8 @@
 @implementation PNYUserSettingsTests
 {
 @private
+    PNYUserSettingsImpl *service;
+
     NSString *didCallDidSetKey;
     NSString *didCallDidSetValue;
     NSString *didCallDidRemoveKey;
@@ -22,14 +24,26 @@
     BOOL didCallDidClear;
 }
 
-- (void)testUserSettings
+- (void)setUp
 {
-    PNYUserSettingsImpl *service = [PNYUserSettingsImpl new];
+    [super setUp];
+
+    service = [PNYUserSettingsImpl new];
 
     [service addDelegate:self];
 
     [self reset];
+}
 
+- (void)tearDown
+{
+    [service removeDelegate:self];
+
+    [super tearDown];
+}
+
+- (void)testUserSettings
+{
     [service setSetting:@"someValue" forKey:@"someKey"];
     [service save];
 
