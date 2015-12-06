@@ -18,10 +18,6 @@
 
 @property (nonatomic, weak) id <PNYBootstrapRetryControllerDelegate> delegate;
 
-@property (nonatomic, strong) IBOutlet UILabel *retryLabel;
-@property (nonatomic, strong) IBOutlet UIButton *retryButton;
-@property (nonatomic, strong) IBOutlet UIButton *otherServerButton;
-
 - (IBAction)onRetryButtonTouch;
 - (IBAction)onOtherServerButtonTouch;
 

@@ -45,12 +45,6 @@
     [super viewDidLoad];
 
     PNYAssert(self.authenticationService != nil);
-
-    self.emailLabel.text = PNYLocalized(@"bootstrapLoginConfig_emailLabel");
-    self.passwordLabel.text = PNYLocalized(@"bootstrapLoginConfig_passwordLabel");
-
-    [self.loginButton setTitle:PNYLocalized(@"bootstrapLoginConfig_loginButton") forState:UIControlStateNormal];
-    [self.otherServerButton setTitle:PNYLocalized(@"bootstrapLoginConfig_otherServerButton") forState:UIControlStateNormal];
 }
 
 - (void)activate

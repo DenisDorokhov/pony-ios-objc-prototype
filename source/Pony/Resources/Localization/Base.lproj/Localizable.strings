@@ -6,21 +6,10 @@
 "bootstrapConfig_offlineAlert_title" = "Error";
 "bootstrapConfig_offlineAlert_message" = "Could not connect to server, are you online?";
 
-"bootstrapServerConfig_serverLabel" = "Server:";
-"bootstrapServerConfig_httpsLabel" = "HTTPS:";
-"bootstrapServerConfig_saveButton" = "Save";
 "bootstrapServerConfig_validationAlert_title" = "Error";
 "bootstrapServerConfig_validationAlert_message" = "Server URL is invalid.";
 
-"bootstrapLoginConfig_emailLabel" = "Email:";
-"bootstrapLoginConfig_passwordLabel" = "Password:";
-"bootstrapLoginConfig_loginButton" = "Login";
-"bootstrapLoginConfig_otherServerButton" = "Other server?";
 "bootstrapLoginConfig_validationAlert_title" = "Error";
 "bootstrapLoginConfig_validationAlert_message" = "Credentials are invalid.";
 "bootstrapLoginConfig_credentialsAlert_title" = "Error";
 "bootstrapLoginConfig_credentialsAlert_message" = "Incorrect credentials, please check your email and password.";
-
-"bootstrapRetry_label" = "Server request failed. Please try again.";
-"bootstrapRetry_retryButton" = "Retry";
-"bootstrapRetry_otherServerButton" = "Other server?";

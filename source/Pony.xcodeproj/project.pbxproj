@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2665E0971BF77D6A002A067A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2665E0961BF77D6A002A067A /* Main.storyboard */; };
 		268126DF1BCA781500728EFF /* PNYAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 268126DE1BCA781500728EFF /* PNYAppDelegate.m */; };
 		268797ED1BCA8FDF0050724B /* PNYTestDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39C072125E1E9E864A7CA /* PNYTestDelegate.m */; };
 		26A10E6B1BCA806D00C63AD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26A10E6A1BCA806D00C63AD8 /* Assets.xcassets */; };
-		26A10E731BCA82AC00C63AD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26A10E711BCA82AC00C63AD8 /* LaunchScreen.storyboard */; };
-		26A10E741BCA82AC00C63AD8 /* Bootstrap.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26A10E721BCA82AC00C63AD8 /* Bootstrap.storyboard */; };
 		26A10E781BCA830800C63AD8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 26A10E7A1BCA830800C63AD8 /* Localizable.strings */; };
+		26C428221C146D6500542266 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26C428241C146D6500542266 /* LaunchScreen.storyboard */; };
+		26C428251C146D7300542266 /* Bootstrap.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26C428271C146D7300542266 /* Bootstrap.storyboard */; };
+		26C428281C146D8700542266 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26C4282A1C146D8700542266 /* Main.storyboard */; };
 		497BC14B3AFD619B1D48086C /* Pods_PonyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A2AA0BA5546F10FF43D9C05 /* Pods_PonyTests.framework */; };
 		776BB7EE5590D184E09A544F /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7939B284CFACA2296CE1E2 /* Pods.framework */; };
 		B3D3902286B75DF12386E41C /* PNYErrorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39C0E7A9941EFFC30B786 /* PNYErrorUtils.m */; };
@@ -107,7 +107,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2665E0961BF77D6A002A067A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		268126D71BCA781500728EFF /* Pony.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pony.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		268126DD1BCA781500728EFF /* PNYAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PNYAppDelegate.h; sourceTree = "<group>"; };
 		268126DE1BCA781500728EFF /* PNYAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PNYAppDelegate.m; sourceTree = "<group>"; };
@@ -115,9 +114,10 @@
 		26A10E6A1BCA806D00C63AD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		26A10E6C1BCA807F00C63AD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		26A10E6D1BCA80B200C63AD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		26A10E711BCA82AC00C63AD8 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		26A10E721BCA82AC00C63AD8 /* Bootstrap.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Bootstrap.storyboard; sourceTree = "<group>"; };
 		26A10E791BCA830800C63AD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		26C428231C146D6500542266 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		26C428261C146D7300542266 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Bootstrap.storyboard; sourceTree = "<group>"; };
+		26C428291C146D8700542266 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		50218CE241D7C1D9AE5640D1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		58FF68CD2205C6F16F439131 /* Pods-PonyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PonyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PonyTests/Pods-PonyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6A2AA0BA5546F10FF43D9C05 /* Pods_PonyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PonyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -376,9 +376,9 @@
 		26A10E701BCA82AC00C63AD8 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				26A10E711BCA82AC00C63AD8 /* LaunchScreen.storyboard */,
-				26A10E721BCA82AC00C63AD8 /* Bootstrap.storyboard */,
-				2665E0961BF77D6A002A067A /* Main.storyboard */,
+				26C428241C146D6500542266 /* LaunchScreen.storyboard */,
+				26C428271C146D7300542266 /* Bootstrap.storyboard */,
+				26C4282A1C146D8700542266 /* Main.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -831,11 +831,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2665E0971BF77D6A002A067A /* Main.storyboard in Resources */,
-				26A10E741BCA82AC00C63AD8 /* Bootstrap.storyboard in Resources */,
+				26C428281C146D8700542266 /* Main.storyboard in Resources */,
+				26C428251C146D7300542266 /* Bootstrap.storyboard in Resources */,
 				26A10E781BCA830800C63AD8 /* Localizable.strings in Resources */,
 				26A10E6B1BCA806D00C63AD8 /* Assets.xcassets in Resources */,
-				26A10E731BCA82AC00C63AD8 /* LaunchScreen.storyboard in Resources */,
+				26C428221C146D6500542266 /* LaunchScreen.storyboard in Resources */,
 				B3D39C5ED9582036AE99D520 /* Config.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1053,6 +1053,30 @@
 				26A10E791BCA830800C63AD8 /* Base */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		26C428241C146D6500542266 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				26C428231C146D6500542266 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		26C428271C146D7300542266 /* Bootstrap.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				26C428261C146D7300542266 /* Base */,
+			);
+			name = Bootstrap.storyboard;
+			sourceTree = "<group>";
+		};
+		26C4282A1C146D8700542266 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				26C428291C146D8700542266 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

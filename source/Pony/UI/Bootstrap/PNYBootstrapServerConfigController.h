@@ -12,11 +12,8 @@
 @property (nonatomic, strong) id <PNYRestServiceUrlDao> restServiceUrlDao;
 @property (nonatomic, strong) id <PNYRestServiceCached> restService;
 
-@property (nonatomic, strong) IBOutlet UILabel *serverLabel;
-@property (nonatomic, strong) IBOutlet UILabel *httpsLabel;
 @property (nonatomic, strong) IBOutlet UITextField *serverText;
 @property (nonatomic, strong) IBOutlet UISwitch *httpsSwitch;
-@property (nonatomic, strong) IBOutlet UIButton *saveButton;
 
 - (IBAction)onSaveButtonTouch;
 

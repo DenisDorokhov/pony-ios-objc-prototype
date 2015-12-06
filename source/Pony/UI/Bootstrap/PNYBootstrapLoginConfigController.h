@@ -10,12 +10,8 @@
 
 @property (nonatomic, strong) PNYAuthenticationService *authenticationService;
 
-@property (nonatomic, strong) IBOutlet UILabel *emailLabel;
-@property (nonatomic, strong) IBOutlet UILabel *passwordLabel;
 @property (nonatomic, strong) IBOutlet UITextField *emailText;
 @property (nonatomic, strong) IBOutlet UITextField *passwordText;
-@property (nonatomic, strong) IBOutlet UIButton *loginButton;
-@property (nonatomic, strong) IBOutlet UIButton *otherServerButton;
 
 - (IBAction)onLoginButtonTouch;
 - (IBAction)onOtherServerButtonTouch;

@@ -39,11 +39,6 @@
 
     PNYAssert(self.restServiceUrlDao != nil);
     PNYAssert(self.restService != nil);
-
-    self.serverLabel.text = PNYLocalized(@"bootstrapServerConfig_serverLabel");
-    self.httpsLabel.text = PNYLocalized(@"bootstrapServerConfig_httpsLabel");
-
-    [self.saveButton setTitle:PNYLocalized(@"bootstrapServerConfig_saveButton") forState:UIControlStateNormal];
 }
 
 - (void)activate

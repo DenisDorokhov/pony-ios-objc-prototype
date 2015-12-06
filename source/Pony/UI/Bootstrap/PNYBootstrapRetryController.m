@@ -4,7 +4,6 @@
 //
 
 #import "PNYBootstrapRetryController.h"
-#import "PNYMacros.h"
 
 @implementation PNYBootstrapRetryController
 
@@ -18,18 +17,6 @@
 - (IBAction)onOtherServerButtonTouch
 {
     [self.delegate bootstrapRetryControllerDidRequestOtherServer:self];
-}
-
-#pragma mark - Override
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-
-    self.retryLabel.text = PNYLocalized(@"bootstrapRetry_label");
-
-    [self.retryButton setTitle:PNYLocalized(@"bootstrapRetry_retryButton") forState:UIControlStateNormal];
-    [self.otherServerButton setTitle:PNYLocalized(@"bootstrapRetry_otherServerButton") forState:UIControlStateNormal];
 }
 
 @end
