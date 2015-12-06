@@ -32,6 +32,7 @@
 - (void)songDownloadService:(PNYSongDownloadService *)aService didCancelSongDownload:(NSNumber *)aSongId;
 - (void)songDownloadService:(PNYSongDownloadService *)aService didFailSongDownload:(NSNumber *)aSongId errors:(NSArray *)aErrors;
 - (void)songDownloadService:(PNYSongDownloadService *)aService didCompleteSongDownload:(id <PNYSongDownload>)aSongDownload;
+- (void)songDownloadService:(PNYSongDownloadService *)aService didDeleteSongDownload:(NSNumber *)aSongId;
 
 @end
 
@@ -51,5 +52,7 @@
 - (void)cancelSongDownload:(NSNumber *)aSongId;
 
 - (id <PNYSongDownloadProgress>)progressForSong:(NSNumber *)aSongId;
+
+- (void)deleteSongDownload:(NSNumber *)aSongId;
 
 @end

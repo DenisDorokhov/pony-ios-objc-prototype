@@ -151,11 +151,6 @@ static NSString *const KEY_DATE = @"date";
     }];
 }
 
-- (id <PNYSongDownloadProgress>)progressForSong:(NSNumber *)aSongId
-{
-    return [self taskForSong:aSongId].progress;
-}
-
 - (void)cancelSongDownload:(NSNumber *)aSongId
 {
     if (songIdToTask[aSongId] != nil) {
@@ -166,6 +161,42 @@ static NSString *const KEY_DATE = @"date";
 
     } else {
         PNYLogWarn(@"Could not cancel download of song [%@]: download is not started", aSongId);
+    }
+}
+
+- (id <PNYSongDownloadProgress>)progressForSong:(NSNumber *)aSongId
+{
+    return [self taskForSong:aSongId].progress;
+}
+
+- (void)deleteSongDownload:(NSNumber *)aSongId
+{
+    PNYAssert(self.persistentDictionary != nil);
+
+    id <PNYSongDownload> songDownload = [self songDownload:aSongId];
+
+    if (songDownload != nil) {
+
+        [self.persistentDictionary.data[KEY_SONG_DOWNLOADS] removeObjectForKey:songDownload.songId];
+        [self.persistentDictionary save];
+
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+
+            [[NSFileManager defaultManager] removeItemAtPath:songDownload.filePath error:nil];
+
+            PNYLogDebug(@"Song [%@] file [%@] deleted.", songDownload.songId, songDownload.filePath);
+        });
+
+        PNYLogInfo(@"Song [%@] download deleted.", songDownload.songId);
+
+        [delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYSongDownloadServiceDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
+            if ([aObject respondsToSelector:@selector(songDownloadService:didDeleteSongDownload:)]) {
+                [aObject songDownloadService:self didDeleteSongDownload:songDownload.songId];
+            }
+        }];
+
+    } else {
+        PNYLogWarn(@"Could not delete song [%@]: song download not found.", aSongId);
     }
 }
 

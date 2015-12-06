@@ -24,6 +24,7 @@
     BOOL didCallDidCancelSongDownload;
     BOOL didCallDidFailSongDownload;
     BOOL didCallDidCompleteSongDownload;
+    BOOL didCallDidDeleteSongDownload;
 
     float lastProgressValue;
 
@@ -67,6 +68,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
     didCallDidCancelSongDownload = NO;
     didCallDidFailSongDownload = NO;
     didCallDidCompleteSongDownload = NO;
+    didCallDidDeleteSongDownload = NO;
 
     lastProgressValue = 0;
 
@@ -93,6 +95,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
     assertThatBool(didCallDidCancelSongDownload, isFalse());
     assertThatBool(didCallDidFailSongDownload, isFalse());
     assertThatBool(didCallDidCompleteSongDownload, isTrue());
+    assertThatBool(didCallDidDeleteSongDownload, isFalse());
 
     id <PNYSongDownload> songDownload = [songDownloadService songDownload:downloadingSong.id];
 
@@ -116,6 +119,24 @@ static NSString *const DEMO_PASSWORD = @"demo";
     assertThatBool(didCallDidCancelSongDownload, isTrue());
     assertThatBool(didCallDidFailSongDownload, isFalse());
     assertThatBool(didCallDidCompleteSongDownload, isFalse());
+    assertThatBool(didCallDidDeleteSongDownload, isFalse());
+
+    assertThat([songDownloadService songDownload:downloadingSong.id], nilValue());
+}
+
+- (void)testDeletion
+{
+    songDownloadExpectation = PNYTestExpectationCreate();
+
+    [songDownloadService startSongDownload:downloadingSong.id];
+
+    PNYTestExpectationWait();
+
+    assertThat([songDownloadService songDownload:downloadingSong.id], notNilValue());
+
+    [songDownloadService deleteSongDownload:downloadingSong.id];
+
+    assertThatBool(didCallDidDeleteSongDownload, isTrue());
 
     assertThat([songDownloadService songDownload:downloadingSong.id], nilValue());
 }
@@ -172,6 +193,14 @@ static NSString *const DEMO_PASSWORD = @"demo";
     didCallDidCompleteSongDownload = YES;
 
     [songDownloadExpectation fulfill];
+}
+
+- (void)songDownloadService:(PNYSongDownloadService *)aService didDeleteSongDownload:(NSNumber *)aSongId
+{
+    assertThat(aService, sameInstance(songDownloadService));
+    assertThat(aSongId, equalTo(downloadingSong.id));
+
+    didCallDidDeleteSongDownload = YES;
 }
 
 #pragma mark - Private
