@@ -97,6 +97,8 @@ static NSString *const DEMO_PASSWORD = @"demo";
     assertThatBool(didCallDidCompleteSongDownload, isTrue());
     assertThatBool(didCallDidDeleteSongDownload, isFalse());
 
+    assertThat([songDownloadService progressForSong:downloadingSong.id], nilValue());
+
     id <PNYSongDownload> songDownload = [songDownloadService songDownload:downloadingSong.id];
 
     assertThat(songDownload, notNilValue());
@@ -121,6 +123,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
     assertThatBool(didCallDidCompleteSongDownload, isFalse());
     assertThatBool(didCallDidDeleteSongDownload, isFalse());
 
+    assertThat([songDownloadService progressForSong:downloadingSong.id], nilValue());
     assertThat([songDownloadService songDownload:downloadingSong.id], nilValue());
 }
 

@@ -215,7 +215,7 @@ static NSString *const KEY_DATE = @"date";
 
         [request cancel];
 
-        [self clearRuntimeDataForSong:aSongId];
+        [self clearIntermediateDataForSong:aSongId];
 
         [delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYSongDownloadServiceDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
             if ([aObject respondsToSelector:@selector(songDownloadService:didCancelSongDownload:)]) {
@@ -270,6 +270,8 @@ static NSString *const KEY_DATE = @"date";
 
         songDownload.filePath = destinationPath;
 
+        [self clearIntermediateDataForSong:aSongId];
+
         PNYLogInfo(@"Song [%@] download complete.", aSongId);
 
         [delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYSongDownloadServiceDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
@@ -288,7 +290,7 @@ static NSString *const KEY_DATE = @"date";
 
 - (void)failSongDownload:(NSNumber *)aSongId errors:(NSArray *)aErrors
 {
-    [self clearRuntimeDataForSong:aSongId];
+    [self clearIntermediateDataForSong:aSongId];
 
     PNYLogError(@"Song [%@] download failed: %@", aSongId, aErrors);
 
@@ -299,7 +301,7 @@ static NSString *const KEY_DATE = @"date";
     }];
 }
 
-- (void)clearRuntimeDataForSong:(NSNumber *)aSongId
+- (void)clearIntermediateDataForSong:(NSNumber *)aSongId
 {
     PNYSongDownloadServiceTask *task = [self taskForSong:aSongId];
 
