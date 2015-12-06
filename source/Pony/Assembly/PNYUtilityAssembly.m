@@ -9,9 +9,11 @@
 #import "PNYEventBusImpl.h"
 #import "PNYUserSettingsImpl.h"
 #import "PNYKeychainDictionary.h"
+#import "PNYPersistentDictionaryImpl.h"
 #import <Typhoon/TyphoonFactoryDefinition.h>
 #import <Typhoon/TyphoonDefinition+Infrastructure.h>
 #import <CocoaLumberjack/DDTTYLogger.h>
+#import <Typhoon/TyphoonConfigPostProcessor.h>
 
 #ifdef DEBUG
 NSUInteger ddLogLevel = DDLogLevelVerbose;
@@ -51,7 +53,17 @@ NSUInteger ddLogLevel = DDLogLevelOff;
     }];
 }
 
-- (id <PNYPersistentDictionary>)securedPersistentDictionary
+- (id <PNYPersistentDictionary>)persistentDictionary
+{
+    return [TyphoonDefinition withClass:[PNYPersistentDictionaryImpl class] configuration:^(TyphoonDefinition *aDefinition) {
+        aDefinition.scope = TyphoonScopeLazySingleton;
+        [aDefinition useInitializer:@selector(initWithFilePathInDocuments:) parameters:^(TyphoonMethod *aInitializer) {
+            [aInitializer injectParameterWith:TyphoonConfig(@"persistentDictionary.filePath")];
+        }];
+    }];
+}
+
+- (id <PNYPersistentDictionary>)keychainDictionary
 {
     return [TyphoonDefinition withClass:[PNYKeychainDictionary class] configuration:^(TyphoonDefinition *aDefinition) {
         aDefinition.scope = TyphoonScopeLazySingleton;

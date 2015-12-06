@@ -55,5 +55,6 @@ static NSString *const PNYErrorDtoCodeSongsCountInvalid = @"errorSongsCountInval
 + (PNYErrorDto *)createErrorClientOffline;
 + (PNYErrorDto *)createErrorClientRequestCancelled;
 + (PNYErrorDto *)createErrorAccessDenied;
++ (PNYErrorDto *)createErrorUnexpected;
 
 @end

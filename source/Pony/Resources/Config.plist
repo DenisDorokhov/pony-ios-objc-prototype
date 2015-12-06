@@ -24,6 +24,8 @@
         <key>alpha</key>
         <integer>255</integer>
     </dict>
+    <key>persistentDictionary.filePath</key>
+    <string>pony.plist</string>
     <key>cache.installationFolder</key>
     <string>OfflineData/Installation</string>
     <key>cache.currentUserFolder</key>
@@ -34,5 +36,7 @@
     <string>OfflineData/ArtistAlbums</string>
     <key>cache.imagesFolder</key>
     <string>OfflineData/Images</string>
+    <key>songDownload.folder</key>
+    <string>SongDownloads</string>
 </dict>
 </plist>

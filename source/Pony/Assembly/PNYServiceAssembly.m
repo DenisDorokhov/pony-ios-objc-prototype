@@ -3,6 +3,7 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
+#import <Typhoon/TyphoonConfigPostProcessor.h>
 #import "PNYServiceAssembly.h"
 #import "PNYRestServiceImpl.h"
 #import "PNYTokenPairDaoImpl.h"
@@ -55,6 +56,16 @@
     }];
 }
 
+- (PNYSongDownloadService *)songDownloadService
+{
+    return [TyphoonDefinition withClass:[PNYSongDownloadService class] configuration:^(TyphoonDefinition *aDefinition) {
+        aDefinition.scope = TyphoonScopeLazySingleton;
+        [aDefinition injectProperty:@selector(restService) with:[self restServiceCached]];
+        [aDefinition injectProperty:@selector(persistentDictionary) with:[self.utilityAssembly persistentDictionary]];
+        [aDefinition injectProperty:@selector(folderPathInDocuments) with:TyphoonConfig(@"songDownload.folder")];
+    }];
+}
+
 #pragma mark - Private
 
 - (id <PNYRestService>)restService
@@ -71,7 +82,7 @@
     return [TyphoonDefinition withClass:[PNYTokenPairDaoImpl class] configuration:^(TyphoonDefinition *aDefinition) {
         aDefinition.scope = TyphoonScopeLazySingleton;
         [aDefinition useInitializer:@selector(initWithPersistentDictionary:) parameters:^(TyphoonMethod *aInitializer) {
-            [aInitializer injectParameterWith:[self.utilityAssembly securedPersistentDictionary]];
+            [aInitializer injectParameterWith:[self.utilityAssembly keychainDictionary]];
         }];
     }];
 }

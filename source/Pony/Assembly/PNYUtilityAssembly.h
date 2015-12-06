@@ -17,6 +17,7 @@
 
 - (id <PNYUserSettings>)userSettings;
 
-- (id <PNYPersistentDictionary>)securedPersistentDictionary;
+- (id <PNYPersistentDictionary>)persistentDictionary;
+- (id <PNYPersistentDictionary>)keychainDictionary;
 
 @end

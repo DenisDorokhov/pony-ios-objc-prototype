@@ -101,4 +101,10 @@
                                  text:@"Access denied."];
 }
 
++ (PNYErrorDto *)createErrorUnexpected
+{
+    return [PNYErrorDto errorWithCode:PNYErrorDtoCodeUnexpected
+                                 text:@"Unexpected error occurred."];
+}
+
 @end

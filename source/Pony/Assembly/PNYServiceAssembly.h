@@ -9,6 +9,7 @@
 #import "PNYBootstrapService.h"
 #import "PNYEventBus.h"
 #import "PNYUtilityAssembly.h"
+#import "PNYSongDownloadService.h"
 
 @interface PNYServiceAssembly : TyphoonAssembly
 
@@ -20,5 +21,7 @@
 
 - (PNYBootstrapService *)bootstrapService;
 - (PNYAuthenticationService *)authenticationService;
+
+- (PNYSongDownloadService *)songDownloadService;
 
 @end

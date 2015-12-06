@@ -20,7 +20,7 @@
 
         self.excludeFromBackup = YES;
 
-        [PNYFileUtils createNotExistingDirectory:self.folderPath];
+        [PNYFileUtils createDirectory:self.folderPath];
     }
     return self;
 }

@@ -14,6 +14,8 @@
 @property (nonatomic) BOOL excludeFromBackup;
 
 - (instancetype)initWithFilePath:(NSString *)aFilePath;
+- (instancetype)initWithFilePathInDocuments:(NSString *)aFilePath;
+- (instancetype)initWithFilePathInCache:(NSString *)aFilePath;
 
 + (instancetype)new __unavailable;
 - (instancetype)init __unavailable;

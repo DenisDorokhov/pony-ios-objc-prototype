@@ -5,6 +5,7 @@
 
 #import "PNYPersistentDictionaryImpl.h"
 #import "PNYMacros.h"
+#import "PNYFileUtils.h"
 
 @implementation PNYPersistentDictionaryImpl
 {
@@ -27,6 +28,16 @@
     }
 
     return self;
+}
+
+- (instancetype)initWithFilePathInDocuments:(NSString *)aFilePath
+{
+    return [self initWithFilePath:[PNYFileUtils filePathInDocuments:aFilePath]];
+}
+
+- (instancetype)initWithFilePathInCache:(NSString *)aFilePath
+{
+    return [self initWithFilePath:[PNYFileUtils filePathInCache:aFilePath]];
 }
 
 - (void)dealloc

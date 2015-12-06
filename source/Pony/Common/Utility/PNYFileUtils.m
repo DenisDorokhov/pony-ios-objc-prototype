@@ -16,7 +16,7 @@
 
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 
-        _documentsPath = [self createNotExistingDirectory:paths[0]];
+        _documentsPath = [self createDirectory:paths[0]];
     });
     return _documentsPath;
 }
@@ -29,7 +29,7 @@
 
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
 
-        _cachePath = [self createNotExistingDirectory:paths[0]];
+        _cachePath = [self createDirectory:paths[0]];
     });
     return _cachePath;
 }
@@ -42,7 +42,7 @@
 
         _temporaryPath = [self randomFilePathInPath:NSTemporaryDirectory()];
 
-        [self createNotExistingDirectory:_temporaryPath];
+        [self createDirectory:_temporaryPath];
     });
     return _temporaryPath;
 }
@@ -51,7 +51,7 @@
 {
     NSString *tempPath = [self sessionTemporaryPath];
 
-    [self createNotExistingDirectory:tempPath];
+    [self createDirectory:tempPath];
 
     return [self randomFilePathInPath:tempPath];
 }
@@ -90,7 +90,7 @@
     return [[NSBundle bundleForClass:aClass] pathForResource:aFileName ofType:nil];
 }
 
-+ (NSString *)createNotExistingDirectory:(NSString *)aPath
++ (NSString *)createDirectory:(NSString *)aPath
 {
     if (![[NSFileManager defaultManager] fileExistsAtPath:aPath]) {
         [[NSFileManager defaultManager] createDirectoryAtPath:aPath withIntermediateDirectories:YES
