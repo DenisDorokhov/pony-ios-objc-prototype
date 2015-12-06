@@ -9,6 +9,7 @@
 #import "PNYAlbumSongsDto.h"
 #import "PNYSongDto.h"
 #import "PNYTokenPairDaoMock.h"
+#import "PNYFileUtils.h"
 
 @interface PNYRestServiceTests : PNYTestCase
 {
@@ -214,6 +215,41 @@ static NSString *const DEMO_PASSWORD = @"demo";
     PNYTestExpectationWait();
 
     assertThat(image, notNilValue());
+}
+
+- (void)testDownloadSong
+{
+    PNYArtistAlbumsDto *artistAlbums = [self authenticateAndGetArtistAlbumsSynchronously];
+
+    assertThat(artistAlbums.albums, isNot(isEmpty()));
+
+    PNYAlbumSongsDto *albumSongs = artistAlbums.albums[0];
+
+    PNYSongDto *song = albumSongs.songs[0];
+
+    NSString *filePath = [PNYFileUtils generateTemporaryFilePath];
+
+    __block BOOL isProgressCalled = NO;
+
+    XCTestExpectation *expectation = PNYTestExpectationCreate();
+
+    [service downloadSongWithId:song.id toFile:filePath progress:^(float aValue) {
+        isProgressCalled = YES;
+    }                   success:^{
+        [expectation fulfill];
+    }                   failure:^(NSArray *aErrors) {
+        [self failExpectation:expectation withErrors:aErrors];
+    }];
+
+    PNYTestExpectationWait();
+
+    assertThatBool([[NSFileManager defaultManager] fileExistsAtPath:filePath], isTrue());
+
+    unsigned long long fileSize = [[[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil] fileSize];
+
+    assertThatUnsignedLongLong(fileSize, greaterThan(@0));
+
+    assertThatBool(isProgressCalled, isTrue());
 }
 
 #pragma mark - Private

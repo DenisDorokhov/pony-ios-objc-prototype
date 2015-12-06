@@ -229,6 +229,8 @@
 
     if (error == nil) {
 
+        PNYLogVerbose(@"Running song request: %@.", [urlRequest dump]);
+
         AFURLConnectionOperation *operation = [[AFURLConnectionOperation alloc] initWithRequest:urlRequest];
 
         operation.outputStream = [NSOutputStream outputStreamToFileAtPath:aFilePath append:NO];
