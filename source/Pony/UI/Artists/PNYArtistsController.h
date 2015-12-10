@@ -14,5 +14,6 @@
 @property (nonatomic, strong) PNYErrorService *errorService;
 
 - (IBAction)onLogoutButtonTouch;
+- (IBAction)onRefreshRequested;
 
 @end

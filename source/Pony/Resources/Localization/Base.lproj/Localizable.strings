@@ -16,4 +16,9 @@
 "bootstrapLoginConfig_credentialsAlert_title" = "Error";
 "bootstrapLoginConfig_credentialsAlert_message" = "Incorrect credentials, please check your email and password.";
 
-"artists_unknownArtist" = "Unknown";
+"artists_unknownArtist" = "Unknown Artist";
+
+"albums_noArtistSelected" = "Please select an artist";
+"albums_unknownArtist" = "Unknown Artist";
+"albums_unknownAlbum" = "Unknown Album";
+"albums_unknownSong" = "Unknown Song";

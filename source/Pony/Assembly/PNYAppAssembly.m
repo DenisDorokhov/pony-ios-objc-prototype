@@ -9,6 +9,7 @@
 #import "PNYBootstrapLoginConfigController.h"
 #import "PNYBootstrapServerConfigController.h"
 #import "PNYArtistsController.h"
+#import "PNYAlbumsController.h"
 
 @implementation PNYAppAssembly
 
@@ -18,15 +19,6 @@
 {
     return [TyphoonDefinition withClass:[PNYAppDelegate class] configuration:^(TyphoonDefinition *aDefinition) {
         [aDefinition injectProperty:@selector(config) with:[self.utilityAssembly config]];
-    }];
-}
-
-- (PNYArtistsController *)artistsController
-{
-    return [TyphoonDefinition withClass:[PNYArtistsController class] configuration:^(TyphoonDefinition *aDefinition) {
-        [aDefinition injectProperty:@selector(restService) with:[self.serviceAssembly restServiceCached]];
-        [aDefinition injectProperty:@selector(authenticationService) with:[self.serviceAssembly authenticationService]];
-        [aDefinition injectProperty:@selector(errorService) with:[self.serviceAssembly errorService]];
     }];
 }
 
@@ -49,6 +41,23 @@
 {
     return [TyphoonDefinition withClass:[PNYBootstrapLoginConfigController class] configuration:^(TyphoonDefinition *aDefinition) {
         [aDefinition injectProperty:@selector(authenticationService) with:[self.serviceAssembly authenticationService]];
+    }];
+}
+
+- (PNYArtistsController *)artistsController
+{
+    return [TyphoonDefinition withClass:[PNYArtistsController class] configuration:^(TyphoonDefinition *aDefinition) {
+        [aDefinition injectProperty:@selector(restService) with:[self.serviceAssembly restServiceCached]];
+        [aDefinition injectProperty:@selector(authenticationService) with:[self.serviceAssembly authenticationService]];
+        [aDefinition injectProperty:@selector(errorService) with:[self.serviceAssembly errorService]];
+    }];
+}
+
+- (PNYAlbumsController *)albumsController
+{
+    return [TyphoonDefinition withClass:[PNYAlbumsController class] configuration:^(TyphoonDefinition *aDefinition) {
+        [aDefinition injectProperty:@selector(restService) with:[self.serviceAssembly restServiceCached]];
+        [aDefinition injectProperty:@selector(errorService) with:[self.serviceAssembly errorService]];
     }];
 }
 

@@ -7,11 +7,14 @@
 #import "PNYSegues.h"
 #import "PNYMacros.h"
 #import "PNYArtistCell.h"
+#import "PNYAlbumsController.h"
 
 @implementation PNYArtistsController
 {
 @private
     NSArray *artists;
+
+    PNYArtistDto *selectedArtist;
 }
 
 #pragma mark - Public
@@ -50,6 +53,15 @@
     return artistCell;
 }
 
+#pragma mark - <UITableViewDelegate>
+
+- (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)aIndexPath
+{
+    selectedArtist = artists[(NSUInteger)aIndexPath.row];
+
+    [self performSegueWithIdentifier:PNYSegueArtistsToAlbums sender:self];
+}
+
 #pragma mark - Override
 
 - (void)viewDidLoad
@@ -65,7 +77,9 @@
 {
     [super viewWillAppear:aAnimated];
 
-    [self requestArtists];
+    if (artists == nil) {
+        [self requestArtists];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)aAnimated
@@ -82,6 +96,18 @@
     [self.authenticationService removeDelegate:self];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)aSegue sender:(id)aSender
+{
+    if ([aSegue.identifier isEqualToString:PNYSegueArtistsToAlbums]) {
+
+        UINavigationController *navigationController = aSegue.destinationViewController;
+
+        PNYAlbumsController *albumsController = (PNYAlbumsController *)navigationController.topViewController;
+
+        albumsController.artist = selectedArtist;
+    }
+}
+
 #pragma mark - Private
 
 - (void)requestArtists
@@ -92,12 +118,15 @@
 
         artists = aArtists;
 
+        PNYLogInfo(@"[%lu] artists loaded.", (unsigned long)artists.count);
+
         [self.refreshControl endRefreshing];
         [self.tableView reloadData];
 
-        PNYLogInfo(@"[%lu] artists loaded.", (unsigned long)artists.count);
-
     }                               failure:^(NSArray *aErrors) {
+
+        PNYLogError(@"Could not load artists: %@.", aErrors);
+
         [self.errorService reportErrors:aErrors];
     }];
 }
