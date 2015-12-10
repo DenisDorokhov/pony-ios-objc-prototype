@@ -14,6 +14,6 @@
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
 
-- (IBAction)bootstrapFromMain:(UIStoryboardSegue *)aSegue;
+- (IBAction)unwindBootstrapFromMain:(UIStoryboardSegue *)aSegue;
 
 @end

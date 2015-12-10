@@ -66,6 +66,13 @@
     }];
 }
 
+- (PNYErrorService *)errorService
+{
+    return [TyphoonDefinition withClass:[PNYErrorService class] configuration:^(TyphoonDefinition *aDefinition) {
+        aDefinition.scope = TyphoonScopeLazySingleton;
+    }];
+}
+
 #pragma mark - Private
 
 - (id <PNYRestService>)restService

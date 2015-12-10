@@ -34,7 +34,7 @@
 
 #pragma mark - Public
 
-- (IBAction)bootstrapFromMain:(UIStoryboardSegue *)aSegue
+- (IBAction)unwindBootstrapFromMain:(UIStoryboardSegue *)aSegue
 {
     // Do nothing.
 }

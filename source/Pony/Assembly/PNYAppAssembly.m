@@ -8,7 +8,7 @@
 #import "PNYBootstrapController.h"
 #import "PNYBootstrapLoginConfigController.h"
 #import "PNYBootstrapServerConfigController.h"
-#import "PNYMainController.h"
+#import "PNYArtistsController.h"
 
 @implementation PNYAppAssembly
 
@@ -21,10 +21,12 @@
     }];
 }
 
-- (PNYMainController *)mainController
+- (PNYArtistsController *)artistsController
 {
-    return [TyphoonDefinition withClass:[PNYMainController class] configuration:^(TyphoonDefinition *aDefinition) {
+    return [TyphoonDefinition withClass:[PNYArtistsController class] configuration:^(TyphoonDefinition *aDefinition) {
+        [aDefinition injectProperty:@selector(restService) with:[self.serviceAssembly restServiceCached]];
         [aDefinition injectProperty:@selector(authenticationService) with:[self.serviceAssembly authenticationService]];
+        [aDefinition injectProperty:@selector(errorService) with:[self.serviceAssembly errorService]];
     }];
 }
 

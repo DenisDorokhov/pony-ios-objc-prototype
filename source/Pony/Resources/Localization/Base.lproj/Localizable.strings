@@ -1,6 +1,8 @@
 "alertFactory_buttonOK" = "OK";
 "alertFactory_buttonCancel" = "Cancel";
 
+"errorService_defaultTitle" = "Error";
+
 "bootstrapConfig_connectionAlert_title" = "Error";
 "bootstrapConfig_connectionAlert_message" = "Could not connect to server, please check your server URL.";
 "bootstrapConfig_offlineAlert_title" = "Error";
@@ -13,3 +15,5 @@
 "bootstrapLoginConfig_validationAlert_message" = "Credentials are invalid.";
 "bootstrapLoginConfig_credentialsAlert_title" = "Error";
 "bootstrapLoginConfig_credentialsAlert_message" = "Incorrect credentials, please check your email and password.";
+
+"artists_unknownArtist" = "Unknown";

@@ -10,6 +10,7 @@
 #import "PNYEventBus.h"
 #import "PNYUtilityAssembly.h"
 #import "PNYSongDownloadService.h"
+#import "PNYErrorService.h"
 
 @interface PNYServiceAssembly : TyphoonAssembly
 
@@ -23,5 +24,7 @@
 - (PNYAuthenticationService *)authenticationService;
 
 - (PNYSongDownloadService *)songDownloadService;
+
+- (PNYErrorService *)errorService;
 
 @end
