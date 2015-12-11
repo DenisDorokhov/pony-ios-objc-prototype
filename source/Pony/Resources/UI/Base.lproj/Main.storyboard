@@ -112,13 +112,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jTe-eO-cqv">
-                                            <rect key="frame" x="84" y="13" width="99" height="21"/>
+                                            <rect key="frame" x="84" y="13" width="508" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1986" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GPX-RG-KNM">
-                                            <rect key="frame" x="84" y="42" width="39" height="21"/>
+                                            <rect key="frame" x="84" y="42" width="508" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -134,11 +134,13 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="jTe-eO-cqv" firstAttribute="leading" secondItem="3vg-dz-Ggu" secondAttribute="trailing" constant="8" id="Rx2-Fq-4a8"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="GPX-RG-KNM" secondAttribute="trailing" id="Xno-Sy-Acx"/>
                                         <constraint firstItem="3vg-dz-Ggu" firstAttribute="leading" secondItem="rz9-so-QBp" secondAttribute="leading" constant="16" id="bRe-pw-ExH"/>
                                         <constraint firstItem="GPX-RG-KNM" firstAttribute="leading" secondItem="jTe-eO-cqv" secondAttribute="leading" id="gKx-5w-w1Z"/>
                                         <constraint firstItem="3vg-dz-Ggu" firstAttribute="centerY" secondItem="rz9-so-QBp" secondAttribute="centerY" id="ia1-MY-cAN"/>
                                         <constraint firstItem="jTe-eO-cqv" firstAttribute="top" secondItem="rz9-so-QBp" secondAttribute="topMargin" constant="5" id="jhV-v5-GGk"/>
                                         <constraint firstItem="GPX-RG-KNM" firstAttribute="top" secondItem="jTe-eO-cqv" secondAttribute="bottom" constant="8" id="lSS-kb-wgI"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="jTe-eO-cqv" secondAttribute="trailing" id="r2X-1b-9dV"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -244,4 +246,5 @@
     <inferredMetricsTieBreakers>
         <segue reference="AaL-Uc-PLo"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" red="0.4392156862745098" green="0.4392156862745098" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
 </document>

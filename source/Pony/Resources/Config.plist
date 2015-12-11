@@ -13,17 +13,6 @@
         <key>alpha</key>
         <integer>255</integer>
     </dict>
-    <key>window.tintColor</key>
-    <dict>
-        <key>red</key>
-        <integer>112</integer>
-        <key>green</key>
-        <integer>112</integer>
-        <key>blue</key>
-        <integer>112</integer>
-        <key>alpha</key>
-        <integer>255</integer>
-    </dict>
     <key>persistentDictionary.filePath</key>
     <string>pony.plist</string>
     <key>cache.installationFolder</key>

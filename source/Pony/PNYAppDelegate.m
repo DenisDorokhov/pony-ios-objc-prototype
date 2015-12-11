@@ -25,7 +25,6 @@
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [self.config colorValue:@"window.backgroundColor"];
-    self.window.tintColor = [self.config colorValue:@"window.tintColor"];
     self.window.rootViewController = [storyboard instantiateInitialViewController];
 
     PNYLogInfo(@"Application started.");
