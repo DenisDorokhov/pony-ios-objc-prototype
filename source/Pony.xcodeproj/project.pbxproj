@@ -11,6 +11,7 @@
 		268797ED1BCA8FDF0050724B /* PNYTestDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39C072125E1E9E864A7CA /* PNYTestDelegate.m */; };
 		26A10E6B1BCA806D00C63AD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26A10E6A1BCA806D00C63AD8 /* Assets.xcassets */; };
 		26A10E781BCA830800C63AD8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 26A10E7A1BCA830800C63AD8 /* Localizable.strings */; };
+		26C262031C1B4DD100FE6545 /* ImageDownloadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26C262021C1B4DD100FE6545 /* ImageDownloadView.xib */; };
 		26C428221C146D6500542266 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26C428241C146D6500542266 /* LaunchScreen.storyboard */; };
 		26C428251C146D7300542266 /* Bootstrap.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26C428271C146D7300542266 /* Bootstrap.storyboard */; };
 		26C428281C146D8700542266 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26C4282A1C146D8700542266 /* Main.storyboard */; };
@@ -36,6 +37,7 @@
 		B3D393DF0D4406896A4333D4 /* PNYRestServiceCachedImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D392B68B8B3F9F45827436 /* PNYRestServiceCachedImpl.m */; };
 		B3D393F5FAF67041B527CD36 /* NSOrderedSet+PNYNSValue.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D3990C5423562FEEE9FCFE /* NSOrderedSet+PNYNSValue.m */; };
 		B3D3940FFEAA6B07165AC4CB /* PNYTestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D3926FD4A78F7F30BEAF29 /* PNYTestUtils.m */; };
+		B3D3943AA96579DF1758C22A /* PNYImageDownloadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39F5125893FAEEFDCD907 /* PNYImageDownloadView.m */; };
 		B3D3949B5F1688A30FFFBBCE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D396B135DCC7B3776CF9DC /* main.m */; };
 		B3D394ACDEE4428FECF890E9 /* PNYFileUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D390E01BCCE78D565E805C /* PNYFileUtils.m */; };
 		B3D394CFE21DF27B0E70ED60 /* PNYRestRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39E565D2F1E2821D97D74 /* PNYRestRequestOperation.m */; };
@@ -71,6 +73,7 @@
 		B3D39AE060F5127626F3D05F /* PNYAuthenticationDto.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39DCB3A7DAB9E11F40B08 /* PNYAuthenticationDto.m */; };
 		B3D39AF6DFC4B80936D21AE7 /* PNYArtistCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D393823FCB2FE3C34ED406 /* PNYArtistCell.m */; };
 		B3D39B58BD70D2E1CC54FBAC /* PNYSongDownloadService.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39A003FF2BB523D65BC04 /* PNYSongDownloadService.m */; };
+		B3D39B845FCB422D1A7F74B4 /* CALayer+InterfaceBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39240B715B0C797DF7E8C /* CALayer+InterfaceBuilder.m */; };
 		B3D39B9B1E207F311B4E2A71 /* PNYRandomUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D393C6740A53B13D9A4243 /* PNYRandomUtils.m */; };
 		B3D39B9CCCEB5D1BCFA9C1AB /* PNYPersistentDictionaryMock.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39A825A804DC3739C917A /* PNYPersistentDictionaryMock.m */; };
 		B3D39BBE65B5C04363EEC7A2 /* PNYTokenPairDaoImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39121FCFA3A44A15BCE90 /* PNYTokenPairDaoImpl.m */; };
@@ -121,6 +124,7 @@
 		26A10E6C1BCA807F00C63AD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		26A10E6D1BCA80B200C63AD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		26A10E791BCA830800C63AD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		26C262021C1B4DD100FE6545 /* ImageDownloadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageDownloadView.xib; sourceTree = "<group>"; };
 		26C428231C146D6500542266 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		26C428261C146D7300542266 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Bootstrap.storyboard; sourceTree = "<group>"; };
 		26C428291C146D8700542266 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -133,6 +137,7 @@
 		B3D3903CF667BDE3D5A4C6B2 /* PNYRestServiceCachedImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYRestServiceCachedImpl.h; sourceTree = "<group>"; };
 		B3D3905644D9CA04AB3CA449 /* PNYTestUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYTestUtils.h; sourceTree = "<group>"; };
 		B3D39085EABDD6576B6C0549 /* PNYCacheSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYCacheSerializer.h; sourceTree = "<group>"; };
+		B3D3909A1648275EED7BFE08 /* PNYImageDownloadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYImageDownloadView.h; sourceTree = "<group>"; };
 		B3D390B9485FF4F5F6CA8152 /* PNYRestRequestProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYRestRequestProxy.m; sourceTree = "<group>"; };
 		B3D390E01BCCE78D565E805C /* PNYFileUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYFileUtils.m; sourceTree = "<group>"; };
 		B3D390E7C011934D8D3FFB51 /* PNYAbstractDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYAbstractDto.m; sourceTree = "<group>"; };
@@ -149,6 +154,7 @@
 		B3D39210F502A2A733162927 /* NSURLRequest+PNYDump.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+PNYDump.h"; sourceTree = "<group>"; };
 		B3D39214D11E62EB323AC7A3 /* PNYStringCacheSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYStringCacheSerializer.h; sourceTree = "<group>"; };
 		B3D3923F576927FB4A4B0A2E /* PNYAlbumSongsDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYAlbumSongsDto.h; sourceTree = "<group>"; };
+		B3D39240B715B0C797DF7E8C /* CALayer+InterfaceBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+InterfaceBuilder.m"; sourceTree = "<group>"; };
 		B3D39245315BAC03366E48C4 /* PNYMappingCacheSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYMappingCacheSerializer.h; sourceTree = "<group>"; };
 		B3D3925D21115DF10B5593FD /* PNYAlbumsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYAlbumsController.h; sourceTree = "<group>"; };
 		B3D3926FD4A78F7F30BEAF29 /* PNYTestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYTestUtils.m; sourceTree = "<group>"; };
@@ -259,6 +265,7 @@
 		B3D39C5FDCFE9928DFC486D3 /* PNYPersistentDictionaryImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYPersistentDictionaryImpl.m; sourceTree = "<group>"; };
 		B3D39C6C63B323380D02C073 /* PNYUserSettingsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYUserSettingsTests.m; sourceTree = "<group>"; };
 		B3D39C74956E2BE72679D0EF /* PNYUtilityAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYUtilityAssembly.h; sourceTree = "<group>"; };
+		B3D39CA1F300F2990EDDF3C9 /* CALayer+InterfaceBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+InterfaceBuilder.h"; sourceTree = "<group>"; };
 		B3D39CBEC04ACB7665C72B8B /* PNYUserDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYUserDto.m; sourceTree = "<group>"; };
 		B3D39D082263320F729003B2 /* PNYBootstrapChildControllerAbstract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYBootstrapChildControllerAbstract.h; sourceTree = "<group>"; };
 		B3D39D1752DD21473DB8AB7E /* PNYUtilityAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYUtilityAssembly.m; sourceTree = "<group>"; };
@@ -304,6 +311,7 @@
 		B3D39F2EFFF5E1BC8985602F /* PNYRandomUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYRandomUtils.h; sourceTree = "<group>"; };
 		B3D39F33F8A2DC7E5E2AED4C /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Config.plist; sourceTree = "<group>"; };
 		B3D39F419FA74F77D4E37E83 /* PNYBootstrapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYBootstrapController.h; sourceTree = "<group>"; };
+		B3D39F5125893FAEEFDCD907 /* PNYImageDownloadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYImageDownloadView.m; sourceTree = "<group>"; };
 		B3D39F62CD510A6792FD34EE /* PNYRestTokens.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYRestTokens.h; sourceTree = "<group>"; };
 		B3D39F9037CF0E65542335D4 /* PNYPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYPrefix.pch; sourceTree = "<group>"; };
 		B3D39F92C90C4C28558CE91D /* PNYSongCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYSongCell.m; sourceTree = "<group>"; };
@@ -391,14 +399,15 @@
 			path = PonyTests;
 			sourceTree = "<group>";
 		};
-		26A10E701BCA82AC00C63AD8 /* Storyboards */ = {
+		26A10E701BCA82AC00C63AD8 /* UI */ = {
 			isa = PBXGroup;
 			children = (
 				26C428241C146D6500542266 /* LaunchScreen.storyboard */,
 				26C428271C146D7300542266 /* Bootstrap.storyboard */,
 				26C4282A1C146D8700542266 /* Main.storyboard */,
+				26C262021C1B4DD100FE6545 /* ImageDownloadView.xib */,
 			);
-			path = Storyboards;
+			path = UI;
 			sourceTree = "<group>";
 		};
 		26A10E751BCA82FD00C63AD8 /* Localization */ = {
@@ -463,7 +472,7 @@
 			isa = PBXGroup;
 			children = (
 				26A10E751BCA82FD00C63AD8 /* Localization */,
-				26A10E701BCA82AC00C63AD8 /* Storyboards */,
+				26A10E701BCA82AC00C63AD8 /* UI */,
 				26A10E6A1BCA806D00C63AD8 /* Assets.xcassets */,
 				26A10E6C1BCA807F00C63AD8 /* Info.plist */,
 				B3D39F33F8A2DC7E5E2AED4C /* Config.plist */,
@@ -481,6 +490,7 @@
 				B3D39BCA4C873EBB3971BE58 /* Persistence */,
 				B3D3938AB8882B54FBC8BD85 /* UserSettings */,
 				B3D3954F1645ECF00AA7E2A8 /* Utility */,
+				B3D397AE61B73E9D4B89B5EE /* UI */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -588,6 +598,8 @@
 			children = (
 				B3D3950B114B09152BF16269 /* PNYAlertFactory.h */,
 				B3D398CB79E62007AAF0A8D3 /* PNYAlertFactory.m */,
+				B3D39F5125893FAEEFDCD907 /* PNYImageDownloadView.m */,
+				B3D3909A1648275EED7BFE08 /* PNYImageDownloadView.h */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -654,6 +666,15 @@
 				B3D397B25E6422A0FD46AA88 /* PNYUserSettingsKeys.h */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		B3D397AE61B73E9D4B89B5EE /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				B3D39240B715B0C797DF7E8C /* CALayer+InterfaceBuilder.m */,
+				B3D39CA1F300F2990EDDF3C9 /* CALayer+InterfaceBuilder.h */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		B3D397BAB370104ABB1C4170 /* Config */ = {
@@ -880,6 +901,7 @@
 				26C428281C146D8700542266 /* Main.storyboard in Resources */,
 				26C428251C146D7300542266 /* Bootstrap.storyboard in Resources */,
 				26A10E781BCA830800C63AD8 /* Localizable.strings in Resources */,
+				26C262031C1B4DD100FE6545 /* ImageDownloadView.xib in Resources */,
 				26A10E6B1BCA806D00C63AD8 /* Assets.xcassets in Resources */,
 				26C428221C146D6500542266 /* LaunchScreen.storyboard in Resources */,
 				B3D39C5ED9582036AE99D520 /* Config.plist in Resources */,
@@ -1066,6 +1088,8 @@
 				B3D398471FC301101A2AEE8E /* PNYAlbumsController.m in Sources */,
 				B3D39DF12FEA26F8F4F8FFC3 /* PNYAlbumHeader.m in Sources */,
 				B3D3976BCFBB09DBD3BB0E28 /* PNYSongCell.m in Sources */,
+				B3D39B845FCB422D1A7F74B4 /* CALayer+InterfaceBuilder.m in Sources */,
+				B3D3943AA96579DF1758C22A /* PNYImageDownloadView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

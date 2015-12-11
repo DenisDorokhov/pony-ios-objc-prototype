@@ -287,7 +287,7 @@ static NSString *const KEY_IMAGES = @"images:%@";
                 if (!request.cancelled) {
                     if (aCachedValue != nil) {
 
-                        PNYLogDebug(@"Cache hit for key [%@] in cache %@.", aKey, aCache);
+                        PNYLogVerbose(@"Cache hit for key [%@] in cache %@.", aKey, aCache);
 
                         if (aSuccess != nil) {
                             aSuccess(aCachedValue);

@@ -191,6 +191,8 @@
         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
 
         operation.responseSerializer = [AFImageResponseSerializer serializer];
+        operation.responseSerializer.acceptableContentTypes =
+                [operation.responseSerializer.acceptableContentTypes setByAddingObject:@"image/jpg"];
 
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *aOperation, UIImage *aImage) {
             if (aSuccess != nil) {

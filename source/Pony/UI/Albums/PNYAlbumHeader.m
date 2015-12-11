@@ -23,6 +23,7 @@
 {
     self.nameLabel.text = self.album.name != nil ? self.album.name : PNYLocalized(@"albums_unknownAlbum");
     self.yearLabel.text = self.album.year.stringValue;
+    self.artworkDownloadView.imageUrl = self.album.artworkUrl;
 }
 
 @end

@@ -7,7 +7,6 @@
 #import "PNYRestServiceCached.h"
 #import "PNYErrorService.h"
 
-IB_DESIGNABLE
 @interface PNYAlbumsController : UITableViewController
 
 @property (nonatomic, strong) id <PNYRestServiceCached> restService;

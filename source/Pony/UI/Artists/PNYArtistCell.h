@@ -4,11 +4,13 @@
 //
 
 #import "PNYArtistDto.h"
+#import "PNYImageDownloadView.h"
 
 @interface PNYArtistCell : UITableViewCell
 
 @property (nonatomic, strong) PNYArtistDto *artist;
 
 @property (nonatomic, strong) IBOutlet UILabel *nameLabel;
+@property (nonatomic, strong) IBOutlet PNYImageDownloadView *imageDownloadView;
 
 @end

@@ -22,6 +22,7 @@
 - (void)updateArtist
 {
     self.nameLabel.text = self.artist.name != nil ? self.artist.name : PNYLocalized(@"artists_unknownArtist");
+    self.imageDownloadView.imageUrl = self.artist.artworkUrl;
 }
 
 @end

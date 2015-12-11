@@ -22,11 +22,8 @@
 {
     self = [super initWithCoder:aDecoder];
     if(self != nil) {
-
         self.headerHeight = 44;
         self.cellHeight = 44;
-
-        self.title = PNYLocalized(@"albums_noArtistSelected");
     }
     return self;
 }
@@ -112,7 +109,7 @@
     if (self.artist != nil) {
         self.title = self.artist.name != nil ? self.artist.name : PNYLocalized(@"albums_unknownArtist");
     } else {
-        self.title = PNYLocalized(@"albums_noArtistSelected");
+        self.title = nil;
     }
 
     if (self.artist != nil) {

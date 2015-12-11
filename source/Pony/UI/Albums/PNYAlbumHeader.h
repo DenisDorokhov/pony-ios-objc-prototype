@@ -4,6 +4,7 @@
 //
 
 #import "PNYAlbumDto.h"
+#import "PNYImageDownloadView.h"
 
 @interface PNYAlbumHeader : UITableViewCell
 
@@ -11,5 +12,6 @@
 
 @property (nonatomic, strong) IBOutlet UILabel *nameLabel;
 @property (nonatomic, strong) IBOutlet UILabel *yearLabel;
+@property (nonatomic, strong) IBOutlet PNYImageDownloadView *artworkDownloadView;
 
 @end
