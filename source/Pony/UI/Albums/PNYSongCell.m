@@ -14,14 +14,7 @@
 {
     _song = aAlbum;
 
-    [self updateSong];
-}
-
-#pragma mark - Private
-
-- (void)updateSong
-{
-    self.numberLabel.text = self.song.trackNumber.stringValue;
+    self.trackNumberLabel.text = self.song.trackNumber.stringValue;
     self.nameLabel.text = self.song.name != nil ? self.song.name : PNYLocalized(@"albums_unknownSong");
 }
 

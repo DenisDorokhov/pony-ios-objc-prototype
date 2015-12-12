@@ -14,13 +14,6 @@
 {
     _artist = aArtist;
 
-    [self updateArtist];
-}
-
-#pragma mark - Private
-
-- (void)updateArtist
-{
     self.nameLabel.text = self.artist.name != nil ? self.artist.name : PNYLocalized(@"artists_unknownArtist");
     self.imageDownloadView.imageUrl = self.artist.artworkUrl;
 }

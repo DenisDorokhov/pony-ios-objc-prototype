@@ -9,7 +9,7 @@
 
 @property (nonatomic, strong) PNYSongDto *song;
 
-@property (nonatomic, strong) IBOutlet UILabel *numberLabel;
+@property (nonatomic, strong) IBOutlet UILabel *trackNumberLabel;
 @property (nonatomic, strong) IBOutlet UILabel *nameLabel;
 
 @end

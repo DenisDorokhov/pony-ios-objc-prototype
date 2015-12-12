@@ -10,12 +10,18 @@
 #import "PNYAlbumHeader.h"
 #import "PNYErrorDto.h"
 
+@interface PNYAlbumsController ()
+
+@property (nonatomic, strong) PNYArtistAlbumsDto *artistAlbums;
+
+@end
+
 @implementation PNYAlbumsController
 {
 @private
     UIRefreshControl *refreshControl;
 
-    PNYArtistAlbumsDto *artistAlbums;
+    NSMutableArray *albumDiscsToSongs; // NSMutableArray of NSMutableDictionary (NSNumber -> Array of PNYSongDto)
 
     id <PNYRestRequest> lastAlbumsRequest;
 }
@@ -24,8 +30,9 @@
 {
     self = [super initWithCoder:aDecoder];
     if(self != nil) {
-        self.headerHeight = 44;
-        self.cellHeight = 44;
+        self.albumHeaderHeight = 44;
+        self.songCellHeight = 44;
+        self.songCellWithDiscNumberHeight = 44;
     }
     return self;
 }
@@ -36,37 +43,54 @@
 {
     _artist = aArtist;
 
-    [self updateArtist];
+    if (self.artist != nil) {
+        self.title = self.artist.name != nil ? self.artist.name : PNYLocalized(@"albums_unknownArtist");
+    } else {
+        self.title = nil;
+    }
+
+    if (self.artist != nil) {
+        [self requestAlbums];
+    } else {
+        [self.tableView reloadData];
+    }
 }
 
 #pragma mark - <UITableViewDataSource>
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return artistAlbums.albums.count;
+    return self.artistAlbums.albums.count;
 }
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)aSection
 {
-    PNYAlbumSongsDto *albumSongs = artistAlbums.albums[(NSUInteger)aSection];
+    PNYAlbumSongsDto *albumSongs = self.artistAlbums.albums[(NSUInteger)aSection];
 
     return albumSongs.songs.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)aIndexPath
 {
-    PNYAlbumSongsDto *albumSongs = artistAlbums.albums[(NSUInteger)aIndexPath.section];
+    PNYAlbumSongsDto *albumSongs = self.artistAlbums.albums[(NSUInteger)aIndexPath.section];
+    PNYSongDto *song = albumSongs.songs[(NSUInteger)aIndexPath.row];
 
-    PNYSongCell *songCell = [aTableView dequeueReusableCellWithIdentifier:@"songCell"];
+    BOOL isCellWithDiscNumber = [self shouldSong:song renderDiscNumberWithAlbumIndex:(NSUInteger)aIndexPath.section];
 
-    songCell.song = albumSongs.songs[(NSUInteger)aIndexPath.row];
+    PNYSongCell *songCell;
+    if (isCellWithDiscNumber) {
+        songCell = [aTableView dequeueReusableCellWithIdentifier:@"songCellWithDiscNumber"];
+    } else {
+        songCell = [aTableView dequeueReusableCellWithIdentifier:@"songCell"];
+    }
+    songCell.song = song;
 
     return songCell;
 }
 
 - (UIView *)tableView:(UITableView *)aTableView viewForHeaderInSection:(NSInteger)aSection
 {
-    PNYAlbumSongsDto *albumSongs = artistAlbums.albums[(NSUInteger)aSection];
+    PNYAlbumSongsDto *albumSongs = self.artistAlbums.albums[(NSUInteger)aSection];
 
     PNYAlbumHeader *albumHeader = [aTableView dequeueReusableCellWithIdentifier:@"albumHeader"];
 
@@ -77,12 +101,17 @@
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForHeaderInSection:(NSInteger)aSection
 {
-    return self.headerHeight;
+    return self.albumHeaderHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)aIndexPath
 {
-    return self.cellHeight;
+    PNYAlbumSongsDto *albumSongs = self.artistAlbums.albums[(NSUInteger)aIndexPath.section];
+    PNYSongDto *song = albumSongs.songs[(NSUInteger)aIndexPath.row];
+
+    BOOL isCellWithDiscNumber = [self shouldSong:song renderDiscNumberWithAlbumIndex:(NSUInteger)aIndexPath.section];
+
+    return isCellWithDiscNumber ? self.songCellWithDiscNumberHeight : self.songCellHeight;
 }
 
 #pragma mark - Override
@@ -107,18 +136,33 @@
 
 #pragma mark - Private
 
-- (void)updateArtist
+- (void)setArtistAlbums:(PNYArtistAlbumsDto *)aArtistAlbums
 {
-    if (self.artist != nil) {
-        self.title = self.artist.name != nil ? self.artist.name : PNYLocalized(@"albums_unknownArtist");
-    } else {
-        self.title = nil;
-    }
+    _artistAlbums = aArtistAlbums;
 
-    if (self.artist != nil) {
-        [self requestAlbums];
-    } else {
-        [self.tableView reloadData];
+    albumDiscsToSongs = [NSMutableArray array];
+
+    for (PNYAlbumSongsDto *albumSongs in self.artistAlbums.albums) {
+
+        NSMutableDictionary *discToSongs = [NSMutableDictionary dictionary];
+
+        for (PNYSongDto *song in albumSongs.songs) {
+
+            NSNumber *discNumber = song.discNumber;
+            if (discNumber.intValue == 0) {
+                discNumber = @1;
+            }
+
+            NSMutableArray *discSongs = discToSongs[discNumber];
+            if (discSongs == nil) {
+                discSongs = [NSMutableArray array];
+                discToSongs[discNumber] = discSongs;
+            }
+
+            [discSongs addObject:song];
+        }
+
+        [albumDiscsToSongs addObject:discToSongs];
     }
 }
 
@@ -136,9 +180,9 @@
 
         lastAlbumsRequest = nil;
 
-        artistAlbums = aArtistAlbums;
+        self.artistAlbums = aArtistAlbums;
 
-        PNYLogInfo(@"[%lu] albums of artist [%@] loaded.", (unsigned long)artistAlbums.albums.count, artistToLoad.id);
+        PNYLogInfo(@"[%lu] albums of artist [%@] loaded.", (unsigned long)self.artistAlbums.albums.count, artistToLoad.id);
 
         [refreshControl endRefreshing];
         [self.tableView reloadData];
@@ -153,6 +197,23 @@
             [self.errorService reportErrors:aErrors];
         }
     }];
+}
+
+- (BOOL)shouldSong:(PNYSongDto *)aSong renderDiscNumberWithAlbumIndex:(NSUInteger)aAlbumIndex
+{
+    __block BOOL isCellWithDiscNumber = NO;
+
+    NSDictionary *albumDiscs = albumDiscsToSongs[aAlbumIndex];
+    if (albumDiscs.count > 1) {
+        [albumDiscs enumerateKeysAndObjectsUsingBlock:^(NSNumber *aDiscNumber, NSArray *aSongs, BOOL *aStop) {
+            if (aSongs[0] == aSong) {
+                isCellWithDiscNumber = YES;
+                *aStop = YES;
+            }
+        }];
+    }
+
+    return isCellWithDiscNumber;
 }
 
 - (void)onRefreshRequested

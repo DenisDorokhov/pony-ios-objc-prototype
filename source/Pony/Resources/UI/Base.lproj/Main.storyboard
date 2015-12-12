@@ -54,6 +54,10 @@
         <scene sceneID="YEk-yQ-juf">
             <objects>
                 <viewController id="aV4-tA-vjQ" customClass="PNYArtistsController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tW7-sb-o8w"/>
+                        <viewControllerLayoutGuide type="bottom" id="94E-bV-BBq"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Crj-Q1-ArI">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -149,6 +153,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="79"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zTu-wp-TvI">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="79"/>
+                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YFv-Y0-ABn">
                                                     <rect key="frame" x="84" y="13" width="508" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -171,12 +178,16 @@
                                                 </view>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="zTu-wp-TvI" secondAttribute="bottom" id="0G2-oz-kKH"/>
                                                 <constraint firstItem="g3p-ar-K3n" firstAttribute="centerY" secondItem="MtJ-jB-y1S" secondAttribute="centerY" id="6mU-a4-iyJ"/>
                                                 <constraint firstItem="YDR-JM-lWG" firstAttribute="top" secondItem="YFv-Y0-ABn" secondAttribute="bottom" constant="8" id="F34-8T-PPz"/>
                                                 <constraint firstItem="YDR-JM-lWG" firstAttribute="leading" secondItem="YFv-Y0-ABn" secondAttribute="leading" id="RD3-CD-a8l"/>
                                                 <constraint firstItem="YFv-Y0-ABn" firstAttribute="leading" secondItem="g3p-ar-K3n" secondAttribute="trailing" constant="8" id="U2n-jD-pEZ"/>
                                                 <constraint firstItem="g3p-ar-K3n" firstAttribute="leading" secondItem="MtJ-jB-y1S" secondAttribute="leading" constant="16" id="VxX-6g-gVJ"/>
+                                                <constraint firstItem="zTu-wp-TvI" firstAttribute="top" secondItem="MtJ-jB-y1S" secondAttribute="top" id="b2G-rP-VJT"/>
+                                                <constraint firstAttribute="trailing" secondItem="zTu-wp-TvI" secondAttribute="trailing" id="c16-NV-2Zk"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="YDR-JM-lWG" secondAttribute="trailing" id="c6d-41-vqL"/>
+                                                <constraint firstItem="zTu-wp-TvI" firstAttribute="leading" secondItem="MtJ-jB-y1S" secondAttribute="leading" id="tnu-ZZ-xPK"/>
                                                 <constraint firstItem="YFv-Y0-ABn" firstAttribute="top" secondItem="MtJ-jB-y1S" secondAttribute="topMargin" constant="5" id="toK-er-Y9m"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="YFv-Y0-ABn" secondAttribute="trailing" id="vqE-Ej-KgY"/>
                                             </constraints>
@@ -195,8 +206,54 @@
                                             <outlet property="yearLabel" destination="YDR-JM-lWG" id="MaO-mj-Jay"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="songCellWithDiscNumber" rowHeight="64" id="SOj-Jk-4DX" customClass="PNYSongCellWithDiscNumber">
+                                        <rect key="frame" x="0.0" y="152" width="600" height="64"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SOj-Jk-4DX" id="VMs-m8-OpD">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="63"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dg5-mz-AMa">
+                                                    <rect key="frame" x="16" y="34" width="36" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="36" id="WF9-YA-gXK"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some Song Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KnK-Hg-Xdc">
+                                                    <rect key="frame" x="60" y="34" width="532" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Disk 666" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t1t-SY-RpM">
+                                                    <rect key="frame" x="16" y="8" width="576" height="21"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="t1t-SY-RpM" firstAttribute="top" secondItem="VMs-m8-OpD" secondAttribute="topMargin" id="1rF-He-q8T"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="KnK-Hg-Xdc" secondAttribute="trailing" id="DhF-zO-TzQ"/>
+                                                <constraint firstItem="t1t-SY-RpM" firstAttribute="leading" secondItem="dg5-mz-AMa" secondAttribute="leading" id="Jp8-Bc-k5K"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="t1t-SY-RpM" secondAttribute="trailing" id="ftX-eC-sVI"/>
+                                                <constraint firstItem="KnK-Hg-Xdc" firstAttribute="leading" secondItem="dg5-mz-AMa" secondAttribute="trailing" constant="8" id="nex-zH-ObN"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="KnK-Hg-Xdc" secondAttribute="bottom" id="skn-Pg-L0q"/>
+                                                <constraint firstItem="dg5-mz-AMa" firstAttribute="leading" secondItem="VMs-m8-OpD" secondAttribute="leading" constant="16" id="tJN-rK-GeH"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="dg5-mz-AMa" secondAttribute="bottom" id="wB1-X2-saR"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="discNumberLabel" destination="t1t-SY-RpM" id="y2o-Rs-JQi"/>
+                                            <outlet property="nameLabel" destination="KnK-Hg-Xdc" id="WTi-x3-AN3"/>
+                                            <outlet property="trackNumberLabel" destination="dg5-mz-AMa" id="TBU-EQ-Qr8"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="songCell" id="2zo-CS-Ciy" customClass="PNYSongCell">
-                                        <rect key="frame" x="0.0" y="152" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="216" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2zo-CS-Ciy" id="mjI-pk-uVv">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -228,7 +285,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="nameLabel" destination="cEn-cC-A8i" id="lXD-UH-FVG"/>
-                                            <outlet property="numberLabel" destination="3Pv-Gm-alk" id="Nwt-pK-MBI"/>
+                                            <outlet property="trackNumberLabel" destination="3Pv-Gm-alk" id="Nwt-pK-MBI"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -243,11 +300,14 @@
                         </constraints>
                     </view>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="headerHeight">
+                        <userDefinedRuntimeAttribute type="number" keyPath="albumHeaderHeight">
                             <real key="value" value="80"/>
                         </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="cellHeight">
+                        <userDefinedRuntimeAttribute type="number" keyPath="songCellHeight">
                             <real key="value" value="44"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="songCellWithDiscNumberHeight">
+                            <real key="value" value="64"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -262,6 +322,10 @@
         <scene sceneID="Ero-67-6Ar">
             <objects>
                 <viewController id="opL-uD-nSL" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hG5-n0-4B1"/>
+                        <viewControllerLayoutGuide type="bottom" id="SGF-UY-wVf"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="daD-GF-fRa">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="120"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

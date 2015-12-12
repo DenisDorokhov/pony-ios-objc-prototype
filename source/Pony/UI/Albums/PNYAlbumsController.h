@@ -14,8 +14,9 @@
 
 @property (nonatomic, strong) PNYArtistDto *artist;
 
-@property (nonatomic) IBInspectable CGFloat headerHeight;
-@property (nonatomic) IBInspectable CGFloat cellHeight;
+@property (nonatomic) IBInspectable CGFloat albumHeaderHeight;
+@property (nonatomic) IBInspectable CGFloat songCellHeight;
+@property (nonatomic) IBInspectable CGFloat songCellWithDiscNumberHeight;
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 

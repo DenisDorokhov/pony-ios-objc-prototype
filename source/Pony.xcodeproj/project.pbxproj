@@ -32,6 +32,7 @@
 		B3D3931D2E28D609946DCB2E /* PNYAbstractDto.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D390E7C011934D8D3FFB51 /* PNYAbstractDto.m */; };
 		B3D3931FE77742252EEFF483 /* PNYLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D3917B32DD4FC934F11A8F /* PNYLogFormatter.m */; };
 		B3D393496FFACD4234706C92 /* PNYAppAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39295EB62CA0B7F5DA4F7 /* PNYAppAssembly.m */; };
+		B3D393A37D2C9C407D0D1B89 /* PNYSongCellWithDiscNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D3903BA9528225D8C68C2C /* PNYSongCellWithDiscNumber.m */; };
 		B3D393A78581E501C3A2CAC2 /* PNYTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39FDFCBA3AEB05ECBE92D /* PNYTestCase.m */; };
 		B3D393D0E128DB4EFD1949ED /* PNYEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39DFCD24FAA94DC21436A /* PNYEvent.m */; };
 		B3D393DF0D4406896A4333D4 /* PNYRestServiceCachedImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D392B68B8B3F9F45827436 /* PNYRestServiceCachedImpl.m */; };
@@ -133,6 +134,7 @@
 		AD4AD2461299F9BF1D67A1A5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B11DC015A7EA92371FC36E33 /* Pods-PonyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PonyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PonyTests/Pods-PonyTests.release.xcconfig"; sourceTree = "<group>"; };
 		B3D3902CA4ED7D40946D8765 /* PNYTestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYTestDelegate.h; sourceTree = "<group>"; };
+		B3D3903BA9528225D8C68C2C /* PNYSongCellWithDiscNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYSongCellWithDiscNumber.m; sourceTree = "<group>"; };
 		B3D3903CF667BDE3D5A4C6B2 /* PNYRestServiceCachedImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYRestServiceCachedImpl.h; sourceTree = "<group>"; };
 		B3D3905644D9CA04AB3CA449 /* PNYTestUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYTestUtils.h; sourceTree = "<group>"; };
 		B3D39085EABDD6576B6C0549 /* PNYCacheSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYCacheSerializer.h; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 		B3D395D290030C73BA4F33F8 /* PNYArtistsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYArtistsController.m; sourceTree = "<group>"; };
 		B3D395EBB600C650FECF2100 /* PNYAlbumHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYAlbumHeader.h; sourceTree = "<group>"; };
 		B3D395F07109A88C4362C9F4 /* PNYRestServiceImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYRestServiceImpl.m; sourceTree = "<group>"; };
+		B3D395F3B8E4C4E4F0239C37 /* PNYSongCellWithDiscNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYSongCellWithDiscNumber.h; sourceTree = "<group>"; };
 		B3D39627463E0BCDFF58EFF9 /* PNYConfigTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYConfigTests.m; sourceTree = "<group>"; };
 		B3D396358D3E2070A4C68830 /* PNYFileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYFileUtils.h; sourceTree = "<group>"; };
 		B3D39645724712A53DD17270 /* PNYGenreDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYGenreDto.m; sourceTree = "<group>"; };
@@ -499,6 +502,8 @@
 				B3D395EBB600C650FECF2100 /* PNYAlbumHeader.h */,
 				B3D39F92C90C4C28558CE91D /* PNYSongCell.m */,
 				B3D395587495E702AB8FD800 /* PNYSongCell.h */,
+				B3D3903BA9528225D8C68C2C /* PNYSongCellWithDiscNumber.m */,
+				B3D395F3B8E4C4E4F0239C37 /* PNYSongCellWithDiscNumber.h */,
 			);
 			path = Albums;
 			sourceTree = "<group>";
@@ -1084,6 +1089,7 @@
 				B3D3976BCFBB09DBD3BB0E28 /* PNYSongCell.m in Sources */,
 				B3D39B845FCB422D1A7F74B4 /* CALayer+InterfaceBuilder.m in Sources */,
 				B3D3943AA96579DF1758C22A /* PNYImageDownloadView.m in Sources */,
+				B3D393A37D2C9C407D0D1B89 /* PNYSongCellWithDiscNumber.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
