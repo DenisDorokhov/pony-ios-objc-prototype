@@ -13,6 +13,10 @@
     id <PNYRestService> restService;
 }
 
+static const NSUInteger CACHE_CAPACITY = 100;
+
+static NSCache *CACHE = nil;
+
 - (instancetype)initWithFrame:(CGRect)aFrame
 {
     self = [super initWithFrame:aFrame];
@@ -44,6 +48,11 @@
 
 - (void)setup
 {
+    if (CACHE == nil) {
+        CACHE = [[NSCache alloc] init];
+        CACHE.countLimit = CACHE_CAPACITY;
+    }
+
     restService = [PNYRestServiceLocator sharedInstance].restService;
 
     UIView *view = [self loadViewFromNib];
@@ -68,37 +77,51 @@
 
     if (self.imageUrl != nil) {
 
-        self.activityIndicatorView.hidden = NO;
+        UIImage *cachedImage = [CACHE objectForKey:self.imageUrl];
 
-        NSString *loadingUrl = self.imageUrl;
+        if (cachedImage != nil) {
 
-        // Downloading every image during fast scrolling.
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if ([loadingUrl isEqualToString:self.imageUrl]) {
+            self.imageView.hidden = NO;
+            self.imageView.image = cachedImage;
 
-                PNYLogVerbose(@"Downloading image [%@]...", loadingUrl);
+            self.activityIndicatorView.hidden = YES;
 
-                [restService downloadImage:loadingUrl success:^(UIImage *aImage) {
+        } else {
 
-                    PNYLogVerbose(@"Downloaded image [%@].", loadingUrl);
+            self.activityIndicatorView.hidden = NO;
+            [self.activityIndicatorView startAnimating];
 
-                    if ([loadingUrl isEqualToString:self.imageUrl]) {
-                        self.activityIndicatorView.hidden = YES;
-                        self.imageView.hidden = NO;
-                        self.imageView.image = aImage;
-                    }
+            NSString *loadingUrl = self.imageUrl;
 
-                }                  failure:^(NSArray *aErrors) {
+            // Avoid downloading every image during fast scrolling when image download view is inside table / collection view.
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                if ([loadingUrl isEqualToString:self.imageUrl]) {
 
-                    PNYLogError(@"Could not download image [%@]: %@", loadingUrl, aErrors);
+                    PNYLogVerbose(@"Downloading image [%@]...", loadingUrl);
 
-                    if ([loadingUrl isEqualToString:self.imageUrl]) {
-                        self.activityIndicatorView.hidden = YES;
-                    }
-                }];
-            }
-        });
+                    [restService downloadImage:loadingUrl success:^(UIImage *aImage) {
 
+                        PNYLogVerbose(@"Downloaded image [%@].", loadingUrl);
+
+                        [CACHE setObject:aImage forKey:loadingUrl];
+
+                        if ([loadingUrl isEqualToString:self.imageUrl]) {
+                            self.activityIndicatorView.hidden = YES;
+                            self.imageView.hidden = NO;
+                            self.imageView.image = aImage;
+                        }
+
+                    }                  failure:^(NSArray *aErrors) {
+
+                        PNYLogError(@"Could not download image [%@]: %@", loadingUrl, aErrors);
+
+                        if ([loadingUrl isEqualToString:self.imageUrl]) {
+                            self.activityIndicatorView.hidden = YES;
+                        }
+                    }];
+                }
+            });
+        }
     } else {
         self.activityIndicatorView.hidden = YES;
     }

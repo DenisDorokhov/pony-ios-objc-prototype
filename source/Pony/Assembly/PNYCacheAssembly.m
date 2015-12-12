@@ -65,19 +65,10 @@
         [aDefinition useInitializer:@selector(initWithAsynchronousCache:) parameters:^(TyphoonMethod *aInitializer) {
             [aInitializer injectParameterWith:[self imageCache]];
         }];
-        [aDefinition injectProperty:@selector(synchronousCache) with:[self imageCacheMemory]];
     }];
 }
 
 #pragma mark - Private
-
-- (id <PNYCache>)imageCacheMemory
-{
-    return [TyphoonDefinition withClass:[PNYMemoryCache class] configuration:^(TyphoonDefinition *aDefinition) {
-        aDefinition.scope = TyphoonScopeLazySingleton;
-        [aDefinition injectProperty:@selector(capacity) with:@100];
-    }];
-}
 
 - (id <PNYCache>)installationCacheOfflineOnly
 {
