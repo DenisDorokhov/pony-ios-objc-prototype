@@ -28,7 +28,7 @@
 
     PNYRestServiceCachedImpl *service = [[PNYRestServiceCachedImpl alloc] initWithTargetService:targetService];
 
-    service.installationCache = [PNYCacheAsync cacheWithCache:[PNYMemoryCache new]];
+    service.installationCache = [PNYCacheAsync cacheWithAsynchronousCache:[PNYMemoryCache new]];
 
     void (^methodBlock)(PNYRestServiceSuccessBlock, PNYRestServiceFailureBlock, BOOL) =
             ^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, BOOL aUseCache) {
@@ -120,7 +120,7 @@
 
     PNYRestServiceCachedImpl *service = [[PNYRestServiceCachedImpl alloc] initWithTargetService:targetService];
 
-    service.currentUserCache = [PNYCacheAsync cacheWithCache:[PNYMemoryCache new]];
+    service.currentUserCache = [PNYCacheAsync cacheWithAsynchronousCache:[PNYMemoryCache new]];
 
     void (^methodBlock)(PNYRestServiceSuccessBlock, PNYRestServiceFailureBlock, BOOL) =
             ^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, BOOL aUseCache) {
@@ -191,7 +191,7 @@
 
     PNYRestServiceCachedImpl *service = [[PNYRestServiceCachedImpl alloc] initWithTargetService:targetService];
 
-    service.artistsCache = [PNYCacheAsync cacheWithCache:[PNYMemoryCache new]];
+    service.artistsCache = [PNYCacheAsync cacheWithAsynchronousCache:[PNYMemoryCache new]];
 
     void (^methodBlock)(PNYRestServiceSuccessBlock, PNYRestServiceFailureBlock, BOOL) =
             ^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, BOOL aUseCache) {
@@ -241,7 +241,7 @@
 
     PNYRestServiceCachedImpl *service = [[PNYRestServiceCachedImpl alloc] initWithTargetService:targetService];
 
-    service.artistAlbumsCache = [PNYCacheAsync cacheWithCache:[PNYMemoryCache new]];
+    service.artistAlbumsCache = [PNYCacheAsync cacheWithAsynchronousCache:[PNYMemoryCache new]];
 
     void (^methodBlock)(PNYRestServiceSuccessBlock, PNYRestServiceFailureBlock, BOOL) =
             ^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, BOOL aUseCache) {
@@ -312,7 +312,7 @@
 
     PNYRestServiceCachedImpl *service = [[PNYRestServiceCachedImpl alloc] initWithTargetService:targetService];
 
-    service.imageCache = [PNYCacheAsync cacheWithCache:[PNYMemoryCache new]];
+    service.imageCache = [PNYCacheAsync cacheWithAsynchronousCache:[PNYMemoryCache new]];
 
     void (^methodBlock)(PNYRestServiceSuccessBlock, PNYRestServiceFailureBlock, BOOL) =
             ^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, BOOL aUseCache) {

@@ -7,10 +7,12 @@
 
 @interface PNYCacheAsync : NSObject
 
-@property (nonatomic, readonly) id <PNYCache> cache;
+@property (nonatomic, readonly) id <PNYCache> asynchronousCache;
 
-+ (instancetype)cacheWithCache:(id <PNYCache>)aCache;
-- (instancetype)initWithCache:(id <PNYCache>)aCache;
+@property (nonatomic, strong) id <PNYCache> synchronousCache;
+
++ (instancetype)cacheWithAsynchronousCache:(id <PNYCache>)aAsynchronousCache;
+- (instancetype)initWithAsynchronousCache:(id <PNYCache>)aAsynchronousCache;
 
 + (instancetype)new __unavailable;
 - (instancetype)init __unavailable;

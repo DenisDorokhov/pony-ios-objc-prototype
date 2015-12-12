@@ -22,7 +22,7 @@
 {
     return [TyphoonDefinition withClass:[PNYCacheAsync class] configuration:^(TyphoonDefinition *aDefinition) {
         aDefinition.scope = TyphoonScopeLazySingleton;
-        [aDefinition useInitializer:@selector(initWithCache:) parameters:^(TyphoonMethod *aInitializer) {
+        [aDefinition useInitializer:@selector(initWithAsynchronousCache:) parameters:^(TyphoonMethod *aInitializer) {
             [aInitializer injectParameterWith:[self installationCacheOfflineOnly]];
         }];
     }];
@@ -32,7 +32,7 @@
 {
     return [TyphoonDefinition withClass:[PNYCacheAsync class] configuration:^(TyphoonDefinition *aDefinition) {
         aDefinition.scope = TyphoonScopeLazySingleton;
-        [aDefinition useInitializer:@selector(initWithCache:) parameters:^(TyphoonMethod *aInitializer) {
+        [aDefinition useInitializer:@selector(initWithAsynchronousCache:) parameters:^(TyphoonMethod *aInitializer) {
             [aInitializer injectParameterWith:[self currentUserCacheOfflineOnly]];
         }];
     }];
@@ -42,7 +42,7 @@
 {
     return [TyphoonDefinition withClass:[PNYCacheAsync class] configuration:^(TyphoonDefinition *aDefinition) {
         aDefinition.scope = TyphoonScopeLazySingleton;
-        [aDefinition useInitializer:@selector(initWithCache:) parameters:^(TyphoonMethod *aInitializer) {
+        [aDefinition useInitializer:@selector(initWithAsynchronousCache:) parameters:^(TyphoonMethod *aInitializer) {
             [aInitializer injectParameterWith:[self artistsCacheOfflineOnly]];
         }];
     }];
@@ -52,7 +52,7 @@
 {
     return [TyphoonDefinition withClass:[PNYCacheAsync class] configuration:^(TyphoonDefinition *aDefinition) {
         aDefinition.scope = TyphoonScopeLazySingleton;
-        [aDefinition useInitializer:@selector(initWithCache:) parameters:^(TyphoonMethod *aInitializer) {
+        [aDefinition useInitializer:@selector(initWithAsynchronousCache:) parameters:^(TyphoonMethod *aInitializer) {
             [aInitializer injectParameterWith:[self artistAlbumsCacheOfflineOnly]];
         }];
     }];
@@ -62,9 +62,10 @@
 {
     return [TyphoonDefinition withClass:[PNYCacheAsync class] configuration:^(TyphoonDefinition *aDefinition) {
         aDefinition.scope = TyphoonScopeLazySingleton;
-        [aDefinition useInitializer:@selector(initWithCache:) parameters:^(TyphoonMethod *aInitializer) {
-            [aInitializer injectParameterWith:[self imageCacheMemory]];
+        [aDefinition useInitializer:@selector(initWithAsynchronousCache:) parameters:^(TyphoonMethod *aInitializer) {
+            [aInitializer injectParameterWith:[self imageCache]];
         }];
+        [aDefinition injectProperty:@selector(synchronousCache) with:[self imageCacheMemory]];
     }];
 }
 
@@ -74,9 +75,7 @@
 {
     return [TyphoonDefinition withClass:[PNYMemoryCache class] configuration:^(TyphoonDefinition *aDefinition) {
         aDefinition.scope = TyphoonScopeLazySingleton;
-        [aDefinition useInitializer:@selector(initWithTargetCache:) parameters:^(TyphoonMethod *aInitializer) {
-            [aInitializer injectParameterWith:[self imageCache]];
-        }];
+        [aDefinition injectProperty:@selector(capacity) with:@100];
     }];
 }
 

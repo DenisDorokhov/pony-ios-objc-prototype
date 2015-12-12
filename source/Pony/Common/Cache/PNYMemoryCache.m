@@ -27,21 +27,21 @@
 
         memoryCache = [NSCache new];
 
-        self.memoryCacheCapacity = 50;
+        self.capacity = 50;
     }
     return self;
 }
 
 #pragma mark - Public
 
-- (NSUInteger)memoryCacheCapacity
+- (NSUInteger)capacity
 {
     return memoryCache.countLimit;
 }
 
-- (void)setMemoryCacheCapacity:(NSUInteger)aMemoryCacheCapacity
+- (void)setCapacity:(NSUInteger)aCapacity
 {
-    memoryCache.countLimit = aMemoryCacheCapacity;
+    memoryCache.countLimit = aCapacity;
 }
 
 #pragma mark - <PNYCache>

@@ -7,16 +7,16 @@
 
 @implementation PNYCacheAsync
 
-+ (instancetype)cacheWithCache:(id <PNYCache>)aCache
++ (instancetype)cacheWithAsynchronousCache:(id <PNYCache>)aAsynchronousCache
 {
-    return [[self alloc] initWithCache:aCache];
+    return [[self alloc] initWithAsynchronousCache:aAsynchronousCache];
 }
 
-- (instancetype)initWithCache:(id <PNYCache>)aCache
+- (instancetype)initWithAsynchronousCache:(id <PNYCache>)aAsynchronousCache
 {
     self = [super init];
     if (self != nil) {
-        _cache = aCache;
+        _asynchronousCache = aAsynchronousCache;
     }
     return self;
 }
@@ -25,37 +25,58 @@
 
 - (void)cachedValueExistsForKey:(NSString *)aKey completion:(void (^)(BOOL aCachedValueExists))aCompletion
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+    if ([self.synchronousCache cachedValueExistsForKey:aKey]) {
+        if (aCompletion != nil) {
+            aCompletion(YES);
+        }
+    } else {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
 
-        BOOL valueExists = [self.cache cachedValueExistsForKey:aKey];
+            BOOL valueExists = [self.asynchronousCache cachedValueExistsForKey:aKey];
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (aCompletion != nil) {
-                aCompletion(valueExists);
-            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (aCompletion != nil) {
+                    aCompletion(valueExists);
+                }
+            });
         });
-    });
+    }
 }
 
 - (void)cachedValueForKey:(NSString *)aKey completion:(void (^)(id aCachedValue))aCompletion
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    __block id value = [self.synchronousCache cachedValueForKey:aKey];
 
-        id value = [self.cache cachedValueForKey:aKey];
+    if (value != nil) {
+        if (aCompletion != nil) {
+            aCompletion(value);
+        }
+    } else {
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (aCompletion != nil) {
-                aCompletion(value);
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+            value = [self.asynchronousCache cachedValueForKey:aKey];
+
+            if (value != nil) {
+                [self.synchronousCache cacheValue:value forKey:aKey];
             }
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (aCompletion != nil) {
+                    aCompletion(value);
+                }
+            });
         });
-    });
+    }
 }
 
 - (void)cacheValue:(id)aValue forKey:(NSString *)aKey completion:(void (^)())aCompletion
 {
+    [self.synchronousCache cacheValue:aValue forKey:aKey];
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
-        [self.cache cacheValue:aValue forKey:aKey];
+        [self.asynchronousCache cacheValue:aValue forKey:aKey];
 
         dispatch_async(dispatch_get_main_queue(), ^{
             if (aCompletion != nil) {
@@ -67,9 +88,11 @@
 
 - (void)removeCachedValueForKey:(NSString *)aKey completion:(void (^)())aCompletion
 {
+    [self.synchronousCache removeCachedValueForKey:aKey];
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
-        [self.cache removeCachedValueForKey:aKey];
+        [self.asynchronousCache removeCachedValueForKey:aKey];
 
         dispatch_async(dispatch_get_main_queue(), ^{
             if (aCompletion != nil) {
@@ -81,9 +104,11 @@
 
 - (void)removeAllCachedValuesWithCompletion:(void (^)())aCompletion
 {
+    [self.synchronousCache removeAllCachedValues];
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
-        [self.cache removeAllCachedValues];
+        [self.asynchronousCache removeAllCachedValues];
 
         dispatch_async(dispatch_get_main_queue(), ^{
             if (aCompletion != nil) {
@@ -98,7 +123,8 @@
 - (NSString *)description
 {
     NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: ", NSStringFromClass([self class])];
-    [description appendFormat:@"cache=%@", self.cache];
+    [description appendFormat:@"asynchronousCache=%@", self.asynchronousCache];
+    [description appendFormat:@", synchronousCache=%@", self.synchronousCache];
     [description appendString:@">"];
     return description;
 }
