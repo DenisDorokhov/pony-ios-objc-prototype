@@ -19,7 +19,13 @@
 {
     NSString *errorMessages = [[self errorsToMessages:aErrors] componentsJoinedByString:@"\n"];
 
-    [PNYAlertFactory createOKAlertWithTitle:aTitle message:errorMessages];
+    UIViewController *topViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+    while (topViewController.presentedViewController != nil) {
+        topViewController = topViewController.presentedViewController;
+    }
+
+    [topViewController presentViewController:[PNYAlertFactory createOKAlertWithTitle:aTitle message:errorMessages]
+                                     animated:YES completion:nil];
 }
 
 #pragma mark - Private
