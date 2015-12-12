@@ -12,6 +12,8 @@
 @implementation PNYArtistsController
 {
 @private
+    UIRefreshControl *refreshControl;
+
     NSArray *artists;
 
     PNYArtistDto *selectedArtist;
@@ -22,11 +24,6 @@
 - (IBAction)onLogoutButtonTouch
 {
     [self.authenticationService logoutWithSuccess:nil failure:nil];
-}
-
-- (IBAction)onRefreshRequested
-{
-    [self requestArtists];
 }
 
 #pragma mark - <PNYAuthenticationService>
@@ -71,6 +68,17 @@
     PNYAssert(self.restService != nil);
     PNYAssert(self.authenticationService != nil);
     PNYAssert(self.errorService != nil);
+
+    PNYAssert(self.tableView != nil);
+
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+
+    refreshControl = [[UIRefreshControl alloc] init];
+
+    [refreshControl addTarget:self action:@selector(onRefreshRequested) forControlEvents:UIControlEventValueChanged];
+
+    [self.tableView addSubview:refreshControl];
 }
 
 - (void)viewWillAppear:(BOOL)aAnimated
@@ -100,9 +108,7 @@
 {
     if ([aSegue.identifier isEqualToString:PNYSegueArtistsToAlbums]) {
 
-        UINavigationController *navigationController = aSegue.destinationViewController;
-
-        PNYAlbumsController *albumsController = (PNYAlbumsController *)navigationController.topViewController;
+        PNYAlbumsController *albumsController = (id)aSegue.destinationViewController;
 
         albumsController.artist = selectedArtist;
     }
@@ -120,7 +126,7 @@
 
         PNYLogInfo(@"[%lu] artists loaded.", (unsigned long)artists.count);
 
-        [self.refreshControl endRefreshing];
+        [refreshControl endRefreshing];
         [self.tableView reloadData];
 
     }                               failure:^(NSArray *aErrors) {
@@ -129,6 +135,11 @@
 
         [self.errorService reportErrors:aErrors];
     }];
+}
+
+- (void)onRefreshRequested
+{
+    [self requestArtists];
 }
 
 @end

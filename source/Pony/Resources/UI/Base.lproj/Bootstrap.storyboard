@@ -333,5 +333,5 @@
     <resources>
         <image name="logo" width="278" height="67"/>
     </resources>
-    <color key="tintColor" red="0.4392156862745098" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
+    <color key="tintColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
 </document>

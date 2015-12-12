@@ -13,6 +13,8 @@
 @implementation PNYAlbumsController
 {
 @private
+    UIRefreshControl *refreshControl;
+
     PNYArtistAlbumsDto *artistAlbums;
 
     id <PNYRestRequest> lastAlbumsRequest;
@@ -35,16 +37,6 @@
     _artist = aArtist;
 
     [self updateArtist];
-}
-
-- (IBAction)onRefreshRequested
-{
-    if (self.artist != nil) {
-        [self requestAlbums];
-    } else {
-        [self.refreshControl endRefreshing];
-        [self.tableView reloadData];
-    }
 }
 
 #pragma mark - <UITableViewDataSource>
@@ -100,6 +92,17 @@
     [super viewDidLoad];
 
     PNYAssert(self.restService != nil);
+
+    PNYAssert(self.tableView != nil);
+
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+
+    refreshControl = [[UIRefreshControl alloc] init];
+
+    [refreshControl addTarget:self action:@selector(onRefreshRequested) forControlEvents:UIControlEventValueChanged];
+
+    [self.tableView addSubview:refreshControl];
 }
 
 #pragma mark - Private
@@ -137,7 +140,7 @@
 
         PNYLogInfo(@"[%lu] albums of artist [%@] loaded.", (unsigned long)artistAlbums.albums.count, artistToLoad.id);
 
-        [self.refreshControl endRefreshing];
+        [refreshControl endRefreshing];
         [self.tableView reloadData];
 
     } failure:^(NSArray *aErrors) {
@@ -150,6 +153,16 @@
             [self.errorService reportErrors:aErrors];
         }
     }];
+}
+
+- (void)onRefreshRequested
+{
+    if (self.artist != nil) {
+        [self requestAlbums];
+    } else {
+        [refreshControl endRefreshing];
+        [self.tableView reloadData];
+    }
 }
 
 @end
