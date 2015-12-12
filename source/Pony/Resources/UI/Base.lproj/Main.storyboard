@@ -113,7 +113,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Artists" id="zzp-zt-g4n">
-                        <barButtonItem key="rightBarButtonItem" title="Logout" id="KbF-Qp-4m7">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="KbF-Qp-4m7">
                             <connections>
                                 <action selector="onLogoutButtonTouch" destination="aV4-tA-vjQ" id="CdX-sP-qyU"/>
                             </connections>
