@@ -8,6 +8,7 @@
 #import "PNYMacros.h"
 #import "PNYArtistCell.h"
 #import "PNYAlbumsController.h"
+#import "PNYAlertFactory.h"
 
 @implementation PNYArtistsController
 {
@@ -23,7 +24,12 @@
 
 - (IBAction)onLogoutButtonTouch
 {
-    [self.authenticationService logoutWithSuccess:nil failure:nil];
+    [self presentViewController:[PNYAlertFactory createOKCancelAlertWithTitle:PNYLocalized(@"artists_logoutAlert_title")
+                                                                      message:PNYLocalized(@"artists_logoutAlert_message")
+                                                                    okHandler:^{
+                                                                        [self.authenticationService logoutWithSuccess:nil failure:nil];
+                                                                    }]
+                       animated:YES completion:nil];
 }
 
 #pragma mark - <PNYAuthenticationService>

@@ -6,6 +6,12 @@
 @interface PNYAlertFactory : NSObject
 
 + (UIAlertController *)createOKAlertWithTitle:(NSString *)aTitle message:(NSString *)aMessage;
-+ (UIAlertController *)createOKCancelAlertWithTitle:(NSString *)aTitle message:(NSString *)aMessage;
++ (UIAlertController *)createOKAlertWithTitle:(NSString *)aTitle message:(NSString *)aMessage
+                                      handler:(void (^)())aHandler;
+
++ (UIAlertController *)createOKCancelAlertWithTitle:(NSString *)aTitle message:(NSString *)aMessage
+                                          okHandler:(void (^)())aOKHandler;
++ (UIAlertController *)createOKCancelAlertWithTitle:(NSString *)aTitle message:(NSString *)aMessage
+                                          okHandler:(void (^)())aOKHandler cancelHandler:(void (^)())aCancelHandler;
 
 @end

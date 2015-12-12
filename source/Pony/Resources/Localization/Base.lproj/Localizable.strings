@@ -17,6 +17,8 @@
 "bootstrapLoginConfig_credentialsAlert_message" = "Incorrect credentials, please check your email and password.";
 
 "artists_unknownArtist" = "Unknown Artist";
+"artists_logoutAlert_title" = "Logout";
+"artists_logoutAlert_message" = "Are you sure?";
 
 "albums_unknownArtist" = "Unknown Artist";
 "albums_unknownAlbum" = "Unknown Album";
