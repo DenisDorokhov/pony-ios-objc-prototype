@@ -9,6 +9,7 @@
 #import "PNYArtistCell.h"
 #import "PNYAlbumsController.h"
 #import "PNYAlertFactory.h"
+#import "PNYErrorDto.h"
 
 @implementation PNYArtistsController
 {
@@ -92,7 +93,7 @@
     [super viewWillAppear:aAnimated];
 
     if (artists == nil) {
-        [self requestArtists];
+        [self requestArtistsUsingCache:YES];
     }
 }
 
@@ -122,7 +123,7 @@
 
 #pragma mark - Private
 
-- (void)requestArtists
+- (void)requestArtistsUsingCache:(BOOL)aUseCache
 {
     PNYLogInfo(@"Loading artists...");
 
@@ -137,15 +138,33 @@
 
     }                               failure:^(NSArray *aErrors) {
 
-        PNYLogError(@"Could not load artists: %@.", aErrors);
+        if ([PNYErrorDto fetchErrorFromArray:aErrors withCode:PNYErrorDtoCodeClientOffline] == nil) {
 
-        [self.errorService reportErrors:aErrors];
+            PNYLogError(@"Could not load artists: %@.", aErrors);
+
+            [self.errorService reportErrors:aErrors];
+        }
+
+        [refreshControl endRefreshing];
+
+    }                          cacheHandler:^BOOL(NSArray *aCachedArtists) {
+
+        if (aUseCache && aCachedArtists != nil) {
+
+            artists = aCachedArtists;
+
+            PNYLogInfo(@"[%lu] artists loaded from cache, making a server request...", (unsigned long)artists.count);
+
+            [self.tableView reloadData];
+        }
+
+        return YES;
     }];
 }
 
 - (void)onRefreshRequested
 {
-    [self requestArtists];
+    [self requestArtistsUsingCache:NO];
 }
 
 @end

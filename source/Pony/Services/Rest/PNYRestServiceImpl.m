@@ -398,14 +398,17 @@
     if ([aError.domain isEqualToString:NSURLErrorDomain]) {
         if (aError.code == NSURLErrorNotConnectedToInternet) {
             return @[[PNYErrorDtoFactory createErrorClientOffline]];
+        } else if (aError.code == NSURLErrorTimedOut) {
+            return @[[PNYErrorDtoFactory createErrorClientRequestTimeout]];
         } else if (aError.code == NSURLErrorCancelled) {
             return @[[PNYErrorDtoFactory createErrorClientRequestCancelled]];
         }
     }
 
+    PNYLogError(@"Unexpected request error: %@", aError);
+
     return @[[PNYErrorDto errorWithCode:PNYErrorDtoCodeClientRequestFailed
-                                   text:[NSString stringWithFormat:@"An error occurred when making server request: %@.", aError]
-                              arguments:@[[aError localizedDescription]]]];
+                                   text:[NSString stringWithFormat:@"An error occurred when making server request."]]];
 }
 
 @end

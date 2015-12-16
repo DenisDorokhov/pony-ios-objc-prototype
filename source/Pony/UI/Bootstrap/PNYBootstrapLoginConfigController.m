@@ -90,11 +90,11 @@
 
         [self finishBackgroundActivity];
 
-        if ([PNYErrorDto fetchErrorFromArray:aErrors withCodes:@[PNYErrorDtoCodeClientOffline]] != nil) {
+        if ([PNYErrorDto fetchErrorFromArray:aErrors withCode:PNYErrorDtoCodeClientOffline] != nil) {
             [self showOfflineAlert];
-        } else if ([PNYErrorDto fetchErrorFromArray:aErrors withCodes:@[PNYErrorDtoCodeInvalidCredentials]]) {
+        } else if ([PNYErrorDto fetchErrorFromArray:aErrors withCode:PNYErrorDtoCodeInvalidCredentials]) {
             [self showCredentialsAlert];
-        } else if ([PNYErrorDto fetchErrorFromArray:aErrors withCodes:@[PNYErrorDtoCodeValidation]]) {
+        } else if ([PNYErrorDto fetchErrorFromArray:aErrors withCode:PNYErrorDtoCodeValidation]) {
             [self showValidationAlert];
         } else {
             [self showConnectionAlert];

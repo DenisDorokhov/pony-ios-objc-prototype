@@ -10,7 +10,6 @@
 #import "PNYInstallationDto.h"
 
 typedef void (^PNYRestServiceSuccessBlock)(id aData);
-
 typedef void (^PNYRestServiceFailureBlock)(NSArray *aErrors);
 
 @protocol PNYRestService <NSObject>

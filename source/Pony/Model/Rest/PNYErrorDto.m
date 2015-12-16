@@ -50,11 +50,21 @@
     return result;
 }
 
++ (NSArray *)fetchArrayOfErrorsFromArray:(NSArray *)aErrors withCode:(NSString *)aCode
+{
+    return [self fetchArrayOfErrorsFromArray:aErrors withCodes:@[aCode]];
+}
+
 + (PNYErrorDto *)fetchErrorFromArray:(NSArray *)aErrors withCodes:(NSArray *)aCodes
 {
     NSArray *errors = [self fetchArrayOfErrorsFromArray:aErrors withCodes:aCodes];
 
     return [errors count] > 0 ? errors[0] : nil;
+}
+
++ (PNYErrorDto *)fetchErrorFromArray:(NSArray *)aErrors withCode:(NSString *)aCode
+{
+    return [self fetchErrorFromArray:aErrors withCodes:@[aCode]];
 }
 
 #pragma mark - <EKMappingProtocol>
@@ -87,6 +97,12 @@
 {
     return [PNYErrorDto errorWithCode:PNYErrorDtoCodeClientOffline
                                  text:@"Could not make server request. Are you online?"];
+}
+
++ (PNYErrorDto *)createErrorClientRequestTimeout
+{
+    return [PNYErrorDto errorWithCode:PNYErrorDtoCodeClientRequestTimeout
+                                 text:@"Client request timed out."];
 }
 
 + (PNYErrorDto *)createErrorClientRequestCancelled

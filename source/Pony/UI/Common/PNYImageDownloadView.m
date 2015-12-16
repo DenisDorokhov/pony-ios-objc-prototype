@@ -4,13 +4,13 @@
 //
 
 #import "PNYImageDownloadView.h"
-#import "PNYRestServiceLocator.h"
+#import "PNYRestServiceCachedLocator.h"
 #import "PNYMacros.h"
 
 @implementation PNYImageDownloadView
 {
 @private
-    id <PNYRestService> restService;
+    id <PNYRestServiceCached> restService;
 }
 
 static const NSUInteger CACHE_CAPACITY = 100;
@@ -53,7 +53,7 @@ static NSCache *CACHE = nil;
         CACHE.countLimit = CACHE_CAPACITY;
     }
 
-    restService = [PNYRestServiceLocator sharedInstance].restService;
+    restService = [PNYRestServiceCachedLocator sharedInstance].restServiceCached;
 
     UIView *view = [self loadViewFromNib];
 
@@ -101,15 +101,9 @@ static NSCache *CACHE = nil;
 
                     [restService downloadImage:loadingUrl success:^(UIImage *aImage) {
 
-                        PNYLogVerbose(@"Downloaded image [%@].", loadingUrl);
+                        PNYLogDebug(@"Downloaded image [%@].", loadingUrl);
 
-                        [CACHE setObject:aImage forKey:loadingUrl];
-
-                        if ([loadingUrl isEqualToString:self.imageUrl]) {
-                            self.activityIndicatorView.hidden = YES;
-                            self.imageView.hidden = NO;
-                            self.imageView.image = aImage;
-                        }
+                        [self finishImageLoading:aImage loadingUrl:loadingUrl];
 
                     }                  failure:^(NSArray *aErrors) {
 
@@ -118,12 +112,36 @@ static NSCache *CACHE = nil;
                         if ([loadingUrl isEqualToString:self.imageUrl]) {
                             self.activityIndicatorView.hidden = YES;
                         }
+
+                    } cacheHandler:^BOOL(UIImage *aCachedImage) {
+
+                        if (aCachedImage != nil) {
+
+                            PNYLogVerbose(@"Cached image returned for URL [%@].", loadingUrl);
+
+                            [self finishImageLoading:aCachedImage loadingUrl:loadingUrl];
+
+                            return NO;
+                        }
+
+                        return YES;
                     }];
                 }
             });
         }
     } else {
         self.activityIndicatorView.hidden = YES;
+    }
+}
+
+- (void)finishImageLoading:(UIImage *)aImage loadingUrl:(NSString *)aLoadingUrl
+{
+    [CACHE setObject:aImage forKey:aLoadingUrl];
+
+    if ([aLoadingUrl isEqualToString:self.imageUrl]) {
+        self.activityIndicatorView.hidden = YES;
+        self.imageView.hidden = NO;
+        self.imageView.image = aImage;
     }
 }
 

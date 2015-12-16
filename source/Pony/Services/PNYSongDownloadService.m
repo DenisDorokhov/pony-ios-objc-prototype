@@ -135,7 +135,7 @@ static NSString *const KEY_DATE = @"date";
         PNYLogDebug(@"Song [%@] file downloaded to [%@].", task.songId, task.filePath);
         [self finishSongDownload:task.songId];
     }                                           failure:^(NSArray *aErrors) {
-        if ([PNYErrorDto fetchErrorFromArray:aErrors withCodes:@[PNYErrorDtoCodeClientRequestCancelled]] == nil) {
+        if ([PNYErrorDto fetchErrorFromArray:aErrors withCode:PNYErrorDtoCodeClientRequestCancelled] == nil) {
             [self failSongDownload:task.songId errors:aErrors];
         }
     }];

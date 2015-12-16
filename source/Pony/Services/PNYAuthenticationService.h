@@ -6,7 +6,7 @@
 #import "PNYUserDto.h"
 #import "PNYCredentialsDto.h"
 #import "PNYTokenPairDao.h"
-#import "PNYRestService.h"
+#import "PNYRestServiceCached.h"
 
 @class PNYAuthenticationService;
 
@@ -31,7 +31,7 @@ typedef void (^PNYAuthenticationServiceFailureBlock)(NSArray *aErrors);
 @interface PNYAuthenticationService : NSObject
 
 @property (nonatomic, strong) id <PNYTokenPairDao> tokenPairDao;
-@property (nonatomic, strong) id <PNYRestService> restService;
+@property (nonatomic, strong) id <PNYRestServiceCached> restService;
 
 @property (nonatomic, readonly) BOOL authenticated;
 @property (nonatomic, readonly) PNYUserDto *currentUser;

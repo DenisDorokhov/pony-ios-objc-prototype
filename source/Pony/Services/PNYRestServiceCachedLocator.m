@@ -4,15 +4,13 @@
 //
 
 #import <Typhoon/TyphoonAssembly.h>
-#import "PNYRestServiceLocator.h"
-#import "PNYRestServiceCached.h"
+#import "PNYRestServiceCachedLocator.h"
 
-@implementation PNYRestServiceLocator
-
-static id INSTANCE = nil;
+@implementation PNYRestServiceCachedLocator
 
 + (instancetype)sharedInstance
 {
+    static id INSTANCE = nil;
     if (INSTANCE == nil) {
         INSTANCE = [[self alloc] init];
     }
@@ -21,7 +19,7 @@ static id INSTANCE = nil;
 
 #pragma mark - Public
 
-- (id <PNYRestService>)restService
+- (id <PNYRestServiceCached>)restServiceCached
 {
     return [[TyphoonAssembly defaultAssembly] componentForType:@protocol(PNYRestServiceCached)];
 }

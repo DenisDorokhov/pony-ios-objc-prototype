@@ -87,7 +87,7 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
         }
         [self propagateAuthentication:aAuthentication.user];
 
-    }                                     failure:^(NSArray *aErrors) {
+    }                                                             failure:^(NSArray *aErrors) {
 
         authenticationRequest = nil;
 
@@ -130,49 +130,27 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
 
         }                                                         failure:^(NSArray *aErrors) {
 
-            updateStatusRequest = nil;
+            [self onCurrentUserRequestFailure:aErrors success:aSuccess failure:aFailure];
 
-            if ([PNYErrorDto fetchErrorFromArray:aErrors withCodes:@[
-                    PNYErrorDtoCodeClientRequestFailed,
-                    PNYErrorDtoCodeClientRequestCancelled,
-                    PNYErrorDtoCodeClientOffline]] != nil) {
+        }                                                    cacheHandler:^BOOL(PNYUserDto *aCachedUser) {
 
-                PNYLogError(@"Could not update authentication status (client error): %@.", aErrors);
+            if (aCachedUser != nil) {
 
-                if (aFailure != nil) {
-                    aFailure(aErrors);
+                _currentUser = aCachedUser;
+
+                updateStatusRequest = nil;
+
+                PNYLogInfo(@"User [%@] is authenticated from cache.", aCachedUser.email);
+
+                if (aSuccess != nil) {
+                    aSuccess(aCachedUser);
                 }
+                [self propagateStatusUpdate:aCachedUser];
 
-            } else if ([PNYErrorDto fetchErrorFromArray:aErrors withCodes:@[PNYErrorDtoCodeAccessDenied]]) {
-
-                if (refreshTokenRequest == nil) {
-
-                    PNYLogInfo(@"Could not update authentication status, access is denied, trying to refresh token...");
-
-                    [self refreshTokenWithSuccess:^(PNYAuthenticationDto *aAuthentication) {
-                        if (aSuccess != nil) {
-                            aSuccess(aAuthentication.user);
-                        }
-                    }                     failure:^(NSArray *aRefreshTokenErrors) {
-                        if (aFailure != nil) {
-                            aFailure(aErrors);
-                        }
-                    }];
-
-                } else {
-                    if (aFailure != nil) {
-                        aFailure(aErrors);
-                    }
-                }
-
-            } else {
-
-                PNYLogError(@"Could not update authentication status (server error): %@.", aErrors);
-
-                if (aFailure != nil) {
-                    aFailure(aErrors);
-                }
+                return NO;
             }
+
+            return YES;
         }];
 
     } else {
@@ -238,6 +216,56 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
 
 #pragma mark - Private
 
+- (void)onCurrentUserRequestFailure:(NSArray *)aErrors success:(PNYAuthenticationServiceSuccessBlock)aSuccess
+                                                       failure:(PNYAuthenticationServiceFailureBlock)aFailure
+{
+    updateStatusRequest = nil;
+
+    if ([PNYErrorDto fetchErrorFromArray:aErrors withCodes:@[
+            PNYErrorDtoCodeClientRequestFailed,
+            PNYErrorDtoCodeClientRequestCancelled,
+            PNYErrorDtoCodeClientRequestTimeout,
+            PNYErrorDtoCodeClientOffline]] != nil) {
+
+        PNYLogError(@"Could not update authentication status (client error): %@.", aErrors);
+
+        if (aFailure != nil) {
+            aFailure(aErrors);
+        }
+
+    } else if ([PNYErrorDto fetchErrorFromArray:aErrors withCode:PNYErrorDtoCodeAccessDenied]) {
+
+        if (refreshTokenRequest == nil) {
+
+            PNYLogInfo(@"Could not update authentication status, access is denied, trying to refresh token...");
+
+            [self refreshTokenWithSuccess:^(PNYAuthenticationDto *aAuthentication) {
+                if (aSuccess != nil) {
+                    aSuccess(aAuthentication.user);
+                }
+                [self propagateStatusUpdate:aAuthentication.user];
+            }                     failure:^(NSArray *aRefreshTokenErrors) {
+                if (aFailure != nil) {
+                    aFailure(aErrors);
+                }
+            }];
+
+        } else {
+            if (aFailure != nil) {
+                aFailure(aErrors);
+            }
+        }
+
+    } else {
+
+        PNYLogError(@"Could not update authentication status (server error): %@.", aErrors);
+
+        if (aFailure != nil) {
+            aFailure(aErrors);
+        }
+    }
+}
+
 - (void)updateAuthentication:(PNYAuthenticationDto *)aAuthentication
 {
     PNYAssert(self.tokenPairDao != nil);
@@ -288,7 +316,7 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
                 aSuccess(aAuthentication);
             }
 
-        }                                 failure:^(NSArray *aErrors) {
+        }                                                       failure:^(NSArray *aErrors) {
 
             refreshTokenRequest = nil;
 
@@ -298,7 +326,7 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
                 aFailure(aErrors);
             }
 
-            if ([PNYErrorDto fetchErrorFromArray:aErrors withCodes:@[PNYErrorDtoCodeAccessDenied]]) {
+            if ([PNYErrorDto fetchErrorFromArray:aErrors withCode:PNYErrorDtoCodeAccessDenied]) {
 
                 PNYUserDto *lastUser = self.currentUser;
 
@@ -332,6 +360,7 @@ static const NSTimeInterval REFRESH_TOKEN_TIME_BEFORE_EXPIRATION = 60 * 60;
             if (aCompletion != nil) {
                 aCompletion();
             }
+            [self propagateStatusUpdate:aAuthentication.user];
         }                     failure:^(NSArray *aErrors) {
             if (aCompletion != nil) {
                 aCompletion();

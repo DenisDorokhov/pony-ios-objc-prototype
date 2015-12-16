@@ -40,9 +40,11 @@ static NSString *const USER_DEFAULTS_KEY_HAS_TOKEN = @"PNYTokenPairDaoImpl.hasTo
 
     if (tokenPair != nil && ![[NSUserDefaults standardUserDefaults] boolForKey:USER_DEFAULTS_KEY_HAS_TOKEN]) {
 
-        PNYLogDebug(@"It seems like application was uninstalled. Returning no token.");
+        PNYLogDebug(@"It seems like application was uninstalled. Removing the token.");
 
-        return nil;
+        [self removeTokenPair];
+
+        tokenPair = nil;
     }
 
     return tokenPair;

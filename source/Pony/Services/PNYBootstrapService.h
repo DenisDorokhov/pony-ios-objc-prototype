@@ -4,7 +4,7 @@
 //
 
 #import "PNYRestServiceUrlDao.h"
-#import "PNYRestService.h"
+#import "PNYRestServiceCached.h"
 #import "PNYAuthenticationService.h"
 
 @class PNYBootstrapService;
@@ -26,7 +26,7 @@
 @interface PNYBootstrapService : NSObject
 
 @property (nonatomic, strong) id <PNYRestServiceUrlDao> restServiceUrlDao;
-@property (nonatomic, strong) id <PNYRestService> restService;
+@property (nonatomic, strong) id <PNYRestServiceCached> restService;
 @property (nonatomic, strong) PNYAuthenticationService *authenticationService;
 
 @property (nonatomic, weak) id <PNYBootstrapServiceDelegate> delegate;

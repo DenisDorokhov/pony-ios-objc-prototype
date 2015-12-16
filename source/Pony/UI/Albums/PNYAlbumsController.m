@@ -50,7 +50,7 @@
     }
 
     if (self.artist != nil) {
-        [self requestAlbums];
+        [self requestAlbumsUsingCache:YES];
     } else {
         [self.tableView reloadData];
     }
@@ -166,7 +166,7 @@
     }
 }
 
-- (void)requestAlbums
+- (void)requestAlbumsUsingCache:(BOOL)aUseCache
 {
     [lastAlbumsRequest cancel];
 
@@ -188,14 +188,32 @@
         [self.tableView reloadData];
 
     } failure:^(NSArray *aErrors) {
-        if ([PNYErrorDto fetchErrorFromArray:aErrors withCodes:@[PNYErrorDtoCodeClientRequestCancelled]] != nil) {
-            PNYLogError(@"Cancelled loading albums of artist [%@].", artistToLoad.id);
+
+        if ([PNYErrorDto fetchErrorFromArray:aErrors withCode:PNYErrorDtoCodeClientRequestCancelled] != nil) {
+            PNYLogDebug(@"Cancelled loading albums of artist [%@].", artistToLoad.id);
         } else {
+            if ([PNYErrorDto fetchErrorFromArray:aErrors withCode:PNYErrorDtoCodeClientOffline] == nil) {
 
-            PNYLogError(@"Could not load albums of artist [%@]: %@.", artistToLoad.id, aErrors);
+                PNYLogError(@"Could not load albums of artist [%@]: %@.", artistToLoad.id, aErrors);
 
-            [self.errorService reportErrors:aErrors];
+                [self.errorService reportErrors:aErrors];
+            }
+
+            [refreshControl endRefreshing];
         }
+
+    } cacheHandler:^BOOL(PNYArtistAlbumsDto *aCachedArtistAlbums) {
+
+        if (aUseCache && aCachedArtistAlbums != nil) {
+
+            self.artistAlbums = aCachedArtistAlbums;
+
+            PNYLogInfo(@"[%lu] albums of artist [%@] loaded from cache, making a server request...", (unsigned long)self.artistAlbums.albums.count, artistToLoad.id);
+
+            [self.tableView reloadData];
+        }
+
+        return YES;
     }];
 }
 
@@ -219,7 +237,7 @@
 - (void)onRefreshRequested
 {
     if (self.artist != nil) {
-        [self requestAlbums];
+        [self requestAlbumsUsingCache:NO];
     } else {
         [refreshControl endRefreshing];
         [self.tableView reloadData];

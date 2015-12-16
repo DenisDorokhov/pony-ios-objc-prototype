@@ -5,12 +5,12 @@
 
 #import "PNYBootstrapConfigControllerAbstract.h"
 #import "PNYRestServiceUrlDao.h"
-#import "PNYRestServiceCached.h"
+#import "PNYRestService.h"
 
 @interface PNYBootstrapServerConfigController : PNYBootstrapConfigControllerAbstract <UITextFieldDelegate>
 
 @property (nonatomic, strong) id <PNYRestServiceUrlDao> restServiceUrlDao;
-@property (nonatomic, strong) id <PNYRestServiceCached> restService;
+@property (nonatomic, strong) id <PNYRestService> restService;
 
 @property (nonatomic, strong) IBOutlet UITextField *serverText;
 @property (nonatomic, strong) IBOutlet UISwitch *httpsSwitch;

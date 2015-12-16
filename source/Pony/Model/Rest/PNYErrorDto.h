@@ -6,6 +6,7 @@
 #import <EasyMapping/EKMappingProtocol.h>
 
 static NSString *const PNYErrorDtoCodeClientRequestFailed = @"errorClientRequestFailed";
+static NSString *const PNYErrorDtoCodeClientRequestTimeout = @"errorClientRequestTimeout";
 static NSString *const PNYErrorDtoCodeClientRequestCancelled = @"errorClientRequestCancelled";
 static NSString *const PNYErrorDtoCodeClientOffline = @"errorClientOffline";
 static NSString *const PNYErrorDtoCodeInvalidContentType = @"errorInvalidContentType";
@@ -45,14 +46,17 @@ static NSString *const PNYErrorDtoCodeSongsCountInvalid = @"errorSongsCountInval
 - (instancetype)initWithCode:(NSString *)aCode text:(NSString *)aText arguments:(NSArray *)aArguments;
 
 + (NSArray *)fetchArrayOfErrorsFromArray:(NSArray *)aErrors withCodes:(NSArray *)aCodes;
++ (NSArray *)fetchArrayOfErrorsFromArray:(NSArray *)aErrors withCode:(NSString *)aCode;
 
 + (PNYErrorDto *)fetchErrorFromArray:(NSArray *)aErrors withCodes:(NSArray *)aCodes;
++ (PNYErrorDto *)fetchErrorFromArray:(NSArray *)aErrors withCode:(NSString *)aCode;
 
 @end
 
 @interface PNYErrorDtoFactory : NSObject
 
 + (PNYErrorDto *)createErrorClientOffline;
++ (PNYErrorDto *)createErrorClientRequestTimeout;
 + (PNYErrorDto *)createErrorClientRequestCancelled;
 + (PNYErrorDto *)createErrorAccessDenied;
 + (PNYErrorDto *)createErrorUnexpected;

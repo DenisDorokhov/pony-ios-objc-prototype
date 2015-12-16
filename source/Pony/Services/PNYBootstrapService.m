@@ -71,7 +71,15 @@
 {
     if ([self.restServiceUrlDao fetchUrl] != nil) {
 
-        [self validateRestService];
+        if (self.authenticationService.authenticated) {
+
+            isBootstrapping = NO;
+
+            [self propagateDidFinishBootstrap];
+
+        } else {
+            [self validateAuthentication];
+        }
 
     } else {
 
@@ -83,32 +91,10 @@
     }
 }
 
-- (void)validateRestService
+- (void)validateAuthentication
 {
     [self.delegate bootstrapServiceDidStartBackgroundActivity:self];
 
-    [self.restService getInstallationWithSuccess:^(PNYInstallationDto *aInstallation) {
-        if (self.authenticationService.authenticated) {
-
-            isBootstrapping = NO;
-
-            [self propagateDidFinishBootstrap];
-
-        } else {
-            [self validateAuthentication];
-        }
-    }                                    failure:^(NSArray *aErrors) {
-
-        isBootstrapping = NO;
-
-        PNYLogError(@"Could not validate server: %@.", aErrors);
-
-        [self.delegate bootstrapService:self didFailWithErrors:aErrors];
-    }];
-}
-
-- (void)validateAuthentication
-{
     [self.authenticationService updateStatusWithSuccess:^(PNYUserDto *aUser) {
 
         isBootstrapping = NO;
@@ -119,7 +105,7 @@
 
         isBootstrapping = NO;
 
-        if ([PNYErrorDto fetchErrorFromArray:aErrors withCodes:@[PNYErrorDtoCodeAccessDenied]]) {
+        if ([PNYErrorDto fetchErrorFromArray:aErrors withCode:PNYErrorDtoCodeAccessDenied]) {
 
             PNYLogInfo(@"Bootstrapping requires authentication.");
 

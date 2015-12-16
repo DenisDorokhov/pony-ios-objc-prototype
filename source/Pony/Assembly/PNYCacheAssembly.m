@@ -8,11 +8,9 @@
 #import "PNYFileCache.h"
 #import "PNYMappingCacheSerializer.h"
 #import "PNYInstallationDto.h"
-#import "PNYOfflineOnlyCache.h"
 #import "PNYArtistAlbumsDto.h"
 #import "PNYUserDto.h"
 #import "PNYImageCacheSerializer.h"
-#import "PNYMemoryCache.h"
 
 @implementation PNYCacheAssembly
 
@@ -23,7 +21,7 @@
     return [TyphoonDefinition withClass:[PNYCacheAsync class] configuration:^(TyphoonDefinition *aDefinition) {
         aDefinition.scope = TyphoonScopeLazySingleton;
         [aDefinition useInitializer:@selector(initWithAsynchronousCache:) parameters:^(TyphoonMethod *aInitializer) {
-            [aInitializer injectParameterWith:[self installationCacheOfflineOnly]];
+            [aInitializer injectParameterWith:[self installationCache]];
         }];
     }];
 }
@@ -33,7 +31,7 @@
     return [TyphoonDefinition withClass:[PNYCacheAsync class] configuration:^(TyphoonDefinition *aDefinition) {
         aDefinition.scope = TyphoonScopeLazySingleton;
         [aDefinition useInitializer:@selector(initWithAsynchronousCache:) parameters:^(TyphoonMethod *aInitializer) {
-            [aInitializer injectParameterWith:[self currentUserCacheOfflineOnly]];
+            [aInitializer injectParameterWith:[self currentUserCache]];
         }];
     }];
 }
@@ -43,7 +41,7 @@
     return [TyphoonDefinition withClass:[PNYCacheAsync class] configuration:^(TyphoonDefinition *aDefinition) {
         aDefinition.scope = TyphoonScopeLazySingleton;
         [aDefinition useInitializer:@selector(initWithAsynchronousCache:) parameters:^(TyphoonMethod *aInitializer) {
-            [aInitializer injectParameterWith:[self artistsCacheOfflineOnly]];
+            [aInitializer injectParameterWith:[self artistsCache]];
         }];
     }];
 }
@@ -53,7 +51,7 @@
     return [TyphoonDefinition withClass:[PNYCacheAsync class] configuration:^(TyphoonDefinition *aDefinition) {
         aDefinition.scope = TyphoonScopeLazySingleton;
         [aDefinition useInitializer:@selector(initWithAsynchronousCache:) parameters:^(TyphoonMethod *aInitializer) {
-            [aInitializer injectParameterWith:[self artistAlbumsCacheOfflineOnly]];
+            [aInitializer injectParameterWith:[self artistAlbumsCache]];
         }];
     }];
 }
@@ -69,46 +67,6 @@
 }
 
 #pragma mark - Private
-
-- (id <PNYCache>)installationCacheOfflineOnly
-{
-    return [TyphoonDefinition withClass:[PNYOfflineOnlyCache class] configuration:^(TyphoonDefinition *aDefinition) {
-        aDefinition.scope = TyphoonScopeLazySingleton;
-        [aDefinition useInitializer:@selector(initWithTargetCache:) parameters:^(TyphoonMethod *aInitializer) {
-            [aInitializer injectParameterWith:[self installationCache]];
-        }];
-    }];
-}
-
-- (id <PNYCache>)currentUserCacheOfflineOnly
-{
-    return [TyphoonDefinition withClass:[PNYOfflineOnlyCache class] configuration:^(TyphoonDefinition *aDefinition) {
-        aDefinition.scope = TyphoonScopeLazySingleton;
-        [aDefinition useInitializer:@selector(initWithTargetCache:) parameters:^(TyphoonMethod *aInitializer) {
-            [aInitializer injectParameterWith:[self currentUserCache]];
-        }];
-    }];
-}
-
-- (id <PNYCache>)artistsCacheOfflineOnly
-{
-    return [TyphoonDefinition withClass:[PNYOfflineOnlyCache class] configuration:^(TyphoonDefinition *aDefinition) {
-        aDefinition.scope = TyphoonScopeLazySingleton;
-        [aDefinition useInitializer:@selector(initWithTargetCache:) parameters:^(TyphoonMethod *aInitializer) {
-            [aInitializer injectParameterWith:[self artistsCache]];
-        }];
-    }];
-}
-
-- (id <PNYCache>)artistAlbumsCacheOfflineOnly
-{
-    return [TyphoonDefinition withClass:[PNYOfflineOnlyCache class] configuration:^(TyphoonDefinition *aDefinition) {
-        aDefinition.scope = TyphoonScopeLazySingleton;
-        [aDefinition useInitializer:@selector(initWithTargetCache:) parameters:^(TyphoonMethod *aInitializer) {
-            [aInitializer injectParameterWith:[self artistAlbumsCache]];
-        }];
-    }];
-}
 
 - (id <PNYCache>)installationCache
 {

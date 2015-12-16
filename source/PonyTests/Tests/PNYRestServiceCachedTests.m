@@ -30,9 +30,9 @@
 
     service.installationCache = [PNYCacheAsync cacheWithAsynchronousCache:[PNYMemoryCache new]];
 
-    void (^methodBlock)(PNYRestServiceSuccessBlock, PNYRestServiceFailureBlock, BOOL) =
-            ^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, BOOL aUseCache) {
-                [service getInstallationWithSuccess:aSuccess failure:aFailure useCache:aUseCache];
+    void (^methodBlock)(PNYRestServiceSuccessBlock, PNYRestServiceFailureBlock, PNYRestServiceCacheHandlerBlock) =
+            ^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, PNYRestServiceCacheHandlerBlock aCacheHandler) {
+                [service getInstallationWithSuccess:aSuccess failure:aFailure cacheHandler:aCacheHandler];
             };
 
     id dto;
@@ -51,18 +51,12 @@
 
     [verifyCount(targetService, times(1)) getInstallationWithSuccess:anything() failure:anything()];
 
-    // Check that target service is used  when useCache is NO.
+    // Check that target service is not called when cache handler is nil.
 
-    dto = [self runMethodAndWait:methodBlock useCache:NO];
+    dto = [self runMethodAndWait:methodBlock useNilCacheHandler:YES];
     assertThat(dto, sameInstance(dtoToReturn));
 
     [verifyCount(targetService, times(2)) getInstallationWithSuccess:anything() failure:anything()];
-
-    // Check cache value existence.
-
-    assertThatBool([self cachedValueExistsForBlock:^(void(^aCompletion)(BOOL)) {
-        [service cachedValueExistsForInstallation:aCompletion];
-    }], isTrue());
 }
 
 - (void)testAuthenticate
@@ -80,7 +74,7 @@
 
     // Check that target service is used.
 
-    id dto = [self runMethodAndWait:^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, BOOL aUseCache) {
+    id dto = [self runMethodAndWait:^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, PNYRestServiceCacheHandlerBlock aCacheHandler) {
         [service authenticateWithCredentials:nil success:aSuccess failure:aFailure];
     }];
     assertThat(dto, sameInstance(dtoToReturn));
@@ -101,7 +95,7 @@
 
     // Check that target service is used.
 
-    id dto = [self runMethodAndWait:^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, BOOL aUseCache) {
+    id dto = [self runMethodAndWait:^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, PNYRestServiceCacheHandlerBlock aCacheHandler) {
         [service logoutWithSuccess:aSuccess failure:aFailure];
     }];
     assertThat(dto, sameInstance(dtoToReturn));
@@ -122,9 +116,9 @@
 
     service.currentUserCache = [PNYCacheAsync cacheWithAsynchronousCache:[PNYMemoryCache new]];
 
-    void (^methodBlock)(PNYRestServiceSuccessBlock, PNYRestServiceFailureBlock, BOOL) =
-            ^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, BOOL aUseCache) {
-                [service getCurrentUserWithSuccess:aSuccess failure:aFailure useCache:aUseCache];
+    void (^methodBlock)(PNYRestServiceSuccessBlock, PNYRestServiceFailureBlock, PNYRestServiceCacheHandlerBlock) =
+            ^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, PNYRestServiceCacheHandlerBlock aCacheHandler) {
+                [service getCurrentUserWithSuccess:aSuccess failure:aFailure cacheHandler:aCacheHandler];
             };
 
     id dto;
@@ -143,18 +137,12 @@
 
     [verifyCount(targetService, times(1)) getCurrentUserWithSuccess:anything() failure:anything()];
 
-    // Check that target service is used  when useCache is NO.
+    // Check that target service is not called when cache handler is nil.
 
-    dto = [self runMethodAndWait:methodBlock useCache:NO];
+    dto = [self runMethodAndWait:methodBlock useNilCacheHandler:YES];
     assertThat(dto, sameInstance(dtoToReturn));
 
     [verifyCount(targetService, times(2)) getCurrentUserWithSuccess:anything() failure:anything()];
-
-    // Check cache value existence.
-
-    assertThatBool([self cachedValueExistsForBlock:^(void(^aCompletion)(BOOL)) {
-        [service cachedValueExistsForCurrentUser:aCompletion];
-    }], isTrue());
 }
 
 - (void)testRefreshToken
@@ -172,7 +160,7 @@
 
     // Check that target service is used.
 
-    id dto = [self runMethodAndWait:^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, BOOL aUseCache) {
+    id dto = [self runMethodAndWait:^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, PNYRestServiceCacheHandlerBlock aCacheHandler) {
         [service refreshTokenWithSuccess:aSuccess failure:aFailure];
     }];
     assertThat(dto, sameInstance(dtoToReturn));
@@ -193,9 +181,9 @@
 
     service.artistsCache = [PNYCacheAsync cacheWithAsynchronousCache:[PNYMemoryCache new]];
 
-    void (^methodBlock)(PNYRestServiceSuccessBlock, PNYRestServiceFailureBlock, BOOL) =
-            ^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, BOOL aUseCache) {
-                [service getArtistsWithSuccess:aSuccess failure:aFailure useCache:aUseCache];
+    void (^methodBlock)(PNYRestServiceSuccessBlock, PNYRestServiceFailureBlock, PNYRestServiceCacheHandlerBlock) =
+            ^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, PNYRestServiceCacheHandlerBlock aCacheHandler) {
+                [service getArtistsWithSuccess:aSuccess failure:aFailure cacheHandler:aCacheHandler];
             };
 
     id dto;
@@ -214,18 +202,12 @@
 
     [verifyCount(targetService, times(1)) getArtistsWithSuccess:anything() failure:anything()];
 
-    // Check that target service is used  when useCache is NO.
+    // Check that target service is not called when cache handler is nil.
 
-    dto = [self runMethodAndWait:methodBlock useCache:NO];
+    dto = [self runMethodAndWait:methodBlock useNilCacheHandler:YES];
     assertThat(dto, sameInstance(dtoToReturn));
 
     [verifyCount(targetService, times(2)) getArtistsWithSuccess:anything() failure:anything()];
-
-    // Check cache value existence.
-
-    assertThatBool([self cachedValueExistsForBlock:^(void(^aCompletion)(BOOL)) {
-        [service cachedValueExistsForArtists:aCompletion];
-    }], isTrue());
 }
 
 - (void)testGetArtistAlbums
@@ -243,9 +225,9 @@
 
     service.artistAlbumsCache = [PNYCacheAsync cacheWithAsynchronousCache:[PNYMemoryCache new]];
 
-    void (^methodBlock)(PNYRestServiceSuccessBlock, PNYRestServiceFailureBlock, BOOL) =
-            ^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, BOOL aUseCache) {
-                [service getArtistAlbumsWithArtist:@"someArtist" success:aSuccess failure:aFailure useCache:aUseCache];
+    void (^methodBlock)(PNYRestServiceSuccessBlock, PNYRestServiceFailureBlock, PNYRestServiceCacheHandlerBlock) =
+            ^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, PNYRestServiceCacheHandlerBlock aCacheHandler) {
+                [service getArtistAlbumsWithArtist:@"someArtist" success:aSuccess failure:aFailure cacheHandler:aCacheHandler];
             };
 
     id dto;
@@ -264,18 +246,12 @@
 
     [verifyCount(targetService, times(1)) getArtistAlbumsWithArtist:@"someArtist" success:anything() failure:anything()];
 
-    // Check that target service is used  when useCache is NO.
+    // Check that target service is not called when cache handler is nil.
 
-    dto = [self runMethodAndWait:methodBlock useCache:NO];
+    dto = [self runMethodAndWait:methodBlock useNilCacheHandler:YES];
     assertThat(dto, sameInstance(dtoToReturn));
 
     [verifyCount(targetService, times(2)) getArtistAlbumsWithArtist:@"someArtist" success:anything() failure:anything()];
-
-    // Check cache value existence.
-
-    assertThatBool([self cachedValueExistsForBlock:^(void(^aCompletion)(BOOL)) {
-        [service cachedValueExistsForArtistAlbums:@"someArtist" completion:aCompletion];
-    }], isTrue());
 }
 
 - (void)testGetSongs
@@ -293,7 +269,7 @@
 
     // Check that target service is used.
 
-    id dto = [self runMethodAndWait:^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, BOOL aUseCache) {
+    id dto = [self runMethodAndWait:^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, PNYRestServiceCacheHandlerBlock aCacheHandler) {
         [service getSongsWithIds:nil success:aSuccess failure:aFailure];
     }];
     assertThat(dto, sameInstance(dtoToReturn));
@@ -314,9 +290,9 @@
 
     service.imageCache = [PNYCacheAsync cacheWithAsynchronousCache:[PNYMemoryCache new]];
 
-    void (^methodBlock)(PNYRestServiceSuccessBlock, PNYRestServiceFailureBlock, BOOL) =
-            ^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, BOOL aUseCache) {
-                [service downloadImage:@"someUrl" success:aSuccess failure:aFailure useCache:aUseCache];
+    void (^methodBlock)(PNYRestServiceSuccessBlock, PNYRestServiceFailureBlock, PNYRestServiceCacheHandlerBlock) =
+            ^(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, PNYRestServiceCacheHandlerBlock aCacheHandler) {
+                [service downloadImage:@"someUrl" success:aSuccess failure:aFailure cacheHandler:aCacheHandler];
             };
 
     UIImage *image;
@@ -335,18 +311,12 @@
 
     [verifyCount(targetService, times(1)) downloadImage:@"someUrl" success:anything() failure:anything()];
 
-    // Check that target service is used  when useCache is NO.
+    // Check that target service is not called when cache handler is nil.
 
-    image = [self runMethodAndWait:methodBlock useCache:NO];
+    image = [self runMethodAndWait:methodBlock useNilCacheHandler:YES];
     assertThat(image, sameInstance(imageToReturn));
 
     [verifyCount(targetService, times(2)) downloadImage:@"someUrl" success:anything() failure:anything()];
-
-    // Check cache value existence.
-
-    assertThatBool([self cachedValueExistsForBlock:^(void(^aCompletion)(BOOL)) {
-        [service cachedValueExistsForImage:@"someUrl" completion:aCompletion];
-    }], isTrue());
 }
 
 - (void)testDownloadSong
@@ -381,12 +351,13 @@
 
 #pragma mark - Private
 
-- (id)runMethodAndWait:(void (^)(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, BOOL aUseCache))aBlock
+- (id)runMethodAndWait:(void (^)(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, PNYRestServiceCacheHandlerBlock aCacheHandler))aBlock
 {
-    return [self runMethodAndWait:aBlock useCache:YES];
+    return [self runMethodAndWait:aBlock useNilCacheHandler:NO];
 }
 
-- (id)runMethodAndWait:(void (^)(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, BOOL aUseCache))aBlock useCache:(BOOL)aUseCache
+- (id)runMethodAndWait:(void (^)(PNYRestServiceSuccessBlock aSuccess, PNYRestServiceFailureBlock aFailure, PNYRestServiceCacheHandlerBlock aCacheHandler))aBlock
+    useNilCacheHandler:(BOOL)aUseNilCacheHandler
 {
     XCTestExpectation *expectation = PNYTestExpectationCreate();
 
@@ -397,26 +368,17 @@
     }, ^(NSArray *aErrors) {
         [expectation fulfill];
         XCTFail(@"Failed with errors: %@.", aErrors);
-    }, aUseCache);
-
-    PNYTestExpectationWait();
-
-    return returnedDto;
-}
-
-- (BOOL)cachedValueExistsForBlock:(void (^)(void(^Completion)(BOOL)))aBlock
-{
-    XCTestExpectation *expectation = PNYTestExpectationCreate();
-
-    __block BOOL result = NO;
-    aBlock(^(BOOL aCompletion) {
-        result = aCompletion;
-        [expectation fulfill];
+    }, aUseNilCacheHandler ? nil : ^BOOL (id aCachedValue) {
+        returnedDto = aCachedValue;
+        if (aCachedValue != nil) {
+            [expectation fulfill];
+        }
+        return aCachedValue == nil;
     });
 
     PNYTestExpectationWait();
 
-    return result;
+    return returnedDto;
 }
 
 @end

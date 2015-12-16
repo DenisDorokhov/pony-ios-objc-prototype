@@ -85,18 +85,18 @@
 
         }                                    failure:^(NSArray *aErrors) {
 
-            PNYLogError(@"Could get server installation: %@.", aErrors);
+            PNYLogError(@"Could not get server installation: %@.", aErrors);
 
             [self finishBackgroundActivity];
 
             [self.restServiceUrlDao removeUrl];
 
-            if ([PNYErrorDto fetchErrorFromArray:aErrors withCodes:@[PNYErrorDtoCodeClientOffline]] == nil) {
+            if ([PNYErrorDto fetchErrorFromArray:aErrors withCode:PNYErrorDtoCodeClientOffline] == nil) {
                 [self showConnectionAlert];
             } else {
                 [self showOfflineAlert];
             }
-        }                                   useCache:NO];
+        }];
 
     } else {
         [self showValidationAlert];
