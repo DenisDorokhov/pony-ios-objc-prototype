@@ -322,10 +322,10 @@
 - (void)testDownloadSong
 {
     id <PNYRestService> targetService = mockProtocol(@protocol(PNYRestService));
-    [given([targetService downloadSongWithId:anything() toFile:anything()
-                                    progress:anything()
-                                     success:anything()
-                                     failure:anything()]) willDo:^id(NSInvocation *invocation) {
+    [given([targetService downloadSong:anything() toFile:anything()
+                              progress:anything()
+                               success:anything()
+                               failure:anything()]) willDo:^id(NSInvocation *invocation) {
         void (^success)() = [invocation mkt_arguments][3];
         success();
         return nil;
@@ -337,16 +337,16 @@
 
     XCTestExpectation *expectation = PNYTestExpectationCreate();
 
-    [service downloadSongWithId:@123 toFile:@"somePath" progress:nil success:^{
+    [service downloadSong:@"someUrl" toFile:@"somePath" progress:nil success:^{
         [expectation fulfill];
-    } failure:^(NSArray *aErrors) {
+    }             failure:^(NSArray *aErrors) {
         [expectation fulfill];
         XCTFail(@"Failed with errors: %@.", aErrors);
     }];
 
     PNYTestExpectationWait();
 
-    [verify(targetService) downloadSongWithId:@123 toFile:@"somePath" progress:nil success:anything() failure:anything()];
+    [verify(targetService) downloadSong:@"someUrl" toFile:@"somePath" progress:nil success:anything() failure:anything()];
 }
 
 #pragma mark - Private

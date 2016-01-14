@@ -233,11 +233,11 @@ static NSString *const DEMO_PASSWORD = @"demo";
 
     XCTestExpectation *expectation = PNYTestExpectationCreate();
 
-    [service downloadSongWithId:song.id toFile:filePath progress:^(float aValue) {
+    [service downloadSong:song.url toFile:filePath progress:^(float aValue) {
         isProgressCalled = YES;
-    }                   success:^{
+    }             success:^{
         [expectation fulfill];
-    }                   failure:^(NSArray *aErrors) {
+    }             failure:^(NSArray *aErrors) {
         [self failExpectation:expectation withErrors:aErrors];
     }];
 

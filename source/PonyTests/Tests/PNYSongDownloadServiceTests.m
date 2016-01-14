@@ -8,7 +8,6 @@
 #import "PNYRestServiceImpl.h"
 #import "PNYTokenPairDaoMock.h"
 #import "PNYPersistentDictionaryMock.h"
-#import "PNYSongDto.h"
 #import "PNYAlbumSongsDto.h"
 
 @interface PNYSongDownloadServiceTests : PNYTestCase <PNYSongDownloadServiceDelegate>
@@ -86,7 +85,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
 {
     songDownloadExpectation = PNYTestExpectationCreate();
 
-    [songDownloadService startSongDownload:downloadingSong.id];
+    [songDownloadService startSongDownload:downloadingSong];
 
     PNYTestExpectationWait();
 
@@ -112,7 +111,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
 {
     songDownloadExpectation = PNYTestExpectationCreate();
 
-    [songDownloadService startSongDownload:downloadingSong.id];
+    [songDownloadService startSongDownload:downloadingSong];
     [songDownloadService cancelSongDownload:downloadingSong.id];
 
     PNYTestExpectationWait();
@@ -131,7 +130,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
 {
     songDownloadExpectation = PNYTestExpectationCreate();
 
-    [songDownloadService startSongDownload:downloadingSong.id];
+    [songDownloadService startSongDownload:downloadingSong];
 
     PNYTestExpectationWait();
 
@@ -157,7 +156,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
 - (void)songDownloadService:(PNYSongDownloadService *)aService didProgressSongDownload:(id <PNYSongDownloadProgress>)aProgress
 {
     assertThat(aService, sameInstance(songDownloadService));
-    assertThat(aProgress.songId, equalTo(downloadingSong.id));
+    assertThat(aProgress.song, sameInstance(downloadingSong));
 
     assertThatFloat(aProgress.value, greaterThanOrEqualTo(@(lastProgressValue)));
 

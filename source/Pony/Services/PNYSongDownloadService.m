@@ -24,7 +24,7 @@
 
 @interface PNYSongDownloadProgressImpl : NSObject <PNYSongDownloadProgress>
 
-@property (nonatomic, strong) NSNumber *songId;
+@property (nonatomic, strong) PNYSongDto *song;
 @property (nonatomic) float value;
 
 @end
@@ -35,7 +35,7 @@
 
 @interface PNYSongDownloadServiceTask : NSObject
 
-@property (nonatomic, strong) NSNumber *songId;
+@property (nonatomic, strong) PNYSongDto *song;
 
 @property (nonatomic, strong) id <PNYRestRequest> request;
 @property (nonatomic, strong) PNYSongDownloadProgressImpl *progress;
@@ -107,46 +107,46 @@ static NSString *const KEY_DATE = @"date";
     return songDownload;
 }
 
-- (void)startSongDownload:(NSNumber *)aSongId
+- (void)startSongDownload:(PNYSongDto *)aSong
 {
     PNYAssert(self.restService != nil);
 
-    if (songIdToTask[aSongId] != nil) {
+    if (songIdToTask[aSong.id] != nil) {
 
-        PNYLogInfo(@"Song [%@] is already downloading, cancelling download.", aSongId);
+        PNYLogInfo(@"Song [%@] is already downloading, cancelling download.", aSong.id);
 
-        [self doCancelSongDownload:aSongId];
+        [self doCancelSongDownload:aSong.id];
     }
 
     PNYSongDownloadProgressImpl *progress = [PNYSongDownloadProgressImpl new];
 
-    progress.songId = aSongId;
+    progress.song = aSong;
     progress.value = 0;
 
     PNYSongDownloadServiceTask *task = [PNYSongDownloadServiceTask new];
 
-    task.songId = aSongId;
+    task.song = aSong;
     task.progress = progress;
     task.filePath = [PNYFileUtils createTemporaryFile];
 
-    task.request = [self.restService downloadSongWithId:task.songId toFile:task.filePath progress:^(float aValue) {
-        [self progressSongDownload:task.songId value:aValue];
-    }                                           success:^{
-        PNYLogDebug(@"Song [%@] file downloaded to [%@].", task.songId, task.filePath);
-        [self finishSongDownload:task.songId];
-    }                                           failure:^(NSArray *aErrors) {
+    task.request = [self.restService downloadSong:task.song.url toFile:task.filePath progress:^(float aValue) {
+        [self progressSongDownload:task.song.id value:aValue];
+    }                                     success:^{
+        PNYLogDebug(@"Song [%@] file downloaded to [%@].", task.song.id, task.filePath);
+        [self finishSongDownload:task.song.id];
+    }                                     failure:^(NSArray *aErrors) {
         if ([PNYErrorDto fetchErrorFromArray:aErrors withCode:PNYErrorDtoCodeClientRequestCancelled] == nil) {
-            [self failSongDownload:task.songId errors:aErrors];
+            [self failSongDownload:task.song.id errors:aErrors];
         }
     }];
 
-    songIdToTask[task.songId] = task;
+    songIdToTask[task.song.id] = task;
 
-    PNYLogInfo(@"Song [%@] download started.", task.songId);
+    PNYLogInfo(@"Song [%@] download started.", task.song.id);
 
     [delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYSongDownloadServiceDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
         if ([aObject respondsToSelector:@selector(songDownloadService:didStartSongDownload:)]) {
-            [aObject songDownloadService:self didStartSongDownload:task.songId];
+            [aObject songDownloadService:self didStartSongDownload:task.song.id];
         }
     }];
 }

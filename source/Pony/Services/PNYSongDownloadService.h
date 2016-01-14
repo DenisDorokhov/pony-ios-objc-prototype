@@ -5,6 +5,7 @@
 
 #import "PNYRestService.h"
 #import "PNYPersistentDictionary.h"
+#import "PNYSongDto.h"
 
 @class PNYSongDownloadService;
 
@@ -18,7 +19,7 @@
 
 @protocol PNYSongDownloadProgress <NSObject>
 
-@property (nonatomic, readonly) NSNumber *songId;
+@property (nonatomic, readonly) PNYSongDto *song;
 @property (nonatomic, readonly) float value;
 
 @end
@@ -48,7 +49,7 @@
 
 - (id <PNYSongDownload>)songDownload:(NSNumber *)aSongId;
 
-- (void)startSongDownload:(NSNumber *)aSongId;
+- (void)startSongDownload:(PNYSongDto *)aSong;
 - (void)cancelSongDownload:(NSNumber *)aSongId;
 
 - (id <PNYSongDownloadProgress>)progressForSong:(NSNumber *)aSongId;

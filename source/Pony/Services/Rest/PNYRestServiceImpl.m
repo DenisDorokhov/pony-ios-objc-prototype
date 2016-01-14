@@ -217,16 +217,14 @@
     return nil;
 }
 
-- (id <PNYRestRequest>)downloadSongWithId:(NSNumber *)aSongId toFile:(NSString *)aFilePath
-                                 progress:(void (^)(float aValue))aProgress
-                                  success:(void (^)())aSuccess
-                                  failure:(PNYRestServiceFailureBlock)aFailure
+- (id <PNYRestRequest>)downloadSong:(NSString *)aAbsoluteUrl toFile:(NSString *)aFilePath
+                           progress:(void (^)(float aValue))aProgress
+                            success:(void (^)())aSuccess
+                            failure:(PNYRestServiceFailureBlock)aFailure
 {
     NSError *error = nil;
 
-    NSString *url = [NSString stringWithFormat:@"/audio/%@", aSongId];
-
-    NSURLRequest *urlRequest = [self buildRequestWithRelativeUrl:url method:@"GET"
+    NSURLRequest *urlRequest = [self buildRequestWithAbsoluteUrl:aAbsoluteUrl method:@"GET"
                                                          headers:nil parameters:nil error:&error];
 
     if (error == nil) {

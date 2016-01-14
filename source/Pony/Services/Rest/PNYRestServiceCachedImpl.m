@@ -214,15 +214,15 @@ static NSString *const KEY_IMAGES = @"images:%@";
     return [self downloadImage:aAbsoluteUrl success:aSuccess failure:aFailure cacheHandler:nil];
 }
 
-- (id <PNYRestRequest>)downloadSongWithId:(NSNumber *)aSongId toFile:(NSString *)aFilePath
-                                 progress:(void (^)(float aValue))aProgress
-                                  success:(void (^)())aSuccess
-                                  failure:(PNYRestServiceFailureBlock)aFailure
+- (id <PNYRestRequest>)downloadSong:(NSString *)aAbsoluteUrl toFile:(NSString *)aFilePath
+                           progress:(void (^)(float aValue))aProgress
+                            success:(void (^)())aSuccess
+                            failure:(PNYRestServiceFailureBlock)aFailure
 {
     PNYAssert(self.targetService != nil);
 
-    return [self.targetService downloadSongWithId:aSongId toFile:aFilePath
-                                         progress:aProgress success:aSuccess failure:aFailure];
+    return [self.targetService downloadSong:aAbsoluteUrl toFile:aFilePath
+                                   progress:aProgress success:aSuccess failure:aFailure];
 }
 
 #pragma mark - Private
