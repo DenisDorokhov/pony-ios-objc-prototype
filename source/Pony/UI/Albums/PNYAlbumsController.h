@@ -7,7 +7,7 @@
 #import "PNYRestServiceCached.h"
 #import "PNYErrorService.h"
 
-@interface PNYAlbumsController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface PNYAlbumsController : UITableViewController
 
 @property (nonatomic, strong) id <PNYRestServiceCached> restService;
 @property (nonatomic, strong) PNYErrorService *errorService;
@@ -18,6 +18,6 @@
 @property (nonatomic) IBInspectable CGFloat songCellHeight;
 @property (nonatomic) IBInspectable CGFloat songCellWithDiscNumberHeight;
 
-@property (nonatomic, strong) IBOutlet UITableView *tableView;
+- (IBAction)onRefreshRequested;
 
 @end

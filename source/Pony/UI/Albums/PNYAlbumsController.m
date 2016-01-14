@@ -19,8 +19,6 @@
 @implementation PNYAlbumsController
 {
 @private
-    UIRefreshControl *refreshControl;
-
     NSMutableArray *albumDiscsToSongs; // NSMutableArray of NSMutableDictionary (NSNumber -> Array of PNYSongDto)
 
     id <PNYRestRequest> lastAlbumsRequest;
@@ -29,7 +27,7 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
-    if(self != nil) {
+    if (self != nil) {
         self.albumHeaderHeight = 44;
         self.songCellHeight = 44;
         self.songCellWithDiscNumberHeight = 44;
@@ -52,6 +50,16 @@
     if (self.artist != nil) {
         [self requestAlbumsUsingCache:YES];
     } else {
+        [self.tableView reloadData];
+    }
+}
+
+- (IBAction)onRefreshRequested
+{
+    if (self.artist != nil) {
+        [self requestAlbumsUsingCache:NO];
+    } else {
+        [self.refreshControl endRefreshing];
         [self.tableView reloadData];
     }
 }
@@ -126,12 +134,6 @@
 
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-
-    refreshControl = [[UIRefreshControl alloc] init];
-
-    [refreshControl addTarget:self action:@selector(onRefreshRequested) forControlEvents:UIControlEventValueChanged];
-
-    [self.tableView addSubview:refreshControl];
 }
 
 #pragma mark - Private
@@ -184,10 +186,10 @@
 
         PNYLogInfo(@"[%lu] albums of artist [%@] loaded.", (unsigned long)self.artistAlbums.albums.count, artistToLoad.id);
 
-        [refreshControl endRefreshing];
+        [self.refreshControl endRefreshing];
         [self.tableView reloadData];
 
-    } failure:^(NSArray *aErrors) {
+    }                                                       failure:^(NSArray *aErrors) {
 
         if ([PNYErrorDto fetchErrorFromArray:aErrors withCode:PNYErrorDtoCodeClientRequestCancelled] != nil) {
             PNYLogDebug(@"Cancelled loading albums of artist [%@].", artistToLoad.id);
@@ -199,10 +201,10 @@
                 [self.errorService reportErrors:aErrors];
             }
 
-            [refreshControl endRefreshing];
+            [self.refreshControl endRefreshing];
         }
 
-    } cacheHandler:^BOOL(PNYArtistAlbumsDto *aCachedArtistAlbums) {
+    }                                                  cacheHandler:^BOOL(PNYArtistAlbumsDto *aCachedArtistAlbums) {
 
         if (aUseCache && aCachedArtistAlbums != nil) {
 
@@ -232,16 +234,6 @@
     }
 
     return isCellWithDiscNumber;
-}
-
-- (void)onRefreshRequested
-{
-    if (self.artist != nil) {
-        [self requestAlbumsUsingCache:NO];
-    } else {
-        [refreshControl endRefreshing];
-        [self.tableView reloadData];
-    }
 }
 
 @end

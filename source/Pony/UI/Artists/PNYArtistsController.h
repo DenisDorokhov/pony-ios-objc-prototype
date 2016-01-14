@@ -7,14 +7,13 @@
 #import "PNYRestServiceCached.h"
 #import "PNYErrorService.h"
 
-@interface PNYArtistsController : UIViewController <UITableViewDataSource, UITableViewDelegate, PNYAuthenticationServiceDelegate>
+@interface PNYArtistsController : UITableViewController <PNYAuthenticationServiceDelegate>
 
 @property (nonatomic, strong) id <PNYRestServiceCached> restService;
 @property (nonatomic, strong) PNYAuthenticationService *authenticationService;
 @property (nonatomic, strong) PNYErrorService *errorService;
 
-@property (nonatomic, strong) IBOutlet UITableView *tableView;
-
 - (IBAction)onLogoutButtonTouch;
+- (IBAction)onRefreshRequested;
 
 @end

@@ -14,8 +14,6 @@
 @implementation PNYArtistsController
 {
 @private
-    UIRefreshControl *refreshControl;
-
     NSArray *artists;
 
     PNYArtistDto *selectedArtist;
@@ -31,6 +29,12 @@
                                                                         [self.authenticationService logoutWithSuccess:nil failure:nil];
                                                                     }]
                        animated:YES completion:nil];
+}
+
+
+- (IBAction)onRefreshRequested
+{
+    [self requestArtistsUsingCache:NO];
 }
 
 #pragma mark - <PNYAuthenticationService>
@@ -63,6 +67,8 @@
 {
     selectedArtist = artists[(NSUInteger)aIndexPath.row];
 
+    [aTableView deselectRowAtIndexPath:aIndexPath animated:YES];
+
     [self performSegueWithIdentifier:PNYSegueArtistsToAlbums sender:self];
 }
 
@@ -80,12 +86,6 @@
 
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-
-    refreshControl = [[UIRefreshControl alloc] init];
-
-    [refreshControl addTarget:self action:@selector(onRefreshRequested) forControlEvents:UIControlEventValueChanged];
-
-    [self.tableView addSubview:refreshControl];
 }
 
 - (void)viewWillAppear:(BOOL)aAnimated
@@ -133,7 +133,7 @@
 
         PNYLogInfo(@"[%lu] artists loaded.", (unsigned long)artists.count);
 
-        [refreshControl endRefreshing];
+        [self.refreshControl endRefreshing];
         [self.tableView reloadData];
 
     }                               failure:^(NSArray *aErrors) {
@@ -145,7 +145,7 @@
             [self.errorService reportErrors:aErrors];
         }
 
-        [refreshControl endRefreshing];
+        [self.refreshControl endRefreshing];
 
     }                          cacheHandler:^BOOL(NSArray *aCachedArtists) {
 
@@ -160,11 +160,6 @@
 
         return YES;
     }];
-}
-
-- (void)onRefreshRequested
-{
-    [self requestArtistsUsingCache:NO];
 }
 
 @end
