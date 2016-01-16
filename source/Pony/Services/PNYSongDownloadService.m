@@ -96,7 +96,7 @@ static NSString *const KEY_DATE = @"date";
     [delegates removeNonretainedObject:aDelegate];
 }
 
-- (id <PNYSongDownload>)songDownload:(NSNumber *)aSongId
+- (id <PNYSongDownload>)downloadForSong:(NSNumber *)aSongId
 {
     PNYAssert(self.persistentDictionary != nil);
 
@@ -107,7 +107,16 @@ static NSString *const KEY_DATE = @"date";
     return songDownload;
 }
 
-- (void)startSongDownload:(PNYSongDto *)aSong
+- (NSArray *)allDownloads
+{
+    NSMutableArray *downloads = [NSMutableArray array];
+    [self.persistentDictionary.data[KEY_SONG_DOWNLOADS] enumerateKeysAndObjectsUsingBlock:^(NSNumber *aSongId, NSDictionary *aSongDownload, BOOL *aStop) {
+        [downloads addObject:[self songDownloadFromDictionary:aSongDownload]];
+    }];
+    return downloads;
+}
+
+- (void)startDownloadForSong:(PNYSongDto *)aSong
 {
     PNYAssert(self.restService != nil);
 
@@ -151,7 +160,7 @@ static NSString *const KEY_DATE = @"date";
     }];
 }
 
-- (void)cancelSongDownload:(NSNumber *)aSongId
+- (void)cancelDownloadForSong:(NSNumber *)aSongId
 {
     if (songIdToTask[aSongId] != nil) {
 
@@ -164,16 +173,11 @@ static NSString *const KEY_DATE = @"date";
     }
 }
 
-- (id <PNYSongDownloadProgress>)progressForSong:(NSNumber *)aSongId
-{
-    return [self taskForSong:aSongId].progress;
-}
-
-- (void)deleteSongDownload:(NSNumber *)aSongId
+- (void)deleteDownloadForSong:(NSNumber *)aSongId
 {
     PNYAssert(self.persistentDictionary != nil);
 
-    id <PNYSongDownload> songDownload = [self songDownload:aSongId];
+    id <PNYSongDownload> songDownload = [self downloadForSong:aSongId];
 
     if (songDownload != nil) {
 
@@ -198,6 +202,20 @@ static NSString *const KEY_DATE = @"date";
     } else {
         PNYLogWarn(@"Could not delete song [%@]: song download not found.", aSongId);
     }
+}
+
+- (id <PNYSongDownloadProgress>)progressForSong:(NSNumber *)aSongId
+{
+    return [self taskForSong:aSongId].progress;
+}
+
+- (NSArray *)allProgresses
+{
+    NSMutableArray *progresses = [NSMutableArray array];
+    [songIdToTask enumerateKeysAndObjectsUsingBlock:^(NSNumber *aSongId, PNYSongDownloadServiceTask *aTask, BOOL *aStop) {
+        [progresses addObject:aTask.progress];
+    }];
+    return progresses;
 }
 
 #pragma mark - Private

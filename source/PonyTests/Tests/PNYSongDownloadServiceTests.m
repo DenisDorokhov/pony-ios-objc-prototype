@@ -85,7 +85,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
 {
     songDownloadExpectation = PNYTestExpectationCreate();
 
-    [songDownloadService startSongDownload:downloadingSong];
+    [songDownloadService startDownloadForSong:downloadingSong];
 
     PNYTestExpectationWait();
 
@@ -97,8 +97,11 @@ static NSString *const DEMO_PASSWORD = @"demo";
     assertThatBool(didCallDidDeleteSongDownload, isFalse());
 
     assertThat([songDownloadService progressForSong:downloadingSong.id], nilValue());
+    assertThat([songDownloadService allProgresses], isEmpty());
 
-    id <PNYSongDownload> songDownload = [songDownloadService songDownload:downloadingSong.id];
+    assertThat([songDownloadService allDownloads], hasCountOf(1));
+
+    id <PNYSongDownload> songDownload = [songDownloadService downloadForSong:downloadingSong.id];
 
     assertThat(songDownload, notNilValue());
 
@@ -111,8 +114,8 @@ static NSString *const DEMO_PASSWORD = @"demo";
 {
     songDownloadExpectation = PNYTestExpectationCreate();
 
-    [songDownloadService startSongDownload:downloadingSong];
-    [songDownloadService cancelSongDownload:downloadingSong.id];
+    [songDownloadService startDownloadForSong:downloadingSong];
+    [songDownloadService cancelDownloadForSong:downloadingSong.id];
 
     PNYTestExpectationWait();
 
@@ -123,24 +126,29 @@ static NSString *const DEMO_PASSWORD = @"demo";
     assertThatBool(didCallDidDeleteSongDownload, isFalse());
 
     assertThat([songDownloadService progressForSong:downloadingSong.id], nilValue());
-    assertThat([songDownloadService songDownload:downloadingSong.id], nilValue());
+    assertThat([songDownloadService allProgresses], isEmpty());
+
+    assertThat([songDownloadService downloadForSong:downloadingSong.id], nilValue());
+    assertThat([songDownloadService allDownloads], isEmpty());
 }
 
 - (void)testDeletion
 {
     songDownloadExpectation = PNYTestExpectationCreate();
 
-    [songDownloadService startSongDownload:downloadingSong];
+    [songDownloadService startDownloadForSong:downloadingSong];
 
     PNYTestExpectationWait();
 
-    assertThat([songDownloadService songDownload:downloadingSong.id], notNilValue());
+    assertThat([songDownloadService downloadForSong:downloadingSong.id], notNilValue());
+    assertThat([songDownloadService allDownloads], hasCountOf(1));
 
-    [songDownloadService deleteSongDownload:downloadingSong.id];
+    [songDownloadService deleteDownloadForSong:downloadingSong.id];
 
     assertThatBool(didCallDidDeleteSongDownload, isTrue());
 
-    assertThat([songDownloadService songDownload:downloadingSong.id], nilValue());
+    assertThat([songDownloadService downloadForSong:downloadingSong.id], nilValue());
+    assertThat([songDownloadService allDownloads], isEmpty());
 }
 
 #pragma mark - <PNYSongDownloadServiceDelegate>
@@ -163,6 +171,7 @@ static NSString *const DEMO_PASSWORD = @"demo";
     lastProgressValue = aProgress.value;
 
     assertThat([songDownloadService progressForSong:downloadingSong.id], notNilValue());
+    assertThat([songDownloadService allProgresses], hasCountOf(1));
 
     didCallDidProgressSongDownload = YES;
 }

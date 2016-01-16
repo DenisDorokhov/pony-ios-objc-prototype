@@ -47,13 +47,14 @@
 - (void)addDelegate:(id <PNYSongDownloadServiceDelegate>)aDelegate;
 - (void)removeDelegate:(id <PNYSongDownloadServiceDelegate>)aDelegate;
 
-- (id <PNYSongDownload>)songDownload:(NSNumber *)aSongId;
+- (id <PNYSongDownload>)downloadForSong:(NSNumber *)aSongId;
+- (NSArray *)allDownloads;
 
-- (void)startSongDownload:(PNYSongDto *)aSong;
-- (void)cancelSongDownload:(NSNumber *)aSongId;
+- (void)startDownloadForSong:(PNYSongDto *)aSong;
+- (void)cancelDownloadForSong:(NSNumber *)aSongId;
+- (void)deleteDownloadForSong:(NSNumber *)aSongId;
 
 - (id <PNYSongDownloadProgress>)progressForSong:(NSNumber *)aSongId;
-
-- (void)deleteSongDownload:(NSNumber *)aSongId;
+- (NSArray *)allProgresses;
 
 @end
