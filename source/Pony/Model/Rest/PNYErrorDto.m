@@ -71,8 +71,8 @@
 
 + (EKObjectMapping *)objectMapping
 {
-    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
-        [mapping mapPropertiesFromArray:@[@"field", @"code", @"text", @"arguments"]];
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *aMapping) {
+        [aMapping mapPropertiesFromArray:@[@"field", @"code", @"text", @"arguments"]];
     }];
 }
 

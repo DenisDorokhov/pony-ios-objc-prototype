@@ -12,9 +12,9 @@
 
 + (EKObjectMapping *)objectMapping
 {
-    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
-        [mapping hasOne:[PNYAlbumDto class] forKeyPath:@"album"];
-        [mapping hasMany:[PNYSongDto class] forKeyPath:@"songs"];
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *aMapping) {
+        [aMapping hasOne:[PNYAlbumDto class] forKeyPath:@"album"];
+        [aMapping hasMany:[PNYSongDto class] forKeyPath:@"songs"];
     }];
 }
 

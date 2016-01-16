@@ -11,8 +11,8 @@
 
 + (EKObjectMapping *)objectMapping
 {
-    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
-        [mapping mapPropertiesFromArray:@[@"id"]];
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *aMapping) {
+        [aMapping mapPropertiesFromArray:@[@"id"]];
     }];
 }
 

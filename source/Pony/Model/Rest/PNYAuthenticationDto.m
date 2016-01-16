@@ -12,19 +12,19 @@
 
 + (EKObjectMapping *)objectMapping
 {
-    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *aMapping) {
 
-        [mapping mapPropertiesFromArray:@[@"accessToken", @"refreshToken"]];
-        [mapping hasOne:[PNYUserDto class] forKeyPath:@"user"];
+        [aMapping mapPropertiesFromArray:@[@"accessToken", @"refreshToken"]];
+        [aMapping hasOne:[PNYUserDto class] forKeyPath:@"user"];
 
-        [mapping mapKeyPath:@"accessTokenExpiration" toProperty:@"accessTokenExpiration" withValueBlock:^(NSString *aKey, NSNumber *aValue) {
+        [aMapping mapKeyPath:@"accessTokenExpiration" toProperty:@"accessTokenExpiration" withValueBlock:^(NSString *aKey, NSNumber *aValue) {
             return [PNYDtoUtils timestampToDate:aValue];
-        }      reverseBlock:^id(NSDate *aValue) {
+        }       reverseBlock:^id(NSDate *aValue) {
             return [PNYDtoUtils dateToTimestamp:aValue];
         }];
-        [mapping mapKeyPath:@"refreshTokenExpiration" toProperty:@"refreshTokenExpiration" withValueBlock:^(NSString *aKey, NSNumber *aValue) {
+        [aMapping mapKeyPath:@"refreshTokenExpiration" toProperty:@"refreshTokenExpiration" withValueBlock:^(NSString *aKey, NSNumber *aValue) {
             return [PNYDtoUtils timestampToDate:aValue];
-        }      reverseBlock:^id(NSDate *aValue) {
+        }       reverseBlock:^id(NSDate *aValue) {
             return [PNYDtoUtils dateToTimestamp:aValue];
         }];
     }];

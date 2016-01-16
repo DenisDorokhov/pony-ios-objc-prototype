@@ -3,7 +3,9 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-@interface PNYTokenPair : NSObject
+#import <EasyMapping/EKMappingProtocol.h>
+
+@interface PNYTokenPair : NSObject <EKMappingProtocol>
 
 @property (nonatomic, strong) NSString *accessToken;
 @property (nonatomic, strong) NSDate *accessTokenExpiration;

@@ -12,12 +12,12 @@
 
 + (EKObjectMapping *)objectMappingWithDataClass:(Class)aDataClass
 {
-    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *mapping) {
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *aMapping) {
 
-        [mapping mapPropertiesFromArray:@[@"version", @"successful"]];
-        [mapping hasMany:[PNYErrorDto class] forKeyPath:@"errors"];
+        [aMapping mapPropertiesFromArray:@[@"version", @"successful"]];
+        [aMapping hasMany:[PNYErrorDto class] forKeyPath:@"errors"];
 
-        [mapping mapKeyPath:@"data" toProperty:@"data" withValueBlock:^id(NSString *aKey, id aValue) {
+        [aMapping mapKeyPath:@"data" toProperty:@"data" withValueBlock:^id(NSString *aKey, id aValue) {
             if (aValue == nil) {
                 return nil;
             }

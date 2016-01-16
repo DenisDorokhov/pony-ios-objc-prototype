@@ -3,17 +3,14 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
+#import <EasyMapping/EKSerializer.h>
+#import <EasyMapping/EKMapper.h>
 #import "PNYTokenPairDaoImpl.h"
 #import "PNYMacros.h"
 
 @implementation PNYTokenPairDaoImpl
 
 static NSString *const KEY_TOKEN_PAIR = @"PNYTokenDataDaoImpl.tokenPair";
-
-static NSString *const KEY_ACCESS_TOKEN = @"accessToken";
-static NSString *const KEY_ACCESS_TOKEN_EXPIRATION = @"accessTokenExpiration";
-static NSString *const KEY_REFRESH_TOKEN = @"refreshToken";
-static NSString *const KEY_REFRESH_TOKEN_EXPIRATION = @"refreshTokenExpiration";
 
 /**
  * When NSUserDefaults value for this key does not exists, no token data will be fetched.
@@ -36,15 +33,23 @@ static NSString *const USER_DEFAULTS_KEY_HAS_TOKEN = @"PNYTokenPairDaoImpl.hasTo
 
 - (PNYTokenPair *)fetchTokenPair
 {
-    PNYTokenPair *tokenPair = [self fromDictionary:self.persistentDictionary.data[KEY_TOKEN_PAIR]];
+    PNYTokenPair *tokenPair = nil;
 
-    if (tokenPair != nil && ![[NSUserDefaults standardUserDefaults] boolForKey:USER_DEFAULTS_KEY_HAS_TOKEN]) {
+    NSDictionary *tokenPairDictionary = self.persistentDictionary.data[KEY_TOKEN_PAIR];
 
-        PNYLogDebug(@"It seems like application was uninstalled. Removing the token.");
+    if (tokenPairDictionary != nil) {
 
-        [self removeTokenPair];
+        tokenPair = [EKMapper objectFromExternalRepresentation:tokenPairDictionary
+                                                   withMapping:[PNYTokenPair objectMapping]];
 
-        tokenPair = nil;
+        if (tokenPair != nil && ![[NSUserDefaults standardUserDefaults] boolForKey:USER_DEFAULTS_KEY_HAS_TOKEN]) {
+
+            PNYLogDebug(@"It seems like application was uninstalled. Removing the token.");
+
+            [self removeTokenPair];
+
+            tokenPair = nil;
+        }
     }
 
     return tokenPair;
@@ -54,7 +59,8 @@ static NSString *const USER_DEFAULTS_KEY_HAS_TOKEN = @"PNYTokenPairDaoImpl.hasTo
 {
     PNYAssert(aTokenPair != nil);
 
-    self.persistentDictionary.data[KEY_TOKEN_PAIR] = [self toDictionary:aTokenPair];
+    self.persistentDictionary.data[KEY_TOKEN_PAIR] = [EKSerializer serializeObject:aTokenPair
+                                                                       withMapping:[PNYTokenPair objectMapping]];
 
     [self.persistentDictionary save];
 
@@ -74,36 +80,6 @@ static NSString *const USER_DEFAULTS_KEY_HAS_TOKEN = @"PNYTokenPairDaoImpl.hasTo
     [[NSUserDefaults standardUserDefaults] synchronize];
 
     PNYLogVerbose(@"Token pair removed.");
-}
-
-#pragma mark - Private
-
-- (NSDictionary *)toDictionary:(PNYTokenPair *)aTokenPair
-{
-    return @{
-            KEY_ACCESS_TOKEN : aTokenPair.accessToken,
-            KEY_ACCESS_TOKEN_EXPIRATION : @([aTokenPair.accessTokenExpiration timeIntervalSince1970]),
-            KEY_REFRESH_TOKEN : aTokenPair.refreshToken,
-            KEY_REFRESH_TOKEN_EXPIRATION : @([aTokenPair.refreshTokenExpiration timeIntervalSince1970]),
-    };
-}
-
-- (PNYTokenPair *)fromDictionary:(NSDictionary *)aDictionary
-{
-    PNYTokenPair *tokenPair = nil;
-
-    if (aDictionary != nil) {
-
-        tokenPair = [PNYTokenPair new];
-
-        tokenPair.accessToken = aDictionary[KEY_ACCESS_TOKEN];
-        tokenPair.accessTokenExpiration = [NSDate dateWithTimeIntervalSince1970:[aDictionary[KEY_ACCESS_TOKEN_EXPIRATION] doubleValue]];
-
-        tokenPair.refreshToken = aDictionary[KEY_REFRESH_TOKEN];
-        tokenPair.refreshTokenExpiration = [NSDate dateWithTimeIntervalSince1970:[aDictionary[KEY_REFRESH_TOKEN_EXPIRATION] doubleValue]];
-    }
-
-    return tokenPair;
 }
 
 @end

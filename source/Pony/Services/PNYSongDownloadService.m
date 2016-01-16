@@ -3,14 +3,17 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
+#import <EasyMapping/EKMapper.h>
+#import <EasyMapping/EKSerializer.h>
 #import "PNYSongDownloadService.h"
 #import "NSMutableOrderedSet+PNYNSValue.h"
 #import "PNYMacros.h"
 #import "PNYFileUtils.h"
 #import "NSOrderedSet+PNYNSValue.h"
 #import "PNYErrorDto.h"
+#import "PNYDtoUtils.h"
 
-@interface PNYSongDownloadImpl : NSObject <PNYSongDownload>
+@interface PNYSongDownloadImpl : NSObject <PNYSongDownload, EKMappingProtocol>
 
 @property (nonatomic, strong) NSNumber *songId;
 @property (nonatomic, strong) NSString *filePath;
@@ -19,6 +22,20 @@
 @end
 
 @implementation PNYSongDownloadImpl
+
+#pragma mark - <EKMappingProtocol>
+
++ (EKObjectMapping *)objectMapping
+{
+    return [EKObjectMapping mappingForClass:self withBlock:^(EKObjectMapping *aMapping) {
+        [aMapping mapPropertiesFromArray:@[@"songId", @"filePath"]];
+        [aMapping mapKeyPath:@"date" toProperty:@"date" withValueBlock:^(NSString *aKey, NSNumber *aValue) {
+            return [PNYDtoUtils timestampToDate:aValue];
+        }       reverseBlock:^id(NSDate *aValue) {
+            return [PNYDtoUtils dateToTimestamp:aValue];
+        }];
+    }];
+}
 
 @end
 
@@ -59,10 +76,6 @@
 
 static NSString *const KEY_SONG_DOWNLOADS = @"PNYSongDownloadService.songDownload";
 
-static NSString *const KEY_SONG_ID = @"songId";
-static NSString *const KEY_FILE_PATH = @"filePath";
-static NSString *const KEY_DATE = @"date";
-
 - (instancetype)init
 {
     self = [super init];
@@ -100,9 +113,15 @@ static NSString *const KEY_DATE = @"date";
 {
     PNYAssert(self.persistentDictionary != nil);
 
-    PNYSongDownloadImpl *songDownload = [self songDownloadFromDictionary:self.persistentDictionary.data[KEY_SONG_DOWNLOADS][aSongId]];
+    PNYSongDownloadImpl *songDownload = nil;
 
-    songDownload.filePath = [[self folderPath] stringByAppendingPathComponent:songDownload.filePath];
+    NSDictionary *songDownloadDictionary = self.persistentDictionary.data[KEY_SONG_DOWNLOADS][aSongId];
+
+    if (songDownloadDictionary != nil) {
+        songDownload = [EKMapper objectFromExternalRepresentation:songDownloadDictionary
+                                                      withMapping:[PNYSongDownloadImpl objectMapping]];
+        songDownload.filePath = [[self folderPath] stringByAppendingPathComponent:songDownload.filePath];
+    }
 
     return songDownload;
 }
@@ -111,7 +130,8 @@ static NSString *const KEY_DATE = @"date";
 {
     NSMutableArray *downloads = [NSMutableArray array];
     [self.persistentDictionary.data[KEY_SONG_DOWNLOADS] enumerateKeysAndObjectsUsingBlock:^(NSNumber *aSongId, NSDictionary *aSongDownload, BOOL *aStop) {
-        [downloads addObject:[self songDownloadFromDictionary:aSongDownload]];
+        [downloads addObject:[EKSerializer serializeObject:aSongDownload
+                                               withMapping:[PNYSongDownloadImpl objectMapping]]];
     }];
     return downloads;
 }
@@ -282,7 +302,8 @@ static NSString *const KEY_DATE = @"date";
         if (songDownloadsDictionary == nil) {
             self.persistentDictionary.data[KEY_SONG_DOWNLOADS] = songDownloadsDictionary = [NSMutableDictionary dictionary];
         }
-        songDownloadsDictionary[aSongId] = [self songDownloadToDictionary:songDownload];
+        songDownloadsDictionary[aSongId] = [EKSerializer serializeObject:songDownload
+                                                             withMapping:[PNYSongDownloadImpl objectMapping]];
 
         [self.persistentDictionary save];
 
@@ -331,31 +352,6 @@ static NSString *const KEY_DATE = @"date";
 - (NSString *)folderPath
 {
     return [PNYFileUtils filePathInDocuments:self.folderPathInDocuments];
-}
-
-- (NSDictionary *)songDownloadToDictionary:(id <PNYSongDownload>)aSongDownload
-{
-    return @{
-            KEY_SONG_ID : aSongDownload.songId,
-            KEY_FILE_PATH : aSongDownload.filePath,
-            KEY_DATE : aSongDownload.date,
-    };
-}
-
-- (id <PNYSongDownload>)songDownloadFromDictionary:(NSDictionary *)aDictionary
-{
-    PNYSongDownloadImpl *songDownload = nil;
-
-    if (aDictionary != nil) {
-
-        songDownload = [PNYSongDownloadImpl new];
-
-        songDownload.songId = aDictionary[KEY_SONG_ID];
-        songDownload.filePath = aDictionary[KEY_FILE_PATH];
-        songDownload.date = aDictionary[KEY_DATE];
-    }
-
-    return songDownload;
 }
 
 @end
