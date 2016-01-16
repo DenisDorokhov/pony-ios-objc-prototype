@@ -11,5 +11,6 @@
 
 @property (nonatomic, strong) IBOutlet UILabel *trackNumberLabel;
 @property (nonatomic, strong) IBOutlet UILabel *nameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *durationLabel;
 
 @end

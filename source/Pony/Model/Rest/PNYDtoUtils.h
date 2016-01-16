@@ -8,4 +8,6 @@
 + (NSDate *)timestampToDate:(NSNumber *)aTimestamp;
 + (NSNumber *)dateToTimestamp:(NSDate *)aDate;
 
++ (NSString *)formatDurationFromSeconds:(NSTimeInterval)aSeconds;
+
 @end

@@ -5,6 +5,7 @@
 
 #import "PNYSongCell.h"
 #import "PNYMacros.h"
+#import "PNYDtoUtils.h"
 
 @implementation PNYSongCell
 
@@ -16,6 +17,7 @@
 
     self.trackNumberLabel.text = self.song.trackNumber.stringValue;
     self.nameLabel.text = self.song.name != nil ? self.song.name : PNYLocalized(@"albums_unknownSong");
+    self.durationLabel.text = [PNYDtoUtils formatDurationFromSeconds:self.song.duration.doubleValue];
 }
 
 @end
