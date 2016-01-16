@@ -6,3 +6,4 @@
 static NSString *const PNYSegueBootstrapToMain = @"bootstrapToMain";
 static NSString *const PNYSegueBootstrapFromMain = @"bootstrapFromMain";
 static NSString *const PNYSegueArtistsToAlbums = @"artistsToAlbums";
+static NSString *const PNYSegueAlbumsToDownloadManager = @"albumsToDownloadManager";

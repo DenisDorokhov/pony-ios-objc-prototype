@@ -23,4 +23,12 @@
 "albums_unknownArtist" = "Unknown Artist";
 "albums_unknownAlbum" = "Unknown Album";
 "albums_unknownSong" = "Unknown Song";
-"albums_discNumber" = "Disc %@"; // %@ -> disc number (NSNumber)
+"albums_discNumber" = "Disc %@"; // disc number
+
+"downloadManager_songHeader" = "%@ - %@ (%@)"; // artist name, album name, album year
+"downloadManager_songHeaderWithoutYear" = "%@ - %@"; // artist name, album name
+"downloadManager_songTitle" = "%@ - %@ (%@)"; // track number, song name, song duration
+"downloadManager_songTitleWithoutTrackNumber" = "%@ (%@)"; // song name, song duration
+"downloadManager_unknownArtist" = "Unknown Artist";
+"downloadManager_unknownAlbum" = "Unknown Album";
+"downloadManager_unknownSong" = "Unknown Song";

@@ -10,6 +10,8 @@
 #import "PNYBootstrapServerConfigController.h"
 #import "PNYArtistsController.h"
 #import "PNYAlbumsController.h"
+#import "PNYDownloadManagerController.h"
+#import "PNYSongDownloadCell.h"
 
 @implementation PNYAppAssembly
 
@@ -58,6 +60,22 @@
     return [TyphoonDefinition withClass:[PNYAlbumsController class] configuration:^(TyphoonDefinition *aDefinition) {
         [aDefinition injectProperty:@selector(restService) with:[self.serviceAssembly restServiceCached]];
         [aDefinition injectProperty:@selector(errorService) with:[self.serviceAssembly errorService]];
+        [aDefinition injectProperty:@selector(songDownloadService) with:[self.serviceAssembly songDownloadService]];
+    }];
+}
+
+- (PNYDownloadManagerController *)downloadManagerController
+{
+    return [TyphoonDefinition withClass:[PNYDownloadManagerController class] configuration:^(TyphoonDefinition *aDefinition) {
+        [aDefinition injectProperty:@selector(appAssembly) with:self];
+        [aDefinition injectProperty:@selector(songDownloadService) with:[self.serviceAssembly songDownloadService]];
+    }];
+}
+
+- (PNYSongDownloadCell *)songDownloadCell
+{
+    return [TyphoonDefinition withClass:[PNYSongDownloadCell class] configuration:^(TyphoonDefinition *aDefinition) {
+        [aDefinition injectProperty:@selector(songDownloadService) with:[self.serviceAssembly songDownloadService]];
     }];
 }
 

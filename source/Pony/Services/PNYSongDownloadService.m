@@ -287,6 +287,7 @@ static NSString *const KEY_SONG_DOWNLOADS = @"PNYSongDownloadService.songDownloa
 
     NSError *error = nil;
 
+    [[NSFileManager defaultManager] removeItemAtPath:destinationPath error:nil];
     [[NSFileManager defaultManager] moveItemAtPath:originalPath toPath:destinationPath
                                              error:&error];
 

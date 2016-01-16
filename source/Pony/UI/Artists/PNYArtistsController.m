@@ -65,9 +65,9 @@
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)aIndexPath
 {
-    selectedArtist = artists[(NSUInteger)aIndexPath.row];
-
     [aTableView deselectRowAtIndexPath:aIndexPath animated:YES];
+
+    selectedArtist = artists[(NSUInteger)aIndexPath.row];
 
     [self performSegueWithIdentifier:PNYSegueArtistsToAlbums sender:self];
 }
@@ -81,11 +81,6 @@
     PNYAssert(self.restService != nil);
     PNYAssert(self.authenticationService != nil);
     PNYAssert(self.errorService != nil);
-
-    PNYAssert(self.tableView != nil);
-
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)aAnimated

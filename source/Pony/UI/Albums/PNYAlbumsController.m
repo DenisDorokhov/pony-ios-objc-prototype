@@ -9,6 +9,7 @@
 #import "PNYSongCell.h"
 #import "PNYAlbumHeader.h"
 #import "PNYErrorDto.h"
+#import "PNYSegues.h"
 
 @interface PNYAlbumsController ()
 
@@ -62,6 +63,11 @@
         [self.refreshControl endRefreshing];
         [self.tableView reloadData];
     }
+}
+
+- (IBAction)onDownloadManagerRequested
+{
+    [self performSegueWithIdentifier:PNYSegueAlbumsToDownloadManager sender:self];
 }
 
 #pragma mark - <UITableViewDataSource>
@@ -122,6 +128,33 @@
     return isCellWithDiscNumber ? self.songCellWithDiscNumberHeight : self.songCellHeight;
 }
 
+#pragma mark - <UITableViewDelegate>
+
+- (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)aIndexPath
+{
+    [aTableView deselectRowAtIndexPath:aIndexPath animated:YES];
+
+    PNYAlbumSongsDto *albumSongs = self.artistAlbums.albums[(NSUInteger)aIndexPath.section];
+    PNYSongDto *song = albumSongs.songs[(NSUInteger)aIndexPath.row];
+
+    if ([self.songDownloadService downloadForSong:song.id] != nil) {
+        PNYLogInfo(@"There will be playback.");
+    } else {
+        if ([self.songDownloadService progressForSong:song.id] != nil) {
+            [self.songDownloadService cancelDownloadForSong:song.id];
+        } else {
+            [self.songDownloadService startDownloadForSong:song];
+        }
+    }
+}
+
+#pragma mark - <UIPopoverPresentationControllerDelegate>
+
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)aController
+{
+    return UIModalPresentationNone;
+}
+
 #pragma mark - Override
 
 - (void)viewDidLoad
@@ -129,11 +162,15 @@
     [super viewDidLoad];
 
     PNYAssert(self.restService != nil);
+    PNYAssert(self.errorService != nil);
+    PNYAssert(self.songDownloadService != nil);
+}
 
-    PNYAssert(self.tableView != nil);
-
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
+- (void)prepareForSegue:(UIStoryboardSegue *)aSegue sender:(id)aSender
+{
+    if ([aSegue.identifier isEqualToString:PNYSegueAlbumsToDownloadManager]) {
+        aSegue.destinationViewController.popoverPresentationController.delegate = self;
+    }
 }
 
 #pragma mark - Private
