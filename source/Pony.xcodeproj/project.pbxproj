@@ -28,6 +28,7 @@
 		B3D3926EFEA289477996E0BC /* PNYBootstrapController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39D47F9A73E3FA1DE02DD /* PNYBootstrapController.m */; };
 		B3D3929569A627186EA565F1 /* PNYCredentialsDto.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D396942BCF3AE4E2FADAF6 /* PNYCredentialsDto.m */; };
 		B3D392A2F979902D3ADE7212 /* PNYBootstrapServerConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39B52774F30DC0E0BDB01 /* PNYBootstrapServerConfigController.m */; };
+		B3D392AE2522AEE8FD60E951 /* PNYAlbumHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39EE754550775E90428DE /* PNYAlbumHeaderCell.m */; };
 		B3D392D2C1D7F56926F20383 /* PNYAlertFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D398CB79E62007AAF0A8D3 /* PNYAlertFactory.m */; };
 		B3D3931D2E28D609946DCB2E /* PNYAbstractDto.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D390E7C011934D8D3FFB51 /* PNYAbstractDto.m */; };
 		B3D3931FE77742252EEFF483 /* PNYLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D3917B32DD4FC934F11A8F /* PNYLogFormatter.m */; };
@@ -256,6 +257,7 @@
 		B3D39B92B0E5285C8EA985DC /* PNYTokenPairDaoImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYTokenPairDaoImpl.h; sourceTree = "<group>"; };
 		B3D39B963F7523C9EC091F52 /* PNYTokenPairDaoMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYTokenPairDaoMock.h; sourceTree = "<group>"; };
 		B3D39B99D16D87DEE6755992 /* PNYArtistsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYArtistsController.h; sourceTree = "<group>"; };
+		B3D39BAAB8C856A4FCCD6F80 /* PNYAlbumHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYAlbumHeaderCell.h; sourceTree = "<group>"; };
 		B3D39BAE619FFB4CF8E5E5B6 /* PNYArtistDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYArtistDto.m; sourceTree = "<group>"; };
 		B3D39BED7E275CA04A22BD27 /* PNYDtoMappingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYDtoMappingTests.m; sourceTree = "<group>"; };
 		B3D39C072125E1E9E864A7CA /* PNYTestDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYTestDelegate.m; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 		B3D39ED46006B6A282D47CF2 /* PNYFileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYFileCache.m; sourceTree = "<group>"; };
 		B3D39ED659EE7866A88142B3 /* PNYAuthenticationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYAuthenticationService.m; sourceTree = "<group>"; };
 		B3D39EE4FB10DF6542CA3E22 /* PNYRestServiceUrlDaoImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYRestServiceUrlDaoImpl.m; sourceTree = "<group>"; };
+		B3D39EE754550775E90428DE /* PNYAlbumHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYAlbumHeaderCell.m; sourceTree = "<group>"; };
 		B3D39F04F1FCCBA262298C5B /* PNYBootstrapConfigControllerAbstract+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PNYBootstrapConfigControllerAbstract+Protected.h"; sourceTree = "<group>"; };
 		B3D39F0E608DF4AEA607BF32 /* PNYPersistentDictionaryMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNYPersistentDictionaryMock.h; sourceTree = "<group>"; };
 		B3D39F113A4FF3718432753E /* PNYErrorDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNYErrorDto.m; sourceTree = "<group>"; };
@@ -508,6 +511,8 @@
 				B3D395587495E702AB8FD800 /* PNYSongCell.h */,
 				B3D3903BA9528225D8C68C2C /* PNYSongCellWithDiscNumber.m */,
 				B3D395F3B8E4C4E4F0239C37 /* PNYSongCellWithDiscNumber.h */,
+				B3D39EE754550775E90428DE /* PNYAlbumHeaderCell.m */,
+				B3D39BAAB8C856A4FCCD6F80 /* PNYAlbumHeaderCell.h */,
 			);
 			path = Albums;
 			sourceTree = "<group>";
@@ -1104,6 +1109,7 @@
 				B3D393A37D2C9C407D0D1B89 /* PNYSongCellWithDiscNumber.m in Sources */,
 				B3D39C0FABFA2851F77BD3ED /* PNYDownloadManagerController.m in Sources */,
 				B3D395C13DBBCF518BFCD76D /* PNYSongDownloadCell.m in Sources */,
+				B3D392AE2522AEE8FD60E951 /* PNYAlbumHeaderCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

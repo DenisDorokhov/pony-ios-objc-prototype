@@ -7,9 +7,9 @@
 #import "PNYMacros.h"
 #import "PNYAlbumSongsDto.h"
 #import "PNYSongCell.h"
-#import "PNYAlbumHeader.h"
 #import "PNYErrorDto.h"
 #import "PNYSegues.h"
+#import "PNYAlbumHeaderCell.h"
 
 @interface PNYAlbumsController ()
 
@@ -109,11 +109,11 @@
 {
     PNYAlbumSongsDto *albumSongs = self.artistAlbums.albums[(NSUInteger)aSection];
 
-    PNYAlbumHeader *albumHeader = [aTableView dequeueReusableCellWithIdentifier:@"albumHeader"];
+    PNYAlbumHeaderCell *albumHeaderCell = [aTableView dequeueReusableCellWithIdentifier:@"albumHeader"];
 
-    albumHeader.album = albumSongs.album;
+    albumHeaderCell.albumHeader.album = albumSongs.album;
 
-    return albumHeader;
+    return albumHeaderCell.contentView;
 }
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForHeaderInSection:(NSInteger)aSection

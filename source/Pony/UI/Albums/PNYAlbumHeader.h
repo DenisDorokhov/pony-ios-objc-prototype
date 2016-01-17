@@ -6,7 +6,7 @@
 #import "PNYAlbumDto.h"
 #import "PNYImageDownloadView.h"
 
-@interface PNYAlbumHeader : UITableViewCell
+@interface PNYAlbumHeader : UIView
 
 @property (nonatomic, strong) PNYAlbumDto *album;
 

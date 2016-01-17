@@ -132,64 +132,67 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="albumHeader" rowHeight="80" id="ACr-F8-dY9" customClass="PNYAlbumHeader">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="albumHeader" rowHeight="80" id="ACr-F8-dY9" customClass="PNYAlbumHeaderCell">
                                 <rect key="frame" x="0.0" y="72" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ACr-F8-dY9" id="DWI-e8-XcE">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7rD-wS-veD">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OXp-P9-zuP" customClass="PNYAlbumHeader">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="79"/>
-                                        </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aSu-6d-sFm">
-                                            <rect key="frame" x="84" y="13" width="508" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1986" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xpI-6Q-ihP">
-                                            <rect key="frame" x="84" y="42" width="508" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Zb-dd-Aem" customClass="PNYImageDownloadView">
-                                            <rect key="frame" x="16" y="10" width="60" height="60"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7rD-wS-veD">
+                                                    <rect key="frame" x="0.0" y="20" width="600" height="79"/>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aSu-6d-sFm">
+                                                    <rect key="frame" x="84" y="15" width="508" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1986" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xpI-6Q-ihP">
+                                                    <rect key="frame" x="84" y="44" width="508" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Zb-dd-Aem" customClass="PNYImageDownloadView">
+                                                    <rect key="frame" x="16" y="10" width="60" height="60"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="60" id="K4F-ux-r7m"/>
+                                                        <constraint firstAttribute="height" constant="60" id="RZW-Ln-tRM"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="60" id="K4F-ux-r7m"/>
-                                                <constraint firstAttribute="height" constant="60" id="RZW-Ln-tRM"/>
+                                                <constraint firstItem="xpI-6Q-ihP" firstAttribute="top" secondItem="aSu-6d-sFm" secondAttribute="bottom" constant="8" id="5Sy-HY-8QI"/>
+                                                <constraint firstItem="aSu-6d-sFm" firstAttribute="top" secondItem="OXp-P9-zuP" secondAttribute="top" constant="15" id="61u-gW-3CC"/>
+                                                <constraint firstItem="aSu-6d-sFm" firstAttribute="leading" secondItem="8Zb-dd-Aem" secondAttribute="trailing" constant="8" id="Gs9-FN-qOG"/>
+                                                <constraint firstItem="8Zb-dd-Aem" firstAttribute="centerY" secondItem="OXp-P9-zuP" secondAttribute="centerY" id="HX3-YE-bcj"/>
+                                                <constraint firstItem="xpI-6Q-ihP" firstAttribute="leading" secondItem="8Zb-dd-Aem" secondAttribute="trailing" constant="8" id="Tir-uU-pSK"/>
+                                                <constraint firstAttribute="trailing" secondItem="aSu-6d-sFm" secondAttribute="trailing" constant="8" id="jsK-Ns-XhU"/>
+                                                <constraint firstItem="8Zb-dd-Aem" firstAttribute="leading" secondItem="OXp-P9-zuP" secondAttribute="leading" constant="16" id="qHx-wM-6Gq"/>
+                                                <constraint firstAttribute="trailing" secondItem="xpI-6Q-ihP" secondAttribute="trailing" constant="8" id="xwC-gb-wFG"/>
                                             </constraints>
+                                            <connections>
+                                                <outlet property="artworkDownloadView" destination="8Zb-dd-Aem" id="Vxk-YF-YTM"/>
+                                                <outlet property="nameLabel" destination="aSu-6d-sFm" id="3jB-Ee-4a9"/>
+                                                <outlet property="yearLabel" destination="xpI-6Q-ihP" id="kHs-Hf-D1N"/>
+                                            </connections>
                                         </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="aSu-6d-sFm" secondAttribute="trailing" id="4SU-r5-R9K"/>
-                                        <constraint firstItem="aSu-6d-sFm" firstAttribute="leading" secondItem="8Zb-dd-Aem" secondAttribute="trailing" constant="8" id="6vv-ka-8OI"/>
-                                        <constraint firstAttribute="bottom" secondItem="7rD-wS-veD" secondAttribute="bottom" id="9Cz-xT-pQO"/>
-                                        <constraint firstItem="aSu-6d-sFm" firstAttribute="top" secondItem="DWI-e8-XcE" secondAttribute="topMargin" constant="5" id="CZL-9u-KaW"/>
-                                        <constraint firstItem="xpI-6Q-ihP" firstAttribute="leading" secondItem="aSu-6d-sFm" secondAttribute="leading" id="Cft-gV-XyQ"/>
-                                        <constraint firstItem="8Zb-dd-Aem" firstAttribute="centerY" secondItem="DWI-e8-XcE" secondAttribute="centerY" id="EDG-Om-iAw"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="xpI-6Q-ihP" secondAttribute="trailing" id="GNP-jG-Szt"/>
-                                        <constraint firstAttribute="trailing" secondItem="7rD-wS-veD" secondAttribute="trailing" id="Izn-MW-gMg"/>
-                                        <constraint firstItem="8Zb-dd-Aem" firstAttribute="leading" secondItem="DWI-e8-XcE" secondAttribute="leading" constant="16" id="KaM-ay-3oX"/>
-                                        <constraint firstItem="7rD-wS-veD" firstAttribute="top" secondItem="DWI-e8-XcE" secondAttribute="top" id="MPb-ZP-wyI"/>
-                                        <constraint firstItem="xpI-6Q-ihP" firstAttribute="top" secondItem="aSu-6d-sFm" secondAttribute="bottom" constant="8" id="Ymn-Gw-FsN"/>
-                                        <constraint firstItem="7rD-wS-veD" firstAttribute="leading" secondItem="DWI-e8-XcE" secondAttribute="leading" id="xGS-qM-eDw"/>
+                                        <constraint firstItem="OXp-P9-zuP" firstAttribute="leading" secondItem="DWI-e8-XcE" secondAttribute="leading" id="8CB-x7-4dg"/>
+                                        <constraint firstAttribute="trailing" secondItem="OXp-P9-zuP" secondAttribute="trailing" id="R0s-5p-Wxy"/>
+                                        <constraint firstItem="OXp-P9-zuP" firstAttribute="top" secondItem="DWI-e8-XcE" secondAttribute="top" id="ZhT-WF-jjH"/>
+                                        <constraint firstAttribute="bottom" secondItem="OXp-P9-zuP" secondAttribute="bottom" id="tEX-V2-HN4"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.borderUIColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <outlet property="artworkDownloadView" destination="8Zb-dd-Aem" id="EHi-ir-Rut"/>
-                                    <outlet property="nameLabel" destination="aSu-6d-sFm" id="WSA-Vo-O5Q"/>
-                                    <outlet property="yearLabel" destination="xpI-6Q-ihP" id="4IX-aQ-lBf"/>
+                                    <outlet property="albumHeader" destination="OXp-P9-zuP" id="Tzf-bs-qTF"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="songCellWithDiscNumber" rowHeight="64" id="wKf-ih-MXL" customClass="PNYSongCellWithDiscNumber">
