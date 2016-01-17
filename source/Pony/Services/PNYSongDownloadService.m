@@ -72,6 +72,7 @@
     NSMutableOrderedSet *delegates;
 
     NSMutableDictionary *songIdToTask; // NSNumber -> PNYSongDownloadServiceTask
+    NSMutableOrderedSet *songIdTaskQueue;
 }
 
 static NSString *const KEY_SONG_DOWNLOADS = @"PNYSongDownloadService.songDownload";
@@ -84,6 +85,7 @@ static NSString *const KEY_SONG_DOWNLOADS = @"PNYSongDownloadService.songDownloa
         delegates = [NSMutableOrderedSet orderedSet];
 
         songIdToTask = [NSMutableDictionary dictionary];
+        songIdTaskQueue = [NSMutableOrderedSet orderedSet];
     }
     return self;
 }
@@ -171,6 +173,8 @@ static NSString *const KEY_SONG_DOWNLOADS = @"PNYSongDownloadService.songDownloa
 
     songIdToTask[task.song.id] = task;
 
+    [songIdTaskQueue addObject:task.song.id];
+
     PNYLogInfo(@"Song [%@] download started.", task.song.id);
 
     [delegates enumerateNonretainedObjectsUsingBlock:^(id <PNYSongDownloadServiceDelegate> aObject, NSUInteger aIndex, BOOL *aStop) {
@@ -236,9 +240,9 @@ static NSString *const KEY_SONG_DOWNLOADS = @"PNYSongDownloadService.songDownloa
 - (NSArray *)allProgresses
 {
     NSMutableArray *progresses = [NSMutableArray array];
-    [songIdToTask enumerateKeysAndObjectsUsingBlock:^(NSNumber *aSongId, PNYSongDownloadServiceTask *aTask, BOOL *aStop) {
-        [progresses addObject:aTask.progress];
-    }];
+    for (NSNumber *songId in songIdTaskQueue) {
+        [progresses addObject:[self taskForSong:songId].progress];
+    }
     return progresses;
 }
 
@@ -355,6 +359,7 @@ static NSString *const KEY_SONG_DOWNLOADS = @"PNYSongDownloadService.songDownloa
     [[NSFileManager defaultManager] removeItemAtPath:task.filePath error:nil];
 
     [songIdToTask removeObjectForKey:aSongId];
+    [songIdTaskQueue removeObject:aSongId];
 }
 
 - (NSString *)folderPath
