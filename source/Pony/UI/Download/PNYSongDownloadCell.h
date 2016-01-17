@@ -16,7 +16,6 @@
 
 @property (nonatomic, strong) IBOutlet UILabel *songHeaderLabel;
 @property (nonatomic, strong) IBOutlet UILabel *songTitleLabel;
-@property (nonatomic, strong) IBOutlet UILabel *progressLabel;
 
 @property (nonatomic, strong) IBOutlet UIProgressView *downloadProgressView;
 

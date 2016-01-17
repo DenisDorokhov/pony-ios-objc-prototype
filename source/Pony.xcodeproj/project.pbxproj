@@ -15,6 +15,8 @@
 		26C428221C146D6500542266 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26C428241C146D6500542266 /* LaunchScreen.storyboard */; };
 		26C428251C146D7300542266 /* Bootstrap.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26C428271C146D7300542266 /* Bootstrap.storyboard */; };
 		26C428281C146D8700542266 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26C4282A1C146D8700542266 /* Main.storyboard */; };
+		26F6409B1C4BD75B00638A79 /* Library.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26F6409A1C4BD75B00638A79 /* Library.storyboard */; };
+		26F6409D1C4BD7D600638A79 /* DownloadManager.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26F6409C1C4BD7D600638A79 /* DownloadManager.storyboard */; };
 		497BC14B3AFD619B1D48086C /* Pods_PonyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A2AA0BA5546F10FF43D9C05 /* Pods_PonyTests.framework */; };
 		776BB7EE5590D184E09A544F /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7939B284CFACA2296CE1E2 /* Pods.framework */; };
 		B3D3902286B75DF12386E41C /* PNYErrorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D39C0E7A9941EFFC30B786 /* PNYErrorUtils.m */; };
@@ -130,6 +132,8 @@
 		26C428231C146D6500542266 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		26C428261C146D7300542266 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Bootstrap.storyboard; sourceTree = "<group>"; };
 		26C428291C146D8700542266 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		26F6409A1C4BD75B00638A79 /* Library.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Library.storyboard; sourceTree = "<group>"; };
+		26F6409C1C4BD7D600638A79 /* DownloadManager.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DownloadManager.storyboard; sourceTree = "<group>"; };
 		50218CE241D7C1D9AE5640D1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		58FF68CD2205C6F16F439131 /* Pods-PonyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PonyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PonyTests/Pods-PonyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6A2AA0BA5546F10FF43D9C05 /* Pods_PonyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PonyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -408,10 +412,12 @@
 		26A10E701BCA82AC00C63AD8 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				26C428241C146D6500542266 /* LaunchScreen.storyboard */,
 				26C428271C146D7300542266 /* Bootstrap.storyboard */,
-				26C4282A1C146D8700542266 /* Main.storyboard */,
+				26F6409C1C4BD7D600638A79 /* DownloadManager.storyboard */,
 				26C262021C1B4DD100FE6545 /* ImageDownloadView.xib */,
+				26C428241C146D6500542266 /* LaunchScreen.storyboard */,
+				26F6409A1C4BD75B00638A79 /* Library.storyboard */,
+				26C4282A1C146D8700542266 /* Main.storyboard */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -917,11 +923,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				26C428281C146D8700542266 /* Main.storyboard in Resources */,
+				26F6409D1C4BD7D600638A79 /* DownloadManager.storyboard in Resources */,
 				26C428251C146D7300542266 /* Bootstrap.storyboard in Resources */,
 				26A10E781BCA830800C63AD8 /* Localizable.strings in Resources */,
 				26C262031C1B4DD100FE6545 /* ImageDownloadView.xib in Resources */,
 				26A10E6B1BCA806D00C63AD8 /* Assets.xcassets in Resources */,
 				26C428221C146D6500542266 /* LaunchScreen.storyboard in Resources */,
+				26F6409B1C4BD75B00638A79 /* Library.storyboard in Resources */,
 				B3D39C5ED9582036AE99D520 /* Config.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

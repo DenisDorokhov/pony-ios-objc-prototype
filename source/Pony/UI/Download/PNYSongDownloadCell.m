@@ -51,7 +51,7 @@
                 songName, [PNYDtoUtils formatDurationFromSeconds:self.song.duration.doubleValue]);
     }
 
-    [self updateProgress:[self.songDownloadService progressForSong:_song.id].value];
+    self.downloadProgressView.progress = [self.songDownloadService progressForSong:_song.id].value;
 }
 
 #pragma mark - <PNYSongDownloadServiceDelegate>
@@ -59,16 +59,8 @@
 - (void)songDownloadService:(PNYSongDownloadService *)aService didProgressSongDownload:(id <PNYSongDownloadProgress>)aProgress
 {
     if ([aProgress.song.id isEqualToNumber:self.song.id]) {
-        [self updateProgress:aProgress.value];
+        self.downloadProgressView.progress = aProgress.value;
     }
-}
-
-#pragma mark - Private
-
-- (void)updateProgress:(float)aValue
-{
-    self.downloadProgressView.progress = aValue;
-    self.progressLabel.text = [NSString stringWithFormat:@"%d%%", (int)roundf(aValue * 100.0f)];
 }
 
 @end
