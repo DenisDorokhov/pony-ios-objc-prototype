@@ -6,6 +6,7 @@ pod 'CocoaLumberjack', '2.2.0'
 pod 'Typhoon', '3.3.4'
 pod 'AFNetworking', '2.6.0'
 pod 'EasyMapping', '0.15.3'
+pod 'MBCircularProgressBar', '0.3.4'
 
 target :PonyTests, :exclusive => true do
   pod 'OCMockito', '2.0.1'

@@ -12,6 +12,8 @@
 #import "PNYAlbumsController.h"
 #import "PNYDownloadManagerController.h"
 #import "PNYSongDownloadCell.h"
+#import "PNYSongCell.h"
+#import "PNYSongCellWithDiscNumber.h"
 
 @implementation PNYAppAssembly
 
@@ -58,8 +60,23 @@
 - (PNYAlbumsController *)albumsController
 {
     return [TyphoonDefinition withClass:[PNYAlbumsController class] configuration:^(TyphoonDefinition *aDefinition) {
+        [aDefinition injectProperty:@selector(appAssembly) with:self];
         [aDefinition injectProperty:@selector(restService) with:[self.serviceAssembly restServiceCached]];
         [aDefinition injectProperty:@selector(errorService) with:[self.serviceAssembly errorService]];
+        [aDefinition injectProperty:@selector(songDownloadService) with:[self.serviceAssembly songDownloadService]];
+    }];
+}
+
+- (PNYSongCell *)songCell
+{
+    return [TyphoonDefinition withClass:[PNYSongCell class] configuration:^(TyphoonDefinition *aDefinition) {
+        [aDefinition injectProperty:@selector(songDownloadService) with:[self.serviceAssembly songDownloadService]];
+    }];
+}
+
+- (PNYSongCellWithDiscNumber *)songCellWithDiscNumber
+{
+    return [TyphoonDefinition withClass:[PNYSongCellWithDiscNumber class] configuration:^(TyphoonDefinition *aDefinition) {
         [aDefinition injectProperty:@selector(songDownloadService) with:[self.serviceAssembly songDownloadService]];
     }];
 }

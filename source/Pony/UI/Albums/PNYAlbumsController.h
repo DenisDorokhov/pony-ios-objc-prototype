@@ -7,8 +7,11 @@
 #import "PNYRestServiceCached.h"
 #import "PNYErrorService.h"
 #import "PNYSongDownloadService.h"
+#import "PNYAppAssembly.h"
 
 @interface PNYAlbumsController : UITableViewController <UIPopoverPresentationControllerDelegate>
+
+@property (nonatomic, strong) PNYAppAssembly *appAssembly;
 
 @property (nonatomic, strong) id <PNYRestServiceCached> restService;
 @property (nonatomic, strong) PNYErrorService *errorService;

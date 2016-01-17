@@ -97,6 +97,9 @@
     } else {
         songCell = [aTableView dequeueReusableCellWithIdentifier:@"songCell"];
     }
+
+    [self.appAssembly inject:songCell];
+
     songCell.song = song;
 
     return songCell;
@@ -161,6 +164,7 @@
 {
     [super viewDidLoad];
 
+    PNYAssert(self.appAssembly != nil);
     PNYAssert(self.restService != nil);
     PNYAssert(self.errorService != nil);
     PNYAssert(self.songDownloadService != nil);

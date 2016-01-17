@@ -31,6 +31,7 @@ PODS:
   - EasyMapping (0.15.3):
     - EasyMapping/Core (= 0.15.3)
   - EasyMapping/Core (0.15.3)
+  - MBCircularProgressBar (0.3.4)
   - NSHash (1.0.1)
   - OCHamcrest (4.3.0)
   - OCMockito (2.0.1):
@@ -43,6 +44,7 @@ DEPENDENCIES:
   - AFNetworking (= 2.6.0)
   - CocoaLumberjack (= 2.2.0)
   - EasyMapping (= 0.15.3)
+  - MBCircularProgressBar (= 0.3.4)
   - NSHash (= 1.0.1)
   - OCMockito (= 2.0.1)
   - Typhoon (= 3.3.4)
@@ -51,6 +53,7 @@ SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
   EasyMapping: 5baf5a9a814538fdac4859cf56270ae761dd904a
+  MBCircularProgressBar: ff3b8e2f441214d9ee122a24ba0d4d00cc7de881
   NSHash: d0112ce250f5d2618ab452718c6882f5276e2d4f
   OCHamcrest: cd63d27f48a266d4412c0b295b01b8f0940efa81
   OCMockito: f92ad4c6fac2841a88558879cfe517c40aebf91e

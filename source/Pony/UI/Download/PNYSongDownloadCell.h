@@ -10,6 +10,8 @@
 
 @property (nonatomic, strong) PNYSongDownloadService *songDownloadService;
 
+@property (nonatomic, strong) PNYSongDto *song;
+
 @property (nonatomic, strong) IBOutlet PNYImageDownloadView *artworkDownloadView;
 
 @property (nonatomic, strong) IBOutlet UILabel *songHeaderLabel;
@@ -17,7 +19,5 @@
 @property (nonatomic, strong) IBOutlet UILabel *progressLabel;
 
 @property (nonatomic, strong) IBOutlet UIProgressView *downloadProgressView;
-
-@property (nonatomic, strong) PNYSongDto *song;
 
 @end
