@@ -110,13 +110,20 @@
 
 - (void)doSave:(NSDictionary *)aData
 {
+    NSError *error = nil;
+
     NSData *contents = [NSPropertyListSerialization dataWithPropertyList:aData format:NSPropertyListBinaryFormat_v1_0
-                                                                 options:0 error:nil];
+                                                                 options:0 error:&error];
+
+    if (error != nil) {
+        PNYLogError(@"Could not serialize data to PLIST: %@.", error);
+    }
+    PNYAssert(error == nil);
 
     [[NSFileManager defaultManager] createFileAtPath:self.filePath contents:contents attributes:nil];
 
-    [[NSURL fileURLWithPath:self.filePath] setResourceValue:@(self.excludeFromBackup)
-                                                 forKey:NSURLIsExcludedFromBackupKey error:nil];
+    [[NSURL fileURLWithPath:self.filePath] setResourceValue:@(self.excludeFromBackup) forKey:NSURLIsExcludedFromBackupKey
+                                                      error:nil];
 
     PNYLogDebug(@"Data has been flushed to file [%@].", self.filePath);
 }

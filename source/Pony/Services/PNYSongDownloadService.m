@@ -115,7 +115,7 @@ static NSString *const KEY_SONG_DOWNLOADS = @"PNYSongDownloadService.songDownloa
 
     PNYSongDownloadImpl *songDownload = nil;
 
-    NSDictionary *songDownloadDictionary = self.persistentDictionary.data[KEY_SONG_DOWNLOADS][aSongId];
+    NSDictionary *songDownloadDictionary = self.persistentDictionary.data[KEY_SONG_DOWNLOADS][aSongId.stringValue];
 
     if (songDownloadDictionary != nil) {
         songDownload = [EKMapper objectFromExternalRepresentation:songDownloadDictionary
@@ -129,7 +129,7 @@ static NSString *const KEY_SONG_DOWNLOADS = @"PNYSongDownloadService.songDownloa
 - (NSArray *)allDownloads
 {
     NSMutableArray *downloads = [NSMutableArray array];
-    [self.persistentDictionary.data[KEY_SONG_DOWNLOADS] enumerateKeysAndObjectsUsingBlock:^(NSNumber *aSongId, NSDictionary *aSongDownload, BOOL *aStop) {
+    [self.persistentDictionary.data[KEY_SONG_DOWNLOADS] enumerateKeysAndObjectsUsingBlock:^(NSString *aSongId, NSDictionary *aSongDownload, BOOL *aStop) {
         [downloads addObject:[EKSerializer serializeObject:aSongDownload
                                                withMapping:[PNYSongDownloadImpl objectMapping]]];
     }];
@@ -201,7 +201,7 @@ static NSString *const KEY_SONG_DOWNLOADS = @"PNYSongDownloadService.songDownloa
 
     if (songDownload != nil) {
 
-        [self.persistentDictionary.data[KEY_SONG_DOWNLOADS] removeObjectForKey:songDownload.songId];
+        [self.persistentDictionary.data[KEY_SONG_DOWNLOADS] removeObjectForKey:songDownload.songId.stringValue];
         [self.persistentDictionary save];
 
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
@@ -291,6 +291,9 @@ static NSString *const KEY_SONG_DOWNLOADS = @"PNYSongDownloadService.songDownloa
     [[NSFileManager defaultManager] moveItemAtPath:originalPath toPath:destinationPath
                                              error:&error];
 
+    [[NSURL fileURLWithPath:destinationPath] setResourceValue:@(YES) forKey:NSURLIsExcludedFromBackupKey
+                                                        error:nil];
+
     if (error == nil) {
 
         PNYSongDownloadImpl *songDownload = [PNYSongDownloadImpl new];
@@ -303,8 +306,8 @@ static NSString *const KEY_SONG_DOWNLOADS = @"PNYSongDownloadService.songDownloa
         if (songDownloadsDictionary == nil) {
             self.persistentDictionary.data[KEY_SONG_DOWNLOADS] = songDownloadsDictionary = [NSMutableDictionary dictionary];
         }
-        songDownloadsDictionary[aSongId] = [EKSerializer serializeObject:songDownload
-                                                             withMapping:[PNYSongDownloadImpl objectMapping]];
+        songDownloadsDictionary[aSongId.stringValue] = [EKSerializer serializeObject:songDownload
+                                                                         withMapping:[PNYSongDownloadImpl objectMapping]];
 
         [self.persistentDictionary save];
 
