@@ -556,14 +556,6 @@
                             <constraint firstItem="QJK-mL-Ds0" firstAttribute="centerY" secondItem="daD-GF-fRa" secondAttribute="centerY" id="FRP-bY-Jpj"/>
                             <constraint firstItem="QJK-mL-Ds0" firstAttribute="centerX" secondItem="daD-GF-fRa" secondAttribute="centerX" id="dIV-cQ-EBb"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                <integer key="value" value="1"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderUIColor">
-                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PY9-kV-uYJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
