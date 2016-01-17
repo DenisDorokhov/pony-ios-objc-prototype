@@ -43,7 +43,7 @@
     _artist = aArtist;
 
     if (self.artist != nil) {
-        self.title = self.artist.name != nil ? self.artist.name : PNYLocalized(@"albums_unknownArtist");
+        self.title = self.artist.name != nil ? self.artist.name : PNYLocalized(@"common_unknownArtist");
     } else {
         self.title = nil;
     }

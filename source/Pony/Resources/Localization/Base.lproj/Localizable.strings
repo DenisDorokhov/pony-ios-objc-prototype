@@ -1,3 +1,7 @@
+"common_unknownArtist" = "Unknown Artist";
+"common_unknownAlbum" = "Unknown Album";
+"common_unknownSong" = "Unknown Song";
+
 "alertFactory_buttonOK" = "OK";
 "alertFactory_buttonCancel" = "Cancel";
 
@@ -16,19 +20,12 @@
 "bootstrapLoginConfig_credentialsAlert_title" = "Error";
 "bootstrapLoginConfig_credentialsAlert_message" = "Incorrect credentials, please check your email and password.";
 
-"artists_unknownArtist" = "Unknown Artist";
 "artists_logoutAlert_title" = "Logout";
 "artists_logoutAlert_message" = "Are you sure?";
 
-"albums_unknownArtist" = "Unknown Artist";
-"albums_unknownAlbum" = "Unknown Album";
-"albums_unknownSong" = "Unknown Song";
 "albums_discNumber" = "Disc %@"; // disc number
 
 "downloadManager_songHeader" = "%@ - %@ (%@)"; // artist name, album name, album year
 "downloadManager_songHeaderWithoutYear" = "%@ - %@"; // artist name, album name
 "downloadManager_songTitle" = "%@ - %@ (%@)"; // track number, song name, song duration
 "downloadManager_songTitleWithoutTrackNumber" = "%@ (%@)"; // song name, song duration
-"downloadManager_unknownArtist" = "Unknown Artist";
-"downloadManager_unknownAlbum" = "Unknown Album";
-"downloadManager_unknownSong" = "Unknown Song";

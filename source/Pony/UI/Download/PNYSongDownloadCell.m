@@ -31,9 +31,9 @@
 
     self.artworkDownloadView.imageUrl = self.song.album.artworkUrl;
 
-    NSString *artistName = self.song.album.artist.name != nil ? self.song.album.artist.name : PNYLocalized(@"downloadManager_unknownArtist");
-    NSString *albumName = self.song.album.name != nil ? self.song.album.name : PNYLocalized(@"downloadManager_unknownAlbum");
-    NSString *songName = self.song.name != nil ? self.song.name : PNYLocalized(@"downloadManager_unknownSong");
+    NSString *artistName = self.song.album.artist.name != nil ? self.song.album.artist.name : PNYLocalized(@"common_unknownArtist");
+    NSString *albumName = self.song.album.name != nil ? self.song.album.name : PNYLocalized(@"common_unknownAlbum");
+    NSString *songName = self.song.name != nil ? self.song.name : PNYLocalized(@"common_unknownSong");
 
     if (self.song.album.year != nil) {
         self.songHeaderLabel.text = PNYLocalized(@"downloadManager_songHeader",

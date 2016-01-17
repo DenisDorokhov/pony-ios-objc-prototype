@@ -14,7 +14,7 @@
 {
     _artist = aArtist;
 
-    self.nameLabel.text = self.artist.name != nil ? self.artist.name : PNYLocalized(@"artists_unknownArtist");
+    self.nameLabel.text = self.artist.name != nil ? self.artist.name : PNYLocalized(@"common_unknownArtist");
     self.imageDownloadView.imageUrl = self.artist.artworkUrl;
 }
 
