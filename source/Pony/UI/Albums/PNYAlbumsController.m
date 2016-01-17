@@ -151,6 +151,33 @@
     }
 }
 
+- (NSArray *)tableView:(UITableView *)aTableView editActionsForRowAtIndexPath:(NSIndexPath *)aIndexPath
+{
+    PNYAlbumSongsDto *albumSongs = self.artistAlbums.albums[(NSUInteger)aIndexPath.section];
+    PNYSongDto *song = albumSongs.songs[(NSUInteger)aIndexPath.row];
+
+    __weak typeof(self) weakSelf = self;
+
+    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive
+                                                                            title:PNYLocalized(@"albums_deleteSong")
+                                                                          handler:^(UITableViewRowAction *aAction, NSIndexPath *aActionIndexPath) {
+
+                                                                              [weakSelf.songDownloadService deleteDownloadForSong:song.id];
+
+                                                                              [aTableView setEditing:NO];
+                                                                          }];
+
+    return @[deleteAction];
+}
+
+- (BOOL)tableView:(UITableView *)aTableView canEditRowAtIndexPath:(NSIndexPath *)aIndexPath
+{
+    PNYAlbumSongsDto *albumSongs = self.artistAlbums.albums[(NSUInteger)aIndexPath.section];
+    PNYSongDto *song = albumSongs.songs[(NSUInteger)aIndexPath.row];
+
+    return [self.songDownloadService downloadForSong:song.id] != nil;
+}
+
 #pragma mark - <UIPopoverPresentationControllerDelegate>
 
 - (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)aController

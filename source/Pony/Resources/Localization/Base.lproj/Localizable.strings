@@ -24,6 +24,7 @@
 "artists_logoutAlert_message" = "Are you sure?";
 
 "albums_discNumber" = "Disc %@"; // disc number
+"albums_deleteSong" = "Delete";
 
 "downloadManager_songHeader" = "%@ - %@ (%@)"; // artist name, album name, album year
 "downloadManager_songHeaderWithoutYear" = "%@ - %@"; // artist name, album name
