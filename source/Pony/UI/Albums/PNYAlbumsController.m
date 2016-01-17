@@ -111,7 +111,9 @@
 
     PNYAlbumHeaderCell *albumHeaderCell = [aTableView dequeueReusableCellWithIdentifier:@"albumHeader"];
 
-    albumHeaderCell.albumHeader.album = albumSongs.album;
+    [self.appAssembly inject:albumHeaderCell.albumHeader];
+
+    albumHeaderCell.albumHeader.albumSongs = albumSongs;
 
     return albumHeaderCell.contentView;
 }

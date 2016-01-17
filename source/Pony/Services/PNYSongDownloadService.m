@@ -204,9 +204,13 @@ static NSString *const KEY_SONG_DOWNLOADS = @"PNYSongDownloadService.songDownloa
         [self.persistentDictionary.data[KEY_SONG_DOWNLOADS] removeObjectForKey:songDownload.songId.stringValue];
         [self.persistentDictionary save];
 
+        NSString *tempFile = [PNYFileUtils generateTemporaryFilePath];
+
+        [[NSFileManager defaultManager] moveItemAtPath:songDownload.filePath toPath:tempFile error:nil];
+
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
 
-            [[NSFileManager defaultManager] removeItemAtPath:songDownload.filePath error:nil];
+            [[NSFileManager defaultManager] removeItemAtPath:tempFile error:nil];
 
             PNYLogDebug(@"Song [%@] file [%@] deleted.", songDownload.songId, songDownload.filePath);
         });

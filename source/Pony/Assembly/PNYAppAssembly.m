@@ -14,6 +14,7 @@
 #import "PNYSongDownloadCell.h"
 #import "PNYSongCell.h"
 #import "PNYSongCellWithDiscNumber.h"
+#import "PNYAlbumHeader.h"
 
 @implementation PNYAppAssembly
 
@@ -63,6 +64,13 @@
         [aDefinition injectProperty:@selector(appAssembly) with:self];
         [aDefinition injectProperty:@selector(restService) with:[self.serviceAssembly restServiceCached]];
         [aDefinition injectProperty:@selector(errorService) with:[self.serviceAssembly errorService]];
+        [aDefinition injectProperty:@selector(songDownloadService) with:[self.serviceAssembly songDownloadService]];
+    }];
+}
+
+- (PNYSongCell *)albumHeader
+{
+    return [TyphoonDefinition withClass:[PNYAlbumHeader class] configuration:^(TyphoonDefinition *aDefinition) {
         [aDefinition injectProperty:@selector(songDownloadService) with:[self.serviceAssembly songDownloadService]];
     }];
 }

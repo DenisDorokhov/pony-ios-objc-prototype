@@ -3,15 +3,20 @@
 // Copyright (c) 2015 Denis Dorokhov. All rights reserved.
 //
 
-#import "PNYAlbumDto.h"
 #import "PNYImageDownloadView.h"
+#import "PNYSongDownloadService.h"
+#import "PNYAlbumSongsDto.h"
 
-@interface PNYAlbumHeader : UIView
+@interface PNYAlbumHeader : UIView <UIActionSheetDelegate>
 
-@property (nonatomic, strong) PNYAlbumDto *album;
+@property (nonatomic, strong) PNYSongDownloadService *songDownloadService;
+
+@property (nonatomic, strong) PNYAlbumSongsDto *albumSongs;
 
 @property (nonatomic, strong) IBOutlet UILabel *nameLabel;
 @property (nonatomic, strong) IBOutlet UILabel *yearLabel;
 @property (nonatomic, strong) IBOutlet PNYImageDownloadView *artworkDownloadView;
+
+- (IBAction)onButtonTouch;
 
 @end

@@ -26,6 +26,10 @@
 "albums_discNumber" = "Disc %@"; // disc number
 "albums_deleteSong" = "Delete";
 
+"albumHeader_buttonCancel" = "Cancel";
+"albumHeader_buttonDelete" = "Delete all songs";
+"albumHeader_buttonDownload" = "Download all songs";
+
 "downloadManager_songHeader" = "%@ - %@ (%@)"; // artist name, album name, album year
 "downloadManager_songHeaderWithoutYear" = "%@ - %@"; // artist name, album name
 "downloadManager_songTitle" = "%@ - %@ (%@)"; // track number, song name, song duration
