@@ -12,4 +12,8 @@
 
 @property (nonatomic, strong) PNYSongDownloadService *songDownloadService;
 
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *cancelAllButton;
+
+- (IBAction)onCancelAllButtonTouch;
+
 @end

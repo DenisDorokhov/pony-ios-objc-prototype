@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2Aa-wT-FhF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="sXq-Pa-yTt">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Download Manager Controller-->
+        <!--Download Manager-->
         <scene sceneID="Caa-KN-ZiV">
             <objects>
                 <tableViewController id="2Aa-wT-FhF" customClass="PNYDownloadManagerController" sceneMemberID="viewController">
@@ -16,7 +16,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="songDownloadCell" id="DbR-e4-DrY" customClass="PNYSongDownloadCell">
-                                <rect key="frame" x="0.0" y="28" width="600" height="80"/>
+                                <rect key="frame" x="0.0" y="72" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DbR-e4-DrY" id="zrv-xB-RmC">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="79"/>
@@ -73,13 +73,39 @@
                             <outlet property="delegate" destination="2Aa-wT-FhF" id="etA-gB-aec"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Download Manager" id="yiE-Qh-2hP">
+                        <barButtonItem key="rightBarButtonItem" title="Cancel All" id="td9-rw-IWP">
+                            <connections>
+                                <action selector="onCancelAllButtonTouch" destination="2Aa-wT-FhF" id="jWL-hc-YRZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <nil key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="600"/>
+                    <connections>
+                        <outlet property="cancelAllButton" destination="td9-rw-IWP" id="Ish-qz-1cY"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l0S-YO-ym2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3717" y="799"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="kXZ-ZI-0Ou">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sXq-Pa-yTt" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="c49-ta-3hk">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="2Aa-wT-FhF" kind="relationship" relationship="rootViewController" id="Jeu-gr-ctD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="To7-4o-5Sq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2905" y="799"/>
         </scene>

@@ -18,6 +18,15 @@
     [self.songDownloadService removeDelegate:self];
 }
 
+#pragma mark - Public
+
+- (IBAction)onCancelAllButtonTouch
+{
+    for (PNYSongDto *song in downloadingSongs) {
+        [self.songDownloadService cancelDownloadForSong:song.id];
+    }
+}
+
 #pragma mark - <PNYSongDownloadServiceDelegate>
 
 - (void)songDownloadService:(PNYSongDownloadService *)aService didStartSongDownload:(NSNumber *)aSongId
@@ -103,6 +112,8 @@
     for (id <PNYSongDownloadProgress> progress in [self.songDownloadService allProgresses]) {
         [downloadingSongs addObject:progress.song];
     }
+
+    self.cancelAllButton.enabled = downloadingSongs.count > 0;
 
     [self.tableView reloadData];
 }
